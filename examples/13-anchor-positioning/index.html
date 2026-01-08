@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Anchor Positioning Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-slate-800 mb-4">Anchor Positioning</h1>
+    <p class="text-slate-600 mb-8">
+      CSS Anchor Positioning allows you to position elements relative to other elements (anchors) anywhere on the page.
+      <span class="text-amber-600 text-sm">(Note: Requires browser support for CSS Anchor Positioning)</span>
+    </p>
+
+    <!-- Basic Anchor Example -->
+    <section class="mb-16">
+      <h2 class="text-xl font-semibold mb-4">Basic Tooltip</h2>
+      <div class="relative h-48 bg-white rounded-lg p-8">
+        <button class="anchor-name-[--tooltip-btn] bg-coral-500 text-white px-4 py-2 rounded-lg">
+          Hover me
+        </button>
+        <div class="position-anchor-[--tooltip-btn] position-area-top bg-slate-800 text-white px-3 py-2 rounded text-sm">
+          This is a tooltip positioned above the button
+        </div>
+      </div>
+    </section>
+
+    <!-- Position Areas -->
+    <section class="mb-16">
+      <h2 class="text-xl font-semibold mb-4">Position Areas</h2>
+      <div class="relative h-96 bg-white rounded-lg flex items-center justify-center">
+        <div class="anchor-name-[--center] bg-coral-500 text-white w-24 h-24 rounded-lg flex items-center justify-center font-semibold">
+          Anchor
+        </div>
+
+        <div class="position-anchor-[--center] position-area-top bg-blue-500 text-white px-3 py-1 rounded text-sm">
+          top
+        </div>
+        <div class="position-anchor-[--center] position-area-bottom bg-blue-500 text-white px-3 py-1 rounded text-sm">
+          bottom
+        </div>
+        <div class="position-anchor-[--center] position-area-left bg-green-500 text-white px-3 py-1 rounded text-sm">
+          left
+        </div>
+        <div class="position-anchor-[--center] position-area-right bg-green-500 text-white px-3 py-1 rounded text-sm">
+          right
+        </div>
+        <div class="position-anchor-[--center] position-area-top-left bg-purple-500 text-white px-2 py-1 rounded text-xs">
+          top-left
+        </div>
+        <div class="position-anchor-[--center] position-area-top-right bg-purple-500 text-white px-2 py-1 rounded text-xs">
+          top-right
+        </div>
+        <div class="position-anchor-[--center] position-area-bottom-left bg-orange-500 text-white px-2 py-1 rounded text-xs">
+          bottom-left
+        </div>
+        <div class="position-anchor-[--center] position-area-bottom-right bg-orange-500 text-white px-2 py-1 rounded text-xs">
+          bottom-right
+        </div>
+      </div>
+    </section>
+
+    <!-- Dropdown Example -->
+    <section class="mb-16">
+      <h2 class="text-xl font-semibold mb-4">Dropdown Menu</h2>
+      <div class="relative h-64 bg-white rounded-lg p-8">
+        <button class="anchor-name-[--dropdown] bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+          Menu
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </button>
+        <div class="position-anchor-[--dropdown] position-area-bottom bg-white shadow-lg rounded-lg border border-slate-200 py-2 min-w-40">
+          <a href="#" class="block px-4 py-2 hover:bg-slate-100">Profile</a>
+          <a href="#" class="block px-4 py-2 hover:bg-slate-100">Settings</a>
+          <a href="#" class="block px-4 py-2 hover:bg-slate-100">Help</a>
+          <hr class="my-2 border-slate-200">
+          <a href="#" class="block px-4 py-2 hover:bg-slate-100 text-red-600">Logout</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Example -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Usage</h2>
+      <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">
+&lt;!-- Define an anchor --&gt;
+&lt;button class="anchor-name-[--my-button]"&gt;
+  Click me
+&lt;/button&gt;
+
+&lt;!-- Position relative to anchor --&gt;
+&lt;div class="position-anchor-[--my-button] position-area-bottom"&gt;
+  I'm positioned below the button
+&lt;/div&gt;
+
+&lt;!-- Available position areas --&gt;
+&lt;!-- position-area-top --&gt;
+&lt;!-- position-area-bottom --&gt;
+&lt;!-- position-area-left --&gt;
+&lt;!-- position-area-right --&gt;
+&lt;!-- position-area-top-left --&gt;
+&lt;!-- position-area-top-right --&gt;
+&lt;!-- position-area-bottom-left --&gt;
+&lt;!-- position-area-bottom-right --&gt;
+&lt;!-- position-area-center --&gt;</pre>
+    </section>
+  </div>
+</body>
+</html>

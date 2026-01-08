@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Flexbox Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-slate-800 mb-8">Flexbox Utilities</h1>
+
+    <!-- Basic Flex -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Basic Flex Container</h2>
+      <div class="flex gap-4 p-4 bg-white rounded-lg shadow-sm">
+        <div class="p-4 bg-coral-100 text-coral-800 rounded">Item 1</div>
+        <div class="p-4 bg-coral-100 text-coral-800 rounded">Item 2</div>
+        <div class="p-4 bg-coral-100 text-coral-800 rounded">Item 3</div>
+      </div>
+    </section>
+
+    <!-- Flex Direction -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Flex Direction</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm text-slate-600 mb-2">flex-row (default)</p>
+          <div class="flex flex-row gap-2 p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-blue-100 rounded">1</div>
+            <div class="p-2 bg-blue-100 rounded">2</div>
+            <div class="p-2 bg-blue-100 rounded">3</div>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm text-slate-600 mb-2">flex-col</p>
+          <div class="flex flex-col gap-2 p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-green-100 rounded">1</div>
+            <div class="p-2 bg-green-100 rounded">2</div>
+            <div class="p-2 bg-green-100 rounded">3</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Justify Content -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Justify Content</h2>
+      <div class="space-y-4">
+        <div>
+          <p class="text-sm text-slate-600 mb-2">justify-start</p>
+          <div class="flex justify-start gap-2 p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-purple-100 rounded">A</div>
+            <div class="p-2 bg-purple-100 rounded">B</div>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm text-slate-600 mb-2">justify-center</p>
+          <div class="flex justify-center gap-2 p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-purple-100 rounded">A</div>
+            <div class="p-2 bg-purple-100 rounded">B</div>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm text-slate-600 mb-2">justify-end</p>
+          <div class="flex justify-end gap-2 p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-purple-100 rounded">A</div>
+            <div class="p-2 bg-purple-100 rounded">B</div>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm text-slate-600 mb-2">justify-between</p>
+          <div class="flex justify-between p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-purple-100 rounded">A</div>
+            <div class="p-2 bg-purple-100 rounded">B</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Align Items -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Align Items</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div>
+          <p class="text-sm text-slate-600 mb-2">items-start</p>
+          <div class="flex items-start gap-2 h-24 p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-orange-100 rounded">A</div>
+            <div class="p-4 bg-orange-100 rounded">B</div>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm text-slate-600 mb-2">items-center</p>
+          <div class="flex items-center gap-2 h-24 p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-orange-100 rounded">A</div>
+            <div class="p-4 bg-orange-100 rounded">B</div>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm text-slate-600 mb-2">items-end</p>
+          <div class="flex items-end gap-2 h-24 p-4 bg-white rounded-lg shadow-sm">
+            <div class="p-2 bg-orange-100 rounded">A</div>
+            <div class="p-4 bg-orange-100 rounded">B</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flex Grow/Shrink -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Flex Grow</h2>
+      <div class="flex gap-2 p-4 bg-white rounded-lg shadow-sm">
+        <div class="p-4 bg-teal-100 rounded">Fixed</div>
+        <div class="flex-1 p-4 bg-teal-200 rounded text-center">flex-1 (grows)</div>
+        <div class="p-4 bg-teal-100 rounded">Fixed</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

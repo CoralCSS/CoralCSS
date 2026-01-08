@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Vite Integration Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto max-w-3xl">
+    <h1 class="text-3xl font-bold text-slate-800 mb-4">Vite Integration</h1>
+    <p class="text-slate-600 mb-8">
+      Use CoralCSS with Vite for optimized builds and hot module replacement.
+    </p>
+
+    <!-- Installation -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">1. Installation</h2>
+      <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">npm install @coralcss/core</pre>
+    </section>
+
+    <!-- Vite Config -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">2. Configure Vite</h2>
+      <div class="bg-white rounded-lg shadow-sm p-4">
+        <p class="text-sm text-slate-500 mb-2">vite.config.ts</p>
+        <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">import { defineConfig } from 'vite'
+import coral from '@coralcss/core/vite'
+
+export default defineConfig({
+  plugins: [
+    coral({
+      // Dark mode strategy
+      darkMode: 'class', // 'class' | 'media' | 'selector' | 'auto'
+
+      // Optional: Custom prefix for classes
+      prefix: '',
+
+      // Optional: Content paths for extraction
+      content: [
+        './index.html',
+        './src/**/*.{js,ts,jsx,tsx,vue,svelte}',
+      ],
+    }),
+  ],
+})</pre>
+      </div>
+    </section>
+
+    <!-- Import CSS -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">3. Import Virtual CSS</h2>
+      <div class="bg-white rounded-lg shadow-sm p-4">
+        <p class="text-sm text-slate-500 mb-2">main.ts or App.tsx</p>
+        <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">// Import the virtual CSS module
+import 'virtual:coral.css'
+
+// Or in your HTML
+// &lt;link rel="stylesheet" href="virtual:coral.css"&gt;</pre>
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">4. Use Utility Classes</h2>
+      <div class="bg-white rounded-lg shadow-sm p-4">
+        <p class="text-sm text-slate-500 mb-2">App.tsx</p>
+        <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">function App() {
+  return (
+    &lt;div className="flex items-center justify-center min-h-screen bg-slate-50"&gt;
+      &lt;div className="p-8 bg-white rounded-xl shadow-lg"&gt;
+        &lt;h1 className="text-2xl font-bold text-slate-800 mb-4"&gt;
+          Hello CoralCSS!
+        &lt;/h1&gt;
+        &lt;p className="text-slate-600"&gt;
+          Built with Vite and CoralCSS.
+        &lt;/p&gt;
+        &lt;button className="mt-4 bg-coral-500 text-white px-4 py-2 rounded-lg
+                          hover:bg-coral-600 transition"&gt;
+          Get Started
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+}</pre>
+      </div>
+    </section>
+
+    <!-- Plugin Options -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Plugin Options</h2>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <table class="w-full text-left">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-sm font-semibold">Option</th>
+              <th class="px-4 py-3 text-sm font-semibold">Type</th>
+              <th class="px-4 py-3 text-sm font-semibold">Default</th>
+              <th class="px-4 py-3 text-sm font-semibold">Description</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono">darkMode</td>
+              <td class="px-4 py-3 text-sm text-slate-600">string</td>
+              <td class="px-4 py-3 text-sm text-slate-600">'class'</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Dark mode strategy</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono">prefix</td>
+              <td class="px-4 py-3 text-sm text-slate-600">string</td>
+              <td class="px-4 py-3 text-sm text-slate-600">''</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Class prefix</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono">content</td>
+              <td class="px-4 py-3 text-sm text-slate-600">string[]</td>
+              <td class="px-4 py-3 text-sm text-slate-600">['**/*.html']</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Files to scan for classes</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono">preset</td>
+              <td class="px-4 py-3 text-sm text-slate-600">string</td>
+              <td class="px-4 py-3 text-sm text-slate-600">'coral'</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Preset to use</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Features</h2>
+      <ul class="space-y-2">
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="text-slate-700"><strong>HMR Support</strong> - Hot module replacement for instant updates</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="text-slate-700"><strong>Tree Shaking</strong> - Only includes used classes in production</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="text-slate-700"><strong>Minification</strong> - Automatic CSS minification in production</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          <span class="text-slate-700"><strong>Source Maps</strong> - Development source maps for debugging</span>
+        </li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>

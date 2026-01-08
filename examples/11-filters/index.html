@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Filters Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-slate-800 mb-8">Filter Utilities</h1>
+
+    <!-- Blur -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Blur</h2>
+      <div class="grid grid-cols-5 gap-4">
+        <div class="text-center">
+          <div class="blur-none bg-coral-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">blur-none</span>
+        </div>
+        <div class="text-center">
+          <div class="blur-sm bg-coral-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">blur-sm</span>
+        </div>
+        <div class="text-center">
+          <div class="blur bg-coral-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">blur</span>
+        </div>
+        <div class="text-center">
+          <div class="blur-md bg-coral-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">blur-md</span>
+        </div>
+        <div class="text-center">
+          <div class="blur-lg bg-coral-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">blur-lg</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brightness -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Brightness</h2>
+      <div class="grid grid-cols-5 gap-4">
+        <div class="text-center">
+          <div class="brightness-50 bg-blue-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">brightness-50</span>
+        </div>
+        <div class="text-center">
+          <div class="brightness-75 bg-blue-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">brightness-75</span>
+        </div>
+        <div class="text-center">
+          <div class="brightness-100 bg-blue-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">brightness-100</span>
+        </div>
+        <div class="text-center">
+          <div class="brightness-125 bg-blue-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">brightness-125</span>
+        </div>
+        <div class="text-center">
+          <div class="brightness-150 bg-blue-500 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">brightness-150</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contrast -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Contrast</h2>
+      <div class="grid grid-cols-5 gap-4">
+        <div class="text-center">
+          <div class="contrast-50 bg-gradient-to-r from-green-400 to-green-600 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">contrast-50</span>
+        </div>
+        <div class="text-center">
+          <div class="contrast-75 bg-gradient-to-r from-green-400 to-green-600 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">contrast-75</span>
+        </div>
+        <div class="text-center">
+          <div class="contrast-100 bg-gradient-to-r from-green-400 to-green-600 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">contrast-100</span>
+        </div>
+        <div class="text-center">
+          <div class="contrast-125 bg-gradient-to-r from-green-400 to-green-600 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">contrast-125</span>
+        </div>
+        <div class="text-center">
+          <div class="contrast-150 bg-gradient-to-r from-green-400 to-green-600 w-20 h-20 rounded-lg mx-auto mb-2"></div>
+          <span class="text-sm text-slate-600">contrast-150</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grayscale -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Grayscale</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div class="text-center">
+          <div class="grayscale-0 bg-gradient-to-r from-coral-400 to-purple-500 w-full h-20 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">grayscale-0</span>
+        </div>
+        <div class="text-center">
+          <div class="grayscale bg-gradient-to-r from-coral-400 to-purple-500 w-full h-20 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">grayscale</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Saturate -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Saturate</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <div class="text-center">
+          <div class="saturate-0 bg-gradient-to-r from-orange-400 to-pink-500 w-full h-16 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">saturate-0</span>
+        </div>
+        <div class="text-center">
+          <div class="saturate-50 bg-gradient-to-r from-orange-400 to-pink-500 w-full h-16 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">saturate-50</span>
+        </div>
+        <div class="text-center">
+          <div class="saturate-100 bg-gradient-to-r from-orange-400 to-pink-500 w-full h-16 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">saturate-100</span>
+        </div>
+        <div class="text-center">
+          <div class="saturate-200 bg-gradient-to-r from-orange-400 to-pink-500 w-full h-16 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">saturate-200</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Invert & Sepia -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Invert & Sepia</h2>
+      <div class="grid grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="invert-0 bg-slate-800 w-full h-20 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">invert-0</span>
+        </div>
+        <div class="text-center">
+          <div class="invert bg-slate-800 w-full h-20 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">invert</span>
+        </div>
+        <div class="text-center">
+          <div class="sepia-0 bg-blue-500 w-full h-20 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">sepia-0</span>
+        </div>
+        <div class="text-center">
+          <div class="sepia bg-blue-500 w-full h-20 rounded-lg mb-2"></div>
+          <span class="text-sm text-slate-600">sepia</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

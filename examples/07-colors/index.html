@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Colors Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-slate-800 mb-8">Colors & Gradients</h1>
+
+    <!-- Coral Palette -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Coral (Brand Color)</h2>
+      <div class="grid grid-cols-10 gap-1">
+        <div class="bg-coral-50 p-4 text-center text-xs">50</div>
+        <div class="bg-coral-100 p-4 text-center text-xs">100</div>
+        <div class="bg-coral-200 p-4 text-center text-xs">200</div>
+        <div class="bg-coral-300 p-4 text-center text-xs">300</div>
+        <div class="bg-coral-400 p-4 text-center text-xs text-white">400</div>
+        <div class="bg-coral-500 p-4 text-center text-xs text-white">500</div>
+        <div class="bg-coral-600 p-4 text-center text-xs text-white">600</div>
+        <div class="bg-coral-700 p-4 text-center text-xs text-white">700</div>
+        <div class="bg-coral-800 p-4 text-center text-xs text-white">800</div>
+        <div class="bg-coral-900 p-4 text-center text-xs text-white">900</div>
+      </div>
+    </section>
+
+    <!-- Slate Palette -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Slate</h2>
+      <div class="grid grid-cols-10 gap-1">
+        <div class="bg-slate-50 p-4 text-center text-xs">50</div>
+        <div class="bg-slate-100 p-4 text-center text-xs">100</div>
+        <div class="bg-slate-200 p-4 text-center text-xs">200</div>
+        <div class="bg-slate-300 p-4 text-center text-xs">300</div>
+        <div class="bg-slate-400 p-4 text-center text-xs text-white">400</div>
+        <div class="bg-slate-500 p-4 text-center text-xs text-white">500</div>
+        <div class="bg-slate-600 p-4 text-center text-xs text-white">600</div>
+        <div class="bg-slate-700 p-4 text-center text-xs text-white">700</div>
+        <div class="bg-slate-800 p-4 text-center text-xs text-white">800</div>
+        <div class="bg-slate-900 p-4 text-center text-xs text-white">900</div>
+      </div>
+    </section>
+
+    <!-- More Color Palettes -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Color Palettes</h2>
+      <div class="space-y-2">
+        <div class="flex">
+          <div class="bg-red-500 p-3 flex-1"></div>
+          <div class="bg-orange-500 p-3 flex-1"></div>
+          <div class="bg-amber-500 p-3 flex-1"></div>
+          <div class="bg-yellow-500 p-3 flex-1"></div>
+          <div class="bg-lime-500 p-3 flex-1"></div>
+          <div class="bg-green-500 p-3 flex-1"></div>
+          <div class="bg-emerald-500 p-3 flex-1"></div>
+          <div class="bg-teal-500 p-3 flex-1"></div>
+          <div class="bg-cyan-500 p-3 flex-1"></div>
+          <div class="bg-sky-500 p-3 flex-1"></div>
+          <div class="bg-blue-500 p-3 flex-1"></div>
+          <div class="bg-indigo-500 p-3 flex-1"></div>
+          <div class="bg-violet-500 p-3 flex-1"></div>
+          <div class="bg-purple-500 p-3 flex-1"></div>
+          <div class="bg-fuchsia-500 p-3 flex-1"></div>
+          <div class="bg-pink-500 p-3 flex-1"></div>
+          <div class="bg-rose-500 p-3 flex-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opacity -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Background Opacity</h2>
+      <div class="grid grid-cols-5 gap-4 p-4 bg-slate-200 rounded-lg">
+        <div class="bg-coral-500/100 p-4 text-center text-white text-sm rounded">100%</div>
+        <div class="bg-coral-500/75 p-4 text-center text-white text-sm rounded">75%</div>
+        <div class="bg-coral-500/50 p-4 text-center text-white text-sm rounded">50%</div>
+        <div class="bg-coral-500/25 p-4 text-center text-sm rounded">25%</div>
+        <div class="bg-coral-500/10 p-4 text-center text-sm rounded">10%</div>
+      </div>
+    </section>
+
+    <!-- Text Colors -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Text Colors</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <p class="text-coral-500">text-coral-500</p>
+        <p class="text-blue-500">text-blue-500</p>
+        <p class="text-green-500">text-green-500</p>
+        <p class="text-red-500">text-red-500</p>
+        <p class="text-purple-500">text-purple-500</p>
+        <p class="text-orange-500">text-orange-500</p>
+        <p class="text-slate-500">text-slate-500</p>
+        <p class="text-slate-900">text-slate-900</p>
+      </div>
+    </section>
+
+    <!-- Gradients -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Gradients</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-gradient-to-r from-coral-500 to-orange-500 p-8 rounded-lg text-white text-center">
+          from-coral-500 to-orange-500
+        </div>
+        <div class="bg-gradient-to-r from-blue-500 to-purple-500 p-8 rounded-lg text-white text-center">
+          from-blue-500 to-purple-500
+        </div>
+        <div class="bg-gradient-to-br from-green-400 to-cyan-500 p-8 rounded-lg text-white text-center">
+          from-green-400 to-cyan-500
+        </div>
+        <div class="bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 p-8 rounded-lg text-white text-center">
+          from-pink-500 via-red-500 to-yellow-500
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

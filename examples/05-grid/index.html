@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Grid Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-slate-800 mb-8">Grid Utilities</h1>
+
+    <!-- Basic Grid -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Basic Grid (3 columns)</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">1</div>
+        <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">2</div>
+        <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">3</div>
+        <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">4</div>
+        <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">5</div>
+        <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">6</div>
+      </div>
+    </section>
+
+    <!-- Column Span -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Column Span</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <div class="col-span-2 p-4 bg-blue-100 rounded-lg text-center">col-span-2</div>
+        <div class="p-4 bg-blue-100 rounded-lg text-center">1</div>
+        <div class="p-4 bg-blue-100 rounded-lg text-center">1</div>
+        <div class="p-4 bg-blue-100 rounded-lg text-center">1</div>
+        <div class="col-span-3 p-4 bg-blue-200 rounded-lg text-center">col-span-3</div>
+      </div>
+    </section>
+
+    <!-- Row Span -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Row Span</h2>
+      <div class="grid grid-cols-3 grid-rows-3 gap-4 h-64">
+        <div class="row-span-2 p-4 bg-green-200 rounded-lg flex items-center justify-center">row-span-2</div>
+        <div class="p-4 bg-green-100 rounded-lg text-center">1</div>
+        <div class="p-4 bg-green-100 rounded-lg text-center">2</div>
+        <div class="p-4 bg-green-100 rounded-lg text-center">3</div>
+        <div class="p-4 bg-green-100 rounded-lg text-center">4</div>
+        <div class="col-span-2 p-4 bg-green-100 rounded-lg text-center">col-span-2</div>
+        <div class="p-4 bg-green-100 rounded-lg text-center">5</div>
+      </div>
+    </section>
+
+    <!-- Gap Variations -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Gap Variations</h2>
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <p class="text-sm text-slate-600 mb-2">gap-2</p>
+          <div class="grid grid-cols-3 gap-2">
+            <div class="p-2 bg-purple-100 rounded text-center text-sm">1</div>
+            <div class="p-2 bg-purple-100 rounded text-center text-sm">2</div>
+            <div class="p-2 bg-purple-100 rounded text-center text-sm">3</div>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm text-slate-600 mb-2">gap-8</p>
+          <div class="grid grid-cols-3 gap-8">
+            <div class="p-2 bg-purple-100 rounded text-center text-sm">1</div>
+            <div class="p-2 bg-purple-100 rounded text-center text-sm">2</div>
+            <div class="p-2 bg-purple-100 rounded text-center text-sm">3</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Auto Grid -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Responsive Grid</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="p-4 bg-orange-100 rounded-lg text-center">Card 1</div>
+        <div class="p-4 bg-orange-100 rounded-lg text-center">Card 2</div>
+        <div class="p-4 bg-orange-100 rounded-lg text-center">Card 3</div>
+        <div class="p-4 bg-orange-100 rounded-lg text-center">Card 4</div>
+        <div class="p-4 bg-orange-100 rounded-lg text-center">Card 5</div>
+        <div class="p-4 bg-orange-100 rounded-lg text-center">Card 6</div>
+        <div class="p-4 bg-orange-100 rounded-lg text-center">Card 7</div>
+        <div class="p-4 bg-orange-100 rounded-lg text-center">Card 8</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

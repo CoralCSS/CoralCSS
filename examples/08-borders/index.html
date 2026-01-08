@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Borders & Shadows Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-slate-800 mb-8">Borders & Shadows</h1>
+
+    <!-- Border Width -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Border Width</h2>
+      <div class="grid grid-cols-5 gap-4">
+        <div class="border border-slate-400 p-4 bg-white text-center text-sm">border</div>
+        <div class="border-2 border-slate-400 p-4 bg-white text-center text-sm">border-2</div>
+        <div class="border-4 border-slate-400 p-4 bg-white text-center text-sm">border-4</div>
+        <div class="border-8 border-slate-400 p-4 bg-white text-center text-sm">border-8</div>
+        <div class="border-0 p-4 bg-white text-center text-sm">border-0</div>
+      </div>
+    </section>
+
+    <!-- Border Color -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Border Color</h2>
+      <div class="grid grid-cols-5 gap-4">
+        <div class="border-2 border-coral-500 p-4 bg-white text-center text-sm">coral-500</div>
+        <div class="border-2 border-blue-500 p-4 bg-white text-center text-sm">blue-500</div>
+        <div class="border-2 border-green-500 p-4 bg-white text-center text-sm">green-500</div>
+        <div class="border-2 border-red-500 p-4 bg-white text-center text-sm">red-500</div>
+        <div class="border-2 border-purple-500 p-4 bg-white text-center text-sm">purple-500</div>
+      </div>
+    </section>
+
+    <!-- Border Radius -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Border Radius</h2>
+      <div class="grid grid-cols-6 gap-4">
+        <div class="rounded-none bg-coral-500 p-4 text-white text-center text-sm">none</div>
+        <div class="rounded-sm bg-coral-500 p-4 text-white text-center text-sm">sm</div>
+        <div class="rounded bg-coral-500 p-4 text-white text-center text-sm">default</div>
+        <div class="rounded-md bg-coral-500 p-4 text-white text-center text-sm">md</div>
+        <div class="rounded-lg bg-coral-500 p-4 text-white text-center text-sm">lg</div>
+        <div class="rounded-xl bg-coral-500 p-4 text-white text-center text-sm">xl</div>
+        <div class="rounded-2xl bg-coral-500 p-4 text-white text-center text-sm">2xl</div>
+        <div class="rounded-3xl bg-coral-500 p-4 text-white text-center text-sm">3xl</div>
+        <div class="rounded-full bg-coral-500 p-8 text-white text-center text-sm">full</div>
+      </div>
+    </section>
+
+    <!-- Individual Corners -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Individual Corners</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <div class="rounded-tl-xl bg-blue-500 p-4 text-white text-center text-sm">rounded-tl-xl</div>
+        <div class="rounded-tr-xl bg-blue-500 p-4 text-white text-center text-sm">rounded-tr-xl</div>
+        <div class="rounded-bl-xl bg-blue-500 p-4 text-white text-center text-sm">rounded-bl-xl</div>
+        <div class="rounded-br-xl bg-blue-500 p-4 text-white text-center text-sm">rounded-br-xl</div>
+      </div>
+    </section>
+
+    <!-- Box Shadow -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Box Shadow</h2>
+      <div class="grid grid-cols-3 gap-8 p-8 bg-slate-100 rounded-lg">
+        <div class="shadow-sm bg-white p-6 rounded-lg text-center">shadow-sm</div>
+        <div class="shadow bg-white p-6 rounded-lg text-center">shadow</div>
+        <div class="shadow-md bg-white p-6 rounded-lg text-center">shadow-md</div>
+        <div class="shadow-lg bg-white p-6 rounded-lg text-center">shadow-lg</div>
+        <div class="shadow-xl bg-white p-6 rounded-lg text-center">shadow-xl</div>
+        <div class="shadow-2xl bg-white p-6 rounded-lg text-center">shadow-2xl</div>
+      </div>
+    </section>
+
+    <!-- Ring -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Ring</h2>
+      <div class="grid grid-cols-4 gap-8 p-8">
+        <button class="ring-1 ring-coral-500 p-4 bg-white rounded-lg">ring-1</button>
+        <button class="ring-2 ring-coral-500 p-4 bg-white rounded-lg">ring-2</button>
+        <button class="ring-4 ring-coral-500 p-4 bg-white rounded-lg">ring-4</button>
+        <button class="ring-8 ring-coral-500 p-4 bg-white rounded-lg">ring-8</button>
+      </div>
+    </section>
+
+    <!-- Ring Offset -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Ring Offset</h2>
+      <div class="grid grid-cols-4 gap-8 p-8">
+        <button class="ring-2 ring-blue-500 ring-offset-0 p-4 bg-white rounded-lg">offset-0</button>
+        <button class="ring-2 ring-blue-500 ring-offset-2 p-4 bg-white rounded-lg">offset-2</button>
+        <button class="ring-2 ring-blue-500 ring-offset-4 p-4 bg-white rounded-lg">offset-4</button>
+        <button class="ring-2 ring-blue-500 ring-offset-8 p-4 bg-white rounded-lg">offset-8</button>
+      </div>
+    </section>
+
+    <!-- Outline -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Outline</h2>
+      <div class="grid grid-cols-4 gap-8 p-8">
+        <button class="outline outline-1 outline-green-500 p-4 bg-white rounded-lg">outline-1</button>
+        <button class="outline outline-2 outline-green-500 p-4 bg-white rounded-lg">outline-2</button>
+        <button class="outline outline-4 outline-green-500 p-4 bg-white rounded-lg">outline-4</button>
+        <button class="outline outline-2 outline-offset-2 outline-green-500 p-4 bg-white rounded-lg">offset-2</button>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

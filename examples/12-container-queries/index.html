@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Container Queries Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-slate-800 mb-4">Container Queries</h1>
+    <p class="text-slate-600 mb-8">
+      Container queries allow you to style elements based on their container's size, not the viewport.
+    </p>
+
+    <!-- Basic Container Query -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Responsive Cards in Container</h2>
+      <p class="text-sm text-slate-500 mb-4">Resize the container by dragging the edge to see the cards respond.</p>
+
+      <div class="resize-x overflow-auto @container bg-white p-4 rounded-lg shadow-md" style="min-width: 200px; max-width: 100%;">
+        <div class="@sm:flex @sm:gap-4">
+          <div class="@sm:w-1/3 mb-4 @sm:mb-0">
+            <div class="bg-coral-100 p-4 rounded-lg">
+              <h3 class="font-semibold text-coral-800">Card 1</h3>
+              <p class="text-sm text-coral-600 @md:text-base">Responds to container</p>
+            </div>
+          </div>
+          <div class="@sm:w-1/3 mb-4 @sm:mb-0">
+            <div class="bg-coral-100 p-4 rounded-lg">
+              <h3 class="font-semibold text-coral-800">Card 2</h3>
+              <p class="text-sm text-coral-600 @md:text-base">Not viewport</p>
+            </div>
+          </div>
+          <div class="@sm:w-1/3">
+            <div class="bg-coral-100 p-4 rounded-lg">
+              <h3 class="font-semibold text-coral-800">Card 3</h3>
+              <p class="text-sm text-coral-600 @md:text-base">Container queries!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Named Containers -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Sidebar + Main Layout</h2>
+      <div class="flex gap-4">
+        <!-- Sidebar (narrow container) -->
+        <div class="@container w-64 bg-slate-100 p-4 rounded-lg">
+          <h3 class="font-semibold mb-4">Sidebar</h3>
+          <div class="@xs:bg-blue-100 @sm:bg-green-100 p-3 rounded">
+            <p class="text-sm @xs:text-xs">This card responds to the sidebar width</p>
+          </div>
+        </div>
+
+        <!-- Main (wide container) -->
+        <div class="@container flex-1 bg-white p-4 rounded-lg shadow-sm">
+          <h3 class="font-semibold mb-4">Main Content</h3>
+          <div class="@xs:flex @sm:grid @sm:grid-cols-2 @md:grid-cols-3 gap-4">
+            <div class="bg-blue-100 p-4 rounded-lg mb-4 @xs:mb-0">
+              <h4 class="font-medium">Item 1</h4>
+              <p class="text-sm @lg:text-base">Responds to main area</p>
+            </div>
+            <div class="bg-blue-100 p-4 rounded-lg mb-4 @xs:mb-0">
+              <h4 class="font-medium">Item 2</h4>
+              <p class="text-sm @lg:text-base">Container is wider</p>
+            </div>
+            <div class="bg-blue-100 p-4 rounded-lg">
+              <h4 class="font-medium">Item 3</h4>
+              <p class="text-sm @lg:text-base">Different layout!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Component Example -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Adaptive Product Card</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Small container -->
+        <div class="@container">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <div class="bg-gradient-to-br from-coral-400 to-coral-600 h-32 @md:h-48"></div>
+            <div class="p-3 @md:p-4">
+              <h3 class="font-semibold text-sm @md:text-base">Product Name</h3>
+              <p class="text-slate-600 text-xs @md:text-sm hidden @sm:block">Short description of the product</p>
+              <div class="mt-2 @md:mt-4 flex @xs:flex-col @sm:flex-row @sm:items-center @sm:justify-between gap-2">
+                <span class="text-coral-600 font-bold text-sm @md:text-lg">$99.00</span>
+                <button class="bg-coral-500 text-white px-2 @md:px-4 py-1 @md:py-2 rounded text-xs @md:text-sm">Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Medium container -->
+        <div class="@container col-span-2">
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden @sm:flex">
+            <div class="bg-gradient-to-br from-blue-400 to-blue-600 h-32 @sm:h-auto @sm:w-48"></div>
+            <div class="p-3 @md:p-4 flex-1">
+              <h3 class="font-semibold text-sm @md:text-base @lg:text-lg">Product Name</h3>
+              <p class="text-slate-600 text-xs @md:text-sm mt-1">A longer description that shows when there's more space available in the container.</p>
+              <div class="mt-2 @md:mt-4 flex items-center justify-between">
+                <span class="text-blue-600 font-bold text-sm @md:text-lg">$149.00</span>
+                <button class="bg-blue-500 text-white px-3 @md:px-4 py-1 @md:py-2 rounded text-xs @md:text-sm">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Example -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Usage</h2>
+      <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">
+&lt;!-- Make an element a container --&gt;
+&lt;div class="@container"&gt;
+  &lt;!-- Use container breakpoints --&gt;
+  &lt;div class="@sm:flex @md:grid @lg:hidden"&gt;
+    Responds to container size!
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Available breakpoints --&gt;
+&lt;!-- @xs: 320px  --&gt;
+&lt;!-- @sm: 384px  --&gt;
+&lt;!-- @md: 448px  --&gt;
+&lt;!-- @lg: 512px  --&gt;
+&lt;!-- @xl: 576px  --&gt;
+&lt;!-- @2xl: 672px --&gt;</pre>
+    </section>
+  </div>
+</body>
+</html>

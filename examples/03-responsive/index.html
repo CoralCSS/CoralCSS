@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Responsive Design Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-4">
+      Responsive Design
+    </h1>
+    <p class="text-base md:text-lg text-slate-600 mb-8">
+      Use responsive variants like <code class="bg-slate-200 px-1 rounded">sm:</code>,
+      <code class="bg-slate-200 px-1 rounded">md:</code>, and
+      <code class="bg-slate-200 px-1 rounded">lg:</code> to create responsive layouts.
+    </p>
+
+    <!-- Responsive Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">
+        Column 1
+      </div>
+      <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">
+        Column 2
+      </div>
+      <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">
+        Column 3
+      </div>
+      <div class="p-4 bg-coral-100 text-coral-800 rounded-lg text-center">
+        Column 4
+      </div>
+    </div>
+
+    <!-- Responsive Flexbox -->
+    <div class="flex flex-col md:flex-row gap-4 mb-8">
+      <div class="flex-1 p-4 bg-blue-100 text-blue-800 rounded-lg text-center">
+        Flex Item 1
+      </div>
+      <div class="flex-1 p-4 bg-blue-100 text-blue-800 rounded-lg text-center">
+        Flex Item 2
+      </div>
+      <div class="flex-1 p-4 bg-blue-100 text-blue-800 rounded-lg text-center">
+        Flex Item 3
+      </div>
+    </div>
+
+    <!-- Responsive Visibility -->
+    <div class="mb-8">
+      <div class="block sm:hidden p-4 bg-green-100 text-green-800 rounded-lg">
+        Visible on mobile only
+      </div>
+      <div class="hidden sm:block md:hidden p-4 bg-yellow-100 text-yellow-800 rounded-lg">
+        Visible on small screens only
+      </div>
+      <div class="hidden md:block lg:hidden p-4 bg-orange-100 text-orange-800 rounded-lg">
+        Visible on medium screens only
+      </div>
+      <div class="hidden lg:block p-4 bg-red-100 text-red-800 rounded-lg">
+        Visible on large screens only
+      </div>
+    </div>
+
+    <!-- Responsive Spacing -->
+    <div class="p-4 sm:p-6 md:p-8 lg:p-12 bg-white rounded-xl shadow-md">
+      <h2 class="text-lg md:text-xl font-semibold mb-2">Responsive Spacing</h2>
+      <p class="text-slate-600">
+        This card has different padding at each breakpoint.
+        Mobile: p-4, Small: p-6, Medium: p-8, Large: p-12.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

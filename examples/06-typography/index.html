@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Typography Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto max-w-4xl">
+    <h1 class="text-3xl font-bold text-slate-800 mb-8">Typography Utilities</h1>
+
+    <!-- Font Sizes -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Font Sizes</h2>
+      <div class="space-y-2">
+        <p class="text-xs text-slate-600">text-xs (0.75rem)</p>
+        <p class="text-sm text-slate-600">text-sm (0.875rem)</p>
+        <p class="text-base text-slate-700">text-base (1rem)</p>
+        <p class="text-lg text-slate-700">text-lg (1.125rem)</p>
+        <p class="text-xl text-slate-800">text-xl (1.25rem)</p>
+        <p class="text-2xl text-slate-800">text-2xl (1.5rem)</p>
+        <p class="text-3xl text-slate-900">text-3xl (1.875rem)</p>
+        <p class="text-4xl text-slate-900">text-4xl (2.25rem)</p>
+      </div>
+    </section>
+
+    <!-- Font Weights -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Font Weights</h2>
+      <div class="space-y-2 text-lg">
+        <p class="font-thin">font-thin (100)</p>
+        <p class="font-light">font-light (300)</p>
+        <p class="font-normal">font-normal (400)</p>
+        <p class="font-medium">font-medium (500)</p>
+        <p class="font-semibold">font-semibold (600)</p>
+        <p class="font-bold">font-bold (700)</p>
+        <p class="font-extrabold">font-extrabold (800)</p>
+        <p class="font-black">font-black (900)</p>
+      </div>
+    </section>
+
+    <!-- Font Families -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Font Families</h2>
+      <div class="space-y-4 text-lg">
+        <p class="font-sans">font-sans - The quick brown fox jumps over the lazy dog.</p>
+        <p class="font-serif">font-serif - The quick brown fox jumps over the lazy dog.</p>
+        <p class="font-mono">font-mono - The quick brown fox jumps over the lazy dog.</p>
+      </div>
+    </section>
+
+    <!-- Letter Spacing -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Letter Spacing</h2>
+      <div class="space-y-2 text-lg">
+        <p class="tracking-tighter">tracking-tighter</p>
+        <p class="tracking-tight">tracking-tight</p>
+        <p class="tracking-normal">tracking-normal</p>
+        <p class="tracking-wide">tracking-wide</p>
+        <p class="tracking-wider">tracking-wider</p>
+        <p class="tracking-widest">tracking-widest</p>
+      </div>
+    </section>
+
+    <!-- Line Height -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Line Height</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-sm text-slate-500 mb-2">leading-tight</p>
+          <p class="leading-tight text-slate-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+        </div>
+        <div>
+          <p class="text-sm text-slate-500 mb-2">leading-relaxed</p>
+          <p class="leading-relaxed text-slate-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Text Alignment -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Text Alignment</h2>
+      <div class="space-y-4">
+        <p class="text-left p-2 bg-slate-100 rounded">text-left</p>
+        <p class="text-center p-2 bg-slate-100 rounded">text-center</p>
+        <p class="text-right p-2 bg-slate-100 rounded">text-right</p>
+        <p class="text-justify p-2 bg-slate-100 rounded">text-justify - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+    </section>
+
+    <!-- Text Decoration -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Text Decoration</h2>
+      <div class="space-y-2 text-lg">
+        <p class="underline">underline</p>
+        <p class="line-through">line-through</p>
+        <p class="no-underline">no-underline</p>
+      </div>
+    </section>
+
+    <!-- Text Transform -->
+    <section class="mb-8 p-6 bg-white rounded-lg shadow-sm">
+      <h2 class="text-xl font-semibold mb-4">Text Transform</h2>
+      <div class="space-y-2 text-lg">
+        <p class="uppercase">uppercase text</p>
+        <p class="lowercase">LOWERCASE TEXT</p>
+        <p class="capitalize">capitalize text</p>
+        <p class="normal-case">Normal Case Text</p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

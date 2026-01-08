@@ -1,0 +1,194 @@
+{
+  "name": "@coralcss/core",
+  "version": "1.0.0",
+  "description": "A modern, zero-dependency CSS framework with utility classes, headless components, and first-class support for cutting-edge CSS features.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./runtime": {
+      "import": {
+        "types": "./dist/runtime.d.ts",
+        "default": "./dist/runtime.js"
+      },
+      "require": {
+        "types": "./dist/runtime.d.cts",
+        "default": "./dist/runtime.cjs"
+      }
+    },
+    "./vite": {
+      "import": {
+        "types": "./dist/vite.d.ts",
+        "default": "./dist/vite.js"
+      },
+      "require": {
+        "types": "./dist/vite.d.cts",
+        "default": "./dist/vite.cjs"
+      }
+    },
+    "./postcss": {
+      "import": {
+        "types": "./dist/postcss.d.ts",
+        "default": "./dist/postcss.js"
+      },
+      "require": {
+        "types": "./dist/postcss.d.cts",
+        "default": "./dist/postcss.cjs"
+      }
+    },
+    "./plugins": {
+      "import": {
+        "types": "./dist/plugins/index.d.ts",
+        "default": "./dist/plugins/index.js"
+      },
+      "require": {
+        "types": "./dist/plugins/index.d.cts",
+        "default": "./dist/plugins/index.cjs"
+      }
+    },
+    "./plugins/*": {
+      "import": {
+        "types": "./dist/plugins/*.d.ts",
+        "default": "./dist/plugins/*.js"
+      },
+      "require": {
+        "types": "./dist/plugins/*.d.cts",
+        "default": "./dist/plugins/*.cjs"
+      }
+    },
+    "./presets": {
+      "import": {
+        "types": "./dist/presets/index.d.ts",
+        "default": "./dist/presets/index.js"
+      },
+      "require": {
+        "types": "./dist/presets/index.d.cts",
+        "default": "./dist/presets/index.cjs"
+      }
+    },
+    "./presets/*": {
+      "import": {
+        "types": "./dist/presets/*.d.ts",
+        "default": "./dist/presets/*.js"
+      },
+      "require": {
+        "types": "./dist/presets/*.d.cts",
+        "default": "./dist/presets/*.cjs"
+      }
+    },
+    "./components": {
+      "import": {
+        "types": "./dist/components/index.d.ts",
+        "default": "./dist/components/index.js"
+      },
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      }
+    },
+    "./theme": {
+      "import": {
+        "types": "./dist/theme/index.d.ts",
+        "default": "./dist/theme/index.js"
+      },
+      "require": {
+        "types": "./dist/theme/index.d.cts",
+        "default": "./dist/theme/index.cjs"
+      }
+    }
+  },
+  "bin": {
+    "coralcss": "./dist/cli.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build && npm run test:coverage"
+  },
+  "keywords": [
+    "css",
+    "css-framework",
+    "utility-css",
+    "atomic-css",
+    "tailwind-alternative",
+    "css-utilities",
+    "headless-ui",
+    "headless-components",
+    "design-system",
+    "theming",
+    "dark-mode",
+    "responsive",
+    "container-queries",
+    "anchor-positioning",
+    "modern-css",
+    "scroll-driven-animations",
+    "view-transitions",
+    "css-nesting",
+    "logical-properties",
+    "zero-dependency"
+  ],
+  "author": "Ersin Koc",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coralcss/coralcss.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coralcss/coralcss/issues"
+  },
+  "homepage": "https://coralcss.com",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "eslint": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "playwright": "^1.49.0",
+    "@playwright/test": "^1.49.0",
+    "prettier": "^3.4.0",
+    "rimraf": "^6.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "peerDependencies": {
+    "vite": ">=5.0.0",
+    "postcss": ">=8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    },
+    "postcss": {
+      "optional": true
+    }
+  }
+}

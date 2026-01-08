@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - PostCSS Integration Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto max-w-3xl">
+    <h1 class="text-3xl font-bold text-slate-800 mb-4">PostCSS Integration</h1>
+    <p class="text-slate-600 mb-8">
+      Use CoralCSS with PostCSS for flexible CSS processing pipelines.
+    </p>
+
+    <!-- Installation -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">1. Installation</h2>
+      <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">npm install @coralcss/core postcss</pre>
+    </section>
+
+    <!-- PostCSS Config -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">2. Configure PostCSS</h2>
+      <div class="bg-white rounded-lg shadow-sm p-4">
+        <p class="text-sm text-slate-500 mb-2">postcss.config.js</p>
+        <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">module.exports = {
+  plugins: [
+    require('@coralcss/core/postcss')({
+      // Content paths for class extraction
+      content: [
+        './index.html',
+        './src/**/*.{js,ts,jsx,tsx,vue,svelte}',
+      ],
+
+      // Dark mode strategy
+      darkMode: 'class',
+
+      // Optional: Preset to use
+      preset: 'coral', // 'coral' | 'wind' | 'mini' | 'full'
+    }),
+
+    // Optional: Add autoprefixer after CoralCSS
+    require('autoprefixer'),
+  ],
+}</pre>
+      </div>
+    </section>
+
+    <!-- CSS Setup -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">3. Create CSS File</h2>
+      <div class="bg-white rounded-lg shadow-sm p-4">
+        <p class="text-sm text-slate-500 mb-2">styles.css</p>
+        <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">/* Import CoralCSS layers */
+@coral base;      /* Reset and base styles */
+@coral theme;     /* CSS custom properties */
+@coral utilities; /* Utility classes */
+@coral components; /* Component styles */
+
+/* Your custom styles go after */
+.my-custom-class {
+  /* Your styles */
+}</pre>
+      </div>
+    </section>
+
+    <!-- Directives -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Available Directives</h2>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <table class="w-full text-left">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-sm font-semibold">Directive</th>
+              <th class="px-4 py-3 text-sm font-semibold">Description</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono text-coral-600">@coral base</td>
+              <td class="px-4 py-3 text-sm text-slate-600">CSS reset and base element styles</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono text-coral-600">@coral theme</td>
+              <td class="px-4 py-3 text-sm text-slate-600">CSS custom properties for colors, spacing, etc.</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono text-coral-600">@coral utilities</td>
+              <td class="px-4 py-3 text-sm text-slate-600">All utility classes</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono text-coral-600">@coral components</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Component-specific styles</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono text-coral-600">@apply</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Apply utility classes to a selector</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- @apply Usage -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Using @apply</h2>
+      <div class="bg-white rounded-lg shadow-sm p-4">
+        <p class="text-sm text-slate-500 mb-2">styles.css</p>
+        <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">/* Create reusable component classes */
+.btn {
+  @apply px-4 py-2 font-medium rounded-lg transition;
+}
+
+.btn-primary {
+  @apply bg-coral-500 text-white hover:bg-coral-600;
+}
+
+.btn-secondary {
+  @apply bg-slate-100 text-slate-700 hover:bg-slate-200;
+}
+
+.card {
+  @apply bg-white rounded-xl shadow-md p-6;
+}
+
+.input {
+  @apply w-full px-3 py-2 border border-slate-300 rounded-lg
+         focus:ring-2 focus:ring-coral-500 focus:border-coral-500;
+}</pre>
+      </div>
+    </section>
+
+    <!-- Framework Integration -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Framework Integration</h2>
+      <div class="space-y-4">
+        <div class="bg-white rounded-lg shadow-sm p-4">
+          <h3 class="font-semibold mb-2">Next.js</h3>
+          <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">// postcss.config.js (same config works!)
+module.exports = {
+  plugins: {
+    '@coralcss/core/postcss': {
+      content: ['./pages/**/*.{js,tsx}', './components/**/*.{js,tsx}'],
+    },
+  },
+}</pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-sm p-4">
+          <h3 class="font-semibold mb-2">Nuxt</h3>
+          <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">// nuxt.config.ts
+export default defineNuxtConfig({
+  postcss: {
+    plugins: {
+      '@coralcss/core/postcss': {
+        content: ['./components/**/*.vue', './pages/**/*.vue'],
+      },
+    },
+  },
+})</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plugin Options -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Plugin Options</h2>
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <table class="w-full text-left">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-4 py-3 text-sm font-semibold">Option</th>
+              <th class="px-4 py-3 text-sm font-semibold">Type</th>
+              <th class="px-4 py-3 text-sm font-semibold">Description</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200">
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono">content</td>
+              <td class="px-4 py-3 text-sm text-slate-600">string[]</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Glob patterns for files containing classes</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono">darkMode</td>
+              <td class="px-4 py-3 text-sm text-slate-600">string</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Dark mode strategy: 'class', 'media', 'selector', 'auto'</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono">preset</td>
+              <td class="px-4 py-3 text-sm text-slate-600">string</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Preset to use: 'coral', 'wind', 'mini', 'full'</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-sm font-mono">prefix</td>
+              <td class="px-4 py-3 text-sm text-slate-600">string</td>
+              <td class="px-4 py-3 text-sm text-slate-600">Optional prefix for all utility classes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

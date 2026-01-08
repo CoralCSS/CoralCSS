@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Basic Example</title>
+  <script src="../../dist/coral.min.global.js"></script>
+</head>
+<body class="bg-slate-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-coral-600 mb-4">
+      Hello, CoralCSS!
+    </h1>
+    <p class="text-lg text-slate-600 mb-8">
+      A modern, zero-dependency CSS framework with utility-first classes.
+    </p>
+
+    <div class="flex gap-4 mb-8">
+      <button class="px-4 py-2 bg-coral-500 text-white rounded-lg hover:bg-coral-600 transition-colors">
+        Primary Button
+      </button>
+      <button class="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors">
+        Secondary Button
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 bg-white rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold text-slate-800 mb-2">Card One</h2>
+        <p class="text-slate-600">
+          This is a simple card component using CoralCSS utility classes.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold text-slate-800 mb-2">Card Two</h2>
+        <p class="text-slate-600">
+          Responsive grid layouts are easy with grid-cols utilities.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold text-slate-800 mb-2">Card Three</h2>
+        <p class="text-slate-600">
+          Hover effects, shadows, and more with simple classes.
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

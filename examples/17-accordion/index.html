@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Accordion Component Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto max-w-2xl">
+    <h1 class="text-3xl font-bold text-slate-800 mb-4">Accordion Component</h1>
+    <p class="text-slate-600 mb-8">
+      Accessible collapsible panels with keyboard navigation and ARIA support.
+    </p>
+
+    <!-- Basic Accordion -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Basic Accordion</h2>
+      <div data-coral-accordion class="bg-white rounded-lg shadow-sm divide-y divide-slate-200">
+        <div data-coral-accordion-item>
+          <button data-coral-accordion-trigger class="w-full flex items-center justify-between p-4 text-left font-medium hover:bg-slate-50">
+            What is CoralCSS?
+            <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div data-coral-accordion-content class="px-4 pb-4">
+            <p class="text-slate-600">
+              CoralCSS is a modern, zero-dependency CSS framework with utility-first classes,
+              headless components, and first-class support for modern CSS features like anchor
+              positioning, container queries, and more.
+            </p>
+          </div>
+        </div>
+        <div data-coral-accordion-item>
+          <button data-coral-accordion-trigger class="w-full flex items-center justify-between p-4 text-left font-medium hover:bg-slate-50">
+            How do I install it?
+            <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div data-coral-accordion-content class="px-4 pb-4 hidden">
+            <p class="text-slate-600">
+              Install CoralCSS using npm, pnpm, or yarn:
+            </p>
+            <pre class="bg-slate-100 p-2 rounded mt-2 text-sm">npm install @coralcss/core</pre>
+          </div>
+        </div>
+        <div data-coral-accordion-item>
+          <button data-coral-accordion-trigger class="w-full flex items-center justify-between p-4 text-left font-medium hover:bg-slate-50">
+            Is it compatible with Tailwind?
+            <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div data-coral-accordion-content class="px-4 pb-4 hidden">
+            <p class="text-slate-600">
+              Yes! CoralCSS provides a <code class="bg-slate-100 px-1 rounded">windPreset</code> that
+              offers Tailwind-compatible utility classes, making migration easy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Style -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">FAQ Style</h2>
+      <div data-coral-accordion="faq" class="space-y-4">
+        <div data-coral-accordion-item class="bg-white rounded-lg shadow-sm">
+          <button data-coral-accordion-trigger class="w-full flex items-center justify-between p-4 text-left font-medium">
+            <span class="flex items-center gap-3">
+              <span class="w-6 h-6 rounded-full bg-coral-100 text-coral-600 flex items-center justify-center text-sm">?</span>
+              Can I use CoralCSS with React?
+            </span>
+            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </button>
+          <div data-coral-accordion-content class="px-4 pb-4 hidden">
+            <p class="text-slate-600 pl-9">
+              Absolutely! CoralCSS is framework-agnostic. Use the utility classes directly in your JSX
+              and the headless components work with any framework.
+            </p>
+          </div>
+        </div>
+        <div data-coral-accordion-item class="bg-white rounded-lg shadow-sm">
+          <button data-coral-accordion-trigger class="w-full flex items-center justify-between p-4 text-left font-medium">
+            <span class="flex items-center gap-3">
+              <span class="w-6 h-6 rounded-full bg-coral-100 text-coral-600 flex items-center justify-center text-sm">?</span>
+              Does it support dark mode?
+            </span>
+            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </button>
+          <div data-coral-accordion-content class="px-4 pb-4 hidden">
+            <p class="text-slate-600 pl-9">
+              Yes! CoralCSS supports multiple dark mode strategies: class-based, media query,
+              selector-based, and auto-detection.
+            </p>
+          </div>
+        </div>
+        <div data-coral-accordion-item class="bg-white rounded-lg shadow-sm">
+          <button data-coral-accordion-trigger class="w-full flex items-center justify-between p-4 text-left font-medium">
+            <span class="flex items-center gap-3">
+              <span class="w-6 h-6 rounded-full bg-coral-100 text-coral-600 flex items-center justify-center text-sm">?</span>
+              What are the browser requirements?
+            </span>
+            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </button>
+          <div data-coral-accordion-content class="px-4 pb-4 hidden">
+            <p class="text-slate-600 pl-9">
+              CoralCSS supports all modern browsers. Some features like anchor positioning and
+              scroll-driven animations require the latest browser versions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Example -->
+    <section>
+      <h2 class="text-xl font-semibold mb-4">Usage</h2>
+      <pre class="bg-slate-800 text-slate-100 p-4 rounded-lg overflow-x-auto text-sm">
+import { createAccordion } from '@coralcss/core/components'
+
+// Create accordion
+const accordion = createAccordion('#my-accordion', {
+  allowMultiple: false // Only one panel open at a time
+})
+
+// Toggle panel programmatically
+accordion.toggle(0)
+
+// Open/close specific panel
+accordion.open(1)
+accordion.close(1)
+
+// Listen for events
+accordion.element.addEventListener('coral:accordion:toggle', (e) =&gt; {
+  console.log('Panel toggled:', e.detail.index, e.detail.isOpen)
+})</pre>
+    </section>
+  </div>
+
+  <script>
+    // Simple accordion logic for demo
+    document.querySelectorAll('[data-coral-accordion]').forEach(accordion => {
+      const items = accordion.querySelectorAll('[data-coral-accordion-item]')
+
+      items.forEach(item => {
+        const trigger = item.querySelector('[data-coral-accordion-trigger]')
+        const content = item.querySelector('[data-coral-accordion-content]')
+        const icon = trigger.querySelector('svg')
+
+        trigger.onclick = () => {
+          const isOpen = !content.classList.contains('hidden')
+          content.classList.toggle('hidden')
+          if (icon) icon.style.transform = isOpen ? '' : 'rotate(180deg)'
+        }
+      })
+    })
+  </script>
+</body>
+</html>

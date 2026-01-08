@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS - Transitions Example</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 min-h-screen p-8">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-bold text-slate-800 mb-8">Transitions & Animations</h1>
+
+    <!-- Transition Properties -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Transition Properties</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <button class="transition-all hover:bg-coral-600 bg-coral-500 text-white p-4 rounded-lg">
+          transition-all
+        </button>
+        <button class="transition-colors hover:bg-blue-600 bg-blue-500 text-white p-4 rounded-lg">
+          transition-colors
+        </button>
+        <button class="transition-transform hover:scale-110 bg-green-500 text-white p-4 rounded-lg">
+          transition-transform
+        </button>
+        <button class="transition-opacity hover:opacity-50 bg-purple-500 text-white p-4 rounded-lg">
+          transition-opacity
+        </button>
+      </div>
+    </section>
+
+    <!-- Duration -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Duration</h2>
+      <div class="grid grid-cols-5 gap-4">
+        <button class="transition duration-75 hover:bg-coral-600 bg-coral-500 text-white p-4 rounded-lg text-sm">
+          75ms
+        </button>
+        <button class="transition duration-150 hover:bg-coral-600 bg-coral-500 text-white p-4 rounded-lg text-sm">
+          150ms
+        </button>
+        <button class="transition duration-300 hover:bg-coral-600 bg-coral-500 text-white p-4 rounded-lg text-sm">
+          300ms
+        </button>
+        <button class="transition duration-500 hover:bg-coral-600 bg-coral-500 text-white p-4 rounded-lg text-sm">
+          500ms
+        </button>
+        <button class="transition duration-1000 hover:bg-coral-600 bg-coral-500 text-white p-4 rounded-lg text-sm">
+          1000ms
+        </button>
+      </div>
+    </section>
+
+    <!-- Timing Functions -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Timing Functions</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <button class="transition duration-500 ease-linear hover:translate-x-4 bg-blue-500 text-white p-4 rounded-lg text-sm">
+          ease-linear
+        </button>
+        <button class="transition duration-500 ease-in hover:translate-x-4 bg-blue-500 text-white p-4 rounded-lg text-sm">
+          ease-in
+        </button>
+        <button class="transition duration-500 ease-out hover:translate-x-4 bg-blue-500 text-white p-4 rounded-lg text-sm">
+          ease-out
+        </button>
+        <button class="transition duration-500 ease-in-out hover:translate-x-4 bg-blue-500 text-white p-4 rounded-lg text-sm">
+          ease-in-out
+        </button>
+      </div>
+    </section>
+
+    <!-- Delay -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Delay</h2>
+      <div class="grid grid-cols-4 gap-4">
+        <button class="transition duration-300 delay-0 hover:bg-green-600 bg-green-500 text-white p-4 rounded-lg text-sm">
+          delay-0
+        </button>
+        <button class="transition duration-300 delay-150 hover:bg-green-600 bg-green-500 text-white p-4 rounded-lg text-sm">
+          delay-150
+        </button>
+        <button class="transition duration-300 delay-300 hover:bg-green-600 bg-green-500 text-white p-4 rounded-lg text-sm">
+          delay-300
+        </button>
+        <button class="transition duration-300 delay-500 hover:bg-green-600 bg-green-500 text-white p-4 rounded-lg text-sm">
+          delay-500
+        </button>
+      </div>
+    </section>
+
+    <!-- Combined Transitions -->
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold mb-4">Combined Transitions</h2>
+      <div class="grid grid-cols-3 gap-8 p-8 bg-white rounded-lg">
+        <button class="transition-all duration-300 hover:bg-coral-600 hover:scale-105 hover:shadow-lg bg-coral-500 text-white p-6 rounded-lg">
+          Color + Scale + Shadow
+        </button>
+        <button class="transition-all duration-300 hover:bg-blue-600 hover:-translate-y-2 hover:shadow-xl bg-blue-500 text-white p-6 rounded-lg">
+          Color + Translate + Shadow
+        </button>
+        <button class="transition-all duration-300 hover:bg-purple-600 hover:rotate-3 hover:scale-105 bg-purple-500 text-white p-6 rounded-lg">
+          Color + Rotate + Scale
+        </button>
+      </div>
+    </section>
+
+    <!-- Animations -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4">Animations</h2>
+      <div class="grid grid-cols-4 gap-8 p-8 bg-white rounded-lg">
+        <div class="flex flex-col items-center gap-2">
+          <div class="animate-spin bg-coral-500 w-12 h-12 rounded-lg"></div>
+          <span class="text-sm text-slate-600">animate-spin</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="animate-ping bg-blue-500 w-12 h-12 rounded-full"></div>
+          <span class="text-sm text-slate-600">animate-ping</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="animate-pulse bg-green-500 w-12 h-12 rounded-lg"></div>
+          <span class="text-sm text-slate-600">animate-pulse</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="animate-bounce bg-purple-500 w-12 h-12 rounded-lg"></div>
+          <span class="text-sm text-slate-600">animate-bounce</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

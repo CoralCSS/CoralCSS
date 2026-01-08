@@ -1,0 +1,163 @@
+# CoralCSS - LLM Reference
+
+> Zero-dependency CSS framework with utility-first classes, headless components, and modern CSS features.
+
+## Installation
+```bash
+npm install @coralcss/core
+```
+
+## Quick Start
+```typescript
+import { createCoral, coralPreset } from '@coralcss/core'
+
+const coral = createCoral()
+coralPreset().forEach(p => coral.use(p))
+const css = coral.generate(['flex', 'p-4', 'bg-coral-500'])
+```
+
+## Core API
+
+### createCoral(options?)
+Creates engine instance. Options: `prefix`, `darkMode` ('class'|'media'|'selector'|'auto').
+
+### coral.use(plugin)
+Registers a plugin. Returns coral instance for chaining.
+
+### coral.generate(classes)
+Generates CSS from class array. Returns CSS string.
+
+### coral.parse(html)
+Extracts classes from HTML. Returns class array.
+
+## Presets
+- `coralPreset()` - Default with modern CSS
+- `windPreset()` - Tailwind-compatible
+- `miniPreset()` - Minimal utilities
+- `fullPreset()` - Everything included
+
+## Utility Classes
+
+### Spacing
+`p-{0-96}`, `m-{0-96}`, `gap-{0-96}`, `px-4`, `py-2`, `mt-4`, `-mt-4`
+
+### Sizing
+`w-{0-96}`, `h-{0-96}`, `size-{0-96}`, `w-full`, `w-1/2`, `min-w-0`, `max-w-lg`
+
+### Layout
+`flex`, `grid`, `block`, `inline`, `hidden`, `absolute`, `relative`, `fixed`
+
+### Flexbox
+`items-center`, `justify-between`, `flex-1`, `flex-col`, `flex-wrap`
+
+### Grid
+`grid-cols-{1-12}`, `grid-rows-{1-6}`, `col-span-{1-12}`, `row-span-{1-6}`
+
+### Typography
+`text-{xs-9xl}`, `font-{sans|serif|mono}`, `font-{normal|medium|bold}`, `tracking-tight`, `leading-relaxed`
+
+### Colors
+`bg-{color}-{50-950}`, `text-{color}-{50-950}`, `border-{color}-{50-950}`
+Colors: coral, slate, gray, red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose
+
+### Borders
+`rounded-{none|sm|md|lg|xl|full}`, `border-{0|2|4|8}`, `ring-{0|1|2|4|8}`
+
+### Effects
+`shadow-{sm|md|lg|xl|2xl}`, `opacity-{0-100}`, `blur-{sm|md|lg|xl}`
+
+### Transforms
+`scale-{0-150}`, `rotate-{0-180}`, `translate-x-{0-96}`, `-translate-y-4`
+
+### Transitions
+`transition`, `transition-colors`, `duration-{75-1000}`, `ease-{in|out|in-out}`
+
+## Variants
+
+### Pseudo
+`hover:`, `focus:`, `active:`, `disabled:`, `first:`, `last:`, `odd:`, `even:`
+
+### Group/Peer
+`group-hover:`, `peer-focus:`, `peer-checked:`
+
+### Responsive
+`sm:` (640px), `md:` (768px), `lg:` (1024px), `xl:` (1280px), `2xl:` (1536px)
+
+### Dark Mode
+`dark:bg-slate-900`, `dark:text-white`
+
+### Variant Groups (Unique!)
+`hover:(bg-coral-500 text-white scale-105)` - Apply multiple utilities to one variant
+
+## Modern CSS
+
+### Container Queries
+```html
+<div class="@container">
+  <div class="@sm:flex @md:grid">...</div>
+</div>
+```
+
+### Anchor Positioning
+```html
+<button class="anchor-name-[--btn]">Anchor</button>
+<div class="position-anchor-[--btn] position-area-bottom">Tooltip</div>
+```
+
+### Scroll Animations
+`animation-timeline-scroll`, `animation-range-entry`
+
+## Headless Components
+
+```typescript
+import { createDialog, createDropdown, createTabs } from '@coralcss/core/components'
+
+// Dialog
+const dialog = createDialog('#modal', { closeOnBackdrop: true, trapFocus: true })
+dialog.open()
+dialog.close()
+
+// Dropdown
+const dropdown = createDropdown('#menu')
+dropdown.element.addEventListener('coral:dropdown:select', e => console.log(e.detail))
+
+// Tabs
+const tabs = createTabs('#tabs', { defaultTab: 0 })
+tabs.selectTab(1)
+
+// Also: createAccordion, createTooltip, createSwitch, createToast
+```
+
+## Build Tools
+
+### Vite
+```typescript
+import coral from '@coralcss/core/vite'
+export default { plugins: [coral({ darkMode: 'class' })] }
+```
+
+### PostCSS
+```javascript
+module.exports = {
+  plugins: [require('@coralcss/core/postcss')({ content: ['./src/**/*.html'] })]
+}
+```
+
+### CDN
+```html
+<script src="https://unpkg.com/@coralcss/core/dist/cdn.iife.js"></script>
+<script>const coral = window.CoralCSS.getCoralCDN()</script>
+```
+
+## Arbitrary Values
+`w-[200px]`, `h-[50vh]`, `bg-[#ff5733]`, `text-[1.5rem]`, `p-[calc(1rem+5px)]`
+
+## TypeScript Types
+```typescript
+import type { Coral, Plugin, Rule, Variant, Theme, ComponentConfig } from '@coralcss/core'
+```
+
+## Links
+- Docs: https://coralcss.dev
+- GitHub: https://github.com/coralcss/core
+- npm: https://npmjs.com/package/@coralcss/core
