@@ -404,7 +404,7 @@ describe('Switch Component', () => {
       switchEl.toggle()
 
       expect(listener).toHaveBeenCalled()
-      expect(listener.mock.calls[0][0].detail).toEqual({ checked: true })
+      expect(listener.mock.calls[0]?.[0].detail).toEqual({ checked: true })
     })
   })
 })

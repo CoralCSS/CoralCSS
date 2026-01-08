@@ -4,34 +4,34 @@ function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="hero-pattern min-h-screen flex items-center py-20 relative overflow-hidden">
+      <section className="hero-pattern min-h-screen flex items-center pt-28 pb-20 relative overflow-hidden">
         {/* Floating Background Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-coral-500 rounded-full opacity-10 blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-coral-400 rounded-full opacity-10 blur-3xl animate-float" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-coral-600 rounded-full opacity-5 blur-2xl animate-float" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-20 left-10 w-64 h-64 bg-primary rounded-full opacity-10 blur-3xl animate-float" />
+          <div className="absolute bottom-20 right-10 w-80 h-80 bg-primary rounded-full opacity-10 blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/2 left-1/3 w-40 h-40 bg-primary rounded-full opacity-5 blur-2xl animate-float" style={{ animationDelay: '2s' }} />
         </div>
 
         <div className="container relative z-10">
           <div className="text-center max-w-4xl mx-auto stagger-children">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-coral-50 border border-coral-200 text-coral-600 text-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-coral-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
               </span>
               v1.0 is here - Zero dependencies, infinite possibilities
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-slate-900 tracking-tight leading-tight mb-6">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-foreground tracking-tight leading-tight mb-6">
               The CSS Framework
               <br />
               <span className="gradient-text animate-gradient">Built for Tomorrow</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
               Zero dependencies. Utility-first. Modern CSS features out of the box.
               Anchor positioning, container queries, scroll animations, and more.
             </p>
@@ -45,7 +45,7 @@ function Home() {
                 </svg>
               </a>
               <a
-                href="https://github.com/nicholasxjy/CoralCSS"
+                href="https://github.com/ersinkoc/CoralCSS"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline px-8 py-3 text-lg group"
@@ -59,10 +59,10 @@ function Home() {
 
             {/* Install Command */}
             <div className="glass rounded-xl p-4 inline-block">
-              <code className="text-slate-700 font-mono">
-                <span className="text-coral-500">$</span> npm install <span className="text-coral-600 font-semibold">@coralcss/core</span>
+              <code className="text-foreground font-mono">
+                <span className="text-primary">$</span> npm install <span className="text-primary font-semibold">@coralcss/core</span>
               </code>
-              <button className="ml-4 text-slate-400 hover:text-coral-500 transition" title="Copy to clipboard">
+              <button className="ml-4 text-muted-foreground hover:text-primary transition" title="Copy to clipboard">
                 <svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
@@ -73,7 +73,7 @@ function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-slate-900 text-white">
+      <section className="py-12 section-dark text-foreground">
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <StatItem value="0" label="Dependencies" />
@@ -88,10 +88,10 @@ function Home() {
       <section className="py-24">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
               Everything You Need
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               A complete toolkit for building modern web interfaces, without the bloat.
             </p>
           </div>
@@ -150,13 +150,13 @@ function Home() {
       </section>
 
       {/* Interactive Demo Section */}
-      <section className="py-24 bg-slate-50">
+      <section className="py-24 bg-muted">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
               See It In Action
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Try changing the classes below and watch the result update in real-time.
             </p>
           </div>
@@ -169,10 +169,10 @@ function Home() {
       <section className="py-24">
         <div className="container">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-4xl font-bold text-foreground mb-4">
               Clean, Intuitive Syntax
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Familiar utility classes with powerful new features like variant groups.
             </p>
           </div>
@@ -220,13 +220,13 @@ function Home() {
       </section>
 
       {/* Modern CSS Features Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+      <section className="py-24 section-dark">
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4">
               Modern CSS, <span className="gradient-text">Made Simple</span>
             </h2>
-            <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               First-class support for cutting-edge CSS features with intuitive utilities.
             </p>
           </div>
@@ -298,10 +298,10 @@ function Home() {
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-slate-900 mb-6">
+              <h2 className="text-4xl font-bold text-foreground mb-6">
                 Headless Components
               </h2>
-              <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 20+ accessible UI primitives with zero styling. Full keyboard navigation,
                 ARIA support, and focus management built-in. Style them however you want.
               </p>
@@ -327,8 +327,8 @@ function Home() {
       {/* CTA Section */}
       <section className="py-24 gradient-bg text-white relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-20 -right-20 w-80 h-80 bg-white rounded-full opacity-10 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-white rounded-full opacity-10 blur-3xl" />
+          <div className="absolute -top-20 -right-20 w-80 h-80 bg-card rounded-full opacity-10 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-card rounded-full opacity-10 blur-3xl" />
         </div>
 
         <div className="container text-center relative z-10">
@@ -337,10 +337,10 @@ function Home() {
             Join developers who are building the future of the web with CoralCSS.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/docs" className="btn bg-white text-coral-600 hover:bg-slate-100 px-8 py-3 text-lg shadow-lg">
+            <a href="/docs" className="btn bg-card text-primary hover:bg-muted px-8 py-3 text-lg shadow-lg">
               Read the Documentation
             </a>
-            <a href="/examples" className="btn bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-3 text-lg">
+            <a href="/examples" className="btn bg-transparent border-2 border-white text-white hover:bg-card/10 px-8 py-3 text-lg">
               Explore Examples
             </a>
           </div>
@@ -355,8 +355,8 @@ function Home() {
 function StatItem({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="text-4xl font-bold text-coral-400 mb-2">{value}</div>
-      <div className="text-slate-400 text-sm">{label}</div>
+      <div className="text-4xl font-bold text-primary mb-2">{value}</div>
+      <div className="text-muted-foreground text-sm">{label}</div>
     </div>
   )
 }
@@ -388,8 +388,8 @@ function FeatureCard({
       <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${colorClasses[color]} text-white flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
         {icon}
       </div>
-      <h3 className="text-lg font-semibold text-slate-800 mb-2">{title}</h3>
-      <p className="text-slate-600 text-sm leading-relaxed">{description}</p>
+      <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
+      <p className="text-muted-foreground text-sm leading-relaxed">{description}</p>
     </div>
   )
 }
@@ -397,9 +397,9 @@ function FeatureCard({
 function CodeExample({ title, description, code }: { title: string; description: string; code: string }) {
   return (
     <div className="feature-card p-0 overflow-hidden">
-      <div className="p-6 border-b border-slate-200">
-        <h3 className="text-lg font-semibold text-slate-800 mb-1">{title}</h3>
-        <p className="text-slate-600 text-sm">{description}</p>
+      <div className="p-6 border-b border-border">
+        <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
+        <p className="text-muted-foreground text-sm">{description}</p>
       </div>
       <pre className="m-0 rounded-none border-0">{code}</pre>
     </div>
@@ -408,10 +408,10 @@ function CodeExample({ title, description, code }: { title: string; description:
 
 function ModernFeatureCard({ title, description, code }: { title: string; description: string; code: string }) {
   return (
-    <div className="bg-slate-800/50 rounded-xl border border-slate-700 p-6 hover:border-coral-500/50 transition-colors">
-      <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-      <p className="text-slate-400 text-sm mb-4">{description}</p>
-      <pre className="text-sm bg-slate-900/50 rounded-lg p-4 border border-slate-700 overflow-x-auto">{code}</pre>
+    <div className="bg-card/50 rounded-xl border border-border p-6 hover:border-primary/50 transition-colors">
+      <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
+      <p className="text-muted-foreground text-sm mb-4">{description}</p>
+      <pre className="text-sm bg-muted/30 rounded-lg p-4 border border-border overflow-x-auto">{code}</pre>
     </div>
   )
 }
@@ -419,37 +419,37 @@ function ModernFeatureCard({ title, description, code }: { title: string; descri
 function ComponentFeature({ title, description }: { title: string; description: string }) {
   return (
     <li className="flex items-start gap-3">
-      <svg className="w-6 h-6 text-coral-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
       </svg>
       <div>
-        <span className="font-medium text-slate-800">{title}</span>
-        <span className="text-slate-600"> - {description}</span>
+        <span className="font-medium text-foreground">{title}</span>
+        <span className="text-muted-foreground"> - {description}</span>
       </div>
     </li>
   )
 }
 
 function InteractiveDemo() {
-  const [classes, setClasses] = useState('bg-coral-500 text-white p-6 rounded-xl shadow-lg')
+  const [classes, setClasses] = useState('bg-primary text-primary-foreground p-6 rounded-xl shadow-lg')
 
   const presetOptions = [
-    { label: 'Primary Button', classes: 'bg-coral-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-coral-600 transition' },
-    { label: 'Glass Card', classes: 'bg-white/80 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-white/20' },
-    { label: 'Gradient Box', classes: 'bg-gradient-to-r from-coral-500 to-pink-500 text-white p-8 rounded-xl' },
-    { label: 'Outlined', classes: 'border-2 border-coral-500 text-coral-500 p-6 rounded-lg hover:bg-coral-50' },
+    { label: 'Primary Button', classes: 'bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition' },
+    { label: 'Glass Card', classes: 'bg-card/80 backdrop-blur-lg p-6 rounded-2xl shadow-xl border border-border' },
+    { label: 'Gradient Box', classes: 'bg-gradient-to-r from-primary to-primary/60 text-primary-foreground p-8 rounded-xl' },
+    { label: 'Outlined', classes: 'border-2 border-primary text-primary p-6 rounded-lg hover:bg-primary/10' },
   ]
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div className="space-y-4">
-        <label className="block text-sm font-medium text-slate-700 mb-2">
+        <label className="block text-sm font-medium text-foreground mb-2">
           Edit Classes:
         </label>
         <textarea
           value={classes}
           onChange={(e) => setClasses(e.target.value)}
-          className="w-full h-32 p-4 font-mono text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-coral-500 focus:border-transparent resize-none"
+          className="w-full h-32 p-4 font-mono text-sm border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
           placeholder="Enter utility classes..."
         />
         <div className="flex flex-wrap gap-2">
@@ -457,7 +457,7 @@ function InteractiveDemo() {
             <button
               key={preset.label}
               onClick={() => setClasses(preset.classes)}
-              className="px-3 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-600 hover:bg-coral-100 hover:text-coral-600 transition"
+              className="px-3 py-1 text-xs font-medium rounded-full bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary transition"
             >
               {preset.label}
             </button>
@@ -465,7 +465,7 @@ function InteractiveDemo() {
         </div>
       </div>
 
-      <div className="flex items-center justify-center p-8 bg-white rounded-xl border border-slate-200 min-h-[200px]">
+      <div className="flex items-center justify-center p-8 bg-card rounded-xl border border-border min-h-[200px]">
         <div className={classes}>
           Hello, CoralCSS!
         </div>
@@ -480,11 +480,11 @@ function ComponentDemo() {
 
   return (
     <div className="space-y-6">
-      <div className="text-sm font-medium text-slate-500 mb-4">Live Component Demo</div>
+      <div className="text-sm font-medium text-muted-foreground mb-4">Live Component Demo</div>
 
       {/* Tabs Demo */}
       <div>
-        <div className="flex gap-1 p-1 bg-slate-100 rounded-lg mb-4" role="tablist">
+        <div className="flex gap-1 p-1 bg-muted rounded-lg mb-4" role="tablist">
           {['Overview', 'Features', 'Pricing'].map((tab, i) => (
             <button
               key={tab}
@@ -493,15 +493,15 @@ function ComponentDemo() {
               onClick={() => setActiveTab(i)}
               className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition ${
                 activeTab === i
-                  ? 'bg-white text-coral-600 shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-card text-primary shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               {tab}
             </button>
           ))}
         </div>
-        <div className="p-4 bg-slate-50 rounded-lg text-sm text-slate-600">
+        <div className="p-4 bg-muted rounded-lg text-sm text-muted-foreground">
           {activeTab === 0 && 'A complete CSS framework with everything you need.'}
           {activeTab === 1 && 'Utilities, components, modern CSS, and more.'}
           {activeTab === 2 && 'Free and open source. MIT licensed.'}
@@ -512,7 +512,7 @@ function ComponentDemo() {
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="px-4 py-2 bg-coral-500 text-white rounded-lg text-sm font-medium flex items-center gap-2"
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium flex items-center gap-2"
         >
           Open Menu
           <svg className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -520,11 +520,11 @@ function ComponentDemo() {
           </svg>
         </button>
         {isOpen && (
-          <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-1 z-10 animate-fade-in">
+          <div className="absolute top-full left-0 mt-2 w-48 bg-card rounded-lg shadow-lg border border-border py-1 z-10 animate-fade-in">
             {['Edit', 'Duplicate', 'Archive', 'Delete'].map((item) => (
               <button
                 key={item}
-                className="w-full px-4 py-2 text-left text-sm text-slate-700 hover:bg-coral-50 hover:text-coral-600"
+                className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-primary/10 hover:text-primary"
                 onClick={() => setIsOpen(false)}
               >
                 {item}

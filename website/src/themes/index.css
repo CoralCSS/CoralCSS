@@ -1,0 +1,380 @@
+/* ========================================
+   CoralCSS Theme Palettes
+   Multiple Beautiful Color Schemes
+   ======================================== */
+
+/* ==========================================
+   CORAL THEME (Default)
+   Warm, vibrant, energetic
+   ========================================== */
+.theme-coral,
+:root {
+  --theme-name: 'Coral';
+
+  /* Primary Colors */
+  --primary: 16 100% 65%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Brand gradient */
+  --gradient-from: #ff7f50;
+  --gradient-to: #ff6b35;
+
+  /* Chart colors */
+  --chart-1: 16 100% 65%;
+  --chart-2: 25 95% 53%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 45 93% 47%;
+  --chart-5: 32 98% 50%;
+}
+
+/* ==========================================
+   SLATE THEME
+   Professional, modern, sophisticated
+   ========================================== */
+.theme-slate {
+  --theme-name: 'Slate';
+
+  /* Primary Colors */
+  --primary: 215.4 16.3% 46.9%;
+  --primary-foreground: 210 40% 98%;
+
+  /* Override semantic colors */
+  --ring: 215.4 16.3% 46.9%;
+
+  /* Brand gradient */
+  --gradient-from: #64748b;
+  --gradient-to: #475569;
+
+  /* Chart colors */
+  --chart-1: 215 20% 65%;
+  --chart-2: 213 27% 84%;
+  --chart-3: 215 25% 27%;
+  --chart-4: 217 33% 17%;
+  --chart-5: 222 47% 11%;
+}
+
+.theme-slate.dark,
+.dark .theme-slate {
+  --primary: 217.2 32.6% 70%;
+  --primary-foreground: 222.2 84% 4.9%;
+}
+
+/* ==========================================
+   ROSE THEME
+   Soft, elegant, romantic
+   ========================================== */
+.theme-rose {
+  --theme-name: 'Rose';
+
+  /* Primary Colors */
+  --primary: 346.8 77.2% 49.8%;
+  --primary-foreground: 355.7 100% 97.3%;
+
+  /* Override semantic colors */
+  --ring: 346.8 77.2% 49.8%;
+
+  /* Brand gradient */
+  --gradient-from: #e11d48;
+  --gradient-to: #be123c;
+
+  /* Chart colors */
+  --chart-1: 347 77% 50%;
+  --chart-2: 350 89% 60%;
+  --chart-3: 340 83% 66%;
+  --chart-4: 330 81% 60%;
+  --chart-5: 320 70% 50%;
+}
+
+.theme-rose.dark,
+.dark .theme-rose {
+  --primary: 346.8 77.2% 65%;
+  --primary-foreground: 355.7 100% 10%;
+}
+
+/* ==========================================
+   EMERALD THEME
+   Fresh, natural, balanced
+   ========================================== */
+.theme-emerald {
+  --theme-name: 'Emerald';
+
+  /* Primary Colors */
+  --primary: 160.1 84.1% 39.4%;
+  --primary-foreground: 152.6 85.8% 95%;
+
+  /* Override semantic colors */
+  --ring: 160.1 84.1% 39.4%;
+
+  /* Brand gradient */
+  --gradient-from: #10b981;
+  --gradient-to: #059669;
+
+  /* Chart colors */
+  --chart-1: 160 84% 39%;
+  --chart-2: 158 64% 52%;
+  --chart-3: 156 72% 67%;
+  --chart-4: 152 76% 80%;
+  --chart-5: 167 85% 89%;
+}
+
+.theme-emerald.dark,
+.dark .theme-emerald {
+  --primary: 160.1 84.1% 55%;
+  --primary-foreground: 160 84% 10%;
+}
+
+/* ==========================================
+   VIOLET THEME
+   Creative, luxurious, mystical
+   ========================================== */
+.theme-violet {
+  --theme-name: 'Violet';
+
+  /* Primary Colors */
+  --primary: 262.1 83.3% 57.8%;
+  --primary-foreground: 263 70% 96%;
+
+  /* Override semantic colors */
+  --ring: 262.1 83.3% 57.8%;
+
+  /* Brand gradient */
+  --gradient-from: #8b5cf6;
+  --gradient-to: #7c3aed;
+
+  /* Chart colors */
+  --chart-1: 262 83% 58%;
+  --chart-2: 271 91% 65%;
+  --chart-3: 280 87% 70%;
+  --chart-4: 289 78% 55%;
+  --chart-5: 295 72% 45%;
+}
+
+.theme-violet.dark,
+.dark .theme-violet {
+  --primary: 262.1 83.3% 70%;
+  --primary-foreground: 263 70% 10%;
+}
+
+/* ==========================================
+   AMBER THEME
+   Warm, inviting, optimistic
+   ========================================== */
+.theme-amber {
+  --theme-name: 'Amber';
+
+  /* Primary Colors */
+  --primary: 38 92% 50%;
+  --primary-foreground: 48 100% 96%;
+
+  /* Override semantic colors */
+  --ring: 38 92% 50%;
+
+  /* Brand gradient */
+  --gradient-from: #f59e0b;
+  --gradient-to: #d97706;
+
+  /* Chart colors */
+  --chart-1: 38 92% 50%;
+  --chart-2: 45 93% 47%;
+  --chart-3: 32 98% 50%;
+  --chart-4: 25 95% 53%;
+  --chart-5: 20 90% 48%;
+}
+
+.theme-amber.dark,
+.dark .theme-amber {
+  --primary: 38 92% 60%;
+  --primary-foreground: 38 92% 10%;
+}
+
+/* ==========================================
+   OCEAN THEME
+   Calm, trustworthy, professional
+   ========================================== */
+.theme-ocean {
+  --theme-name: 'Ocean';
+
+  /* Primary Colors */
+  --primary: 199 89% 48%;
+  --primary-foreground: 198 93% 96%;
+
+  /* Override semantic colors */
+  --ring: 199 89% 48%;
+
+  /* Brand gradient */
+  --gradient-from: #0ea5e9;
+  --gradient-to: #0284c7;
+
+  /* Chart colors */
+  --chart-1: 199 89% 48%;
+  --chart-2: 187 92% 45%;
+  --chart-3: 174 84% 43%;
+  --chart-4: 192 91% 36%;
+  --chart-5: 200 98% 39%;
+}
+
+.theme-ocean.dark,
+.dark .theme-ocean {
+  --primary: 199 89% 60%;
+  --primary-foreground: 199 89% 10%;
+}
+
+/* ==========================================
+   CRIMSON THEME
+   Bold, powerful, passionate
+   ========================================== */
+.theme-crimson {
+  --theme-name: 'Crimson';
+
+  /* Primary Colors */
+  --primary: 0 84.2% 60.2%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Override semantic colors */
+  --ring: 0 84.2% 60.2%;
+
+  /* Brand gradient */
+  --gradient-from: #ef4444;
+  --gradient-to: #dc2626;
+
+  /* Chart colors */
+  --chart-1: 0 84% 60%;
+  --chart-2: 4 90% 58%;
+  --chart-3: 9 96% 55%;
+  --chart-4: 15 100% 50%;
+  --chart-5: 350 89% 60%;
+}
+
+.theme-crimson.dark,
+.dark .theme-crimson {
+  --primary: 0 84.2% 70%;
+  --primary-foreground: 0 84% 10%;
+}
+
+/* ==========================================
+   TEAL THEME
+   Balanced, sophisticated, versatile
+   ========================================== */
+.theme-teal {
+  --theme-name: 'Teal';
+
+  /* Primary Colors */
+  --primary: 173 80% 40%;
+  --primary-foreground: 166 84% 95%;
+
+  /* Override semantic colors */
+  --ring: 173 80% 40%;
+
+  /* Brand gradient */
+  --gradient-from: #14b8a6;
+  --gradient-to: #0d9488;
+
+  /* Chart colors */
+  --chart-1: 173 80% 40%;
+  --chart-2: 167 85% 45%;
+  --chart-3: 160 84% 39%;
+  --chart-4: 180 75% 35%;
+  --chart-5: 186 70% 32%;
+}
+
+.theme-teal.dark,
+.dark .theme-teal {
+  --primary: 173 80% 55%;
+  --primary-foreground: 173 80% 10%;
+}
+
+/* ==========================================
+   INDIGO THEME
+   Deep, intellectual, authoritative
+   ========================================== */
+.theme-indigo {
+  --theme-name: 'Indigo';
+
+  /* Primary Colors */
+  --primary: 238.7 83.5% 66.7%;
+  --primary-foreground: 241 100% 97%;
+
+  /* Override semantic colors */
+  --ring: 238.7 83.5% 66.7%;
+
+  /* Brand gradient */
+  --gradient-from: #6366f1;
+  --gradient-to: #4f46e5;
+
+  /* Chart colors */
+  --chart-1: 239 84% 67%;
+  --chart-2: 245 80% 72%;
+  --chart-3: 250 75% 60%;
+  --chart-4: 255 70% 55%;
+  --chart-5: 230 85% 65%;
+}
+
+.theme-indigo.dark,
+.dark .theme-indigo {
+  --primary: 238.7 83.5% 75%;
+  --primary-foreground: 238 84% 10%;
+}
+
+/* ==========================================
+   LIME THEME
+   Energetic, fresh, youthful
+   ========================================== */
+.theme-lime {
+  --theme-name: 'Lime';
+
+  /* Primary Colors */
+  --primary: 82.7 78% 55.5%;
+  --primary-foreground: 86 100% 10%;
+
+  /* Override semantic colors */
+  --ring: 82.7 78% 55.5%;
+
+  /* Brand gradient */
+  --gradient-from: #84cc16;
+  --gradient-to: #65a30d;
+
+  /* Chart colors */
+  --chart-1: 83 78% 55%;
+  --chart-2: 90 76% 50%;
+  --chart-3: 100 77% 44%;
+  --chart-4: 120 65% 40%;
+  --chart-5: 142 76% 36%;
+}
+
+.theme-lime.dark,
+.dark .theme-lime {
+  --primary: 82.7 78% 65%;
+  --primary-foreground: 83 78% 10%;
+}
+
+/* ==========================================
+   FUCHSIA THEME
+   Bold, playful, expressive
+   ========================================== */
+.theme-fuchsia {
+  --theme-name: 'Fuchsia';
+
+  /* Primary Colors */
+  --primary: 292.2 91.4% 72.5%;
+  --primary-foreground: 294 100% 10%;
+
+  /* Override semantic colors */
+  --ring: 292.2 91.4% 72.5%;
+
+  /* Brand gradient */
+  --gradient-from: #e879f9;
+  --gradient-to: #d946ef;
+
+  /* Chart colors */
+  --chart-1: 292 91% 73%;
+  --chart-2: 300 85% 65%;
+  --chart-3: 308 80% 58%;
+  --chart-4: 316 75% 52%;
+  --chart-5: 280 90% 65%;
+}
+
+.theme-fuchsia.dark,
+.dark .theme-fuchsia {
+  --primary: 292.2 91.4% 80%;
+  --primary-foreground: 292 91% 10%;
+}

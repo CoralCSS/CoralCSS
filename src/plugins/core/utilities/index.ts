@@ -19,6 +19,8 @@ export { transformsPlugin } from './transforms'
 export { transitionsPlugin } from './transitions'
 export { interactivityPlugin } from './interactivity'
 export { backgroundsPlugin } from './backgrounds'
+export { accessibilityPlugin } from './accessibility'
+export { svgPlugin } from './svg'
 
 import type { Plugin } from '../../../types'
 
@@ -36,6 +38,8 @@ import { transformsPlugin } from './transforms'
 import { transitionsPlugin } from './transitions'
 import { interactivityPlugin } from './interactivity'
 import { backgroundsPlugin } from './backgrounds'
+import { accessibilityPlugin } from './accessibility'
+import { svgPlugin } from './svg'
 
 /**
  * Get all core utility plugins
@@ -56,6 +60,8 @@ export function coreUtilitiesPlugins(): Plugin[] {
     transitionsPlugin(),
     interactivityPlugin(),
     backgroundsPlugin(),
+    accessibilityPlugin(),
+    svgPlugin(),
   ]
 }
 

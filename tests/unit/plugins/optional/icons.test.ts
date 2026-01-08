@@ -33,8 +33,9 @@ describe('iconsPlugin', () => {
 
   it('should not throw when install is called', () => {
     const plugin = iconsPlugin()
+    const mockApi = { addRule: () => {}, addRules: () => {}, addVariant: () => {}, addVariants: () => {}, extendTheme: () => {} }
 
-    expect(() => plugin.install()).not.toThrow()
+    expect(() => plugin.install(mockApi as never)).not.toThrow()
   })
 
   it('should export default', () => {

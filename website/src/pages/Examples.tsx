@@ -103,10 +103,10 @@ function Examples() {
   ]
 
   return (
-    <div className="py-12">
+    <div className="pt-28 pb-12">
       <div className="container">
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">Examples</h1>
-        <p className="text-lg text-slate-600 mb-8">
+        <h1 className="text-4xl font-bold text-foreground mb-4">Examples</h1>
+        <p className="text-lg text-muted-foreground mb-8">
           Learn CoralCSS through practical examples covering utilities, components, and integrations.
         </p>
 
@@ -115,13 +115,20 @@ function Examples() {
             <a
               key={index}
               href={example.href}
-              className="feature-card block"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 bg-card rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
             >
-              <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center font-medium text-sm mb-4">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                 {String(index + 1).padStart(2, '0')}
               </div>
-              <h3 className="text-lg font-semibold text-slate-800 mb-2">{example.title}</h3>
-              <p className="text-slate-600 text-sm">{example.description}</p>
+              <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors flex items-center gap-2">
+                {example.title}
+                <svg className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </h3>
+              <p className="text-muted-foreground text-sm">{example.description}</p>
             </a>
           ))}
         </div>

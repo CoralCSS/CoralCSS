@@ -38,7 +38,7 @@ describe('CSS Utilities', () => {
     })
 
     it('should skip null and undefined values', () => {
-      const result = serializeProperties({ padding: '1rem', margin: null, color: undefined })
+      const result = serializeProperties({ padding: '1rem', margin: null as unknown as string, color: undefined as unknown as string })
       expect(result).toBe('padding: 1rem;')
     })
 

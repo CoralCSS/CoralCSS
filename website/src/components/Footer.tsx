@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
-    <footer className="bg-slate-900 text-white">
+    <footer className="footer-bg text-foreground">
       <div className="container py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
@@ -11,23 +11,23 @@ function Footer() {
               <svg width="32" height="32" viewBox="0 0 36 36" fill="none">
                 <defs>
                   <linearGradient id="coral-logo-footer" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#ff7f50" />
-                    <stop offset="100%" stopColor="#ea580c" />
+                    <stop offset="0%" stopColor="hsl(var(--primary))" />
+                    <stop offset="100%" stopColor="hsl(var(--primary) / 0.7)" />
                   </linearGradient>
                 </defs>
                 <circle cx="18" cy="18" r="16" fill="url(#coral-logo-footer)" />
                 <path
                   d="M18 8C12.477 8 8 12.477 8 18s4.477 10 10 10c2.5 0 4.8-.9 6.5-2.5"
-                  stroke="white"
+                  stroke="hsl(var(--primary-foreground))"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   fill="none"
                 />
-                <circle cx="18" cy="18" r="4" fill="white" />
+                <circle cx="18" cy="18" r="4" fill="hsl(var(--primary-foreground))" />
               </svg>
               <span className="text-xl font-bold">CoralCSS</span>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               A modern, zero-dependency CSS framework with utility-first classes,
               headless components, and first-class modern CSS features.
             </p>
@@ -35,25 +35,25 @@ function Footer() {
 
           {/* Documentation */}
           <div>
-            <h3 className="font-semibold mb-4 text-coral-400">Documentation</h3>
-            <ul className="flex flex-col gap-3 text-sm text-slate-400">
+            <h3 className="font-semibold mb-4 text-primary">Documentation</h3>
+            <ul className="flex flex-col gap-3 text-sm text-muted-foreground">
               <li>
-                <Link to="/docs" className="hover:text-white transition">
+                <Link to="/docs" className="hover:text-primary transition">
                   Getting Started
                 </Link>
               </li>
               <li>
-                <Link to="/docs#utilities" className="hover:text-white transition">
+                <Link to="/docs#utilities" className="hover:text-primary transition">
                   Utility Classes
                 </Link>
               </li>
               <li>
-                <Link to="/docs#components" className="hover:text-white transition">
+                <Link to="/docs#components" className="hover:text-primary transition">
                   Components
                 </Link>
               </li>
               <li>
-                <Link to="/docs#themes" className="hover:text-white transition">
+                <Link to="/docs#themes" className="hover:text-primary transition">
                   Theming
                 </Link>
               </li>
@@ -62,19 +62,19 @@ function Footer() {
 
           {/* Resources */}
           <div>
-            <h3 className="font-semibold mb-4 text-coral-400">Resources</h3>
-            <ul className="flex flex-col gap-3 text-sm text-slate-400">
+            <h3 className="font-semibold mb-4 text-primary">Resources</h3>
+            <ul className="flex flex-col gap-3 text-sm text-muted-foreground">
               <li>
-                <Link to="/examples" className="hover:text-white transition">
+                <Link to="/examples" className="hover:text-primary transition">
                   Examples
                 </Link>
               </li>
               <li>
                 <a
-                  href="https://github.com/nicholasxjy/CoralCSS"
+                  href="https://github.com/ersinkoc/CoralCSS"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition"
+                  className="hover:text-primary transition"
                 >
                   GitHub
                 </a>
@@ -84,17 +84,17 @@ function Footer() {
                   href="https://www.npmjs.com/package/@coralcss/core"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition"
+                  className="hover:text-primary transition"
                 >
                   npm
                 </a>
               </li>
               <li>
                 <a
-                  href="https://github.com/nicholasxjy/CoralCSS/blob/main/CHANGELOG.md"
+                  href="https://github.com/ersinkoc/CoralCSS/blob/main/CHANGELOG.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition"
+                  className="hover:text-primary transition"
                 >
                   Changelog
                 </a>
@@ -104,24 +104,24 @@ function Footer() {
 
           {/* Community */}
           <div>
-            <h3 className="font-semibold mb-4 text-coral-400">Community</h3>
-            <ul className="flex flex-col gap-3 text-sm text-slate-400">
+            <h3 className="font-semibold mb-4 text-primary">Community</h3>
+            <ul className="flex flex-col gap-3 text-sm text-muted-foreground">
               <li>
                 <a
-                  href="https://github.com/nicholasxjy/CoralCSS/discussions"
+                  href="https://github.com/ersinkoc/CoralCSS/discussions"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition"
+                  className="hover:text-primary transition"
                 >
                   Discussions
                 </a>
               </li>
               <li>
                 <a
-                  href="https://github.com/nicholasxjy/CoralCSS/issues"
+                  href="https://github.com/ersinkoc/CoralCSS/issues"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition"
+                  className="hover:text-primary transition"
                 >
                   Issues
                 </a>
@@ -131,7 +131,7 @@ function Footer() {
                   href="https://twitter.com/coralcss"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition"
+                  className="hover:text-primary transition"
                 >
                   Twitter
                 </a>
@@ -141,16 +141,16 @@ function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-slate-500">
+        <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-muted-foreground">
             MIT License. Made with love for the modern web.
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/nicholasxjy/CoralCSS"
+              href="https://github.com/ersinkoc/CoralCSS"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-500 hover:text-white transition"
+              className="text-muted-foreground hover:text-primary transition"
               aria-label="GitHub"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -161,7 +161,7 @@ function Footer() {
               href="https://twitter.com/coralcss"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-500 hover:text-white transition"
+              className="text-muted-foreground hover:text-primary transition"
               aria-label="Twitter"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

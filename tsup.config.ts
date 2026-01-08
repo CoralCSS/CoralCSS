@@ -84,6 +84,7 @@ export default defineConfig([
     },
     format: ['iife'],
     globalName: 'Coral',
+    dts: false,
     minify: true,
     sourcemap: false,
     outDir: 'dist',

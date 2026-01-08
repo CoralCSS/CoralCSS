@@ -455,7 +455,7 @@ describe('DOM Utilities', () => {
 
       dispatchCustomEvent(container, 'my-event', { foo: 'bar' })
 
-      expect(handler.mock.calls[0][0].detail).toEqual({ foo: 'bar' })
+      expect(handler.mock.calls[0]?.[0].detail).toEqual({ foo: 'bar' })
     })
   })
 
