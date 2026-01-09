@@ -119,7 +119,7 @@ export class Chip extends BaseComponent {
 
   toggleSelection(): void {
     const state = this.state as ChipState
-    if (state.disabled) return
+    if (state.disabled) {return}
 
     this.setState({ selected: !state.selected })
     this.dispatch('selection-change', { selected: !state.selected })

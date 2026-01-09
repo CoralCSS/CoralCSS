@@ -97,7 +97,7 @@ export class RangeSlider extends BaseComponent {
     // Track click
     if (this.track) {
       const handleTrackClick = (e: Event) => {
-        if ((this.state as RangeSliderState).disabled) return
+        if ((this.state as RangeSliderState).disabled) {return}
         if ((e.target as HTMLElement).hasAttribute('data-coral-range-slider-min') ||
             (e.target as HTMLElement).hasAttribute('data-coral-range-slider-max')) {
           return
@@ -119,7 +119,7 @@ export class RangeSlider extends BaseComponent {
 
     // Keyboard on handles
     [this.minHandle, this.maxHandle].forEach((handle, index) => {
-      if (!handle) return
+      if (!handle) {return}
       const type = index === 0 ? 'min' : 'max'
 
       handle.setAttribute('role', 'slider')
@@ -128,7 +128,7 @@ export class RangeSlider extends BaseComponent {
       this.updateHandleAria(handle, type)
 
       const handleKeydown = (e: Event) => {
-        if ((this.state as RangeSliderState).disabled) return
+        if ((this.state as RangeSliderState).disabled) {return}
         const ke = e as KeyboardEvent
         const config = this.config as RangeSliderConfig
         const state = this.state as RangeSliderState
@@ -164,7 +164,7 @@ export class RangeSlider extends BaseComponent {
   }
 
   private createHandles(): void {
-    if (!this.track) return
+    if (!this.track) {return}
 
     // Create filled track
     this.filledTrack = document.createElement('div')
@@ -200,7 +200,7 @@ export class RangeSlider extends BaseComponent {
     let isDragging = false
 
     const handleStart = (e: Event) => {
-      if ((this.state as RangeSliderState).disabled) return
+      if ((this.state as RangeSliderState).disabled) {return}
       e.preventDefault()
       isDragging = true
       this.setState({ activeHandle: type })
@@ -208,7 +208,7 @@ export class RangeSlider extends BaseComponent {
     }
 
     const handleMove = (e: MouseEvent | TouchEvent) => {
-      if (!isDragging) return
+      if (!isDragging) {return}
       const value = this.getValueFromEvent(e)
 
       if (type === 'min') {
@@ -238,7 +238,7 @@ export class RangeSlider extends BaseComponent {
   }
 
   private getValueFromEvent(e: MouseEvent | TouchEvent): number {
-    if (!this.track) return 0
+    if (!this.track) {return 0}
 
     const config = this.config as RangeSliderConfig
     const rect = this.track.getBoundingClientRect()

@@ -111,11 +111,11 @@ export class Resizable extends BaseComponent {
         let delta = 0
 
         if (config.direction === 'horizontal') {
-          if (ke.key === 'ArrowLeft') delta = -step
-          if (ke.key === 'ArrowRight') delta = step
+          if (ke.key === 'ArrowLeft') {delta = -step}
+          if (ke.key === 'ArrowRight') {delta = step}
         } else {
-          if (ke.key === 'ArrowUp') delta = -step
-          if (ke.key === 'ArrowDown') delta = step
+          if (ke.key === 'ArrowUp') {delta = -step}
+          if (ke.key === 'ArrowDown') {delta = step}
         }
 
         if (ke.key === 'Home') {
@@ -142,7 +142,7 @@ export class Resizable extends BaseComponent {
     // Global mouse/touch move and up
     const handleMove = (e: MouseEvent | TouchEvent) => {
       const state = this.state as ResizableState
-      if (!state.isDragging) return
+      if (!state.isDragging) {return}
 
       const config = this.config as ResizableConfig
       let currentPos: number
@@ -151,7 +151,7 @@ export class Resizable extends BaseComponent {
         currentPos = config.direction === 'horizontal' ? e.clientX : e.clientY
       } else {
         const touch = e.touches[0]
-        if (!touch) return
+        if (!touch) {return}
         currentPos = config.direction === 'horizontal' ? touch.clientX : touch.clientY
       }
 

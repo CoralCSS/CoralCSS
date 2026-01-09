@@ -215,7 +215,7 @@ export class Drawer extends BaseComponent {
    * Open the drawer
    */
   override open(): void {
-    if (this.state.isOpen || this.state.isAnimating) return
+    if (this.state.isOpen || this.state.isAnimating) {return}
 
     // Store active element
     this.state.previousActiveElement = document.activeElement
@@ -253,7 +253,7 @@ export class Drawer extends BaseComponent {
    * Close the drawer
    */
   override close(): void {
-    if (!this.state.isOpen || this.state.isAnimating) return
+    if (!this.state.isOpen || this.state.isAnimating) {return}
 
     this.setState({ isAnimating: true })
     this.element.setAttribute('data-closing', '')

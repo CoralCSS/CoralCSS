@@ -261,7 +261,7 @@ export class Sidebar extends BaseComponent {
     const group = trigger.closest('[data-coral-sidebar-group]')
     const content = group?.querySelector<HTMLElement>('[data-coral-sidebar-group-content]')
 
-    if (!content) return
+    if (!content) {return}
 
     const isExpanded = trigger.getAttribute('aria-expanded') === 'true'
     trigger.setAttribute('aria-expanded', String(!isExpanded))
@@ -292,7 +292,7 @@ export class Sidebar extends BaseComponent {
    * Collapse sidebar
    */
   collapse(): void {
-    if (!this.config.collapsible || this.state.collapsed) return
+    if (!this.config.collapsible || this.state.collapsed) {return}
     this.setState({ collapsed: true })
     this.dispatch('collapse')
   }
@@ -301,7 +301,7 @@ export class Sidebar extends BaseComponent {
    * Expand sidebar
    */
   expand(): void {
-    if (!this.config.collapsible || !this.state.collapsed) return
+    if (!this.config.collapsible || !this.state.collapsed) {return}
     this.setState({ collapsed: false })
     this.dispatch('expand')
   }
@@ -317,7 +317,7 @@ export class Sidebar extends BaseComponent {
    * Open mobile sidebar
    */
   openMobile(): void {
-    if (this.state.mobileOpen) return
+    if (this.state.mobileOpen) {return}
     this.setState({ mobileOpen: true })
     this.lockScroll()
     this.dispatch('mobile-open')
@@ -327,7 +327,7 @@ export class Sidebar extends BaseComponent {
    * Close mobile sidebar
    */
   closeMobile(): void {
-    if (!this.state.mobileOpen) return
+    if (!this.state.mobileOpen) {return}
     this.setState({ mobileOpen: false })
     this.unlockScroll()
     this.dispatch('mobile-close')

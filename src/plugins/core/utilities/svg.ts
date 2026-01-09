@@ -53,7 +53,7 @@ export function svgPlugin(): Plugin {
         pattern: /^fill-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { fill: v } }
         },
       })
@@ -93,7 +93,7 @@ export function svgPlugin(): Plugin {
         pattern: /^stroke-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           // Check if it's a width value (number or px)
           if (/^\d/.test(v)) {
             return null // Let stroke-width handle it
@@ -112,7 +112,7 @@ export function svgPlugin(): Plugin {
         pattern: /^stroke-\[(\d+(?:\.\d+)?(?:px|rem|em)?)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'stroke-width': v } }
         },
       })
@@ -140,7 +140,7 @@ export function svgPlugin(): Plugin {
         pattern: /^stroke-dash-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'stroke-dasharray': v } }
         },
       })
@@ -155,7 +155,7 @@ export function svgPlugin(): Plugin {
         pattern: /^stroke-dashoffset-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'stroke-dashoffset': v } }
         },
       })

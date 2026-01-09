@@ -100,7 +100,7 @@ export class Table extends BaseComponent {
     // Sort headers
     if (config.sortable) {
       this.headers.forEach((header) => {
-        if (header.dataset.sortable === 'false') return
+        if (header.dataset.sortable === 'false') {return}
 
         const handleSort = () => {
           const column = header.dataset.column

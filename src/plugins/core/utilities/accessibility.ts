@@ -173,7 +173,7 @@ export function accessibilityPlugin(): Plugin {
         pattern: /^caret-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'caret-color': v } }
         },
       })
@@ -201,7 +201,7 @@ export function accessibilityPlugin(): Plugin {
         pattern: /^will-change-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'will-change': v } }
         },
       })
@@ -221,7 +221,7 @@ export function accessibilityPlugin(): Plugin {
         pattern: /^content-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           // Handle special quotes
           const content = v.startsWith("'") || v.startsWith('"') ? v : `"${v}"`
           return { properties: { content } }

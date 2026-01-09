@@ -228,7 +228,7 @@ export class Navbar extends BaseComponent {
    * Open mobile menu
    */
   openMobileMenu(): void {
-    if (this.state.mobileMenuOpen) return
+    if (this.state.mobileMenuOpen) {return}
     this.setState({ mobileMenuOpen: true })
     this.dispatch('mobile-open')
   }
@@ -237,7 +237,7 @@ export class Navbar extends BaseComponent {
    * Close mobile menu
    */
   closeMobileMenu(): void {
-    if (!this.state.mobileMenuOpen) return
+    if (!this.state.mobileMenuOpen) {return}
     this.setState({ mobileMenuOpen: false })
     this.dispatch('mobile-close')
   }

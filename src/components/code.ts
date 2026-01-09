@@ -81,7 +81,7 @@ export class Code extends BaseComponent {
   }
 
   private addLineNumbers(): void {
-    if (!this.codeEl) return
+    if (!this.codeEl) {return}
 
     const config = this.config as CodeConfig
     const lines = this.codeEl.textContent?.split('\n') || []
@@ -133,7 +133,7 @@ export class Code extends BaseComponent {
   }
 
   async copyToClipboard(): Promise<boolean> {
-    if (!this.codeEl) return false
+    if (!this.codeEl) {return false}
 
     const code = this.codeEl.textContent || ''
 

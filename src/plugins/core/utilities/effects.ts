@@ -74,7 +74,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^shadow-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return {
             properties: {
               '--coral-shadow': value,
@@ -120,7 +120,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^mask-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'mask-image': v } }
         },
       })
@@ -134,7 +134,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^mask-size-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'mask-size': v } }
         },
       })
@@ -158,7 +158,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^mask-position-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'mask-position': v } }
         },
       })
@@ -220,7 +220,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^clip-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'clip-path': v } }
         },
       })
@@ -243,7 +243,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^shape-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'shape-outside': v } }
         },
       })
@@ -261,7 +261,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^shape-margin-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'shape-margin': v } }
         },
       })
@@ -279,7 +279,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^shape-threshold-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'shape-image-threshold': v } }
         },
       })
@@ -315,7 +315,7 @@ export function effectsPlugin(): Plugin {
         pattern: /^object-view-box-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'object-view-box': v } }
         },
       })

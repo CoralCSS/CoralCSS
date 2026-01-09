@@ -89,7 +89,7 @@ export class Stepper extends BaseComponent {
   }
 
   goToStep(step: number): void {
-    if (step < 0 || step >= this.steps.length) return
+    if (step < 0 || step >= this.steps.length) {return}
 
     const state = this.state as StepperState
     const prevStep = state.currentStep

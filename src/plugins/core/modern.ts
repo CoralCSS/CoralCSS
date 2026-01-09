@@ -10,7 +10,7 @@ import type { Plugin, Rule, PluginContext } from '../../types'
 /**
  * Helper to generate rule name from pattern
  */
-function getRuleName(pattern: RegExp | string): string {
+function _getRuleName(pattern: RegExp | string): string {
   if (typeof pattern === 'string') {
     return pattern
   }
@@ -74,7 +74,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^position-area-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'position-area': value } }
         },
       })
@@ -148,7 +148,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^animation-range-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'animation-range': value } }
         },
       })
@@ -185,7 +185,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^view-timeline-inset-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'view-timeline-inset': value } }
         },
       })
@@ -200,7 +200,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^view-transition-name-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'view-transition-name': value } }
         },
       })
@@ -212,7 +212,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^view-transition-class-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'view-transition-class': value } }
         },
       })
@@ -233,7 +233,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^container-name-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'container-name': value } }
         },
       })
@@ -244,7 +244,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^container-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { container: value } }
         },
       })
@@ -339,7 +339,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^@style-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           // For style queries like @container style(--variant: primary)
           return { properties: { '--coral-style-query': value } }
         },
@@ -358,7 +358,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^scope-start-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { '--coral-scope-start': value } }
         },
       })
@@ -367,7 +367,7 @@ export function modernCSSPlugin(): Plugin {
         pattern: /^scope-end-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { '--coral-scope-end': value } }
         },
       })

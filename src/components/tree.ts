@@ -108,7 +108,7 @@ export class Tree extends BaseComponent {
       const ke = e as KeyboardEvent
       const state = this.state as TreeState
       const focusedId = state.focusedNode
-      if (!focusedId) return
+      if (!focusedId) {return}
 
       switch (ke.key) {
         case 'ArrowDown':

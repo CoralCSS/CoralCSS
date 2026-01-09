@@ -369,7 +369,7 @@ export function animationsPlugin(options: AnimationsPluginOptions = {}): Plugin 
     attention = true,
     loading = true,
     scroll = true,
-    customKeyframes = {},
+    customKeyframes: _customKeyframes = {},
   } = options
 
   return {
@@ -529,7 +529,7 @@ export function animationsPlugin(options: AnimationsPluginOptions = {}): Plugin 
         pattern: /^animate-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { animation: v.replace(/_/g, ' ') } }
         },
       })
@@ -539,7 +539,7 @@ export function animationsPlugin(options: AnimationsPluginOptions = {}): Plugin 
         pattern: /^duration-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'animation-duration': v } }
         },
       })
@@ -549,7 +549,7 @@ export function animationsPlugin(options: AnimationsPluginOptions = {}): Plugin 
         pattern: /^delay-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'animation-delay': v } }
         },
       })

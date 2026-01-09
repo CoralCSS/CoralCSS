@@ -108,7 +108,7 @@ export class DatePicker extends BaseComponent {
 
     // Close on outside click
     const handleOutsideClick = (e: Event) => {
-      if (!(this.state as DatePickerState).isOpen) return
+      if (!(this.state as DatePickerState).isOpen) {return}
       if (!this.element.contains(e.target as Node)) {
         this.close()
       }
@@ -143,7 +143,7 @@ export class DatePicker extends BaseComponent {
   }
 
   private renderCalendar(): void {
-    if (!this.calendar) return
+    if (!this.calendar) {return}
 
     const state = this.state as DatePickerState
     const config = this.config as DatePickerConfig
@@ -234,12 +234,12 @@ export class DatePicker extends BaseComponent {
 
     if (config.minDate) {
       const min = typeof config.minDate === 'string' ? new Date(config.minDate) : config.minDate
-      if (date < min) return true
+      if (date < min) {return true}
     }
 
     if (config.maxDate) {
       const max = typeof config.maxDate === 'string' ? new Date(config.maxDate) : config.maxDate
-      if (date > max) return true
+      if (date > max) {return true}
     }
 
     return false
@@ -265,7 +265,7 @@ export class DatePicker extends BaseComponent {
   }
 
   override open(): void {
-    if ((this.state as DatePickerState).disabled) return
+    if ((this.state as DatePickerState).disabled) {return}
     this.setState({ isOpen: true })
     this.dispatch('open')
   }
@@ -325,7 +325,7 @@ export class DatePicker extends BaseComponent {
 
   setDisabled(disabled: boolean): void {
     this.setState({ disabled })
-    if (disabled) this.close()
+    if (disabled) {this.close()}
   }
 }
 

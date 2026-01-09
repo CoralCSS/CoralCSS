@@ -46,7 +46,7 @@ export function responsiveVariantsPlugin(): Plugin {
       for (let i = 0; i < breakpointNames.length - 1; i++) {
         const minName = breakpointNames[i]
         const maxName = breakpointNames[i + 1]
-        if (!minName || !maxName) continue
+        if (!minName || !maxName) {continue}
         const minWidth = screens[minName]
         const maxWidth = `${parseInt(screens[maxName], 10) - 1}px`
 

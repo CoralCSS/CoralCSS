@@ -130,7 +130,7 @@ export class ColorPicker extends BaseComponent {
 
     // Close on outside click
     const handleOutsideClick = (e: Event) => {
-      if (!(this.state as ColorPickerState).isOpen) return
+      if (!(this.state as ColorPickerState).isOpen) {return}
       if (!this.element.contains(e.target as Node)) {
         this.close()
       }
@@ -178,7 +178,7 @@ export class ColorPicker extends BaseComponent {
   }
 
   private setupSaturationPanel(): void {
-    if (!this.saturationPanel) return
+    if (!this.saturationPanel) {return}
 
     let isDragging = false
 
@@ -246,7 +246,7 @@ export class ColorPicker extends BaseComponent {
 
   private hexToHsl(hex: string): { h: number; s: number; l: number } {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-    if (!result) return { h: 0, s: 100, l: 50 }
+    if (!result) {return { h: 0, s: 100, l: 50 }}
 
     const r = parseInt(result[1]!, 16) / 255
     const g = parseInt(result[2]!, 16) / 255
@@ -288,11 +288,11 @@ export class ColorPicker extends BaseComponent {
       r = g = b = l
     } else {
       const hue2rgb = (p: number, q: number, t: number) => {
-        if (t < 0) t += 1
-        if (t > 1) t -= 1
-        if (t < 1/6) return p + (q - p) * 6 * t
-        if (t < 1/2) return q
-        if (t < 2/3) return p + (q - p) * (2/3 - t) * 6
+        if (t < 0) {t += 1}
+        if (t > 1) {t -= 1}
+        if (t < 1/6) {return p + (q - p) * 6 * t}
+        if (t < 1/2) {return q}
+        if (t < 2/3) {return p + (q - p) * (2/3 - t) * 6}
         return p
       }
 
@@ -336,7 +336,7 @@ export class ColorPicker extends BaseComponent {
   }
 
   override open(): void {
-    if ((this.state as ColorPickerState).disabled) return
+    if ((this.state as ColorPickerState).disabled) {return}
     this.setState({ isOpen: true })
     this.dispatch('open')
   }
@@ -371,7 +371,7 @@ export class ColorPicker extends BaseComponent {
 
   setDisabled(disabled: boolean): void {
     this.setState({ disabled })
-    if (disabled) this.close()
+    if (disabled) {this.close()}
   }
 }
 

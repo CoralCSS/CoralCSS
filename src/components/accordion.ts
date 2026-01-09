@@ -207,7 +207,7 @@ export class Accordion extends BaseComponent {
    * Open a panel by index
    */
   openPanel(index: number): void {
-    if (index < 0 || index >= this.panels.length) return
+    if (index < 0 || index >= this.panels.length) { return }
 
     const newOpenPanels = new Set(this.state.openPanels)
 
@@ -226,8 +226,8 @@ export class Accordion extends BaseComponent {
    * Close a panel by index
    */
   closePanel(index: number): void {
-    if (index < 0 || index >= this.panels.length) return
-    if (!this.state.openPanels.has(index)) return
+    if (index < 0 || index >= this.panels.length) {return}
+    if (!this.state.openPanels.has(index)) {return}
 
     const newOpenPanels = new Set(this.state.openPanels)
     newOpenPanels.delete(index)
@@ -276,7 +276,7 @@ export class Accordion extends BaseComponent {
    * Open all panels (only works when multiple is true)
    */
   openAll(): void {
-    if (!this.config.multiple) return
+    if (!this.config.multiple) {return}
 
     const newOpenPanels = new Set<number>()
     this.panels.forEach((_, index) => newOpenPanels.add(index))
@@ -289,7 +289,7 @@ export class Accordion extends BaseComponent {
    * Close all panels
    */
   closeAll(): void {
-    if (!this.config.collapsible) return
+    if (!this.config.collapsible) {return}
 
     this.setState({ openPanels: new Set() })
     this.dispatch('closeAll')

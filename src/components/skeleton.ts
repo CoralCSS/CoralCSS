@@ -115,9 +115,9 @@ export class Skeleton extends BaseComponent {
     const animation = this.element.dataset.animation as SkeletonAnimation
     const lines = this.element.dataset.lines
 
-    if (variant) this.config.variant = variant
-    if (animation) this.config.animation = animation
-    if (lines) this.config.lines = parseInt(lines, 10)
+    if (variant) {this.config.variant = variant}
+    if (animation) {this.config.animation = animation}
+    if (lines) {this.config.lines = parseInt(lines, 10)}
 
     // Store original content
     if (this.element.children.length > 0) {

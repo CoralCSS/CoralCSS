@@ -74,7 +74,7 @@ export class DOMObserver {
    * Start observing the DOM
    */
   start(): void {
-    if (this.observer) return
+    if (this.observer) {return}
 
     // Scan existing classes first
     this.scanExisting()
@@ -191,7 +191,7 @@ export class DOMObserver {
    * Process detected classes
    */
   private processClasses(classes: string[]): void {
-    if (classes.length === 0) return
+    if (classes.length === 0) {return}
 
     // Generate CSS for new classes
     this.coral.generate(classes)

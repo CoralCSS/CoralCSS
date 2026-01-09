@@ -307,15 +307,15 @@ export class Slider extends BaseComponent {
         newValue = isVertical
           ? (e.key === 'ArrowUp' ? currentValue + (step ?? 1) : currentValue)
           : (e.key === 'ArrowRight' ? currentValue + (step ?? 1) : currentValue)
-        if (e.key === 'ArrowRight' && !isVertical) newValue = currentValue + (step ?? 1)
-        if (e.key === 'ArrowUp' && isVertical) newValue = currentValue + (step ?? 1)
+        if (e.key === 'ArrowRight' && !isVertical) {newValue = currentValue + (step ?? 1)}
+        if (e.key === 'ArrowUp' && isVertical) {newValue = currentValue + (step ?? 1)}
         break
 
       case 'ArrowLeft':
       case 'ArrowDown':
         e.preventDefault()
-        if (e.key === 'ArrowLeft' && !isVertical) newValue = currentValue - (step ?? 1)
-        if (e.key === 'ArrowDown' && isVertical) newValue = currentValue - (step ?? 1)
+        if (e.key === 'ArrowLeft' && !isVertical) {newValue = currentValue - (step ?? 1)}
+        if (e.key === 'ArrowDown' && isVertical) {newValue = currentValue - (step ?? 1)}
         break
 
       case 'PageUp':
@@ -346,7 +346,7 @@ export class Slider extends BaseComponent {
   }
 
   private getValueFromEvent(e: MouseEvent | TouchEvent): number {
-    if (!this.track) return this.config.min ?? 0
+    if (!this.track) {return this.config.min ?? 0}
 
     const rect = this.track.getBoundingClientRect()
     const isVertical = this.config.orientation === 'vertical'
@@ -430,7 +430,7 @@ export class Slider extends BaseComponent {
   }
 
   private updateVisuals(): void {
-    if (!this.track) return
+    if (!this.track) {return}
 
     const { min, max, orientation } = this.config
     const minVal = min ?? 0

@@ -89,8 +89,8 @@ describe('Build Integration', () => {
     })
 
     it('should export CDN bundle', async () => {
-      const { CoralCDN, getCoralCDN } = await import('../../src/runtime/cdn')
-      expect(CoralCDN).toBeDefined()
+      const { createCoralCDN, getCoralCDN } = await import('../../src/runtime/cdn')
+      expect(createCoralCDN).toBeDefined()
       expect(getCoralCDN).toBeDefined()
     })
   })

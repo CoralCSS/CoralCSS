@@ -6,7 +6,7 @@
  */
 
 import { dedupeStrings } from '../utils/string'
-import { CLASS_ATTR_PATTERN, TEMPLATE_CLASS_PATTERN } from '../utils/regex'
+// Patterns are used by regex directly in the code below
 
 /**
  * Extractor options

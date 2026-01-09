@@ -261,7 +261,7 @@ export class ContextMenu extends BaseComponent {
   }
 
   private buildMenu(items: ContextMenuItem[]): void {
-    if (!this.menu) return
+    if (!this.menu) {return}
 
     this.menu.innerHTML = ''
 
@@ -470,7 +470,7 @@ export class ContextMenu extends BaseComponent {
 
   private selectItem(index: number): void {
     const item = this.itemElements[index]
-    if (!item || item.hasAttribute('disabled')) return
+    if (!item || item.hasAttribute('disabled')) {return}
 
     // Execute action if exists
     const action = (item as HTMLElement & { _action?: () => void })._action
@@ -490,7 +490,7 @@ export class ContextMenu extends BaseComponent {
   }
 
   private positionMenu(x: number, y: number): void {
-    if (!this.menu) return
+    if (!this.menu) {return}
 
     const offset = this.config.offset ?? 2
     const menuRect = this.menu.getBoundingClientRect()
@@ -521,7 +521,7 @@ export class ContextMenu extends BaseComponent {
   }
 
   protected override render(): void {
-    if (!this.menu) return
+    if (!this.menu) {return}
 
     if (this.state.isOpen) {
       this.menu.style.display = ''
@@ -584,7 +584,7 @@ export class ContextMenu extends BaseComponent {
    * Close context menu
    */
   override close(): void {
-    if (!this.state.isOpen) return
+    if (!this.state.isOpen) {return}
 
     this.setState({ isOpen: false, highlightedIndex: -1, activeSubmenu: null })
 

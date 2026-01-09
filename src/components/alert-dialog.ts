@@ -113,7 +113,7 @@ export class AlertDialog extends BaseComponent {
   }
 
   override open(): void {
-    if (this.state.isOpen) return
+    if (this.state.isOpen) {return}
 
     this.previousActiveElement = document.activeElement as HTMLElement
     this.setState({ isOpen: true, result: undefined })
@@ -131,7 +131,7 @@ export class AlertDialog extends BaseComponent {
   }
 
   override close(): void {
-    if (!this.state.isOpen) return
+    if (!this.state.isOpen) {return}
 
     this.setState({ isOpen: false })
     this.unlockScroll()

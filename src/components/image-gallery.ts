@@ -94,7 +94,7 @@ export class ImageGallery extends BaseComponent {
         const ke = e as KeyboardEvent
         const state = this.state as ImageGalleryState
 
-        if (!state.lightboxOpen) return
+        if (!state.lightboxOpen) {return}
 
         if (ke.key === 'ArrowLeft' || ke.key === 'ArrowUp') {
           e.preventDefault()
@@ -111,7 +111,7 @@ export class ImageGallery extends BaseComponent {
   }
 
   private createLightbox(): void {
-    if (this.lightboxEl) return
+    if (this.lightboxEl) {return}
 
     const config = this.config as ImageGalleryConfig
 
@@ -147,7 +147,7 @@ export class ImageGallery extends BaseComponent {
   }
 
   private renderThumbnails(): void {
-    if (!this.thumbnailsEl) return
+    if (!this.thumbnailsEl) {return}
 
     const state = this.state as ImageGalleryState
     this.thumbnailsEl.innerHTML = ''
@@ -172,12 +172,12 @@ export class ImageGallery extends BaseComponent {
   }
 
   private updateLightbox(): void {
-    if (!this.lightboxEl) return
+    if (!this.lightboxEl) {return}
 
     const state = this.state as ImageGalleryState
     const currentImage = state.images[state.currentIndex]
 
-    if (!currentImage) return
+    if (!currentImage) {return}
 
     const img = this.lightboxEl.querySelector('.gallery-lightbox-image') as HTMLImageElement
     const caption = this.lightboxEl.querySelector('.gallery-lightbox-caption')

@@ -57,7 +57,7 @@ function createColorOpacityRules(
           pattern: new RegExp(`^${prefix}-${colorName}-${shade}/(\\d+)$`),
           handler: (match) => {
             const opacityStr = match[1]
-            if (!opacityStr) return null
+            if (!opacityStr) {return null}
             const opacityValue = parseInt(opacityStr, 10) / 100
             const rgb = hexToRgbValues(hex)
             if (rgb) {
@@ -82,7 +82,7 @@ function createColorOpacityRules(
  */
 function hexToRgbValues(hex: string): { r: number; g: number; b: number } | null {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-  if (!result || !result[1] || !result[2] || !result[3]) return null
+  if (!result || !result[1] || !result[2] || !result[3]) {return null}
   return {
     r: parseInt(result[1], 16),
     g: parseInt(result[2], 16),
@@ -199,7 +199,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'background-color': value } }
         },
       })
@@ -207,7 +207,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^text-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { color: value } }
         },
       })
@@ -215,7 +215,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^border-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'border-color': value } }
         },
       })
@@ -233,7 +233,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^opacity-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { opacity: value } }
         },
       })
@@ -247,7 +247,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'background-color': `oklch(${value})` } }
         },
       })
@@ -255,7 +255,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^text-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { color: `oklch(${value})` } }
         },
       })
@@ -263,7 +263,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^border-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'border-color': `oklch(${value})` } }
         },
       })
@@ -271,7 +271,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^ring-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { '--coral-ring-color': `oklch(${value})` } }
         },
       })
@@ -279,7 +279,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^outline-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'outline-color': `oklch(${value})` } }
         },
       })
@@ -287,7 +287,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^shadow-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { '--coral-shadow-color': `oklch(${value})` } }
         },
       })
@@ -295,7 +295,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^accent-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'accent-color': `oklch(${value})` } }
         },
       })
@@ -303,7 +303,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^caret-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'caret-color': `oklch(${value})` } }
         },
       })
@@ -311,7 +311,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^fill-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { fill: `oklch(${value})` } }
         },
       })
@@ -319,7 +319,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^stroke-oklch-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { stroke: `oklch(${value})` } }
         },
       })
@@ -329,7 +329,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-oklab-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'background-color': `oklab(${value})` } }
         },
       })
@@ -337,7 +337,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^text-oklab-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { color: `oklab(${value})` } }
         },
       })
@@ -345,7 +345,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^border-oklab-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'border-color': `oklab(${value})` } }
         },
       })
@@ -355,7 +355,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-mix-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'background-color': `color-mix(${value})` } }
         },
       })
@@ -363,7 +363,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^text-mix-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { color: `color-mix(${value})` } }
         },
       })
@@ -371,7 +371,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^border-mix-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'border-color': `color-mix(${value})` } }
         },
       })
@@ -485,7 +485,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-from-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           // Supports: from(var(--color) l c h) or similar
           return { properties: { 'background-color': `oklch(from ${value})` } }
         },
@@ -494,7 +494,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^text-from-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { color: `oklch(from ${value})` } }
         },
       })
@@ -507,7 +507,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-light-dark-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           // Expects: light_color,dark_color (space-separated in CSS)
           const colors = value.replace(',', ', ')
           return { properties: { 'background-color': `light-dark(${colors})` } }
@@ -517,7 +517,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^text-light-dark-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           const colors = value.replace(',', ', ')
           return { properties: { color: `light-dark(${colors})` } }
         },
@@ -526,7 +526,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^border-light-dark-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           const colors = value.replace(',', ', ')
           return { properties: { 'border-color': `light-dark(${colors})` } }
         },
@@ -535,7 +535,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^shadow-light-dark-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           const colors = value.replace(',', ', ')
           return { properties: { '--coral-shadow-color': `light-dark(${colors})` } }
         },
@@ -544,7 +544,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^ring-light-dark-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           const colors = value.replace(',', ', ')
           return { properties: { '--coral-ring-color': `light-dark(${colors})` } }
         },
@@ -600,7 +600,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-conic-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'background-image': `conic-gradient(${v})` } }
         },
       })
@@ -624,7 +624,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-repeating-linear-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'background-image': `repeating-linear-gradient(${v})` } }
         },
       })
@@ -632,7 +632,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-repeating-radial-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'background-image': `repeating-radial-gradient(${v})` } }
         },
       })
@@ -640,7 +640,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-repeating-conic-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'background-image': `repeating-conic-gradient(${v})` } }
         },
       })
@@ -650,7 +650,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^gradient-angle-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-gradient-angle': v } }
         },
       })
@@ -673,7 +673,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^calc-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-calc': `calc(${v})` } }
         },
       })
@@ -683,7 +683,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^min-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-min': `min(${v})` } }
         },
       })
@@ -693,7 +693,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^max-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-max': `max(${v})` } }
         },
       })
@@ -703,7 +703,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^clamp-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-clamp': `clamp(${v})` } }
         },
       })
@@ -713,7 +713,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^sin-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-sin': `sin(${v})` } }
         },
       })
@@ -721,7 +721,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^cos-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-cos': `cos(${v})` } }
         },
       })
@@ -729,7 +729,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^tan-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-tan': `tan(${v})` } }
         },
       })
@@ -737,7 +737,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^asin-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-asin': `asin(${v})` } }
         },
       })
@@ -745,7 +745,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^acos-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-acos': `acos(${v})` } }
         },
       })
@@ -753,7 +753,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^atan-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-atan': `atan(${v})` } }
         },
       })
@@ -761,7 +761,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^atan2-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-atan2': `atan2(${v})` } }
         },
       })
@@ -771,7 +771,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^pow-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-pow': `pow(${v})` } }
         },
       })
@@ -779,7 +779,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^sqrt-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-sqrt': `sqrt(${v})` } }
         },
       })
@@ -787,7 +787,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^hypot-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-hypot': `hypot(${v})` } }
         },
       })
@@ -795,7 +795,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^log-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-log': `log(${v})` } }
         },
       })
@@ -803,7 +803,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^exp-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-exp': `exp(${v})` } }
         },
       })
@@ -813,7 +813,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^abs-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-abs': `abs(${v})` } }
         },
       })
@@ -821,7 +821,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^sign-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-sign': `sign(${v})` } }
         },
       })
@@ -831,7 +831,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^round-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-round': `round(${v})` } }
         },
       })
@@ -839,7 +839,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^mod-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-mod': `mod(${v})` } }
         },
       })
@@ -847,7 +847,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^rem-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-rem': `rem(${v})` } }
         },
       })
@@ -960,7 +960,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-stripes-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return {
             properties: {
               '--coral-stripe-size': v,
@@ -1005,7 +1005,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-dots-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           const parts = v.split(',').map(p => p.trim())
           const dotSize = parts[0] || '1px'
           const spacing = parts[1] || '16px'
@@ -1053,7 +1053,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^bg-grid-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return {
             properties: {
               'background-image': 'linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)',
@@ -1213,7 +1213,7 @@ export function colorsPlugin(): Plugin {
         pattern: /^pattern-opacity-(\d+)$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return {
             properties: { '--coral-pattern-opacity': `${parseInt(v, 10) / 100}` },
           }

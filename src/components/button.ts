@@ -294,7 +294,7 @@ export class Button extends BaseComponent {
    * Set loading state
    */
   setLoading(loading: boolean): void {
-    if (this.state.loading === loading) return
+    if (this.state.loading === loading) {return}
     this.setState({ loading })
     this.dispatch('loading', { loading })
   }
@@ -310,7 +310,7 @@ export class Button extends BaseComponent {
    * Set disabled state
    */
   setDisabled(disabled: boolean): void {
-    if (this.state.disabled === disabled) return
+    if (this.state.disabled === disabled) {return}
     this.setState({ disabled })
     this.dispatch('disabled', { disabled })
   }
@@ -441,7 +441,7 @@ export class ButtonGroup extends BaseComponent {
       const buttons = Array.from(this.queryAll<HTMLElement>('[data-coral-button]'))
       const currentIndex = buttons.findIndex(btn => btn === document.activeElement)
 
-      if (currentIndex === -1) return
+      if (currentIndex === -1) {return}
 
       let nextIndex = currentIndex
       const isHorizontal = this.config.orientation !== 'vertical'

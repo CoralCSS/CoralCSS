@@ -23,15 +23,13 @@ import type {
 } from './types'
 import {
   PluginDependencyError,
-  PluginNotFoundError,
-  createConfigError,
 } from './errors'
 import { CSSCache, createCache } from './core/cache'
 import { Matcher, createMatcher } from './core/matcher'
 import { Generator, createGenerator, sortGeneratedCSS } from './core/generator'
 import { Transformer, createTransformer } from './core/transformer'
 import { Extractor, createExtractor } from './core/extractor'
-import { parse, parseClasses, expandVariantGroups } from './core/parser'
+import { parse, expandVariantGroups } from './core/parser'
 import { dedupeStrings } from './utils/string'
 
 /**

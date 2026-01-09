@@ -161,23 +161,23 @@ export function transitionsPlugin(): Plugin {
       // Arbitrary values
       rules.push({
         pattern: /^duration-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'transition-duration': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'transition-duration': v } } },
       })
       rules.push({
         pattern: /^delay-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'transition-delay': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'transition-delay': v } } },
       })
       rules.push({
         pattern: /^ease-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'transition-timing-function': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'transition-timing-function': v } } },
       })
       rules.push({
         pattern: /^animate-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { animation: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { animation: v } } },
       })
       rules.push({
         pattern: /^will-change-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'will-change': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'will-change': v } } },
       })
 
       // Register all rules

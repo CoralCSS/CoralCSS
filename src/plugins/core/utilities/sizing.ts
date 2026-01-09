@@ -78,31 +78,31 @@ export function sizingPlugin(): Plugin {
       // Arbitrary values
       rules.push({
         pattern: /^w-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { width: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { width: v } } },
       })
       rules.push({
         pattern: /^h-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { height: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { height: v } } },
       })
       rules.push({
         pattern: /^min-w-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'min-width': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'min-width': v } } },
       })
       rules.push({
         pattern: /^max-w-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'max-width': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'max-width': v } } },
       })
       rules.push({
         pattern: /^min-h-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'min-height': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'min-height': v } } },
       })
       rules.push({
         pattern: /^max-h-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'max-height': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'max-height': v } } },
       })
       rules.push({
         pattern: /^size-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { width: v, height: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { width: v, height: v } } },
       })
 
       // ========================================
@@ -136,7 +136,7 @@ export function sizingPlugin(): Plugin {
 
       rules.push({
         pattern: /^w-fit-content-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { width: `fit-content(${v})` } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { width: `fit-content(${v})` } } },
       })
 
       // Height intrinsic sizing
@@ -151,7 +151,7 @@ export function sizingPlugin(): Plugin {
 
       rules.push({
         pattern: /^h-fit-content-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { height: `fit-content(${v})` } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { height: `fit-content(${v})` } } },
       })
 
       // Min-width intrinsic
@@ -188,9 +188,9 @@ export function sizingPlugin(): Plugin {
         pattern: /^w-clamp-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           const parts = v.split(',').map(p => p.trim())
-          if (parts.length !== 3) return null
+          if (parts.length !== 3) {return null}
           return { properties: { width: `clamp(${parts[0]}, ${parts[1]}, ${parts[2]})` } }
         },
       })
@@ -198,9 +198,9 @@ export function sizingPlugin(): Plugin {
         pattern: /^h-clamp-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           const parts = v.split(',').map(p => p.trim())
-          if (parts.length !== 3) return null
+          if (parts.length !== 3) {return null}
           return { properties: { height: `clamp(${parts[0]}, ${parts[1]}, ${parts[2]})` } }
         },
       })
@@ -301,7 +301,7 @@ export function sizingPlugin(): Plugin {
         pattern: /^pt-safe-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'padding-top': `env(safe-area-inset-top, ${v})` } }
         },
       })
@@ -309,7 +309,7 @@ export function sizingPlugin(): Plugin {
         pattern: /^pb-safe-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'padding-bottom': `env(safe-area-inset-bottom, ${v})` } }
         },
       })
@@ -317,7 +317,7 @@ export function sizingPlugin(): Plugin {
         pattern: /^pl-safe-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'padding-left': `env(safe-area-inset-left, ${v})` } }
         },
       })
@@ -325,7 +325,7 @@ export function sizingPlugin(): Plugin {
         pattern: /^pr-safe-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'padding-right': `env(safe-area-inset-right, ${v})` } }
         },
       })

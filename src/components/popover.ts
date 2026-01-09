@@ -161,7 +161,7 @@ export class Popover extends BaseComponent {
     this.content = this.query(this.config.contentSelector!)
     this.arrow = this.query(this.config.arrowSelector!)
 
-    if (!this.trigger || !this.content) return
+    if (!this.trigger || !this.content) {return}
 
     // Set up trigger ARIA
     if (!this.content.id) {
@@ -180,7 +180,7 @@ export class Popover extends BaseComponent {
   }
 
   protected bindEvents(): void {
-    if (!this.trigger || !this.content) return
+    if (!this.trigger || !this.content) {return}
 
     const triggerType = this.config.trigger
 
@@ -253,7 +253,7 @@ export class Popover extends BaseComponent {
   }
 
   protected override render(): void {
-    if (!this.trigger || !this.content) return
+    if (!this.trigger || !this.content) {return}
 
     if (this.state.isOpen) {
       this.content.style.display = ''
@@ -279,7 +279,7 @@ export class Popover extends BaseComponent {
    * Position the popover relative to trigger
    */
   private position(): void {
-    if (!this.trigger || !this.content) return
+    if (!this.trigger || !this.content) {return}
 
     // Use CSS anchor positioning if available and enabled
     if (this.config.useAnchorPositioning && CSS.supports('anchor-name', '--trigger')) {
@@ -292,7 +292,7 @@ export class Popover extends BaseComponent {
   }
 
   private positionWithAnchor(): void {
-    if (!this.trigger || !this.content) return
+    if (!this.trigger || !this.content) {return}
 
     const anchorName = `--popover-${this.id}`
     this.trigger.style.setProperty('anchor-name', anchorName)
@@ -318,7 +318,7 @@ export class Popover extends BaseComponent {
   }
 
   private positionWithJS(): void {
-    if (!this.trigger || !this.content) return
+    if (!this.trigger || !this.content) {return}
 
     const triggerRect = this.trigger.getBoundingClientRect()
     const contentRect = this.content.getBoundingClientRect()
@@ -372,7 +372,7 @@ export class Popover extends BaseComponent {
   }
 
   private positionArrow(triggerRect: DOMRect): void {
-    if (!this.arrow || !this.content) return
+    if (!this.arrow || !this.content) {return}
 
     const placement = this.state.placement
     const contentRect = this.content.getBoundingClientRect()

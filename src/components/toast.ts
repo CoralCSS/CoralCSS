@@ -188,7 +188,7 @@ export class Toast extends BaseComponent {
    * Dismiss the toast
    */
   dismiss(): void {
-    if (!this.state.isOpen) return
+    if (!this.state.isOpen) {return}
 
     // Clear timeout
     if (this.dismissTimeout) {

@@ -115,7 +115,7 @@ export function backgroundsPlugin(): Plugin {
         pattern: /^gradient-from-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { '--coral-gradient-position': value } }
         },
       })
@@ -125,7 +125,7 @@ export function backgroundsPlugin(): Plugin {
         pattern: /^bg-\[url\((.+)\)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'background-image': `url(${value})` } }
         },
       })
@@ -133,7 +133,7 @@ export function backgroundsPlugin(): Plugin {
         pattern: /^bg-\[(.+)\]$/,
         handler: (match): { properties: CSSProperties } | null => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           // Check if it's a gradient
           if (value.includes('gradient')) {
             return { properties: { 'background-image': value } as CSSProperties }
@@ -150,7 +150,7 @@ export function backgroundsPlugin(): Plugin {
         pattern: /^from-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return {
             properties: {
               '--coral-gradient-from': value,
@@ -164,7 +164,7 @@ export function backgroundsPlugin(): Plugin {
         pattern: /^via-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return {
             properties: {
               '--coral-gradient-to': 'rgb(255 255 255 / 0)',
@@ -177,7 +177,7 @@ export function backgroundsPlugin(): Plugin {
         pattern: /^to-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { '--coral-gradient-to': value } }
         },
       })

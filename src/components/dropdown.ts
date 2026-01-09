@@ -220,7 +220,7 @@ export class Dropdown extends BaseComponent {
         e.preventDefault()
         if (this.state.activeIndex >= 0) {
           const item = this.items[this.state.activeIndex]
-          if (item) this.selectItem(item)
+          if (item) {this.selectItem(item)}
         }
         break
       case 'Tab':

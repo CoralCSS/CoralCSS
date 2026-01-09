@@ -217,7 +217,7 @@ export class Dialog extends BaseComponent {
    * Open the dialog
    */
   override open(): void {
-    if (this.state.isOpen) return
+    if (this.state.isOpen) {return}
 
     // Store active element to restore focus later
     this.state.previousActiveElement = document.activeElement
@@ -251,7 +251,7 @@ export class Dialog extends BaseComponent {
    * Close the dialog
    */
   override close(): void {
-    if (!this.state.isOpen) return
+    if (!this.state.isOpen) {return}
 
     // Release focus trap
     if (this.config.trapFocus) {

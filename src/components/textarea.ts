@@ -77,7 +77,7 @@ export class Textarea extends BaseComponent {
   }
 
   protected bindEvents(): void {
-    if (!this.textarea) return
+    if (!this.textarea) {return}
 
     const config = this.config as TextareaConfig
 
@@ -113,7 +113,7 @@ export class Textarea extends BaseComponent {
   }
 
   private autoResize(): void {
-    if (!this.textarea) return
+    if (!this.textarea) {return}
 
     const config = this.config as TextareaConfig
 

@@ -88,7 +88,7 @@ export class Stat extends BaseComponent {
     const config = this.config as StatConfig
 
     if (this.valueEl) {
-      let displayValue = state.value
+      const displayValue = state.value
 
       if (config.formatNumber) {
         const formatted = new Intl.NumberFormat(undefined, {

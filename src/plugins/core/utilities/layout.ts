@@ -230,35 +230,35 @@ export function layoutPlugin(): Plugin {
       // Arbitrary values
       rules.push({
         pattern: /^inset-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { inset: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { inset: v } } },
       })
       rules.push({
         pattern: /^top-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { top: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { top: v } } },
       })
       rules.push({
         pattern: /^right-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { right: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { right: v } } },
       })
       rules.push({
         pattern: /^bottom-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { bottom: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { bottom: v } } },
       })
       rules.push({
         pattern: /^left-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { left: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { left: v } } },
       })
       rules.push({
         pattern: /^z-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'z-index': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'z-index': v } } },
       })
       rules.push({
         pattern: /^aspect-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'aspect-ratio': v.replace('/', ' / ') } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'aspect-ratio': v.replace('/', ' / ') } } },
       })
       rules.push({
         pattern: /^columns-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { columns: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { columns: v } } },
       })
 
       // ========================================
@@ -315,11 +315,11 @@ export function layoutPlugin(): Plugin {
       // Arbitrary scroll margin/padding
       rules.push({
         pattern: /^scroll-m-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'scroll-margin': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'scroll-margin': v } } },
       })
       rules.push({
         pattern: /^scroll-p-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'scroll-padding': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'scroll-padding': v } } },
       })
 
       // ========================================
@@ -339,7 +339,7 @@ export function layoutPlugin(): Plugin {
         pattern: /^scroll-timeline-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'scroll-timeline-name': v } }
         },
       })
@@ -353,7 +353,7 @@ export function layoutPlugin(): Plugin {
         pattern: /^view-transition-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'view-transition-name': v } }
         },
       })
@@ -384,7 +384,7 @@ export function layoutPlugin(): Plugin {
         pattern: /^will-change-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'will-change': v } }
         },
       })
@@ -428,7 +428,7 @@ export function layoutPlugin(): Plugin {
       rules.push({ pattern: 'column-gap-normal', properties: { 'column-gap': 'normal' } })
       rules.push({
         pattern: /^column-gap-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'column-gap': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'column-gap': v } } },
       })
 
       // Column rule (divider between columns)
@@ -457,7 +457,7 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^column-rule-w-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'column-rule-width': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'column-rule-width': v } } },
       })
 
       // Column span
@@ -480,7 +480,7 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^column-width-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'column-width': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'column-width': v } } },
       })
 
       // ========================================
@@ -502,17 +502,17 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^contain-intrinsic-size-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'contain-intrinsic-size': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'contain-intrinsic-size': v } } },
       })
 
       // Contain intrinsic width/height
       rules.push({
         pattern: /^contain-intrinsic-w-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'contain-intrinsic-width': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'contain-intrinsic-width': v } } },
       })
       rules.push({
         pattern: /^contain-intrinsic-h-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'contain-intrinsic-height': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'contain-intrinsic-height': v } } },
       })
 
       // ========================================
@@ -656,11 +656,11 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^inset-inline-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'inset-inline': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'inset-inline': v } } },
       })
       rules.push({
         pattern: /^inset-block-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'inset-block': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'inset-block': v } } },
       })
 
       // ========================================
@@ -688,7 +688,7 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^overflow-clip-margin-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'overflow-clip-margin': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'overflow-clip-margin': v } } },
       })
 
       // ========================================
@@ -799,7 +799,7 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^cursor-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { cursor: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { cursor: v } } },
       })
 
       // ========================================
@@ -827,7 +827,7 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^caret-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'caret-color': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'caret-color': v } } },
       })
 
       // ========================================
@@ -840,7 +840,7 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^accent-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'accent-color': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'accent-color': v } } },
       })
 
       // ========================================
@@ -879,7 +879,7 @@ export function layoutPlugin(): Plugin {
 
       rules.push({
         pattern: /^math-depth-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'math-depth': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'math-depth': v } } },
       })
 
       // ========================================

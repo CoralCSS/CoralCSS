@@ -78,12 +78,12 @@ export function coralVitePlugin(options: VitePluginOptions = {}): VitePlugin {
     output = VIRTUAL_MODULE_ID,
     minify = true,
     darkMode = 'class',
-    preset = 'coral',
+    preset: _preset = 'coral',
     ...coralOptions
   } = options
 
   let coral: Coral
-  let seenClasses = new Set<string>()
+  const seenClasses = new Set<string>()
   let generatedCSS = ''
   let isProduction = false
 
@@ -188,7 +188,7 @@ function extractClassesFromCode(code: string): string[] {
     if (captured) {
       const classList = captured.split(/\s+/)
       classList.forEach((cls) => {
-        if (cls) classes.add(cls)
+        if (cls) { classes.add(cls) }
       })
     }
   }
@@ -202,7 +202,7 @@ function extractClassesFromCode(code: string): string[] {
       const staticParts = content.replace(/\$\{[^}]+\}/g, ' ')
       const classList = staticParts.split(/\s+/)
       classList.forEach((cls) => {
-        if (cls) classes.add(cls)
+        if (cls) { classes.add(cls) }
       })
     }
   }
@@ -214,7 +214,7 @@ function extractClassesFromCode(code: string): string[] {
     if (captured) {
       const classList = captured.split(/\s+/)
       classList.forEach((cls) => {
-        if (cls) classes.add(cls)
+        if (cls) { classes.add(cls) }
       })
     }
   }

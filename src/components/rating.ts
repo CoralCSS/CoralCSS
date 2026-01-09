@@ -71,7 +71,7 @@ export class Rating extends BaseComponent {
     // Create stars
     this.createStars()
 
-    if (config.readonly || config.disabled) return
+    if (config.readonly || config.disabled) {return}
 
     // Keyboard
     const handleKeydown = (e: Event) => {

@@ -199,7 +199,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^initial-letter-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'initial-letter': v } }
         },
       })
@@ -213,7 +213,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^indent-(\d+)$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'text-indent': `${parseInt(v, 10) * 0.25}rem` } }
         },
       })
@@ -256,7 +256,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^hyphenate-limit-chars-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'hyphenate-limit-chars': v.replace(/_/g, ' ') } }
         },
       })
@@ -272,7 +272,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^hyphenate-limit-lines-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'hyphenate-limit-lines': v } }
         },
       })
@@ -289,7 +289,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^hyphenate-limit-zone-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'hyphenate-limit-zone': v } }
         },
       })
@@ -307,7 +307,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^hyphenate-character-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'hyphenate-character': `"${v}"` } }
         },
       })
@@ -327,7 +327,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^word-spacing-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'word-spacing': v } }
         },
       })
@@ -372,7 +372,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^widows-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { widows: v } }
         },
       })
@@ -386,7 +386,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^orphans-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { orphans: v } }
         },
       })
@@ -423,7 +423,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^tab-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'tab-size': v } }
         },
       })
@@ -580,7 +580,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^font-feature-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'font-feature-settings': v.replace(/_/g, ' ') } }
         },
       })
@@ -636,7 +636,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^font-variation-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'font-variation-settings': v.replace(/_/g, ' ') } }
         },
       })
@@ -668,7 +668,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^text-\[(.+)\]$/,
         handler: (match): { properties: Record<string, string> } | null => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           // Check if it's a font size (has rem, px, em, etc.)
           if (/^\d/.test(value) || value.includes('rem') || value.includes('px') || value.includes('em')) {
             return { properties: { 'font-size': value } }
@@ -679,15 +679,15 @@ export function typographyPlugin(): Plugin {
       })
       rules.push({
         pattern: /^font-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'font-family': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'font-family': v } } },
       })
       rules.push({
         pattern: /^leading-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'line-height': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'line-height': v } } },
       })
       rules.push({
         pattern: /^tracking-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'letter-spacing': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'letter-spacing': v } } },
       })
 
       // ========================================
@@ -716,7 +716,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^text-shadow-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'text-shadow': v } }
         },
       })
@@ -733,7 +733,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^counter-reset-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'counter-reset': v } }
         },
       })
@@ -741,7 +741,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^counter-increment-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'counter-increment': v } }
         },
       })
@@ -749,7 +749,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^counter-set-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'counter-set': v } }
         },
       })
@@ -797,7 +797,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^list-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'list-style-type': `"${v}"` } }
         },
       })
@@ -812,7 +812,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^marker-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return {
             selector: (s: string) => `${s}::marker`,
             properties: { color: v },
@@ -835,7 +835,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^quotes-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { quotes: v } }
         },
       })
@@ -875,7 +875,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^underline-offset-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'text-underline-offset': v } }
         },
       })
@@ -899,7 +899,7 @@ export function typographyPlugin(): Plugin {
         pattern: /^decoration-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'text-decoration-thickness': v } }
         },
       })

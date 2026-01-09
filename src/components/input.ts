@@ -85,7 +85,7 @@ export class Input extends BaseComponent {
   }
 
   protected bindEvents(): void {
-    if (!this.input) return
+    if (!this.input) {return}
 
     // Input
     const handleInput = () => {
@@ -116,7 +116,7 @@ export class Input extends BaseComponent {
   }
 
   private validate(): void {
-    if (!this.input) return
+    if (!this.input) {return}
 
     const isValid = this.input.checkValidity()
     this.setState({ valid: isValid })

@@ -356,7 +356,7 @@ export class Pagination extends BaseComponent {
     const { totalPages } = this.state
     const newPage = Math.max(1, Math.min(page, totalPages))
 
-    if (newPage === this.state.currentPage) return
+    if (newPage === this.state.currentPage) {return}
 
     const prevPage = this.state.currentPage
     this.setState({

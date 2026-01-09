@@ -173,7 +173,7 @@ export class Select extends BaseComponent {
     this.valueDisplay = this.query('[data-coral-select-value]')
     this.options = Array.from(this.queryAll(this.config.optionSelector!))
 
-    if (!this.trigger || !this.listbox) return
+    if (!this.trigger || !this.listbox) {return}
 
     // Build options from DOM if not provided in config
     if (!this.config.options?.length && this.options.length) {
@@ -221,7 +221,7 @@ export class Select extends BaseComponent {
   }
 
   protected bindEvents(): void {
-    if (!this.trigger || !this.listbox) return
+    if (!this.trigger || !this.listbox) {return}
 
     // Trigger click
     this.addEventListener(this.trigger, 'click', () => {
@@ -365,7 +365,7 @@ export class Select extends BaseComponent {
 
   private selectIndex(index: number): void {
     const option = this.state.filteredOptions[index]
-    if (!option || option.disabled) return
+    if (!option || option.disabled) {return}
 
     this.selectValue(option.value)
   }
@@ -412,7 +412,7 @@ export class Select extends BaseComponent {
   }
 
   private updateValueDisplay(): void {
-    if (!this.valueDisplay) return
+    if (!this.valueDisplay) {return}
 
     const { value } = this.state
     const { options, placeholder } = this.config
@@ -486,7 +486,7 @@ export class Select extends BaseComponent {
   }
 
   protected override render(): void {
-    if (!this.trigger || !this.listbox) return
+    if (!this.trigger || !this.listbox) {return}
 
     if (this.state.isOpen) {
       this.listbox.style.display = ''

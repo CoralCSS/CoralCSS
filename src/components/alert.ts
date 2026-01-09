@@ -201,7 +201,7 @@ export class Alert extends BaseComponent {
    * Dismiss the alert
    */
   dismiss(): void {
-    if (this.state.dismissing || !this.state.visible) return
+    if (this.state.dismissing || !this.state.visible) {return}
 
     // Clear auto-dismiss timer
     if (this.dismissTimeout) {
@@ -239,7 +239,7 @@ export class Alert extends BaseComponent {
    * Show the alert
    */
   show(): void {
-    if (this.state.visible) return
+    if (this.state.visible) {return}
 
     this.setState({ visible: true })
     this.element.style.display = ''

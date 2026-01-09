@@ -7,7 +7,7 @@
 
 import type { Theme } from '../types'
 import { colors } from './colors'
-import { spacing, sizing, zIndex, maxWidth } from './spacing'
+import { spacing, sizing, zIndex } from './spacing'
 import { fonts, fontSizes, fontWeights, lineHeights, letterSpacing } from './typography'
 
 /**

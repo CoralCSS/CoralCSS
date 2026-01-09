@@ -460,7 +460,7 @@ function generateComponentsCSS(): string {
  * Note: This is a simplified implementation. In production,
  * you'd use fast-glob or similar to read files.
  */
-function scanContentFiles(patterns: string[]): string[] {
+function scanContentFiles(_patterns: string[]): string[] {
   // In a real implementation, this would:
   // 1. Use fast-glob to find matching files
   // 2. Read each file

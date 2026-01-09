@@ -21,7 +21,7 @@ describe('Generator', () => {
     theme = {
       spacing: { 4: '1rem', 8: '2rem' },
       colors: { red: { 500: '#ef4444' } },
-    } as Theme
+    } as unknown as Theme
     variants = new Map<string, Variant>([
       [
         'hover',
@@ -60,7 +60,7 @@ describe('Generator', () => {
       const rule: Rule = {
         name: 'padding',
         pattern: /^p-(\d+)$/,
-        generate: (match, t) => ({ padding: t.spacing[match[1] as keyof typeof t.spacing] }),
+        generate: (match, t) => ({ padding: t.spacing[match[1] as keyof typeof t.spacing] ?? '' }),
       }
       const match = 'p-4'.match(/^p-(\d+)$/)!
 
@@ -303,7 +303,7 @@ describe('Generator', () => {
 
   describe('setTheme', () => {
     it('should update theme', () => {
-      const newTheme = { spacing: { 8: '2rem' } } as Theme
+      const newTheme = { spacing: { 8: '2rem' } } as unknown as Theme
       generator.setTheme(newTheme)
       // Theme is private, but we can verify by using a rule that depends on it
       expect(generator).toBeDefined()

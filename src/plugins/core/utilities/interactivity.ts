@@ -238,7 +238,7 @@ export function interactivityPlugin(): Plugin {
         pattern: /^contain-intrinsic-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'contain-intrinsic-size': v } }
         },
       })
@@ -282,15 +282,15 @@ export function interactivityPlugin(): Plugin {
       // Arbitrary values
       rules.push({
         pattern: /^cursor-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { cursor: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { cursor: v } } },
       })
       rules.push({
         pattern: /^scroll-m-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'scroll-margin': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'scroll-margin': v } } },
       })
       rules.push({
         pattern: /^scroll-p-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'scroll-padding': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'scroll-padding': v } } },
       })
 
       // ========================================
@@ -317,7 +317,7 @@ export function interactivityPlugin(): Plugin {
         pattern: /^touch-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'touch-action': v } }
         },
       })
@@ -358,7 +358,7 @@ export function interactivityPlugin(): Plugin {
         pattern: /^zoom-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { zoom: v } }
         },
       })
@@ -420,7 +420,7 @@ export function interactivityPlugin(): Plugin {
         pattern: /^scroll-start-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'scroll-start': v } }
         },
       })

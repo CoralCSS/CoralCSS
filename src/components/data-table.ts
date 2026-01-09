@@ -119,7 +119,7 @@ export class DataTable extends BaseComponent {
 
   protected override render(): void {
     const config = this.config as DataTableConfig
-    const state = this.state as DataTableState
+    const _state = this.state as DataTableState
 
     this.element.dataset.striped = String(config.striped)
     this.element.dataset.bordered = String(config.bordered)
@@ -133,7 +133,7 @@ export class DataTable extends BaseComponent {
   }
 
   private renderTable(): void {
-    if (!this.tableEl) return
+    if (!this.tableEl) {return}
 
     const config = this.config as DataTableConfig
     const state = this.state as DataTableState
@@ -270,7 +270,7 @@ export class DataTable extends BaseComponent {
     const startItem = (state.currentPage - 1) * config.pageSize! + 1
     const endItem = Math.min(state.currentPage * config.pageSize!, state.filteredData.length)
 
-    let html = `
+    const html = `
       <span class="data-table-info">
         Showing ${state.filteredData.length === 0 ? 0 : startItem} to ${endItem} of ${state.filteredData.length} entries
       </span>
@@ -308,7 +308,7 @@ export class DataTable extends BaseComponent {
   }
 
   private applyFiltersAndSort(): void {
-    const config = this.config as DataTableConfig
+    const _config = this.config as DataTableConfig
     const state = this.state as DataTableState
     let filtered = [...state.data]
 
@@ -329,8 +329,8 @@ export class DataTable extends BaseComponent {
         const bVal = b[state.sortColumn!]
         let comparison = 0
 
-        if (aVal === null || aVal === undefined) comparison = 1
-        else if (bVal === null || bVal === undefined) comparison = -1
+        if (aVal === null || aVal === undefined) {comparison = 1}
+        else if (bVal === null || bVal === undefined) {comparison = -1}
         else if (typeof aVal === 'number' && typeof bVal === 'number') {
           comparison = aVal - bVal
         } else {

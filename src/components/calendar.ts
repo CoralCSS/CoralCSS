@@ -311,9 +311,9 @@ export class Calendar extends BaseComponent {
   private isDisabled(date: Date): boolean {
     const config = this.config as CalendarConfig
 
-    if (config.minDate && date < config.minDate) return true
-    if (config.maxDate && date > config.maxDate) return true
-    if (config.disabledDates?.some(d => this.isSameDay(d, date))) return true
+    if (config.minDate && date < config.minDate) {return true}
+    if (config.maxDate && date > config.maxDate) {return true}
+    if (config.disabledDates?.some(d => this.isSameDay(d, date))) {return true}
 
     return false
   }

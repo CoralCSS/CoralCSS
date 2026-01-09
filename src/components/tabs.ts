@@ -231,8 +231,8 @@ export class Tabs extends BaseComponent {
   }
 
   private selectTab(index: number): void {
-    if (index === this.state.activeIndex) return
-    if (index < 0 || index >= this.triggers.length) return
+    if (index === this.state.activeIndex) {return}
+    if (index < 0 || index >= this.triggers.length) {return}
 
     const prevIndex = this.state.activeIndex
     this.setState({ activeIndex: index, focusedIndex: index })

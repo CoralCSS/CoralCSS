@@ -141,7 +141,7 @@ export class HoverCard extends BaseComponent {
   }
 
   private position(): void {
-    if (!this.trigger || !this.content) return
+    if (!this.trigger || !this.content) {return}
 
     const config = this.config as HoverCardConfig
     const triggerRect = this.trigger.getBoundingClientRect()

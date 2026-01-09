@@ -6,7 +6,7 @@
  */
 
 import type { GeneratedCSS, CSSLayer } from '../types'
-import { formatCSS, minifyCSS, wrapInLayer, combineCSS } from '../utils/css'
+import { formatCSS, minifyCSS, wrapInLayer } from '../utils/css'
 
 /**
  * Transformer options

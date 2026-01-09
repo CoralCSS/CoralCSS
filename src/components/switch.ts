@@ -171,7 +171,7 @@ export class Switch extends BaseComponent {
    * Set the checked state
    */
   setChecked(checked: boolean): void {
-    if (this.state.checked === checked) return
+    if (this.state.checked === checked) {return}
 
     this.setState({ checked })
     this.dispatch('change', { checked })
@@ -181,7 +181,7 @@ export class Switch extends BaseComponent {
    * Set the disabled state
    */
   setDisabled(disabled: boolean): void {
-    if (this.state.disabled === disabled) return
+    if (this.state.disabled === disabled) {return}
 
     this.setState({ disabled })
   }

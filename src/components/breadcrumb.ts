@@ -257,11 +257,11 @@ export class Breadcrumb extends BaseComponent {
   }
 
   private insertEllipsis(): void {
-    if (!this.list || !this.state.collapsed) return
+    if (!this.list || !this.state.collapsed) {return}
 
     // Check if ellipsis already exists
     let ellipsis = this.query('[data-coral-breadcrumb-ellipsis]')
-    if (ellipsis) return
+    if (ellipsis) {return}
 
     // Create ellipsis element
     ellipsis = document.createElement('li')
@@ -310,7 +310,7 @@ export class Breadcrumb extends BaseComponent {
    * Expand collapsed items
    */
   expand(): void {
-    if (!this.state.collapsed) return
+    if (!this.state.collapsed) {return}
 
     this.setState({ collapsed: false, visibleItems: this.config.items ?? [] })
 

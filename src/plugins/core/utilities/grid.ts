@@ -116,43 +116,43 @@ export function gridPlugin(): Plugin {
       // Arbitrary values
       rules.push({
         pattern: /^grid-cols-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-template-columns': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-template-columns': v } } },
       })
       rules.push({
         pattern: /^grid-rows-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-template-rows': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-template-rows': v } } },
       })
       rules.push({
         pattern: /^col-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-column': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-column': v } } },
       })
       rules.push({
         pattern: /^col-start-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-column-start': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-column-start': v } } },
       })
       rules.push({
         pattern: /^col-end-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-column-end': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-column-end': v } } },
       })
       rules.push({
         pattern: /^row-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-row': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-row': v } } },
       })
       rules.push({
         pattern: /^row-start-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-row-start': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-row-start': v } } },
       })
       rules.push({
         pattern: /^row-end-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-row-end': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-row-end': v } } },
       })
       rules.push({
         pattern: /^auto-cols-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-auto-columns': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-auto-columns': v } } },
       })
       rules.push({
         pattern: /^auto-rows-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'grid-auto-rows': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'grid-auto-rows': v } } },
       })
 
       // ========================================
@@ -176,7 +176,7 @@ export function gridPlugin(): Plugin {
         pattern: /^grid-area-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'grid-area': v } }
         },
       })
@@ -219,7 +219,7 @@ export function gridPlugin(): Plugin {
         pattern: /^grid-areas-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'grid-template-areas': v.replace(/_/g, ' ') } }
         },
       })
@@ -283,7 +283,7 @@ export function gridPlugin(): Plugin {
         pattern: /^grid-cols-auto-fit-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'grid-template-columns': `repeat(auto-fit, minmax(${v}, 1fr))` } }
         },
       })
@@ -291,7 +291,7 @@ export function gridPlugin(): Plugin {
         pattern: /^grid-cols-auto-fill-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'grid-template-columns': `repeat(auto-fill, minmax(${v}, 1fr))` } }
         },
       })
@@ -349,7 +349,7 @@ export function gridPlugin(): Plugin {
         pattern: /^order-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { order: v } }
         },
       })
@@ -368,11 +368,11 @@ export function gridPlugin(): Plugin {
 
       rules.push({
         pattern: /^gap-inline-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'column-gap': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'column-gap': v } } },
       })
       rules.push({
         pattern: /^gap-block-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'row-gap': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'row-gap': v } } },
       })
 
       // ========================================

@@ -215,7 +215,7 @@ export function flexboxPlugin(): Plugin {
         pattern: /^basis-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'flex-basis': v } }
         },
       })
@@ -223,7 +223,7 @@ export function flexboxPlugin(): Plugin {
         pattern: /^flex-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { flex: v } }
         },
       })
@@ -231,7 +231,7 @@ export function flexboxPlugin(): Plugin {
         pattern: /^grow-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'flex-grow': v } }
         },
       })
@@ -239,7 +239,7 @@ export function flexboxPlugin(): Plugin {
         pattern: /^shrink-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'flex-shrink': v } }
         },
       })
@@ -247,7 +247,7 @@ export function flexboxPlugin(): Plugin {
         pattern: /^order-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { order: v } }
         },
       })

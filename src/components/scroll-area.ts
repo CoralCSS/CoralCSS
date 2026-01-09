@@ -119,7 +119,7 @@ export class ScrollArea extends BaseComponent {
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!this.isDragging || !this.viewport) return
+      if (!this.isDragging || !this.viewport) {return}
 
       const currentPos = this.dragAxis === 'vertical' ? e.clientY : e.clientX
       const delta = currentPos - this.dragStartPos
@@ -154,8 +154,8 @@ export class ScrollArea extends BaseComponent {
   private setupTrackClick(track: HTMLElement, axis: 'vertical' | 'horizontal'): void {
     const handleClick = (e: Event) => {
       const me = e as MouseEvent
-      if ((me.target as HTMLElement).hasAttribute('data-coral-scrollbar-thumb')) return
-      if (!this.viewport) return
+      if ((me.target as HTMLElement).hasAttribute('data-coral-scrollbar-thumb')) {return}
+      if (!this.viewport) {return}
 
       const trackRect = track.getBoundingClientRect()
       const clickPos = axis === 'vertical'
@@ -182,7 +182,7 @@ export class ScrollArea extends BaseComponent {
   }
 
   private updateScrollState(): void {
-    if (!this.viewport) return
+    if (!this.viewport) {return}
 
     const hasVerticalScroll = this.viewport.scrollHeight > this.viewport.clientHeight
     const hasHorizontalScroll = this.viewport.scrollWidth > this.viewport.clientWidth
@@ -196,7 +196,7 @@ export class ScrollArea extends BaseComponent {
   }
 
   private updateThumbs(): void {
-    if (!this.viewport) return
+    if (!this.viewport) {return}
 
     if (this.verticalThumb && (this.state as ScrollAreaState).hasVerticalScroll) {
       const ratio = this.viewport.clientHeight / this.viewport.scrollHeight

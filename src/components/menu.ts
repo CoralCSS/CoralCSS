@@ -157,7 +157,7 @@ export class Menu extends BaseComponent {
 
     this.isDropdown = !!this.trigger
 
-    if (!this.list) return
+    if (!this.list) {return}
 
     // Set up list ID
     if (!this.list.id) {
@@ -225,7 +225,7 @@ export class Menu extends BaseComponent {
 
     // Item interactions
     this.items.forEach((item, index) => {
-      if (item.getAttribute('role') === 'separator') return
+      if (item.getAttribute('role') === 'separator') {return}
 
       this.addEventListener(item, 'click', (e: Event) => {
         e.stopPropagation()
@@ -344,7 +344,7 @@ export class Menu extends BaseComponent {
       }
     }
 
-    if (targetIndex < 0) return
+    if (targetIndex < 0) {return}
 
     // Update tabindex
     this.items.forEach((item, i) => {
@@ -398,7 +398,7 @@ export class Menu extends BaseComponent {
 
   private activateItem(index: number): void {
     const item = this.items[index]
-    if (!item || item.hasAttribute('data-disabled')) return
+    if (!item || item.hasAttribute('data-disabled')) {return}
 
     // Check for submenu
     const submenu = item.querySelector(this.config.submenuSelector!)
@@ -431,7 +431,7 @@ export class Menu extends BaseComponent {
     const item = this.items[index]
     const submenu = item?.querySelector(this.config.submenuSelector!) as HTMLElement
 
-    if (!submenu) return
+    if (!submenu) {return}
 
     // Close other submenus
     this.items.forEach((i, idx) => {
@@ -455,7 +455,7 @@ export class Menu extends BaseComponent {
   }
 
   private closeSubmenu(): void {
-    if (this.state.activeSubmenuIndex === null) return
+    if (this.state.activeSubmenuIndex === null) {return}
 
     const item = this.items[this.state.activeSubmenuIndex]
     const submenu = item?.querySelector(this.config.submenuSelector!) as HTMLElement
@@ -470,7 +470,7 @@ export class Menu extends BaseComponent {
   }
 
   protected override render(): void {
-    if (!this.list) return
+    if (!this.list) {return}
 
     if (this.isDropdown) {
       if (this.state.isOpen) {

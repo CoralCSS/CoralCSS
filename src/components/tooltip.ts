@@ -136,7 +136,7 @@ export class Tooltip extends BaseComponent {
   }
 
   protected bindEvents(): void {
-    if (!this.trigger) return
+    if (!this.trigger) {return}
 
     const triggers = this.config.trigger ?? ['hover', 'focus']
 
@@ -196,7 +196,7 @@ export class Tooltip extends BaseComponent {
   show(): void {
     this.cancelHide()
 
-    if (this.state.isOpen) return
+    if (this.state.isOpen) {return}
 
     if (this.config.showDelay && this.config.showDelay > 0) {
       this.showTimeout = setTimeout(() => {
@@ -217,7 +217,7 @@ export class Tooltip extends BaseComponent {
   hide(): void {
     this.cancelShow()
 
-    if (!this.state.isOpen) return
+    if (!this.state.isOpen) {return}
 
     if (this.config.hideDelay && this.config.hideDelay > 0) {
       this.hideTimeout = setTimeout(() => {

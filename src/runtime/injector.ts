@@ -61,7 +61,7 @@ export class StyleInjector {
    * Initialize the style element
    */
   init(): void {
-    if (this.styleElement) return
+    if (this.styleElement) {return}
 
     // Check for existing style element
     this.styleElement = document.getElementById(this.config.id) as HTMLStyleElement

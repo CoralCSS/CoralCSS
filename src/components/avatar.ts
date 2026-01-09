@@ -165,7 +165,7 @@ export class Avatar extends BaseComponent {
   }
 
   private loadImage(): void {
-    if (!this.image || !this.config.src) return
+    if (!this.image || !this.config.src) {return}
 
     // Hide fallback initially
     if (this.fallback) {

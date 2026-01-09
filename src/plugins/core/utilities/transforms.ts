@@ -369,7 +369,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^scale-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-scale-x': v, '--coral-scale-y': v, transform: transformVar } }
         },
       })
@@ -377,7 +377,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^rotate-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-rotate': v, transform: transformVar } }
         },
       })
@@ -385,7 +385,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^translate-x-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-translate-x': v, transform: transformVar } }
         },
       })
@@ -393,7 +393,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^translate-y-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-translate-y': v, transform: transformVar } }
         },
       })
@@ -401,7 +401,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^skew-x-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-skew-x': v, transform: transformVar } }
         },
       })
@@ -409,40 +409,40 @@ export function transformsPlugin(): Plugin {
         pattern: /^skew-y-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { '--coral-skew-y': v, transform: transformVar } }
         },
       })
       rules.push({
         pattern: /^origin-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'transform-origin': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'transform-origin': v } } },
       })
 
       // 3D arbitrary values
       const transform3dVar = 'perspective(var(--coral-perspective, 1000px)) rotateX(var(--coral-rotate-x, 0deg)) rotateY(var(--coral-rotate-y, 0deg)) rotateZ(var(--coral-rotate-z, 0deg)) translateZ(var(--coral-translate-z, 0px))'
       rules.push({
         pattern: /^perspective-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { perspective: v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { perspective: v } } },
       })
       rules.push({
         pattern: /^rotate-x-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { '--coral-rotate-x': v, transform: transform3dVar } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { '--coral-rotate-x': v, transform: transform3dVar } } },
       })
       rules.push({
         pattern: /^rotate-y-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { '--coral-rotate-y': v, transform: transform3dVar } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { '--coral-rotate-y': v, transform: transform3dVar } } },
       })
       rules.push({
         pattern: /^rotate-z-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { '--coral-rotate-z': v, transform: transform3dVar } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { '--coral-rotate-z': v, transform: transform3dVar } } },
       })
       rules.push({
         pattern: /^translate-z-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { '--coral-translate-z': v, transform: 'perspective(var(--coral-perspective, 1000px)) translateZ(var(--coral-translate-z, 0px))' } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { '--coral-translate-z': v, transform: 'perspective(var(--coral-perspective, 1000px)) translateZ(var(--coral-translate-z, 0px))' } } },
       })
       rules.push({
         pattern: /^perspective-origin-\[(.+)\]$/,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'perspective-origin': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'perspective-origin': v } } },
       })
 
       // ========================================
@@ -476,7 +476,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^offset-path-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'offset-path': v } }
         },
       })
@@ -495,7 +495,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^offset-distance-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'offset-distance': v } }
         },
       })
@@ -524,7 +524,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^offset-rotate-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'offset-rotate': v } }
         },
       })
@@ -541,7 +541,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^offset-position-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'offset-position': v } }
         },
       })
@@ -558,7 +558,7 @@ export function transformsPlugin(): Plugin {
         pattern: /^offset-anchor-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'offset-anchor': v } }
         },
       })

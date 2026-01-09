@@ -75,8 +75,8 @@ export class FileUpload extends BaseComponent {
       this.input = document.createElement('input')
       this.input.type = 'file'
       this.input.hidden = true
-      if (config.accept) this.input.accept = config.accept
-      if (config.multiple) this.input.multiple = true
+      if (config.accept) {this.input.accept = config.accept}
+      if (config.multiple) {this.input.multiple = true}
       this.element.appendChild(this.input)
     }
 
@@ -125,7 +125,7 @@ export class FileUpload extends BaseComponent {
       e.stopPropagation()
       this.setState({ isDragging: false })
 
-      if ((this.state as FileUploadState).disabled) return
+      if ((this.state as FileUploadState).disabled) {return}
 
       const de = e as DragEvent
       const files = de.dataTransfer?.files
@@ -219,7 +219,7 @@ export class FileUpload extends BaseComponent {
   private renderPreviews(): void {
     const state = this.state as FileUploadState
     const previewContainer = this.query('[data-coral-file-upload-previews]')
-    if (!previewContainer) return
+    if (!previewContainer) {return}
 
     previewContainer.innerHTML = ''
 
@@ -267,13 +267,13 @@ export class FileUpload extends BaseComponent {
   }
 
   private getFileIcon(mimeType: string): string {
-    if (mimeType.startsWith('image/')) return '🖼️'
-    if (mimeType.startsWith('video/')) return '🎬'
-    if (mimeType.startsWith('audio/')) return '🎵'
-    if (mimeType.includes('pdf')) return '📄'
-    if (mimeType.includes('word')) return '📝'
-    if (mimeType.includes('excel') || mimeType.includes('spreadsheet')) return '📊'
-    if (mimeType.includes('zip') || mimeType.includes('compressed')) return '📦'
+    if (mimeType.startsWith('image/')) {return '🖼️'}
+    if (mimeType.startsWith('video/')) {return '🎬'}
+    if (mimeType.startsWith('audio/')) {return '🎵'}
+    if (mimeType.includes('pdf')) {return '📄'}
+    if (mimeType.includes('word')) {return '📝'}
+    if (mimeType.includes('excel') || mimeType.includes('spreadsheet')) {return '📊'}
+    if (mimeType.includes('zip') || mimeType.includes('compressed')) {return '📦'}
     return '📁'
   }
 

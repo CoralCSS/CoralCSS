@@ -15,7 +15,7 @@ import type {
   MatchResult,
 } from '../types'
 import { escapeSelector } from '../utils/string'
-import { serializeProperties, formatRule } from '../utils/css'
+import { formatRule } from '../utils/css'
 
 /**
  * Generator options
@@ -432,7 +432,7 @@ export class CSSGenerator {
     const results: string[] = []
 
     for (const className of classNames) {
-      if (seen.has(className)) continue
+      if (seen.has(className)) {continue}
       seen.add(className)
 
       const css = this.generateClass(className)

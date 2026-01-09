@@ -331,7 +331,7 @@ export class Carousel extends BaseComponent {
   }
 
   private createDots(): void {
-    if (!this.dotsContainer) return
+    if (!this.dotsContainer) {return}
 
     this.dotsContainer.innerHTML = ''
     this.dotsContainer.setAttribute('role', 'tablist')
@@ -371,7 +371,7 @@ export class Carousel extends BaseComponent {
   }
 
   private handleDragStart(e: MouseEvent): void {
-    if (this.state.isAnimating) return
+    if (this.state.isAnimating) {return}
 
     this.isDragging = true
     this.dragStartX = e.clientX
@@ -386,10 +386,10 @@ export class Carousel extends BaseComponent {
   }
 
   private handleTouchStart(e: TouchEvent): void {
-    if (this.state.isAnimating) return
+    if (this.state.isAnimating) {return}
 
     const touch = e.touches[0]
-    if (!touch) return
+    if (!touch) {return}
 
     this.isDragging = true
     this.dragStartX = touch.clientX
@@ -403,7 +403,7 @@ export class Carousel extends BaseComponent {
   }
 
   private handleDragMove(e: MouseEvent): void {
-    if (!this.isDragging) return
+    if (!this.isDragging) {return}
 
     e.preventDefault()
     this.dragCurrentX = e.clientX
@@ -411,17 +411,17 @@ export class Carousel extends BaseComponent {
   }
 
   private handleTouchMove(e: TouchEvent): void {
-    if (!this.isDragging) return
+    if (!this.isDragging) {return}
 
     const touch = e.touches[0]
-    if (!touch) return
+    if (!touch) {return}
 
     this.dragCurrentX = touch.clientX
     this.updateDragPosition()
   }
 
   private updateDragPosition(): void {
-    if (!this.track) return
+    if (!this.track) {return}
 
     const diff = this.dragCurrentX - this.dragStartX
     const slideWidth = this.slides[0]?.offsetWidth ?? 0
@@ -432,7 +432,7 @@ export class Carousel extends BaseComponent {
   }
 
   private handleDragEnd(): void {
-    if (!this.isDragging) return
+    if (!this.isDragging) {return}
 
     this.isDragging = false
 
@@ -506,7 +506,7 @@ export class Carousel extends BaseComponent {
    * Go to a specific slide
    */
   goTo(index: number, animate = true): void {
-    if (this.state.isAnimating) return
+    if (this.state.isAnimating) {return}
 
     const { totalSlides, currentIndex } = this.state
     const { slidesToShow, loop } = this.config
@@ -525,7 +525,7 @@ export class Carousel extends BaseComponent {
       newIndex = Math.max(0, Math.min(index, maxIndex))
     }
 
-    if (newIndex === currentIndex && animate) return
+    if (newIndex === currentIndex && animate) {return}
 
     // Temporarily disable animation if needed
     if (!animate && this.track) {
@@ -573,7 +573,7 @@ export class Carousel extends BaseComponent {
    * Start autoplay
    */
   startAutoplay(): void {
-    if (this.autoplayTimer) return
+    if (this.autoplayTimer) {return}
 
     this.autoplayTimer = setInterval(() => {
       if (!this.state.isPaused) {

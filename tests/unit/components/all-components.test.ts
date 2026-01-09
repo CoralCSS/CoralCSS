@@ -1116,15 +1116,13 @@ describe('All Components', () => {
 
   describe('ToastContainer Component', () => {
     it('should create toast container', () => {
-      const el = createElement('div', { 'data-coral-toast-container': '' })
-      const tc = new ToastContainer(el)
+      const tc = new ToastContainer({ position: 'top-right' })
       expect(tc).toBeDefined()
       tc.destroy()
     })
 
     it('should use factory function', () => {
-      const el = createElement('div', { 'data-coral-toast-container': '' })
-      const tc = createToastContainer(el)
+      const tc = createToastContainer({ position: 'bottom-right' })
       expect(tc).toBeDefined()
       tc.destroy()
     })

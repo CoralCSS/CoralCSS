@@ -7,7 +7,7 @@
 
 import type { ParsedClass } from '../types'
 import { splitByDelimiter } from '../utils/string'
-import { VARIANT_GROUP_PATTERN, NEGATIVE_PATTERN } from '../utils/regex'
+import { NEGATIVE_PATTERN } from '../utils/regex'
 
 /**
  * Parse a class name into its components
@@ -102,9 +102,9 @@ export function expandVariantGroups(input: string): string[] {
   function findClosingParen(s: string, start: number): number {
     let depth = 1
     for (let i = start; i < s.length; i++) {
-      if (s[i] === '(') depth++
-      if (s[i] === ')') depth--
-      if (depth === 0) return i
+      if (s[i] === '(') {depth++}
+      if (s[i] === ')') {depth--}
+      if (depth === 0) {return i}
     }
     return -1
   }
@@ -119,7 +119,7 @@ export function expandVariantGroups(input: string): string[] {
   // Helper to read a token (class name or variant group)
   function readToken(): string | null {
     skipWhitespace()
-    if (pos >= str.length) return null
+    if (pos >= str.length) {return null}
 
     const start = pos
 
@@ -167,7 +167,7 @@ export function expandVariantGroups(input: string): string[] {
   // Process all tokens
   while (pos < str.length) {
     skipWhitespace()
-    if (pos >= str.length) break
+    if (pos >= str.length) {break}
 
     const token = readToken()
     if (token) {

@@ -31,7 +31,7 @@ function createSpacingRules(
     pattern: new RegExp(`^${prefix}-\\[(.+)\\]$`),
     handler: (match) => {
       const v = match[1]
-      if (!v) return null
+      if (!v) {return null}
       return { properties: Object.fromEntries(properties.map((p) => [p, v])) }
     },
   })
@@ -152,12 +152,12 @@ export function spacingPlugin(): Plugin {
       rules.push({
         pattern: /^space-x-\[(.+)\]$/,
         selector: (s) => `${s} > * + *`,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'margin-left': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'margin-left': v } } },
       })
       rules.push({
         pattern: /^space-y-\[(.+)\]$/,
         selector: (s) => `${s} > * + *`,
-        handler: (match) => { const v = match[1]; if (!v) return null; return { properties: { 'margin-top': v } } },
+        handler: (match) => { const v = match[1]; if (!v) {return null;} return { properties: { 'margin-top': v } } },
       })
 
       // Register all rules

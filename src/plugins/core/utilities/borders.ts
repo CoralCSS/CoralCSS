@@ -187,7 +187,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^rounded-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'border-radius': value } }
         },
       })
@@ -195,7 +195,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^border-\[(.+)\]$/,
         handler: (match): { properties: CSSProperties } | null => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           // Check if it's a width value
           if (/^\d/.test(value) || value.includes('px') || value.includes('rem')) {
             return { properties: { 'border-width': value } as CSSProperties }
@@ -208,7 +208,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^outline-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { outline: value } }
         },
       })
@@ -216,7 +216,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^outline-offset-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { 'outline-offset': value } }
         },
       })
@@ -224,7 +224,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^ring-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return {
             properties: {
               '--coral-ring-offset-shadow': 'var(--coral-ring-inset) 0 0 0 var(--coral-ring-offset-width) var(--coral-ring-offset-color)',
@@ -238,7 +238,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^ring-offset-\[(.+)\]$/,
         handler: (match) => {
           const value = match[1]
-          if (!value) return null
+          if (!value) {return null}
           return { properties: { '--coral-ring-offset-width': value } }
         },
       })
@@ -284,7 +284,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^border-image-slice-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'border-image-slice': v } }
         },
       })
@@ -299,7 +299,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^border-image-width-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'border-image-width': v } }
         },
       })
@@ -313,7 +313,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^border-image-outset-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'border-image-outset': v } }
         },
       })
@@ -359,7 +359,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^border-image-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'border-image': v } }
         },
       })
@@ -380,7 +380,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^border-spacing-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'border-spacing': v } }
         },
       })
@@ -416,7 +416,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^text-emphasis-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'text-emphasis-style': `"${v}"` } }
         },
       })
@@ -429,7 +429,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^text-emphasis-color-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'text-emphasis-color': v } }
         },
       })
@@ -452,7 +452,7 @@ export function bordersPlugin(): Plugin {
         pattern: /^outline-color-\[(.+)\]$/,
         handler: (match) => {
           const v = match[1]
-          if (!v) return null
+          if (!v) {return null}
           return { properties: { 'outline-color': v } }
         },
       })

@@ -58,7 +58,7 @@ export class Marquee extends BaseComponent {
 
     this.content = this.query('[data-coral-marquee-content]') || this.element.firstElementChild as HTMLElement
 
-    if (!this.content) return
+    if (!this.content) {return}
 
     // Clone content for seamless loop
     const clone = this.content.cloneNode(true) as HTMLElement

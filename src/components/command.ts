@@ -367,7 +367,7 @@ export class Command extends BaseComponent {
     // Filter items
     if (items?.length) {
       filteredItems = items.filter((item) => {
-        if (item.disabled) return false
+        if (item.disabled) {return false}
 
         const matchLabel = item.label.toLowerCase().includes(lowerQuery)
         const matchDescription = item.description?.toLowerCase().includes(lowerQuery)
@@ -382,7 +382,7 @@ export class Command extends BaseComponent {
     if (groups?.length) {
       groups.forEach((group) => {
         const groupItems = group.items.filter((item) => {
-          if (item.disabled) return false
+          if (item.disabled) {return false}
 
           const matchLabel = item.label.toLowerCase().includes(lowerQuery)
           const matchDescription = item.description?.toLowerCase().includes(lowerQuery)
@@ -452,7 +452,7 @@ export class Command extends BaseComponent {
 
   private selectIndex(index: number): void {
     const item = this.state.filteredItems[index]
-    if (!item || item.disabled) return
+    if (!item || item.disabled) {return}
 
     // Execute action
     if (item.action) {
@@ -486,7 +486,7 @@ export class Command extends BaseComponent {
    * Open the command palette
    */
   override open(): void {
-    if (this.state.isOpen) return
+    if (this.state.isOpen) {return}
 
     // Store active element
     this.previousActiveElement = document.activeElement
@@ -510,7 +510,7 @@ export class Command extends BaseComponent {
    * Close the command palette
    */
   override close(): void {
-    if (!this.state.isOpen) return
+    if (!this.state.isOpen) {return}
 
     // Clear search
     if (this.input) {

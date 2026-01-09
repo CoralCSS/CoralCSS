@@ -550,7 +550,7 @@ export function formsPlugin(config: FormsPluginConfig = {}): Plugin {
         pattern: /^placeholder-\[(.+)\]$/,
         handler: (match) => {
           const color = match[1]
-          if (!color) return null
+          if (!color) {return null}
           return { properties: { color, opacity: '1' } }
         },
       })
@@ -802,7 +802,7 @@ export function formsPlugin(config: FormsPluginConfig = {}): Plugin {
         pattern: /^accent-\[(.+)\]$/,
         handler: (match) => {
           const color = match[1]
-          if (!color) return null
+          if (!color) {return null}
           return { properties: { 'accent-color': color } }
         },
       })
