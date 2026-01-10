@@ -7,6 +7,9 @@ import {
   generateZIndexCSS,
   generateTypographyCSS,
   generateEffectsCSS,
+  generateThemeCSSComplete,
+  generateComponentsCSS,
+  generateBaseCSS,
 } from '../../../src/theme/css'
 
 describe('Theme CSS', () => {
@@ -116,6 +119,78 @@ describe('Theme CSS', () => {
     it('should generate duration CSS variables', () => {
       const css = generateEffectsCSS()
       expect(css).toContain('--duration-')
+    })
+  })
+
+  describe('generateBaseCSS', () => {
+    it('should generate base CSS styles', () => {
+      const css = generateBaseCSS()
+      expect(css).toBeDefined()
+      expect(typeof css).toBe('string')
+    })
+  })
+
+  describe('generateComponentsCSS', () => {
+    it('should generate component CSS styles', () => {
+      const css = generateComponentsCSS()
+      expect(css).toBeDefined()
+      expect(typeof css).toBe('string')
+    })
+  })
+
+  describe('generateThemeCSSComplete', () => {
+    it('should generate complete theme CSS with defaults', () => {
+      const css = generateThemeCSSComplete()
+      expect(css).toBeDefined()
+      expect(typeof css).toBe('string')
+    })
+
+    it('should generate theme CSS with coral preset', () => {
+      const css = generateThemeCSSComplete({ preset: 'coral' })
+      expect(css).toContain('--color-coral')
+    })
+
+    it('should generate theme CSS with class dark mode', () => {
+      const css = generateThemeCSSComplete({ darkMode: 'class' })
+      expect(css).toContain('.dark')
+    })
+
+    it('should generate theme CSS with media dark mode', () => {
+      const css = generateThemeCSSComplete({ darkMode: 'media' })
+      expect(css).toContain('prefers-color-scheme')
+    })
+
+    it('should include reset when requested', () => {
+      const css = generateThemeCSSComplete({ includeReset: true })
+      expect(css).toBeDefined()
+    })
+
+    it('should include base when requested', () => {
+      const css = generateThemeCSSComplete({ includeBase: true })
+      expect(css).toBeDefined()
+    })
+
+    it('should include components when requested', () => {
+      const css = generateThemeCSSComplete({ includeComponents: true })
+      expect(css).toBeDefined()
+    })
+
+    it('should minify CSS when requested', () => {
+      const css = generateThemeCSSComplete({ minify: true })
+      // Minified CSS should not have newlines
+      expect(css.includes('\n')).toBe(false)
+    })
+
+    it('should combine multiple options', () => {
+      const css = generateThemeCSSComplete({
+        preset: 'coral',
+        darkMode: 'class',
+        includeReset: true,
+        includeBase: true,
+        includeComponents: true,
+        minify: false,
+      })
+      expect(css).toBeDefined()
     })
   })
 })

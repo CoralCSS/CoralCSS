@@ -292,4 +292,105 @@ describe('CDN Runtime', () => {
       expect(defaultExport).toBe(createCoralCDN)
     })
   })
+
+  describe('Coral API methods', () => {
+    it('should use Coral.init method', () => {
+      const win = window as unknown as {
+        Coral: {
+          init: () => unknown
+          stop: () => void
+        }
+      }
+
+      const instance = win.Coral.init()
+      expect(instance).toBeDefined()
+      win.Coral.stop()
+    })
+
+    it('should use Coral.getInstance method', () => {
+      const win = window as unknown as {
+        Coral: {
+          getInstance: () => unknown
+          stop: () => void
+        }
+      }
+
+      const instance = win.Coral.getInstance()
+      expect(instance).toBeDefined()
+      win.Coral.stop()
+    })
+
+    it('should use Coral.create method', () => {
+      const win = window as unknown as {
+        Coral: {
+          create: (config?: unknown) => { stop: () => void; destroy: () => void }
+        }
+      }
+
+      const instance = win.Coral.create({ autoStart: false })
+      expect(instance).toBeDefined()
+      instance.stop()
+      instance.destroy()
+    })
+
+    it('should use Coral.initComponents method', () => {
+      const win = window as unknown as {
+        Coral: {
+          initComponents: () => void
+          stop: () => void
+        }
+      }
+
+      expect(() => win.Coral.initComponents()).not.toThrow()
+      win.Coral.stop()
+    })
+
+    it('should use Coral.start method', () => {
+      const win = window as unknown as {
+        Coral: {
+          start: () => void
+          stop: () => void
+        }
+      }
+
+      expect(() => win.Coral.start()).not.toThrow()
+      win.Coral.stop()
+    })
+
+    it('should use Coral.stop method', () => {
+      const win = window as unknown as {
+        Coral: {
+          start: () => void
+          stop: () => void
+        }
+      }
+
+      win.Coral.start()
+      expect(() => win.Coral.stop()).not.toThrow()
+    })
+  })
+
+  describe('CORAL_CONFIG from window', () => {
+    it('should use window.CORAL_CONFIG if available', () => {
+      const win = window as unknown as { CORAL_CONFIG?: unknown }
+      win.CORAL_CONFIG = { darkMode: 'media' }
+
+      const cdn = getCoralCDN()
+      expect(cdn).toBeDefined()
+      cdn.stop()
+      cdn.destroy()
+
+      delete win.CORAL_CONFIG
+    })
+  })
+
+  describe('auto-init with components', () => {
+    it('should auto-initialize components when autoInitComponents is true', () => {
+      document.body.innerHTML = '<div data-coral-accordion></div>'
+      const cdn = createCoralCDN({ autoStart: true, autoInitComponents: true })
+      expect(cdn).toBeDefined()
+      cdn.stop()
+      cdn.destroy()
+    })
+  })
 })

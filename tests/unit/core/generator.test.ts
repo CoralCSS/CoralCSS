@@ -9,6 +9,7 @@ import {
   mergeProperties,
   sortGeneratedCSS,
   dedupeGeneratedCSS,
+  CSSGenerator,
 } from '../../../src/core/generator'
 import type { Theme, Variant, Rule, GeneratedCSS } from '../../../src/types'
 
@@ -526,5 +527,578 @@ describe('Generator with function wrapper variant', () => {
 
     const result = generator.generateClass('test', rule, match)
     expect(result).toBeDefined()
+  })
+})
+
+describe('Generator important modifier', () => {
+  it('should apply important modifier to properties', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsed = {
+      original: '!bg-red',
+      variants: [],
+      utility: 'bg-red',
+      negative: false,
+      arbitrary: null,
+      important: true,
+    }
+    const matchResult = {
+      rule: {
+        name: 'bg',
+        pattern: /^bg-red$/,
+        properties: { backgroundColor: 'red' },
+      },
+      match: 'bg-red'.match(/^bg-red$/)!,
+    }
+
+    const result = generator.generateWithVariants(parsed, matchResult)
+    expect(result?.properties.backgroundColor).toBe('red !important')
+  })
+
+  it('should handle non-string/number values in important modifier', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsed = {
+      original: '!custom',
+      variants: [],
+      utility: 'custom',
+      negative: false,
+      arbitrary: null,
+      important: true,
+    }
+    const matchResult = {
+      rule: {
+        name: 'custom',
+        pattern: /^custom$/,
+        properties: { '--custom': { nested: 'value' } as unknown as string },
+      },
+      match: 'custom'.match(/^custom$/)!,
+    }
+
+    const result = generator.generateWithVariants(parsed, matchResult)
+    expect(result?.properties['--custom']).toEqual({ nested: 'value' })
+  })
+})
+
+describe('Generator opacity modifier', () => {
+  it('should apply opacity modifier to hex colors', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsed = {
+      original: 'bg-red/50',
+      variants: [],
+      utility: 'bg-red',
+      negative: false,
+      arbitrary: null,
+      opacity: '50',
+    }
+    const matchResult = {
+      rule: {
+        name: 'bg',
+        pattern: /^bg-red$/,
+        properties: { backgroundColor: '#ff0000' },
+      },
+      match: 'bg-red'.match(/^bg-red$/)!,
+    }
+
+    const result = generator.generateWithVariants(parsed, matchResult)
+    expect(result?.properties.backgroundColor).toContain('rgb(255 0 0 / 0.5)')
+  })
+
+  it('should apply opacity modifier with arbitrary value', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsed = {
+      original: 'bg-red/[0.75]',
+      variants: [],
+      utility: 'bg-red',
+      negative: false,
+      arbitrary: null,
+      opacity: '[0.75]',
+    }
+    const matchResult = {
+      rule: {
+        name: 'bg',
+        pattern: /^bg-red$/,
+        properties: { backgroundColor: '#ff0000' },
+      },
+      match: 'bg-red'.match(/^bg-red$/)!,
+    }
+
+    const result = generator.generateWithVariants(parsed, matchResult)
+    expect(result?.properties.backgroundColor).toContain('0.75')
+  })
+
+  it('should apply opacity to rgb colors', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsed = {
+      original: 'text-blue/50',
+      variants: [],
+      utility: 'text-blue',
+      negative: false,
+      arbitrary: null,
+      opacity: '50',
+    }
+    const matchResult = {
+      rule: {
+        name: 'text',
+        pattern: /^text-blue$/,
+        properties: { color: 'rgb(0, 0, 255)' },
+      },
+      match: 'text-blue'.match(/^text-blue$/)!,
+    }
+
+    const result = generator.generateWithVariants(parsed, matchResult)
+    expect(result?.properties.color).toContain('0.5')
+  })
+
+  it('should apply opacity to rgba colors', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsed = {
+      original: 'border-green/50',
+      variants: [],
+      utility: 'border-green',
+      negative: false,
+      arbitrary: null,
+      opacity: '50',
+    }
+    const matchResult = {
+      rule: {
+        name: 'border',
+        pattern: /^border-green$/,
+        properties: { borderColor: 'rgba(0, 255, 0, 1)' },
+      },
+      match: 'border-green'.match(/^border-green$/)!,
+    }
+
+    const result = generator.generateWithVariants(parsed, matchResult)
+    expect(result?.properties.borderColor).toContain('0.5')
+  })
+
+  it('should apply opacity to hsl colors', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsed = {
+      original: 'fill-purple/50',
+      variants: [],
+      utility: 'fill-purple',
+      negative: false,
+      arbitrary: null,
+      opacity: '50',
+    }
+    const matchResult = {
+      rule: {
+        name: 'fill',
+        pattern: /^fill-purple$/,
+        properties: { fill: 'hsl(270, 100%, 50%)' },
+      },
+      match: 'fill-purple'.match(/^fill-purple$/)!,
+    }
+
+    const result = generator.generateWithVariants(parsed, matchResult)
+    expect(result?.properties.fill).toContain('0.5')
+  })
+
+  it('should handle non-color values with opacity', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsed = {
+      original: 'bg-current/50',
+      variants: [],
+      utility: 'bg-current',
+      negative: false,
+      arbitrary: null,
+      opacity: '50',
+    }
+    const matchResult = {
+      rule: {
+        name: 'bg',
+        pattern: /^bg-current$/,
+        properties: { backgroundColor: 'currentColor' },
+      },
+      match: 'bg-current'.match(/^bg-current$/)!,
+    }
+
+    const result = generator.generateWithVariants(parsed, matchResult)
+    expect(result?.properties.backgroundColor).toBe('currentColor')
+  })
+})
+
+describe('Generator dynamic variants', () => {
+  it('should handle dynamic variants with regex match', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>([
+      [
+        'data',
+        {
+          name: 'data',
+          match: /^data-\[(.+)\]$/,
+          handler: (sel, matches) => `${sel}[data-${matches?.[1]}]`,
+        },
+      ],
+    ])
+    const generator = new Generator(theme, variants)
+
+    const css: GeneratedCSS = {
+      selector: '.bg-red',
+      properties: { backgroundColor: 'red' },
+      layer: 'utilities',
+      priority: 0,
+      className: 'data-[state=open]:bg-red',
+      variants: ['data-[state=open]'],
+    }
+
+    const result = generator.applyVariants(css)
+    expect(result).toContain('[data-state=open]')
+  })
+
+  it('should handle dynamic wrapper with factory function', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>([
+      [
+        'min',
+        {
+          name: 'min',
+          match: /^min-\[(.+)\]$/,
+          wrapper: (matches: RegExpMatchArray | null) => `@media (min-width: ${matches?.[1] ?? '0'})`,
+        },
+      ],
+    ])
+    const generator = new Generator(theme, variants)
+
+    const css: GeneratedCSS = {
+      selector: '.p-4',
+      properties: { padding: '1rem' },
+      layer: 'utilities',
+      priority: 0,
+      className: 'min-[800px]:p-4',
+      variants: ['min-[800px]'],
+    }
+
+    const result = generator.applyVariants(css)
+    expect(result).toContain('@media (min-width: 800px)')
+  })
+
+  it('should handle transform variant', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>([
+      [
+        'group-hover',
+        {
+          name: 'group-hover',
+          match: 'group-hover',
+          transform: (selector, css) => `.group:hover ${selector} { ${css.split('{')[1]}`,
+        },
+      ],
+    ])
+    const generator = new Generator(theme, variants)
+
+    const css: GeneratedCSS = {
+      selector: '.text-red',
+      properties: { color: 'red' },
+      layer: 'utilities',
+      priority: 0,
+      className: 'group-hover:text-red',
+      variants: ['group-hover'],
+    }
+
+    const result = generator.applyVariants(css)
+    expect(result).toContain('.group:hover')
+  })
+})
+
+describe('Generator handler with properties result', () => {
+  it('should handle handler returning object with properties key', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const rule: Rule = {
+      name: 'complex',
+      pattern: /^complex$/,
+      handler: () => ({ properties: { display: 'flex', flexDirection: 'column' } }),
+    }
+    const match = 'complex'.match(/^complex$/)!
+
+    const result = generator.generateClass('complex', rule, match)
+    expect(result?.properties.display).toBe('flex')
+    expect(result?.properties.flexDirection).toBe('column')
+  })
+})
+
+describe('CSSGenerator', () => {
+  it('should generate CSS for a simple class', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'flex') {
+          return {
+            rule: { name: 'flex', pattern: /^flex$/, properties: { display: 'flex' } },
+            match: utility.match(/^flex$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateClass('flex')
+    expect(result).toContain('.flex')
+    expect(result).toContain('display: flex')
+  })
+
+  it('should handle important prefix', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'block') {
+          return {
+            rule: { name: 'block', pattern: /^block$/, properties: { display: 'block' } },
+            match: utility.match(/^block$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateClass('!block')
+    expect(result).toContain('!important')
+  })
+
+  it('should return empty string for unmatched class', () => {
+    const matcher = { match: () => null }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateClass('unknown')
+    expect(result).toBe('')
+  })
+
+  it('should handle rule with generate function', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'p-4') {
+          return {
+            rule: {
+              name: 'padding',
+              pattern: /^p-(\d+)$/,
+              generate: (match: RegExpMatchArray) => ({ padding: `${Number(match[1]) * 0.25}rem` }),
+            },
+            match: utility.match(/^p-(\d+)$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateClass('p-4')
+    expect(result).toContain('padding')
+    expect(result).toContain('1rem')
+  })
+
+  it('should handle rule with handler function', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'grid') {
+          return {
+            rule: {
+              name: 'grid',
+              pattern: /^grid$/,
+              handler: () => ({ display: 'grid' }),
+            },
+            match: utility.match(/^grid$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateClass('grid')
+    expect(result).toContain('display: grid')
+  })
+
+  it('should handle handler returning object with properties key', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'complex') {
+          return {
+            rule: {
+              name: 'complex',
+              pattern: /^complex$/,
+              handler: () => ({ properties: { display: 'flex', gap: '1rem' } }),
+            },
+            match: utility.match(/^complex$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateClass('complex')
+    expect(result).toContain('display: flex')
+    expect(result).toContain('gap: 1rem')
+  })
+
+  it('should handle variants with handler', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'text-red') {
+          return {
+            rule: { name: 'text', pattern: /^text-red$/, properties: { color: 'red' } },
+            match: utility.match(/^text-red$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+    generator.addVariant({
+      name: 'hover',
+      match: 'hover',
+      handler: (sel) => `${sel}:hover`,
+    })
+
+    const result = generator.generateClass('hover:text-red')
+    expect(result).toContain(':hover')
+  })
+
+  it('should handle variants with string wrapper', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'bg-blue') {
+          return {
+            rule: { name: 'bg', pattern: /^bg-blue$/, properties: { backgroundColor: 'blue' } },
+            match: utility.match(/^bg-blue$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+    generator.addVariant({
+      name: 'md',
+      match: 'md',
+      wrapper: '@media (min-width: 768px)',
+    })
+
+    const result = generator.generateClass('md:bg-blue')
+    expect(result).toContain('@media (min-width: 768px)')
+  })
+
+  it('should handle dynamic variants with regex and wrapper factory', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'p-2') {
+          return {
+            rule: { name: 'p', pattern: /^p-2$/, properties: { padding: '0.5rem' } },
+            match: utility.match(/^p-2$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+    generator.addVariant({
+      name: 'min',
+      match: /^min-\[(.+)\]$/,
+      wrapper: (matches: RegExpMatchArray | null) => `@media (min-width: ${matches?.[1] ?? '0'})`,
+    })
+
+    const result = generator.generateClass('min-[600px]:p-2')
+    expect(result).toContain('@media (min-width: 600px)')
+  })
+
+  it('should generate CSS for multiple classes', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'flex') {
+          return {
+            rule: { name: 'flex', pattern: /^flex$/, properties: { display: 'flex' } },
+            match: utility.match(/^flex$/)!,
+          }
+        }
+        if (utility === 'block') {
+          return {
+            rule: { name: 'block', pattern: /^block$/, properties: { display: 'block' } },
+            match: utility.match(/^block$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateMultiple(['flex', 'block', 'unknown'])
+    expect(result).toContain('.flex')
+    expect(result).toContain('.block')
+  })
+
+  it('should deduplicate classes in generateMultiple', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'flex') {
+          return {
+            rule: { name: 'flex', pattern: /^flex$/, properties: { display: 'flex' } },
+            match: utility.match(/^flex$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateMultiple(['flex', 'flex', 'flex'])
+    // Should only contain one .flex
+    const matches = result.match(/\.flex/g)
+    expect(matches?.length).toBe(1)
+  })
+
+  it('should set theme', () => {
+    const matcher = { match: () => null }
+    const generator = new CSSGenerator(matcher)
+
+    generator.setTheme({ colors: { red: '#ff0000' } } as Theme)
+    expect(generator).toBeDefined()
+  })
+
+  it('should handle null handler result', () => {
+    const matcher = {
+      match: (utility: string) => {
+        if (utility === 'null-handler') {
+          return {
+            rule: {
+              name: 'null-handler',
+              pattern: /^null-handler$/,
+              handler: () => null,
+            },
+            match: utility.match(/^null-handler$/)!,
+          }
+        }
+        return null
+      },
+    }
+    const generator = new CSSGenerator(matcher)
+
+    const result = generator.generateClass('null-handler')
+    expect(result).toBe('')
   })
 })

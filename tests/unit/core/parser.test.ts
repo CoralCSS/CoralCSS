@@ -15,6 +15,7 @@ import {
   normalizeArbitraryValue,
   parseArbitraryValue,
   createClassName,
+  ClassNameParser,
 } from '../../../src/core/parser'
 
 describe('Parser', () => {
@@ -288,6 +289,45 @@ describe('Parser', () => {
 
     it('should handle empty options', () => {
       expect(createClassName('p-4', {})).toBe('p-4')
+    })
+  })
+
+  describe('ClassNameParser class', () => {
+    it('should create a Parser instance', () => {
+      const parser = new ClassNameParser()
+      expect(parser).toBeDefined()
+    })
+
+    it('should parse using instance method', () => {
+      const parser = new ClassNameParser()
+      const result = parser.parse('hover:bg-red-500')
+      expect(result.variants).toEqual(['hover'])
+      expect(result.utility).toBe('bg-red-500')
+    })
+
+    it('should parse classes using instance method', () => {
+      const parser = new ClassNameParser()
+      const results = parser.parseClasses('bg-red-500 text-white')
+      expect(results).toHaveLength(2)
+    })
+
+    it('should expand variant groups using instance method', () => {
+      const parser = new ClassNameParser()
+      const results = parser.expandVariantGroups('hover:(bg-red text-white)')
+      expect(results).toContain('hover:bg-red')
+      expect(results).toContain('hover:text-white')
+    })
+
+    it('should parse arbitrary value using instance method', () => {
+      const parser = new ClassNameParser()
+      const result = parser.parseArbitraryValue('[100px]')
+      expect(result).toBe('100px')
+    })
+
+    it('should return null for non-arbitrary value', () => {
+      const parser = new ClassNameParser()
+      const result = parser.parseArbitraryValue('normal-value')
+      expect(result).toBeNull()
     })
   })
 })

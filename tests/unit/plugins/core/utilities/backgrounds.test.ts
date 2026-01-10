@@ -262,5 +262,420 @@ describe('backgroundsPlugin', () => {
       const css = coral.generate(['to-[#0000ff]'])
       expect(css).toContain('--coral-gradient-to: #0000ff')
     })
+
+    it('should return null for from-[] with empty value', () => {
+      const css = coral.generate(['from-[]'])
+      expect(css).not.toContain('--coral-gradient-from: ;')
+    })
+
+    it('should return null for via-[] with empty value', () => {
+      const css = coral.generate(['via-[]'])
+      expect(css).not.toContain('--coral-gradient-stops: var(--coral-gradient-from), , var(--coral-gradient-to)')
+    })
+
+    it('should return null for to-[] with empty value', () => {
+      const css = coral.generate(['to-[]'])
+      expect(css).not.toContain('--coral-gradient-to: ;')
+    })
   })
+
+  describe('more background positions', () => {
+    it('should generate bg-left-top', () => {
+      const css = coral.generate(['bg-left-top'])
+      expect(css).toContain('background-position: left top')
+    })
+
+    it('should generate bg-right', () => {
+      const css = coral.generate(['bg-right'])
+      expect(css).toContain('background-position: right')
+    })
+
+    it('should generate bg-right-bottom', () => {
+      const css = coral.generate(['bg-right-bottom'])
+      expect(css).toContain('background-position: right bottom')
+    })
+
+    it('should generate bg-top', () => {
+      const css = coral.generate(['bg-top'])
+      expect(css).toContain('background-position: top')
+    })
+  })
+
+  describe('more background repeat', () => {
+    it('should generate bg-repeat-round', () => {
+      const css = coral.generate(['bg-repeat-round'])
+      expect(css).toContain('background-repeat: round')
+    })
+
+    it('should generate bg-repeat-space', () => {
+      const css = coral.generate(['bg-repeat-space'])
+      expect(css).toContain('background-repeat: space')
+    })
+  })
+
+  describe('more radial gradient sizes', () => {
+    it('should generate bg-radial-closest-corner', () => {
+      const css = coral.generate(['bg-radial-closest-corner'])
+      expect(css).toContain('radial-gradient(closest-corner')
+    })
+
+    it('should generate bg-radial-farthest-side', () => {
+      const css = coral.generate(['bg-radial-farthest-side'])
+      expect(css).toContain('radial-gradient(farthest-side')
+    })
+  })
+
+  describe('more radial gradient positions', () => {
+    it('should generate bg-radial-at-right', () => {
+      const css = coral.generate(['bg-radial-at-right'])
+      expect(css).toContain('at right')
+    })
+
+    it('should generate bg-radial-at-top-right', () => {
+      const css = coral.generate(['bg-radial-at-top-right'])
+      expect(css).toContain('at top right')
+    })
+
+    it('should generate bg-radial-at-bottom-left', () => {
+      const css = coral.generate(['bg-radial-at-bottom-left'])
+      expect(css).toContain('at bottom left')
+    })
+
+    it('should generate bg-radial-at-left', () => {
+      const css = coral.generate(['bg-radial-at-left'])
+      expect(css).toContain('at left')
+    })
+
+    it('should generate bg-radial-at-top-left', () => {
+      const css = coral.generate(['bg-radial-at-top-left'])
+      expect(css).toContain('at top left')
+    })
+  })
+
+  describe('radial circle at positions', () => {
+    it('should generate bg-radial-circle-at-center', () => {
+      const css = coral.generate(['bg-radial-circle-at-center'])
+      expect(css).toContain('radial-gradient(circle at center')
+    })
+
+    it('should generate bg-radial-circle-at-top', () => {
+      const css = coral.generate(['bg-radial-circle-at-top'])
+      expect(css).toContain('radial-gradient(circle at top')
+    })
+
+    it('should generate bg-radial-circle-at-bottom', () => {
+      const css = coral.generate(['bg-radial-circle-at-bottom'])
+      expect(css).toContain('radial-gradient(circle at bottom')
+    })
+
+    it('should generate bg-radial-circle-at-left', () => {
+      const css = coral.generate(['bg-radial-circle-at-left'])
+      expect(css).toContain('radial-gradient(circle at left')
+    })
+
+    it('should generate bg-radial-circle-at-right', () => {
+      const css = coral.generate(['bg-radial-circle-at-right'])
+      expect(css).toContain('radial-gradient(circle at right')
+    })
+  })
+
+  describe('more conic gradient angles', () => {
+    it('should generate bg-conic-from-45', () => {
+      const css = coral.generate(['bg-conic-from-45'])
+      expect(css).toContain('from 45deg')
+    })
+
+    it('should generate bg-conic-from-135', () => {
+      const css = coral.generate(['bg-conic-from-135'])
+      expect(css).toContain('from 135deg')
+    })
+
+    it('should generate bg-conic-from-225', () => {
+      const css = coral.generate(['bg-conic-from-225'])
+      expect(css).toContain('from 225deg')
+    })
+
+    it('should generate bg-conic-from-270', () => {
+      const css = coral.generate(['bg-conic-from-270'])
+      expect(css).toContain('from 270deg')
+    })
+
+    it('should generate bg-conic-from-315', () => {
+      const css = coral.generate(['bg-conic-from-315'])
+      expect(css).toContain('from 315deg')
+    })
+  })
+
+  describe('more conic gradient positions', () => {
+    it('should generate bg-conic-at-top-right', () => {
+      const css = coral.generate(['bg-conic-at-top-right'])
+      expect(css).toContain('at top right')
+    })
+
+    it('should generate bg-conic-at-right', () => {
+      const css = coral.generate(['bg-conic-at-right'])
+      expect(css).toContain('at right')
+    })
+
+    it('should generate bg-conic-at-bottom-right', () => {
+      const css = coral.generate(['bg-conic-at-bottom-right'])
+      expect(css).toContain('at bottom right')
+    })
+
+    it('should generate bg-conic-at-bottom', () => {
+      const css = coral.generate(['bg-conic-at-bottom'])
+      expect(css).toContain('at bottom')
+    })
+
+    it('should generate bg-conic-at-bottom-left', () => {
+      const css = coral.generate(['bg-conic-at-bottom-left'])
+      expect(css).toContain('at bottom left')
+    })
+
+    it('should generate bg-conic-at-left', () => {
+      const css = coral.generate(['bg-conic-at-left'])
+      expect(css).toContain('at left')
+    })
+
+    it('should generate bg-conic-at-top-left', () => {
+      const css = coral.generate(['bg-conic-at-top-left'])
+      expect(css).toContain('at top left')
+    })
+  })
+
+  describe('more gradient stop positions', () => {
+    const positions = ['5', '10', '15', '20', '30', '35', '40', '45', '55', '60', '65', '70', '80', '85', '90', '95']
+    positions.forEach((pos) => {
+      it(`should generate from-${pos}%`, () => {
+        const css = coral.generate([`from-${pos}%`])
+        expect(css).toContain(`--coral-gradient-from-position: ${pos}%`)
+      })
+
+      it(`should generate via-${pos}%`, () => {
+        const css = coral.generate([`via-${pos}%`])
+        expect(css).toContain(`--coral-gradient-via-position: ${pos}%`)
+      })
+
+      it(`should generate to-${pos}%`, () => {
+        const css = coral.generate([`to-${pos}%`])
+        expect(css).toContain(`--coral-gradient-to-position: ${pos}%`)
+      })
+    })
+  })
+
+  describe('repeating gradients', () => {
+    it('should generate bg-repeating-linear-to-t', () => {
+      const css = coral.generate(['bg-repeating-linear-to-t'])
+      expect(css).toContain('repeating-linear-gradient(to top')
+    })
+
+    it('should generate bg-repeating-linear-to-r', () => {
+      const css = coral.generate(['bg-repeating-linear-to-r'])
+      expect(css).toContain('repeating-linear-gradient(to right')
+    })
+
+    it('should generate bg-repeating-linear-to-b', () => {
+      const css = coral.generate(['bg-repeating-linear-to-b'])
+      expect(css).toContain('repeating-linear-gradient(to bottom')
+    })
+
+    it('should generate bg-repeating-linear-to-l', () => {
+      const css = coral.generate(['bg-repeating-linear-to-l'])
+      expect(css).toContain('repeating-linear-gradient(to left')
+    })
+
+    it('should generate diagonal repeating gradients', () => {
+      const css = coral.generate(['bg-repeating-linear-to-tr', 'bg-repeating-linear-to-br', 'bg-repeating-linear-to-bl', 'bg-repeating-linear-to-tl'])
+      expect(css).toContain('to top right')
+      expect(css).toContain('to bottom right')
+      expect(css).toContain('to bottom left')
+      expect(css).toContain('to top left')
+    })
+
+    it('should generate bg-repeating-radial', () => {
+      const css = coral.generate(['bg-repeating-radial'])
+      expect(css).toContain('repeating-radial-gradient')
+    })
+
+    it('should generate bg-repeating-radial-circle', () => {
+      const css = coral.generate(['bg-repeating-radial-circle'])
+      expect(css).toContain('repeating-radial-gradient(circle')
+    })
+
+    it('should generate bg-repeating-radial-ellipse', () => {
+      const css = coral.generate(['bg-repeating-radial-ellipse'])
+      expect(css).toContain('repeating-radial-gradient(ellipse')
+    })
+
+    it('should generate bg-repeating-conic', () => {
+      const css = coral.generate(['bg-repeating-conic'])
+      expect(css).toContain('repeating-conic-gradient')
+    })
+
+    it('should generate bg-repeating-conic-from-0', () => {
+      const css = coral.generate(['bg-repeating-conic-from-0'])
+      expect(css).toContain('repeating-conic-gradient(from 0deg')
+    })
+
+    it('should generate bg-repeating-conic-from-90', () => {
+      const css = coral.generate(['bg-repeating-conic-from-90'])
+      expect(css).toContain('repeating-conic-gradient(from 90deg')
+    })
+
+    it('should generate bg-repeating-conic-from-180', () => {
+      const css = coral.generate(['bg-repeating-conic-from-180'])
+      expect(css).toContain('repeating-conic-gradient(from 180deg')
+    })
+
+    it('should generate bg-repeating-conic-from-270', () => {
+      const css = coral.generate(['bg-repeating-conic-from-270'])
+      expect(css).toContain('repeating-conic-gradient(from 270deg')
+    })
+  })
+
+  describe('gradient angle utilities', () => {
+    const angles = ['0', '15', '30', '45', '60', '75', '90', '105', '120', '135', '150', '165', '180', '195', '210', '225', '240', '255', '270', '285', '300', '315', '330', '345']
+    angles.forEach((angle) => {
+      it(`should generate bg-gradient-${angle}`, () => {
+        const css = coral.generate([`bg-gradient-${angle}`])
+        expect(css).toContain(`linear-gradient(${angle}deg`)
+      })
+    })
+  })
+
+  describe('gradient color interpolation', () => {
+    it('should generate gradient-in-srgb', () => {
+      const css = coral.generate(['gradient-in-srgb'])
+      expect(css).toContain('--coral-gradient-interpolation: in srgb')
+    })
+
+    it('should generate gradient-in-srgb-linear', () => {
+      const css = coral.generate(['gradient-in-srgb-linear'])
+      expect(css).toContain('--coral-gradient-interpolation: in srgb-linear')
+    })
+
+    it('should generate gradient-in-lab', () => {
+      const css = coral.generate(['gradient-in-lab'])
+      expect(css).toContain('--coral-gradient-interpolation: in lab')
+    })
+
+    it('should generate gradient-in-oklab', () => {
+      const css = coral.generate(['gradient-in-oklab'])
+      expect(css).toContain('--coral-gradient-interpolation: in oklab')
+    })
+
+    it('should generate gradient-in-lch', () => {
+      const css = coral.generate(['gradient-in-lch'])
+      expect(css).toContain('--coral-gradient-interpolation: in lch')
+    })
+
+    it('should generate gradient-in-oklch', () => {
+      const css = coral.generate(['gradient-in-oklch'])
+      expect(css).toContain('--coral-gradient-interpolation: in oklch')
+    })
+
+    it('should generate gradient-in-hsl', () => {
+      const css = coral.generate(['gradient-in-hsl'])
+      expect(css).toContain('--coral-gradient-interpolation: in hsl')
+    })
+
+    it('should generate gradient-in-hwb', () => {
+      const css = coral.generate(['gradient-in-hwb'])
+      expect(css).toContain('--coral-gradient-interpolation: in hwb')
+    })
+  })
+
+  describe('gradient hue interpolation', () => {
+    it('should generate gradient-hue-shorter', () => {
+      const css = coral.generate(['gradient-hue-shorter'])
+      expect(css).toContain('--coral-gradient-hue: shorter hue')
+    })
+
+    it('should generate gradient-hue-longer', () => {
+      const css = coral.generate(['gradient-hue-longer'])
+      expect(css).toContain('--coral-gradient-hue: longer hue')
+    })
+
+    it('should generate gradient-hue-increasing', () => {
+      const css = coral.generate(['gradient-hue-increasing'])
+      expect(css).toContain('--coral-gradient-hue: increasing hue')
+    })
+
+    it('should generate gradient-hue-decreasing', () => {
+      const css = coral.generate(['gradient-hue-decreasing'])
+      expect(css).toContain('--coral-gradient-hue: decreasing hue')
+    })
+  })
+
+  describe('gradient blend modes', () => {
+    const blendModes = [
+      'blend', 'blend-multiply', 'blend-screen', 'blend-overlay',
+      'blend-darken', 'blend-lighten', 'blend-color-dodge', 'blend-color-burn',
+      'blend-hard-light', 'blend-soft-light', 'blend-difference', 'blend-exclusion',
+      'blend-hue', 'blend-saturation', 'blend-color', 'blend-luminosity'
+    ]
+    blendModes.forEach((mode) => {
+      it(`should generate bg-gradient-${mode}`, () => {
+        const css = coral.generate([`bg-gradient-${mode}`])
+        expect(css).toContain('background-blend-mode')
+      })
+    })
+  })
+
+  describe('arbitrary background values', () => {
+    it('should generate bg-[url(image.png)]', () => {
+      const css = coral.generate(['bg-[url(image.png)]'])
+      expect(css).toContain('background-image: url(image.png)')
+    })
+
+    it('should return null for bg-[url()] with empty url', () => {
+      const css = coral.generate(['bg-[url()]'])
+      // Empty url should still generate something
+      expect(css).toContain('url()')
+    })
+
+    it('should generate bg-[linear-gradient(red,blue)]', () => {
+      const css = coral.generate(['bg-[linear-gradient(red,blue)]'])
+      expect(css).toContain('background-image')
+      expect(css).toContain('linear-gradient')
+    })
+
+    it('should generate bg-[50%_auto]', () => {
+      const css = coral.generate(['bg-[50%_auto]'])
+      expect(css).toContain('background-size')
+    })
+
+    it('should generate bg-[100px]', () => {
+      const css = coral.generate(['bg-[100px]'])
+      expect(css).toContain('background-size')
+    })
+
+    it('should generate bg-[5rem_5rem]', () => {
+      const css = coral.generate(['bg-[5rem_5rem]'])
+      expect(css).toContain('background-size')
+    })
+
+    it('should generate bg-[#ff0000] as color', () => {
+      const css = coral.generate(['bg-[#ff0000]'])
+      expect(css).toContain('background-color')
+    })
+
+    it('should return null for bg-[] with empty value', () => {
+      const css = coral.generate(['bg-[]'])
+      expect(css).not.toContain('background-')
+    })
+  })
+
+  describe('gradient position arbitrary', () => {
+    it('should generate gradient-from-[45deg]', () => {
+      const css = coral.generate(['gradient-from-[45deg]'])
+      expect(css).toContain('--coral-gradient-position: 45deg')
+    })
+
+    it('should return null for gradient-from-[] with empty value', () => {
+      const css = coral.generate(['gradient-from-[]'])
+      expect(css).not.toContain('--coral-gradient-position: ;')
+    })
+  })
+
 })

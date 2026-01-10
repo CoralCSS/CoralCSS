@@ -790,4 +790,47 @@ describe('DOM Utilities', () => {
       addEventListenerSpy.mockRestore()
     })
   })
+
+  describe('createElement attribute loop coverage', () => {
+    it('should iterate through multiple attributes', () => {
+      const element = createElement('div', {
+        id: 'test-id',
+        class: 'test-class',
+        'data-value': '123',
+        title: 'Test Title',
+      })
+
+      expect(element.getAttribute('id')).toBe('test-id')
+      expect(element.getAttribute('class')).toBe('test-class')
+      expect(element.getAttribute('data-value')).toBe('123')
+      expect(element.getAttribute('title')).toBe('Test Title')
+    })
+
+    it('should iterate through children with mixed types', () => {
+      const span = document.createElement('span')
+      span.textContent = 'Node child'
+      const element = createElement('div', {}, 'String 1', span, 'String 2')
+
+      expect(element.childNodes.length).toBe(3)
+      expect(element.childNodes[0]?.textContent).toBe('String 1')
+      expect(element.childNodes[1]).toBe(span)
+      expect(element.childNodes[2]?.textContent).toBe('String 2')
+    })
+  })
+
+  describe('getOrCreateStyleElement new element creation', () => {
+    it('should create style with id and type attribute', () => {
+      // Ensure no existing element
+      const existingId = 'fresh-style-' + Date.now()
+      expect(document.getElementById(existingId)).toBeNull()
+
+      const style = getOrCreateStyleElement(existingId)
+
+      expect(style.id).toBe(existingId)
+      expect(style.getAttribute('type')).toBe('text/css')
+      expect(document.head.contains(style)).toBe(true)
+
+      style.remove()
+    })
+  })
 })

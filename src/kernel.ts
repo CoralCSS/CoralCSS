@@ -467,6 +467,14 @@ export class Kernel implements Coral {
       config = deepMerge(config, { content: options.content } as DeepPartial<ResolvedConfig>)
     }
 
+    if (options.safelist) {
+      config = deepMerge(config, { safelist: options.safelist } as DeepPartial<ResolvedConfig>)
+    }
+
+    if (options.blocklist) {
+      config = deepMerge(config, { blocklist: options.blocklist } as DeepPartial<ResolvedConfig>)
+    }
+
     return config
   }
 

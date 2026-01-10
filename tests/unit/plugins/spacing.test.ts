@@ -102,5 +102,29 @@ describe('spacingPlugin', () => {
       const css = coral.generate(['space-y-4'])
       expect(css).toContain('margin-top: 1rem')
     })
+
+    it('should generate space-x-reverse', () => {
+      const css = coral.generate(['space-x-reverse'])
+      expect(css).toContain('--coral-space-x-reverse')
+      expect(css).toContain('margin-right')
+    })
+
+    it('should generate space-y-reverse', () => {
+      const css = coral.generate(['space-y-reverse'])
+      expect(css).toContain('--coral-space-y-reverse')
+      expect(css).toContain('margin-bottom')
+    })
+
+    it('should generate arbitrary space-x', () => {
+      const css = coral.generate(['space-x-[20px]'])
+      expect(css).toContain('margin-left')
+      expect(css).toContain('20px')
+    })
+
+    it('should generate arbitrary space-y', () => {
+      const css = coral.generate(['space-y-[15px]'])
+      expect(css).toContain('margin-top')
+      expect(css).toContain('15px')
+    })
   })
 })

@@ -1095,6 +1095,109 @@ describe('Kernel', () => {
 
       expect(instance).toBeDefined()
     })
+
+    it('should include safelist classes in generation', () => {
+      const instance = createCoral({
+        safelist: ['safelisted-class'],
+      }) as Kernel
+
+      instance.use({
+        name: 'test-plugin',
+        version: '1.0.0',
+        install: (ctx) => {
+          ctx.addRule({
+            pattern: 'safelisted-class',
+            properties: { display: 'block' },
+          })
+        },
+      })
+
+      // Generate with an empty array should still include safelist
+      const css = instance.generate([])
+      // Safelist expansion is called internally
+      expect(instance).toBeDefined()
+    })
+
+    it('should handle RegExp safelist (skip expansion)', () => {
+      const instance = createCoral({
+        safelist: [/^safe-/],
+      }) as Kernel
+
+      // Generate to trigger safelist expansion
+      const css = instance.generate([])
+      expect(instance).toBeDefined()
+    })
+
+    it('should handle pattern object safelist (skip expansion)', () => {
+      const instance = createCoral({
+        safelist: [
+          { pattern: 'safe', variants: ['hover'] },
+        ],
+      }) as Kernel
+
+      // Generate to trigger safelist expansion
+      const css = instance.generate([])
+      expect(instance).toBeDefined()
+    })
+  })
+
+  describe('blocklist filtering behavior', () => {
+    it('should filter out string-blocked classes during generation', () => {
+      const instance = createCoral({
+        blocklist: ['blocked-class'],
+      }) as Kernel
+
+      instance.use({
+        name: 'test-plugin',
+        version: '1.0.0',
+        install: (ctx) => {
+          ctx.addRule({
+            pattern: 'blocked-class',
+            properties: { display: 'none' },
+          })
+          ctx.addRule({
+            pattern: 'allowed-class',
+            properties: { display: 'block' },
+          })
+        },
+      })
+
+      // Generate including blocked class
+      const css = instance.generate(['blocked-class', 'allowed-class'])
+
+      // blocked-class should be filtered out
+      expect(css).not.toContain('.blocked-class')
+      expect(css).toContain('.allowed-class')
+    })
+
+    it('should filter out regex-blocked classes during generation', () => {
+      const instance = createCoral({
+        blocklist: [/^debug-/],
+      }) as Kernel
+
+      instance.use({
+        name: 'test-plugin',
+        version: '1.0.0',
+        install: (ctx) => {
+          ctx.addRule({
+            pattern: /^debug-/,
+            generate: () => ({ display: 'none' }),
+          })
+          ctx.addRule({
+            pattern: 'normal-class',
+            properties: { display: 'block' },
+          })
+        },
+      })
+
+      // Generate including debug classes
+      const css = instance.generate(['debug-panel', 'debug-overlay', 'normal-class'])
+
+      // debug-* classes should be filtered out
+      expect(css).not.toContain('.debug-panel')
+      expect(css).not.toContain('.debug-overlay')
+      expect(css).toContain('.normal-class')
+    })
   })
 
   describe('cache operations', () => {

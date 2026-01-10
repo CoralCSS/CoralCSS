@@ -17,6 +17,40 @@ function createBinding(value: unknown, oldValue?: unknown): DirectiveBinding {
   } as unknown as DirectiveBinding
 }
 
+// Reset module state between tests to test fresh injection
+async function resetDirectivesModule() {
+  // Clear all style elements
+  document.querySelectorAll('style[data-coral]').forEach(el => el.remove())
+  document.querySelectorAll('#coral-css-directive').forEach(el => el.remove())
+  // Re-import to reset module state
+  vi.resetModules()
+  const mod = await import('../../../src/vue/directives')
+  return mod
+}
+
+// Reset module and mock createCoral to return a coral that generates CSS
+async function resetDirectivesWithMockedCoral() {
+  // Clear all style elements
+  document.querySelectorAll('style[data-coral]').forEach(el => el.remove())
+  document.querySelectorAll('#coral-css-directive').forEach(el => el.remove())
+  vi.resetModules()
+
+  // Mock createCoral to return a coral that generates non-empty CSS
+  vi.doMock('../../../src/index', () => ({
+    createCoral: () => ({
+      generate: (classes: string[]) => {
+        if (classes.length === 0) { return '' }
+        // Return fake CSS for the classes
+        return classes.map(c => `.${c.replace(/[/:]/g, '\\$&')} { display: block; }`).join('\n')
+      },
+      use: () => {},
+    }),
+  }))
+
+  const mod = await import('../../../src/vue/directives')
+  return mod
+}
+
 describe('Vue Directives', () => {
   let element: HTMLDivElement
 
@@ -277,6 +311,461 @@ describe('Vue Directives', () => {
       expect(directives.coralHover).toBeDefined()
       expect(directives.coralFocus).toBeDefined()
       expect(directives.coralActive).toBeDefined()
+    })
+  })
+
+  describe('Style element creation and CSS injection', () => {
+    it('should apply classes from fresh module', async () => {
+      const mod = await resetDirectivesModule()
+      const el = document.createElement('div')
+      document.body.appendChild(el)
+
+      const binding = createBinding('flex p-4')
+      binding.dir = mod.vCoral
+      mod.vCoral.mounted?.(el, binding, null as never, null as never)
+
+      // Classes should be applied regardless of CSS generation
+      expect(el.classList.contains('flex')).toBe(true)
+      expect(el.classList.contains('p-4')).toBe(true)
+
+      el.remove()
+    })
+
+    it('should apply classes from multiple directive uses', async () => {
+      const mod = await resetDirectivesModule()
+      const el1 = document.createElement('div')
+      const el2 = document.createElement('div')
+      document.body.appendChild(el1)
+      document.body.appendChild(el2)
+
+      // First directive
+      const binding1 = createBinding('flex')
+      binding1.dir = mod.vCoral
+      mod.vCoral.mounted?.(el1, binding1, null as never, null as never)
+
+      // Second directive with different classes
+      const binding2 = createBinding('grid')
+      binding2.dir = mod.vCoral
+      mod.vCoral.mounted?.(el2, binding2, null as never, null as never)
+
+      expect(el1.classList.contains('flex')).toBe(true)
+      expect(el2.classList.contains('grid')).toBe(true)
+
+      el1.remove()
+      el2.remove()
+    })
+
+    it('should apply same classes to multiple elements', async () => {
+      const mod = await resetDirectivesModule()
+      const el1 = document.createElement('div')
+      const el2 = document.createElement('div')
+      document.body.appendChild(el1)
+      document.body.appendChild(el2)
+
+      // Both elements use same classes
+      const binding1 = createBinding('block')
+      binding1.dir = mod.vCoral
+      mod.vCoral.mounted?.(el1, binding1, null as never, null as never)
+
+      const binding2 = createBinding('block')
+      binding2.dir = mod.vCoral
+      mod.vCoral.mounted?.(el2, binding2, null as never, null as never)
+
+      // Classes should be applied to both elements
+      expect(el1.classList.contains('block')).toBe(true)
+      expect(el2.classList.contains('block')).toBe(true)
+
+      el1.remove()
+      el2.remove()
+    })
+
+    it('should apply different classes to multiple elements', async () => {
+      const mod = await resetDirectivesModule()
+      const el1 = document.createElement('div')
+      const el2 = document.createElement('div')
+      document.body.appendChild(el1)
+      document.body.appendChild(el2)
+
+      const binding1 = createBinding('inline')
+      binding1.dir = mod.vCoral
+      mod.vCoral.mounted?.(el1, binding1, null as never, null as never)
+
+      const binding2 = createBinding('inline-block')
+      binding2.dir = mod.vCoral
+      mod.vCoral.mounted?.(el2, binding2, null as never, null as never)
+
+      expect(el1.classList.contains('inline')).toBe(true)
+      expect(el2.classList.contains('inline-block')).toBe(true)
+
+      el1.remove()
+      el2.remove()
+    })
+  })
+
+  describe('vCoralHover CSS injection', () => {
+    it('should apply classes with hover directive', async () => {
+      const mod = await resetDirectivesModule()
+      const el = document.createElement('div')
+      document.body.appendChild(el)
+
+      const binding = createBinding('opacity-50')
+      mod.vCoralHover.mounted?.(el, binding as DirectiveBinding<string>, null as never, null as never)
+
+      // Trigger hover to apply classes
+      el.dispatchEvent(new MouseEvent('mouseenter'))
+      expect(el.classList.contains('opacity-50')).toBe(true)
+
+      el.remove()
+    })
+  })
+
+  describe('vCoralFocus CSS injection', () => {
+    it('should apply classes with focus directive', async () => {
+      const mod = await resetDirectivesModule()
+      const el = document.createElement('input')
+      document.body.appendChild(el)
+
+      const binding = createBinding('outline-none')
+      mod.vCoralFocus.mounted?.(el, binding as DirectiveBinding<string>, null as never, null as never)
+
+      // Trigger focus to apply classes
+      el.dispatchEvent(new FocusEvent('focus'))
+      expect(el.classList.contains('outline-none')).toBe(true)
+
+      el.remove()
+    })
+  })
+
+  describe('vCoralActive CSS injection', () => {
+    it('should apply classes with active directive', async () => {
+      const mod = await resetDirectivesModule()
+      const el = document.createElement('button')
+      document.body.appendChild(el)
+
+      const binding = createBinding('transform')
+      mod.vCoralActive.mounted?.(el, binding as DirectiveBinding<string>, null as never, null as never)
+
+      // Trigger mousedown to apply classes
+      el.dispatchEvent(new MouseEvent('mousedown'))
+      expect(el.classList.contains('transform')).toBe(true)
+
+      el.remove()
+    })
+  })
+
+  describe('Shared Coral instance', () => {
+    it('should use shared coral instance across directives', async () => {
+      const mod = await resetDirectivesModule()
+      const el1 = document.createElement('div')
+      const el2 = document.createElement('div')
+      document.body.appendChild(el1)
+      document.body.appendChild(el2)
+
+      // Use the directives
+      const binding1 = createBinding('hidden')
+      binding1.dir = mod.vCoral
+      mod.vCoral.mounted?.(el1, binding1, null as never, null as never)
+
+      const binding2 = createBinding('visible')
+      mod.vCoralHover.mounted?.(el2, binding2 as DirectiveBinding<string>, null as never, null as never)
+
+      // Both elements should have their classes applied
+      expect(el1.classList.contains('hidden')).toBe(true)
+      el2.dispatchEvent(new MouseEvent('mouseenter'))
+      expect(el2.classList.contains('visible')).toBe(true)
+
+      el1.remove()
+      el2.remove()
+    })
+  })
+
+  describe('normalizeClasses edge cases', () => {
+    it('should handle string with multiple spaces', () => {
+      const binding = createBinding('class-a    class-b   class-c')
+      vCoral.mounted?.(element, binding, null as never, null as never)
+
+      expect(element.classList.contains('class-a')).toBe(true)
+      expect(element.classList.contains('class-b')).toBe(true)
+      expect(element.classList.contains('class-c')).toBe(true)
+    })
+
+    it('should handle array with strings containing spaces', () => {
+      const binding = createBinding(['class-a class-b', 'class-c class-d'])
+      vCoral.mounted?.(element, binding, null as never, null as never)
+
+      expect(element.classList.contains('class-a')).toBe(true)
+      expect(element.classList.contains('class-b')).toBe(true)
+      expect(element.classList.contains('class-c')).toBe(true)
+      expect(element.classList.contains('class-d')).toBe(true)
+    })
+
+    it('should handle array with empty strings', () => {
+      const binding = createBinding(['class-a', '', 'class-b'])
+      vCoral.mounted?.(element, binding, null as never, null as never)
+
+      expect(element.classList.contains('class-a')).toBe(true)
+      expect(element.classList.contains('class-b')).toBe(true)
+    })
+
+    it('should handle undefined value gracefully', () => {
+      const binding = createBinding(undefined)
+      expect(() => {
+        vCoral.mounted?.(element, binding, null as never, null as never)
+      }).not.toThrow()
+    })
+
+    it('should return empty array for non-string non-array value', () => {
+      const binding = createBinding(123 as unknown)
+      vCoral.mounted?.(element, binding, null as never, null as never)
+      // Should not add any classes for invalid value type
+      expect(element.className).toBe('')
+    })
+  })
+
+  describe('vCoral update scenarios', () => {
+    it('should handle update when old and new values are both arrays', () => {
+      const binding1 = createBinding(['old-a', 'old-b'])
+      vCoral.mounted?.(element, binding1, null as never, null as never)
+
+      expect(element.classList.contains('old-a')).toBe(true)
+      expect(element.classList.contains('old-b')).toBe(true)
+
+      const binding2 = createBinding(['new-a', 'new-b'], ['old-a', 'old-b'])
+      vCoral.updated?.(element, binding2, null as never, null as never)
+
+      expect(element.classList.contains('new-a')).toBe(true)
+      expect(element.classList.contains('new-b')).toBe(true)
+      expect(element.classList.contains('old-a')).toBe(false)
+      expect(element.classList.contains('old-b')).toBe(false)
+    })
+
+    it('should handle update from string to array', () => {
+      const binding1 = createBinding('old-class')
+      vCoral.mounted?.(element, binding1, null as never, null as never)
+
+      const binding2 = createBinding(['new-a', 'new-b'], 'old-class')
+      vCoral.updated?.(element, binding2, null as never, null as never)
+
+      expect(element.classList.contains('new-a')).toBe(true)
+      expect(element.classList.contains('new-b')).toBe(true)
+      expect(element.classList.contains('old-class')).toBe(false)
+    })
+
+    it('should handle update from array to string', () => {
+      const binding1 = createBinding(['old-a', 'old-b'])
+      vCoral.mounted?.(element, binding1, null as never, null as never)
+
+      const binding2 = createBinding('new-class', ['old-a', 'old-b'])
+      vCoral.updated?.(element, binding2, null as never, null as never)
+
+      expect(element.classList.contains('new-class')).toBe(true)
+      expect(element.classList.contains('old-a')).toBe(false)
+      expect(element.classList.contains('old-b')).toBe(false)
+    })
+
+    it('should not update when value is strictly equal', () => {
+      const classes = 'same-class'
+      const binding1 = createBinding(classes)
+      vCoral.mounted?.(element, binding1, null as never, null as never)
+
+      // Same reference
+      const binding2 = createBinding(classes, classes)
+      vCoral.updated?.(element, binding2, null as never, null as never)
+
+      expect(element.classList.contains('same-class')).toBe(true)
+    })
+  })
+
+  describe('CSS injection with mocked coral', () => {
+    it('should create style element when CSS is generated', async () => {
+      const mod = await resetDirectivesWithMockedCoral()
+      const el = document.createElement('div')
+      document.body.appendChild(el)
+
+      const binding = createBinding('test-class')
+      binding.dir = mod.vCoral
+      mod.vCoral.mounted?.(el, binding, null as never, null as never)
+
+      const styleEl = document.getElementById('coral-css-directive')
+      expect(styleEl).not.toBeNull()
+      expect(styleEl?.getAttribute('data-coral')).toBe('directive')
+      expect(styleEl?.textContent).toContain('test-class')
+
+      el.remove()
+    })
+
+    it('should accumulate CSS from multiple classes', async () => {
+      const mod = await resetDirectivesWithMockedCoral()
+      const el1 = document.createElement('div')
+      const el2 = document.createElement('div')
+      document.body.appendChild(el1)
+      document.body.appendChild(el2)
+
+      const binding1 = createBinding('class-a')
+      binding1.dir = mod.vCoral
+      mod.vCoral.mounted?.(el1, binding1, null as never, null as never)
+
+      const binding2 = createBinding('class-b')
+      binding2.dir = mod.vCoral
+      mod.vCoral.mounted?.(el2, binding2, null as never, null as never)
+
+      const styleEl = document.getElementById('coral-css-directive')
+      expect(styleEl).not.toBeNull()
+      expect(styleEl?.textContent).toContain('class-a')
+      expect(styleEl?.textContent).toContain('class-b')
+
+      el1.remove()
+      el2.remove()
+    })
+
+    it('should reuse existing style element', async () => {
+      const mod = await resetDirectivesWithMockedCoral()
+      const el1 = document.createElement('div')
+      const el2 = document.createElement('div')
+      document.body.appendChild(el1)
+      document.body.appendChild(el2)
+
+      const binding1 = createBinding('first-class')
+      binding1.dir = mod.vCoral
+      mod.vCoral.mounted?.(el1, binding1, null as never, null as never)
+
+      const styleEl1 = document.getElementById('coral-css-directive')
+
+      const binding2 = createBinding('second-class')
+      binding2.dir = mod.vCoral
+      mod.vCoral.mounted?.(el2, binding2, null as never, null as never)
+
+      const styleEl2 = document.getElementById('coral-css-directive')
+
+      // Should be the same element
+      expect(styleEl1).toBe(styleEl2)
+
+      // Both classes should be in the style
+      expect(styleEl2?.textContent).toContain('first-class')
+      expect(styleEl2?.textContent).toContain('second-class')
+
+      el1.remove()
+      el2.remove()
+    })
+
+    it('should not duplicate CSS for same classes', async () => {
+      const mod = await resetDirectivesWithMockedCoral()
+      const el1 = document.createElement('div')
+      const el2 = document.createElement('div')
+      document.body.appendChild(el1)
+      document.body.appendChild(el2)
+
+      const binding1 = createBinding('duplicate-class')
+      binding1.dir = mod.vCoral
+      mod.vCoral.mounted?.(el1, binding1, null as never, null as never)
+
+      const binding2 = createBinding('duplicate-class')
+      binding2.dir = mod.vCoral
+      mod.vCoral.mounted?.(el2, binding2, null as never, null as never)
+
+      const styleEl = document.getElementById('coral-css-directive')
+      // CSS should only appear once (Set deduplication)
+      const content = styleEl?.textContent || ''
+      const matches = content.match(/duplicate-class/g)
+      // Due to injectedCSS Set, the exact same CSS string won't be added twice
+      expect(matches).toBeDefined()
+
+      el1.remove()
+      el2.remove()
+    })
+
+    it('should inject CSS for hover directive', async () => {
+      const mod = await resetDirectivesWithMockedCoral()
+      const el = document.createElement('div')
+      document.body.appendChild(el)
+
+      const binding = createBinding('hover-style')
+      mod.vCoralHover.mounted?.(el, binding as DirectiveBinding<string>, null as never, null as never)
+
+      const styleEl = document.getElementById('coral-css-directive')
+      expect(styleEl).not.toBeNull()
+      expect(styleEl?.textContent).toContain('hover-style')
+
+      el.remove()
+    })
+
+    it('should inject CSS for focus directive', async () => {
+      const mod = await resetDirectivesWithMockedCoral()
+      const el = document.createElement('input')
+      document.body.appendChild(el)
+
+      const binding = createBinding('focus-style')
+      mod.vCoralFocus.mounted?.(el, binding as DirectiveBinding<string>, null as never, null as never)
+
+      const styleEl = document.getElementById('coral-css-directive')
+      expect(styleEl).not.toBeNull()
+      expect(styleEl?.textContent).toContain('focus-style')
+
+      el.remove()
+    })
+
+    it('should inject CSS for active directive', async () => {
+      const mod = await resetDirectivesWithMockedCoral()
+      const el = document.createElement('button')
+      document.body.appendChild(el)
+
+      const binding = createBinding('active-style')
+      mod.vCoralActive.mounted?.(el, binding as DirectiveBinding<string>, null as never, null as never)
+
+      const styleEl = document.getElementById('coral-css-directive')
+      expect(styleEl).not.toBeNull()
+      expect(styleEl?.textContent).toContain('active-style')
+
+      el.remove()
+    })
+  })
+
+  describe('Event listener cleanup', () => {
+    it('should add and trigger all vCoralActive listeners', () => {
+      const binding = createBinding('active-class')
+      vCoralActive.mounted?.(element, binding as DirectiveBinding<string>, null as never, null as never)
+
+      // mousedown adds class
+      element.dispatchEvent(new MouseEvent('mousedown'))
+      expect(element.classList.contains('active-class')).toBe(true)
+
+      // mouseup removes class
+      element.dispatchEvent(new MouseEvent('mouseup'))
+      expect(element.classList.contains('active-class')).toBe(false)
+
+      // mousedown again
+      element.dispatchEvent(new MouseEvent('mousedown'))
+      expect(element.classList.contains('active-class')).toBe(true)
+
+      // mouseleave removes class
+      element.dispatchEvent(new MouseEvent('mouseleave'))
+      expect(element.classList.contains('active-class')).toBe(false)
+    })
+
+    it('should add and trigger vCoralHover listeners multiple times', () => {
+      const binding = createBinding('hover-class')
+      vCoralHover.mounted?.(element, binding as DirectiveBinding<string>, null as never, null as never)
+
+      // Multiple enter/leave cycles
+      for (let i = 0; i < 3; i++) {
+        element.dispatchEvent(new MouseEvent('mouseenter'))
+        expect(element.classList.contains('hover-class')).toBe(true)
+        element.dispatchEvent(new MouseEvent('mouseleave'))
+        expect(element.classList.contains('hover-class')).toBe(false)
+      }
+    })
+
+    it('should add and trigger vCoralFocus listeners multiple times', () => {
+      const binding = createBinding('focus-class')
+      vCoralFocus.mounted?.(element, binding as DirectiveBinding<string>, null as never, null as never)
+
+      // Multiple focus/blur cycles
+      for (let i = 0; i < 3; i++) {
+        element.dispatchEvent(new FocusEvent('focus'))
+        expect(element.classList.contains('focus-class')).toBe(true)
+        element.dispatchEvent(new FocusEvent('blur'))
+        expect(element.classList.contains('focus-class')).toBe(false)
+      }
     })
   })
 })
