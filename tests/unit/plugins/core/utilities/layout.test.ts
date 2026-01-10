@@ -259,6 +259,109 @@ describe('Layout Utilities Plugin', () => {
     })
   })
 
+  describe('Touch Action Utilities', () => {
+    it('should generate touch-auto', () => {
+      const css = coral.generate(['touch-auto'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-none', () => {
+      const css = coral.generate(['touch-none'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-pan-x', () => {
+      const css = coral.generate(['touch-pan-x'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-pan-left', () => {
+      const css = coral.generate(['touch-pan-left'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-pan-right', () => {
+      const css = coral.generate(['touch-pan-right'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-pan-y', () => {
+      const css = coral.generate(['touch-pan-y'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-pan-up', () => {
+      const css = coral.generate(['touch-pan-up'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-pan-down', () => {
+      const css = coral.generate(['touch-pan-down'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-pinch-zoom', () => {
+      const css = coral.generate(['touch-pinch-zoom'])
+      expect(css).toContain('touch-action')
+    })
+
+    it('should generate touch-manipulation', () => {
+      const css = coral.generate(['touch-manipulation'])
+      expect(css).toContain('touch-action')
+    })
+  })
+
+  describe('Caret Color Utilities', () => {
+    it('should generate caret-transparent', () => {
+      const css = coral.generate(['caret-transparent'])
+      expect(css).toContain('caret-color')
+    })
+
+    it('should generate caret-current', () => {
+      const css = coral.generate(['caret-current'])
+      expect(css).toContain('caret-color')
+    })
+
+    it('should generate caret-auto', () => {
+      const css = coral.generate(['caret-auto'])
+      expect(css).toContain('caret-color')
+    })
+
+    it('should generate caret-[custom]', () => {
+      const css = coral.generate(['caret-[blue]'])
+      expect(css).toContain('caret-color')
+    })
+  })
+
+  describe('Accent Color Utilities', () => {
+    it('should generate accent-auto', () => {
+      const css = coral.generate(['accent-auto'])
+      expect(css).toContain('accent-color')
+    })
+
+    it('should generate accent-transparent', () => {
+      const css = coral.generate(['accent-transparent'])
+      expect(css).toContain('accent-color')
+    })
+
+    it('should generate accent-current', () => {
+      const css = coral.generate(['accent-current'])
+      expect(css).toContain('accent-color')
+    })
+
+    it('should generate accent-[custom]', () => {
+      const css = coral.generate(['accent-[blue]'])
+      expect(css).toContain('accent-color')
+    })
+  })
+
+  describe('Cursor Utilities', () => {
+    it('should generate cursor-[custom]', () => {
+      const css = coral.generate(['cursor-[grab]'])
+      expect(css).toContain('cursor')
+    })
+  })
+
   describe('Default Export', () => {
     it('should export default function', async () => {
       const { default: defaultExport } = await import(
