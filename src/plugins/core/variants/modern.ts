@@ -24,7 +24,7 @@ export function modernVariantsPlugin(): Plugin {
         variants.push({
           name: `@${name}`,
           handler: (selector) => selector,
-          wrapper: (css) => `@container (min-width: ${width}) { ${css} }`,
+          wrapper: (css: string) => `@container (min-width: ${width}) { ${css} }`,
         })
       }
 
@@ -32,7 +32,7 @@ export function modernVariantsPlugin(): Plugin {
       variants.push({
         name: '@container',
         handler: (selector) => selector,
-        wrapper: (css) => `@container { ${css} }`,
+        wrapper: (css: string) => `@container { ${css} }`,
       })
 
       // Container query with arbitrary value
@@ -67,37 +67,37 @@ export function modernVariantsPlugin(): Plugin {
       variants.push({
         name: 'supports-grid',
         handler: (selector) => selector,
-        wrapper: (css) => `@supports (display: grid) { ${css} }`,
+        wrapper: (css: string) => `@supports (display: grid) { ${css} }`,
       })
       variants.push({
         name: 'supports-flex',
         handler: (selector) => selector,
-        wrapper: (css) => `@supports (display: flex) { ${css} }`,
+        wrapper: (css: string) => `@supports (display: flex) { ${css} }`,
       })
       variants.push({
         name: 'supports-backdrop',
         handler: (selector) => selector,
-        wrapper: (css) => `@supports (backdrop-filter: blur(1px)) { ${css} }`,
+        wrapper: (css: string) => `@supports (backdrop-filter: blur(1px)) { ${css} }`,
       })
       variants.push({
         name: 'supports-scroll-snap',
         handler: (selector) => selector,
-        wrapper: (css) => `@supports (scroll-snap-type: x mandatory) { ${css} }`,
+        wrapper: (css: string) => `@supports (scroll-snap-type: x mandatory) { ${css} }`,
       })
       variants.push({
         name: 'supports-container',
         handler: (selector) => selector,
-        wrapper: (css) => `@supports (container-type: inline-size) { ${css} }`,
+        wrapper: (css: string) => `@supports (container-type: inline-size) { ${css} }`,
       })
       variants.push({
         name: 'supports-anchor',
         handler: (selector) => selector,
-        wrapper: (css) => `@supports (anchor-name: --a) { ${css} }`,
+        wrapper: (css: string) => `@supports (anchor-name: --a) { ${css} }`,
       })
       variants.push({
         name: 'supports-has',
         handler: (selector) => selector,
-        wrapper: (css) => `@supports selector(:has(*)) { ${css} }`,
+        wrapper: (css: string) => `@supports selector(:has(*)) { ${css} }`,
       })
 
       // :where() and :is() variants for specificity control

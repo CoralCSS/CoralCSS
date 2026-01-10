@@ -101,6 +101,20 @@ describe('Matcher', () => {
       const removed = matcher.removeRule('nonexistent')
       expect(removed).toBe(false)
     })
+
+    it('should invalidate cache when rule is removed', () => {
+      // Add a rule and match against it (using pattern that includes exact match)
+      matcher.addRule({ name: 'cache-test', pattern: /^cachetest$/, generate: () => ({ color: 'red' }) })
+      const match1 = matcher.match('cachetest')
+      expect(match1).not.toBeNull()
+
+      // Remove the rule
+      matcher.removeRule('cache-test')
+
+      // Match should now return null since cache is invalidated and rule is gone
+      const match2 = matcher.match('cachetest')
+      expect(match2).toBeNull()
+    })
   })
 
   describe('getRule', () => {

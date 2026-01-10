@@ -36,7 +36,7 @@ describe('Generator', () => {
         {
           name: 'dark',
           match: 'dark',
-          wrapper: (css) => `@media (prefers-color-scheme: dark) { ${css} }`,
+          wrapper: (css: string) => `@media (prefers-color-scheme: dark) { ${css} }`,
         },
       ],
     ])
@@ -458,5 +458,73 @@ describe('dedupeGeneratedCSS', () => {
 
     const deduped = dedupeGeneratedCSS(items)
     expect(deduped.length).toBe(2)
+  })
+})
+
+describe('Generator with function wrapper variant', () => {
+  it('should apply wrapper function that returns string', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>([
+      [
+        'sm',
+        {
+          name: 'sm',
+          match: 'sm',
+          wrapper: '@media (min-width: 640px)',
+        },
+      ],
+    ])
+    const generator = new Generator(theme, variants)
+
+    const css: GeneratedCSS = {
+      selector: '.p-4',
+      properties: { padding: '1rem' },
+      layer: 'utilities',
+      priority: 0,
+      className: 'sm:p-4',
+      variants: ['sm'],
+    }
+
+    const result = generator.applyVariants(css)
+    expect(result).toContain('@media (min-width: 640px)')
+  })
+
+  it('should handle generateMultiple with multiple classes', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants)
+
+    const parsedClasses = [
+      { original: 'test1', variants: [], utility: 'test1', negative: false, arbitrary: null },
+      { original: 'test2', variants: [], utility: 'test2', negative: false, arbitrary: null },
+    ]
+    const getMatchResult = (utility: string) => {
+      if (utility.startsWith('test')) {
+        return {
+          rule: { name: 'test', pattern: /^test\d$/, properties: { display: 'flex' } },
+          match: utility.match(/^test\d$/)!,
+        }
+      }
+      return null
+    }
+
+    const results = generator.generateMany(parsedClasses, getMatchResult)
+    expect(results.length).toBe(2)
+  })
+
+  it('should handle important flag', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>()
+    const generator = new Generator(theme, variants, { important: true })
+
+    const rule: Rule = {
+      name: 'test',
+      pattern: /^test$/,
+      properties: { display: 'flex' },
+    }
+    const match = 'test'.match(/^test$/)!
+
+    const result = generator.generateClass('test', rule, match)
+    expect(result).toBeDefined()
   })
 })

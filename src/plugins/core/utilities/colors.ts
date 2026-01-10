@@ -1232,6 +1232,230 @@ export function colorsPlugin(): Plugin {
         }
       }
 
+      // ========================================
+      // GRADIENT COLOR STOPS (Tailwind 4 Parity)
+      // from-{color}, via-{color}, to-{color}
+      // ========================================
+
+      // Helper to convert hex to RGB for gradient stops with opacity
+      const hexToRgb = (hex: string): string => {
+        const rgb = hexToRgbValues(hex)
+        return rgb ? `${rgb.r} ${rgb.g} ${rgb.b}` : hex
+      }
+
+      // Generate gradient stops for all colors
+      for (const [colorName, colorValue] of Object.entries(colors)) {
+        if (typeof colorValue === 'string') {
+          // Simple color values (inherit, current, transparent, black, white)
+          rules.push({
+            pattern: `from-${colorName}`,
+            properties: {
+              '--coral-gradient-from': colorValue,
+              '--coral-gradient-to': 'rgb(255 255 255 / 0)',
+              '--coral-gradient-stops': 'var(--coral-gradient-from) var(--coral-gradient-from-position, ), var(--coral-gradient-to) var(--coral-gradient-to-position, )',
+            },
+          })
+          rules.push({
+            pattern: `via-${colorName}`,
+            properties: {
+              '--coral-gradient-via': colorValue,
+              '--coral-gradient-via-stops': 'var(--coral-gradient-via) var(--coral-gradient-via-position, )',
+              '--coral-gradient-to': 'rgb(255 255 255 / 0)',
+              '--coral-gradient-stops': 'var(--coral-gradient-from) var(--coral-gradient-from-position, ), var(--coral-gradient-via-stops), var(--coral-gradient-to) var(--coral-gradient-to-position, )',
+            },
+          })
+          rules.push({
+            pattern: `to-${colorName}`,
+            properties: {
+              '--coral-gradient-to': colorValue,
+            },
+          })
+        } else if (typeof colorValue === 'object') {
+          // Color scales (50-950)
+          for (const [shade, hex] of Object.entries(colorValue)) {
+            const rgbValue = hexToRgb(hex)
+
+            // from-{color}-{shade}
+            rules.push({
+              pattern: `from-${colorName}-${shade}`,
+              properties: {
+                '--coral-gradient-from': hex,
+                '--coral-gradient-to': `rgb(${rgbValue} / 0)`,
+                '--coral-gradient-stops': 'var(--coral-gradient-from) var(--coral-gradient-from-position, ), var(--coral-gradient-to) var(--coral-gradient-to-position, )',
+              },
+            })
+
+            // from-{color}-{shade}/{opacity}
+            rules.push({
+              pattern: new RegExp(`^from-${colorName}-${shade}/(\\d+)$`),
+              handler: (match) => {
+                const opacityStr = match[1]
+                if (!opacityStr) { return null }
+                const opacityValue = parseInt(opacityStr, 10) / 100
+                return {
+                  properties: {
+                    '--coral-gradient-from': `rgb(${rgbValue} / ${opacityValue})`,
+                    '--coral-gradient-to': `rgb(${rgbValue} / 0)`,
+                    '--coral-gradient-stops': 'var(--coral-gradient-from) var(--coral-gradient-from-position, ), var(--coral-gradient-to) var(--coral-gradient-to-position, )',
+                  },
+                }
+              },
+            })
+
+            // via-{color}-{shade}
+            rules.push({
+              pattern: `via-${colorName}-${shade}`,
+              properties: {
+                '--coral-gradient-via': hex,
+                '--coral-gradient-via-stops': 'var(--coral-gradient-via) var(--coral-gradient-via-position, )',
+                '--coral-gradient-to': `rgb(${rgbValue} / 0)`,
+                '--coral-gradient-stops': 'var(--coral-gradient-from) var(--coral-gradient-from-position, ), var(--coral-gradient-via-stops), var(--coral-gradient-to) var(--coral-gradient-to-position, )',
+              },
+            })
+
+            // via-{color}-{shade}/{opacity}
+            rules.push({
+              pattern: new RegExp(`^via-${colorName}-${shade}/(\\d+)$`),
+              handler: (match) => {
+                const opacityStr = match[1]
+                if (!opacityStr) { return null }
+                const opacityValue = parseInt(opacityStr, 10) / 100
+                return {
+                  properties: {
+                    '--coral-gradient-via': `rgb(${rgbValue} / ${opacityValue})`,
+                    '--coral-gradient-via-stops': 'var(--coral-gradient-via) var(--coral-gradient-via-position, )',
+                    '--coral-gradient-to': `rgb(${rgbValue} / 0)`,
+                    '--coral-gradient-stops': 'var(--coral-gradient-from) var(--coral-gradient-from-position, ), var(--coral-gradient-via-stops), var(--coral-gradient-to) var(--coral-gradient-to-position, )',
+                  },
+                }
+              },
+            })
+
+            // to-{color}-{shade}
+            rules.push({
+              pattern: `to-${colorName}-${shade}`,
+              properties: {
+                '--coral-gradient-to': hex,
+              },
+            })
+
+            // to-{color}-{shade}/{opacity}
+            rules.push({
+              pattern: new RegExp(`^to-${colorName}-${shade}/(\\d+)$`),
+              handler: (match) => {
+                const opacityStr = match[1]
+                if (!opacityStr) { return null }
+                const opacityValue = parseInt(opacityStr, 10) / 100
+                return {
+                  properties: {
+                    '--coral-gradient-to': `rgb(${rgbValue} / ${opacityValue})`,
+                  },
+                }
+              },
+            })
+          }
+        }
+      }
+
+      // ========================================
+      // GRADIENT TEXT (text-gradient utility)
+      // ========================================
+
+      rules.push({
+        pattern: 'text-gradient',
+        properties: {
+          'background-image': 'linear-gradient(var(--coral-gradient-angle, to right), var(--coral-gradient-stops))',
+          '-webkit-background-clip': 'text',
+          'background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+          'color': 'transparent',
+        },
+      })
+      rules.push({
+        pattern: 'text-gradient-radial',
+        properties: {
+          'background-image': 'radial-gradient(var(--coral-gradient-stops))',
+          '-webkit-background-clip': 'text',
+          'background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+          'color': 'transparent',
+        },
+      })
+      rules.push({
+        pattern: 'text-gradient-conic',
+        properties: {
+          'background-image': 'conic-gradient(from var(--coral-gradient-position, 0deg), var(--coral-gradient-stops))',
+          '-webkit-background-clip': 'text',
+          'background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+          'color': 'transparent',
+        },
+      })
+
+      // ========================================
+      // BORDER GRADIENTS
+      // ========================================
+
+      rules.push({
+        pattern: 'border-gradient',
+        properties: {
+          'border-image': 'linear-gradient(var(--coral-gradient-angle, to right), var(--coral-gradient-stops)) 1',
+        },
+      })
+      rules.push({
+        pattern: 'border-gradient-radial',
+        properties: {
+          'border-image': 'radial-gradient(var(--coral-gradient-stops)) 1',
+        },
+      })
+      rules.push({
+        pattern: 'border-gradient-conic',
+        properties: {
+          'border-image': 'conic-gradient(from var(--coral-gradient-position, 0deg), var(--coral-gradient-stops)) 1',
+        },
+      })
+
+      // ========================================
+      // GRADIENT PRESETS WITH OKLCH (P3 Wide Gamut)
+      // ========================================
+
+      rules.push({
+        pattern: 'bg-gradient-vivid-sunset',
+        properties: {
+          'background-image': 'linear-gradient(135deg in oklch, oklch(0.7 0.35 30), oklch(0.65 0.35 350), oklch(0.6 0.32 310))',
+        },
+      })
+      rules.push({
+        pattern: 'bg-gradient-vivid-ocean',
+        properties: {
+          'background-image': 'linear-gradient(135deg in oklch, oklch(0.7 0.25 200), oklch(0.6 0.3 250), oklch(0.55 0.32 280))',
+        },
+      })
+      rules.push({
+        pattern: 'bg-gradient-vivid-aurora',
+        properties: {
+          'background-image': 'linear-gradient(135deg in oklch longer hue, oklch(0.6 0.32 300), oklch(0.7 0.25 200), oklch(0.75 0.3 150))',
+        },
+      })
+      rules.push({
+        pattern: 'bg-gradient-vivid-neon',
+        properties: {
+          'background-image': 'linear-gradient(90deg in oklch, oklch(0.85 0.4 150), oklch(0.8 0.35 200), oklch(0.7 0.4 330))',
+        },
+      })
+      rules.push({
+        pattern: 'bg-gradient-rainbow',
+        properties: {
+          'background-image': 'linear-gradient(90deg in oklch longer hue, oklch(0.7 0.25 0), oklch(0.7 0.25 360))',
+        },
+      })
+      rules.push({
+        pattern: 'bg-gradient-rainbow-vivid',
+        properties: {
+          'background-image': 'linear-gradient(90deg in oklch longer hue, oklch(0.75 0.35 0), oklch(0.75 0.35 360))',
+        },
+      })
+
       // Register all rules
       for (const rule of rules) {
         ctx.addRule(rule)

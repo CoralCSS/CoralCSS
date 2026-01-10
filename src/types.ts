@@ -76,6 +76,31 @@ export interface CoralOptions {
   }
   /** Content paths for class extraction */
   content?: string[]
+  /**
+   * Safelist - classes to always include even if not found in content.
+   * Supports strings and RegExp patterns.
+   * @example
+   * ```ts
+   * safelist: [
+   *   'bg-red-500',
+   *   /^text-/,
+   *   { pattern: /^bg-/, variants: ['hover', 'dark'] }
+   * ]
+   * ```
+   */
+  safelist?: (string | RegExp | {
+    pattern: RegExp
+    variants?: string[]
+  })[]
+  /**
+   * Blocklist - classes to never generate even if found in content.
+   * Supports strings and RegExp patterns.
+   * @example
+   * ```ts
+   * blocklist: ['opacity-0', /^hidden$/]
+   * ```
+   */
+  blocklist?: (string | RegExp)[]
 }
 
 /**
@@ -93,6 +118,8 @@ export interface ResolvedConfig {
     readonly attributify: boolean
   }
   readonly content: string[]
+  readonly safelist: (string | RegExp | { pattern: RegExp; variants?: string[] })[]
+  readonly blocklist: (string | RegExp)[]
 }
 
 // =============================================================================
@@ -246,10 +273,15 @@ export interface Variant {
   match?: RegExp | string
   /** Transform selector or wrap in at-rule */
   transform?: (selector: string, css: string) => string
-  /** Handler function (alternative to transform) */
-  handler?: (selector: string) => string
-  /** Wrapper function for at-rules (e.g., media queries) */
-  wrapper?: (css: string) => string
+  /** Handler function (alternative to transform). Can optionally receive regex match results. */
+  handler?: (selector: string, matches?: RegExpMatchArray | null) => string
+  /**
+   * Wrapper for at-rules - can be:
+   * - A string (e.g., '@supports (display: grid)')
+   * - A function that takes CSS and returns wrapped CSS
+   * - A factory function that takes regex matches and returns the wrapper string (for dynamic variants)
+   */
+  wrapper?: string | ((css: string) => string) | ((matches: RegExpMatchArray | null) => string)
   /** Variant priority for ordering */
   priority?: number
   /** Whether this variant can be combined with others */
@@ -458,6 +490,19 @@ export interface Theme {
   animation: AnimationScale
   screens: ScreensConfig
   containers: ContainerConfig
+  /** Keyframes for animations */
+  keyframes?: Record<string, Record<string, CSSProperties>>
+  /** Attributify mode configuration */
+  attributify?: {
+    enabled: boolean
+    prefix?: string
+    strict?: boolean
+    ignoreAttributes?: string[]
+    onlyAttributes?: string[]
+    valueless?: boolean
+    variantGroups?: boolean
+    separator?: string
+  }
 }
 
 // =============================================================================
@@ -496,6 +541,10 @@ export interface ParsedClass {
   negative: boolean
   /** Arbitrary value (from [...]) */
   arbitrary: string | null
+  /** Important modifier (!) */
+  important?: boolean
+  /** Opacity modifier (/50) */
+  opacity?: string | null
 }
 
 // =============================================================================

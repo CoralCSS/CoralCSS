@@ -630,4 +630,164 @@ describe('DOM Utilities', () => {
       expect(() => unlockScroll()).not.toThrow()
     })
   })
+
+  describe('createElement edge cases', () => {
+    it('should create element with no attributes and no children', () => {
+      const element = createElement('span')
+
+      expect(element.tagName).toBe('SPAN')
+      expect(element.attributes.length).toBe(0)
+      expect(element.childNodes.length).toBe(0)
+    })
+
+    it('should create element with empty attributes object', () => {
+      const element = createElement('div', {})
+
+      expect(element.tagName).toBe('DIV')
+    })
+
+    it('should handle multiple node children', () => {
+      const span1 = document.createElement('span')
+      span1.textContent = 'First'
+      const span2 = document.createElement('span')
+      span2.textContent = 'Second'
+
+      const element = createElement('div', {}, span1, span2)
+
+      expect(element.childNodes.length).toBe(2)
+      expect(element.contains(span1)).toBe(true)
+      expect(element.contains(span2)).toBe(true)
+    })
+  })
+
+  describe('trapFocus edge cases', () => {
+    it('should handle container with no focusable elements', () => {
+      container.innerHTML = '<div>Not focusable</div>'
+
+      const cleanup = trapFocus(container)
+
+      // Should not throw with no focusable elements
+      expect(typeof cleanup).toBe('function')
+      cleanup()
+    })
+
+    it('should handle Tab when not on last element', () => {
+      container.innerHTML = '<button id="first">First</button><button id="middle">Middle</button><button id="last">Last</button>'
+      const middle = container.querySelector('#middle') as HTMLElement
+
+      trapFocus(container)
+      middle.focus()
+
+      // Tab from middle element should not preventDefault
+      const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true })
+      const preventDefault = vi.fn()
+      Object.defineProperty(event, 'preventDefault', { value: preventDefault })
+      container.dispatchEvent(event)
+
+      // Should not prevent default since we're not on last element
+      expect(preventDefault).not.toHaveBeenCalled()
+    })
+
+    it('should handle Shift+Tab when not on first element', () => {
+      container.innerHTML = '<button id="first">First</button><button id="middle">Middle</button><button id="last">Last</button>'
+      const middle = container.querySelector('#middle') as HTMLElement
+
+      trapFocus(container)
+      middle.focus()
+
+      // Shift+Tab from middle element should not preventDefault
+      const event = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true })
+      const preventDefault = vi.fn()
+      Object.defineProperty(event, 'preventDefault', { value: preventDefault })
+      container.dispatchEvent(event)
+
+      expect(preventDefault).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('getOrCreateStyleElement edge cases', () => {
+    afterEach(() => {
+      document.getElementById('edge-case-style')?.remove()
+    })
+
+    it('should return existing style element without recreating', () => {
+      // Create style element manually first
+      const existingStyle = document.createElement('style')
+      existingStyle.id = 'edge-case-style'
+      document.head.appendChild(existingStyle)
+
+      // Call getOrCreateStyleElement - should return existing one
+      const result = getOrCreateStyleElement('edge-case-style')
+
+      expect(result).toBe(existingStyle)
+      // Should not have type attribute since we created it manually
+      expect(result.id).toBe('edge-case-style')
+    })
+  })
+
+  describe('isInViewport edge cases', () => {
+    it('should return false for element outside bottom of viewport', () => {
+      const element = document.createElement('div')
+      document.body.appendChild(element)
+
+      // Mock getBoundingClientRect for element below viewport
+      element.getBoundingClientRect = vi.fn().mockReturnValue({
+        top: 0,
+        left: 0,
+        bottom: 10000, // Below viewport
+        right: 100,
+      })
+
+      expect(isInViewport(element)).toBe(false)
+
+      element.remove()
+    })
+
+    it('should return false for element outside right of viewport', () => {
+      const element = document.createElement('div')
+      document.body.appendChild(element)
+
+      // Mock getBoundingClientRect for element to the right of viewport
+      element.getBoundingClientRect = vi.fn().mockReturnValue({
+        top: 0,
+        left: 0,
+        bottom: 100,
+        right: 10000, // Right of viewport
+      })
+
+      expect(isInViewport(element)).toBe(false)
+
+      element.remove()
+    })
+  })
+
+  describe('onDOMReady edge cases', () => {
+    it('should add DOMContentLoaded listener when document is loading', () => {
+      // Capture original readyState
+      const originalReadyState = document.readyState
+
+      // Mock document.readyState to 'loading'
+      Object.defineProperty(document, 'readyState', {
+        value: 'loading',
+        writable: true,
+        configurable: true,
+      })
+
+      const callback = vi.fn()
+      const addEventListenerSpy = vi.spyOn(document, 'addEventListener')
+
+      onDOMReady(callback)
+
+      expect(addEventListenerSpy).toHaveBeenCalledWith('DOMContentLoaded', callback)
+      expect(callback).not.toHaveBeenCalled() // Should not be called immediately
+
+      // Restore readyState
+      Object.defineProperty(document, 'readyState', {
+        value: originalReadyState,
+        writable: true,
+        configurable: true,
+      })
+      addEventListenerSpy.mockRestore()
+    })
+  })
 })

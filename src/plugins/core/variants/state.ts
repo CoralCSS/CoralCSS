@@ -1442,6 +1442,414 @@ export function stateVariantsPlugin(): Plugin {
         handler: (selector) => `${selector}[data-truncated]`,
       })
 
+      // ========================================
+      // :has() RELATIONAL PSEUDO-CLASS VARIANTS
+      // Style element based on its descendants/siblings
+      // ========================================
+
+      // Has checked descendant
+      variants.push({
+        name: 'has-checked',
+        handler: (selector) => `${selector}:has(:checked)`,
+      })
+      variants.push({
+        name: 'has-unchecked',
+        handler: (selector) => `${selector}:has(:not(:checked))`,
+      })
+
+      // Has focused descendant
+      variants.push({
+        name: 'has-focus',
+        handler: (selector) => `${selector}:has(:focus)`,
+      })
+      variants.push({
+        name: 'has-focus-within',
+        handler: (selector) => `${selector}:has(:focus-within)`,
+      })
+      variants.push({
+        name: 'has-focus-visible',
+        handler: (selector) => `${selector}:has(:focus-visible)`,
+      })
+
+      // Has hovered descendant
+      variants.push({
+        name: 'has-hover',
+        handler: (selector) => `${selector}:has(:hover)`,
+      })
+
+      // Has active descendant
+      variants.push({
+        name: 'has-active',
+        handler: (selector) => `${selector}:has(:active)`,
+      })
+
+      // Has disabled descendant
+      variants.push({
+        name: 'has-disabled',
+        handler: (selector) => `${selector}:has(:disabled)`,
+      })
+      variants.push({
+        name: 'has-enabled',
+        handler: (selector) => `${selector}:has(:enabled)`,
+      })
+
+      // Has valid/invalid descendant
+      variants.push({
+        name: 'has-valid',
+        handler: (selector) => `${selector}:has(:valid)`,
+      })
+      variants.push({
+        name: 'has-invalid',
+        handler: (selector) => `${selector}:has(:invalid)`,
+      })
+
+      // Has required descendant
+      variants.push({
+        name: 'has-required',
+        handler: (selector) => `${selector}:has(:required)`,
+      })
+      variants.push({
+        name: 'has-optional',
+        handler: (selector) => `${selector}:has(:optional)`,
+      })
+
+      // Has empty descendant
+      variants.push({
+        name: 'has-empty',
+        handler: (selector) => `${selector}:has(:empty)`,
+      })
+
+      // Has placeholder shown
+      variants.push({
+        name: 'has-placeholder-shown',
+        handler: (selector) => `${selector}:has(:placeholder-shown)`,
+      })
+
+      // Has specific element types
+      variants.push({
+        name: 'has-img',
+        handler: (selector) => `${selector}:has(img)`,
+      })
+      variants.push({
+        name: 'has-svg',
+        handler: (selector) => `${selector}:has(svg)`,
+      })
+      variants.push({
+        name: 'has-video',
+        handler: (selector) => `${selector}:has(video)`,
+      })
+      variants.push({
+        name: 'has-audio',
+        handler: (selector) => `${selector}:has(audio)`,
+      })
+      variants.push({
+        name: 'has-iframe',
+        handler: (selector) => `${selector}:has(iframe)`,
+      })
+
+      // Has input types
+      variants.push({
+        name: 'has-input',
+        handler: (selector) => `${selector}:has(input)`,
+      })
+      variants.push({
+        name: 'has-textarea',
+        handler: (selector) => `${selector}:has(textarea)`,
+      })
+      variants.push({
+        name: 'has-select',
+        handler: (selector) => `${selector}:has(select)`,
+      })
+      variants.push({
+        name: 'has-button',
+        handler: (selector) => `${selector}:has(button)`,
+      })
+
+      // Has sibling (next sibling)
+      variants.push({
+        name: 'has-next',
+        handler: (selector) => `${selector}:has(+ *)`,
+      })
+      variants.push({
+        name: 'has-no-next',
+        handler: (selector) => `${selector}:not(:has(+ *))`,
+      })
+
+      // Has children
+      variants.push({
+        name: 'has-children',
+        handler: (selector) => `${selector}:has(> *)`,
+      })
+      variants.push({
+        name: 'has-no-children',
+        handler: (selector) => `${selector}:not(:has(> *))`,
+      })
+
+      // Arbitrary :has() - allows custom selectors
+      // Usage: has-[.active]:bg-blue-500, has-[>_img]:p-4
+      variants.push({
+        name: 'has',
+        match: /^has-\[(.+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const hasSelector = matches[1].replace(/_/g, ' ')
+          return `${selector}:has(${hasSelector})`
+        },
+      })
+
+      // ========================================
+      // :not() NEGATION PSEUDO-CLASS VARIANTS
+      // ========================================
+
+      variants.push({
+        name: 'not-first',
+        handler: (selector) => `${selector}:not(:first-child)`,
+      })
+      variants.push({
+        name: 'not-last',
+        handler: (selector) => `${selector}:not(:last-child)`,
+      })
+      variants.push({
+        name: 'not-only',
+        handler: (selector) => `${selector}:not(:only-child)`,
+      })
+      variants.push({
+        name: 'not-empty',
+        handler: (selector) => `${selector}:not(:empty)`,
+      })
+      variants.push({
+        name: 'not-disabled',
+        handler: (selector) => `${selector}:not(:disabled)`,
+      })
+      variants.push({
+        name: 'not-checked',
+        handler: (selector) => `${selector}:not(:checked)`,
+      })
+
+      // Arbitrary :not()
+      variants.push({
+        name: 'not',
+        match: /^not-\[(.+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const notSelector = matches[1].replace(/_/g, ' ')
+          return `${selector}:not(${notSelector})`
+        },
+      })
+
+      // ========================================
+      // :is() / :where() PSEUDO-CLASS VARIANTS
+      // ========================================
+
+      // Arbitrary :is()
+      variants.push({
+        name: 'is',
+        match: /^is-\[(.+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const isSelector = matches[1].replace(/_/g, ' ')
+          return `${selector}:is(${isSelector})`
+        },
+      })
+
+      // Arbitrary :where() (zero specificity)
+      variants.push({
+        name: 'where',
+        match: /^where-\[(.+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const whereSelector = matches[1].replace(/_/g, ' ')
+          return `${selector}:where(${whereSelector})`
+        },
+      })
+
+      // ========================================
+      // ARBITRARY DATA ATTRIBUTE VARIANTS
+      // Usage: data-[state=open]:bg-red, data-[active]:text-white
+      // ========================================
+
+      variants.push({
+        name: 'data',
+        match: /^data-\[([^\]]+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const value = matches[1].replace(/_/g, ' ')
+          // Check if it's a key=value pair or just presence check
+          if (value.includes('=')) {
+            const [attr, val] = value.split('=')
+            return `${selector}[data-${attr}="${val}"]`
+          }
+          return `${selector}[data-${value}]`
+        },
+      })
+
+      // Group arbitrary data
+      variants.push({
+        name: 'group-data',
+        match: /^group-data-\[([^\]]+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const value = matches[1].replace(/_/g, ' ')
+          if (value.includes('=')) {
+            const [attr, val] = value.split('=')
+            return `.group[data-${attr}="${val}"] ${selector}`
+          }
+          return `.group[data-${value}] ${selector}`
+        },
+      })
+
+      // Peer arbitrary data
+      variants.push({
+        name: 'peer-data',
+        match: /^peer-data-\[([^\]]+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const value = matches[1].replace(/_/g, ' ')
+          if (value.includes('=')) {
+            const [attr, val] = value.split('=')
+            return `.peer[data-${attr}="${val}"] ~ ${selector}`
+          }
+          return `.peer[data-${value}] ~ ${selector}`
+        },
+      })
+
+      // ========================================
+      // ARBITRARY ARIA ATTRIBUTE VARIANTS
+      // Usage: aria-[checked=true]:bg-blue, aria-[expanded]:text-lg
+      // ========================================
+
+      variants.push({
+        name: 'aria',
+        match: /^aria-\[([^\]]+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const value = matches[1].replace(/_/g, ' ')
+          if (value.includes('=')) {
+            const [attr, val] = value.split('=')
+            return `${selector}[aria-${attr}="${val}"]`
+          }
+          return `${selector}[aria-${value}="true"]`
+        },
+      })
+
+      // Group arbitrary aria
+      variants.push({
+        name: 'group-aria',
+        match: /^group-aria-\[([^\]]+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const value = matches[1].replace(/_/g, ' ')
+          if (value.includes('=')) {
+            const [attr, val] = value.split('=')
+            return `.group[aria-${attr}="${val}"] ${selector}`
+          }
+          return `.group[aria-${value}="true"] ${selector}`
+        },
+      })
+
+      // Peer arbitrary aria
+      variants.push({
+        name: 'peer-aria',
+        match: /^peer-aria-\[([^\]]+)\]$/,
+        handler: (selector, matches) => {
+          if (!matches || !matches[1]) { return selector }
+          const value = matches[1].replace(/_/g, ' ')
+          if (value.includes('=')) {
+            const [attr, val] = value.split('=')
+            return `.peer[aria-${attr}="${val}"] ~ ${selector}`
+          }
+          return `.peer[aria-${value}="true"] ~ ${selector}`
+        },
+      })
+
+      // ========================================
+      // @supports FEATURE QUERY VARIANTS
+      // ========================================
+
+      variants.push({
+        name: 'supports-grid',
+        handler: (selector) => selector,
+        wrapper: '@supports (display: grid)',
+      })
+      variants.push({
+        name: 'supports-flex',
+        handler: (selector) => selector,
+        wrapper: '@supports (display: flex)',
+      })
+      variants.push({
+        name: 'supports-container',
+        handler: (selector) => selector,
+        wrapper: '@supports (container-type: inline-size)',
+      })
+      variants.push({
+        name: 'supports-has',
+        handler: (selector) => selector,
+        wrapper: '@supports selector(:has(*))',
+      })
+      variants.push({
+        name: 'supports-backdrop-blur',
+        handler: (selector) => selector,
+        wrapper: '@supports (backdrop-filter: blur(1px))',
+      })
+      variants.push({
+        name: 'supports-scroll-timeline',
+        handler: (selector) => selector,
+        wrapper: '@supports (animation-timeline: scroll())',
+      })
+
+      // Arbitrary @supports
+      // Usage: supports-[display:grid]:flex, supports-[backdrop-filter:blur(10px)]:bg-white/80
+      variants.push({
+        name: 'supports',
+        match: /^supports-\[([^\]]+)\]$/,
+        handler: (selector) => selector,
+        wrapper: (matches: RegExpMatchArray | null) => {
+          if (!matches || !matches[1]) { return '' }
+          const condition = matches[1].replace(/_/g, ' ')
+          // Check if it's a selector() query or property:value
+          if (condition.startsWith('selector(')) {
+            return `@supports ${condition}`
+          }
+          // Handle property:value format
+          if (condition.includes(':')) {
+            const [prop, val] = condition.split(':')
+            return `@supports (${prop}: ${val})`
+          }
+          // Fallback - wrap in parentheses
+          return `@supports (${condition})`
+        },
+      })
+
+      // not-supports - negate feature queries
+      // Usage: not-supports-[display:grid]:block
+      variants.push({
+        name: 'not-supports',
+        match: /^not-supports-\[([^\]]+)\]$/,
+        handler: (selector) => selector,
+        wrapper: (matches: RegExpMatchArray | null) => {
+          if (!matches || !matches[1]) { return '' }
+          const condition = matches[1].replace(/_/g, ' ')
+          if (condition.startsWith('selector(')) {
+            return `@supports not ${condition}`
+          }
+          if (condition.includes(':')) {
+            const [prop, val] = condition.split(':')
+            return `@supports not (${prop}: ${val})`
+          }
+          return `@supports not (${condition})`
+        },
+      })
+
+      // ========================================
+      // @starting-style VARIANT
+      // ========================================
+
+      variants.push({
+        name: 'starting',
+        handler: (selector) => selector,
+        wrapper: '@starting-style',
+      })
+
       // Register all variants
       for (const variant of variants) {
         ctx.addVariant(variant)

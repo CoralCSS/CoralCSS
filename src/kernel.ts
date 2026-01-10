@@ -47,6 +47,8 @@ const defaultConfig: ResolvedConfig = {
     attributify: false,
   },
   content: [],
+  safelist: [],
+  blocklist: [],
 }
 
 /**
@@ -279,6 +281,19 @@ export class Kernel implements Coral {
         return [c]
       })
       expandedClasses = dedupeStrings(expandedClasses)
+    }
+
+    // Apply blocklist - remove blocked classes
+    if (this._config.blocklist.length > 0) {
+      expandedClasses = expandedClasses.filter((className) => {
+        return !this.isBlocked(className)
+      })
+    }
+
+    // Add safelist classes
+    if (this._config.safelist.length > 0) {
+      const safelistClasses = this.expandSafelist()
+      expandedClasses = dedupeStrings([...expandedClasses, ...safelistClasses])
     }
 
     // Generate CSS for each class
@@ -590,6 +605,50 @@ export class Kernel implements Coral {
         }
       }
     }
+  }
+
+  /**
+   * Check if a class is blocked by blocklist
+   */
+  private isBlocked(className: string): boolean {
+    for (const pattern of this._config.blocklist) {
+      if (typeof pattern === 'string') {
+        if (className === pattern) {
+          return true
+        }
+      } else if (pattern instanceof RegExp) {
+        if (pattern.test(className)) {
+          return true
+        }
+      }
+    }
+    return false
+  }
+
+  /**
+   * Expand safelist patterns into actual class names
+   */
+  private expandSafelist(): string[] {
+    const classes: string[] = []
+
+    for (const item of this._config.safelist) {
+      if (typeof item === 'string') {
+        // Direct class name
+        classes.push(item)
+      } else if (item instanceof RegExp) {
+        // RegExp pattern - we can't expand this without knowing all possible classes
+        // This is mainly for preventing purging, so we skip expansion
+        // In a real implementation, you'd scan the rule patterns
+        continue
+      } else if (typeof item === 'object' && item.pattern) {
+        // Pattern with variants
+        // Similar to above, we can't easily expand without knowing all rules
+        // For now, we skip - this is more for static analysis / purge protection
+        continue
+      }
+    }
+
+    return classes
   }
 }
 

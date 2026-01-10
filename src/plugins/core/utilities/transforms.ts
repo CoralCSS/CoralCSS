@@ -573,6 +573,287 @@ export function transformsPlugin(): Plugin {
         },
       })
 
+      // ========================================
+      // EXTENDED 3D TRANSFORMS
+      // ========================================
+
+      // Transform box (control transform origin bounds)
+      rules.push({ pattern: 'transform-box-content', properties: { 'transform-box': 'content-box' } })
+      rules.push({ pattern: 'transform-box-border', properties: { 'transform-box': 'border-box' } })
+      rules.push({ pattern: 'transform-box-fill', properties: { 'transform-box': 'fill-box' } })
+      rules.push({ pattern: 'transform-box-stroke', properties: { 'transform-box': 'stroke-box' } })
+      rules.push({ pattern: 'transform-box-view', properties: { 'transform-box': 'view-box' } })
+
+      // Rotate3d with arbitrary axis
+      rules.push({
+        pattern: /^rotate-3d-\[(.+)\]$/,
+        handler: (match) => {
+          const v = match[1]
+          if (!v) { return null }
+          // Format: x,y,z,angle (e.g., 1,1,0,45deg)
+          const parts = v.split(',').map(p => p.trim())
+          if (parts.length >= 4) {
+            return { properties: { transform: `rotate3d(${parts[0]}, ${parts[1]}, ${parts[2]}, ${parts[3]})` } }
+          }
+          return null
+        },
+      })
+
+      // Matrix transform (2D)
+      rules.push({
+        pattern: /^matrix-\[(.+)\]$/,
+        handler: (match) => {
+          const v = match[1]
+          if (!v) { return null }
+          return { properties: { transform: `matrix(${v})` } }
+        },
+      })
+
+      // Matrix3d transform (3D)
+      rules.push({
+        pattern: /^matrix3d-\[(.+)\]$/,
+        handler: (match) => {
+          const v = match[1]
+          if (!v) { return null }
+          return { properties: { transform: `matrix3d(${v})` } }
+        },
+      })
+
+      // ========================================
+      // 3D PRESET TRANSFORMS (Card Flips, Cubes, etc.)
+      // ========================================
+
+      // Flip card presets (container)
+      rules.push({
+        pattern: 'flip-card-container',
+        properties: {
+          perspective: '1000px',
+        },
+      })
+
+      // Flip card inner (the element that flips)
+      rules.push({
+        pattern: 'flip-card-inner',
+        properties: {
+          'transform-style': 'preserve-3d',
+          transition: 'transform 0.6s',
+          position: 'relative',
+        },
+      })
+
+      // Flip card face (front/back)
+      rules.push({
+        pattern: 'flip-card-front',
+        properties: {
+          'backface-visibility': 'hidden',
+          position: 'absolute',
+          inset: '0',
+        },
+      })
+      rules.push({
+        pattern: 'flip-card-back',
+        properties: {
+          'backface-visibility': 'hidden',
+          transform: 'rotateY(180deg)',
+          position: 'absolute',
+          inset: '0',
+        },
+      })
+
+      // Flip states
+      rules.push({
+        pattern: 'flip-x',
+        properties: { transform: 'rotateX(180deg)' },
+      })
+      rules.push({
+        pattern: 'flip-y',
+        properties: { transform: 'rotateY(180deg)' },
+      })
+      rules.push({
+        pattern: 'flip-x-half',
+        properties: { transform: 'rotateX(90deg)' },
+      })
+      rules.push({
+        pattern: 'flip-y-half',
+        properties: { transform: 'rotateY(90deg)' },
+      })
+
+      // Cube face transforms
+      rules.push({
+        pattern: 'cube-face-front',
+        properties: { transform: 'rotateY(0deg) translateZ(var(--cube-size, 100px))' },
+      })
+      rules.push({
+        pattern: 'cube-face-back',
+        properties: { transform: 'rotateY(180deg) translateZ(var(--cube-size, 100px))' },
+      })
+      rules.push({
+        pattern: 'cube-face-right',
+        properties: { transform: 'rotateY(90deg) translateZ(var(--cube-size, 100px))' },
+      })
+      rules.push({
+        pattern: 'cube-face-left',
+        properties: { transform: 'rotateY(-90deg) translateZ(var(--cube-size, 100px))' },
+      })
+      rules.push({
+        pattern: 'cube-face-top',
+        properties: { transform: 'rotateX(90deg) translateZ(var(--cube-size, 100px))' },
+      })
+      rules.push({
+        pattern: 'cube-face-bottom',
+        properties: { transform: 'rotateX(-90deg) translateZ(var(--cube-size, 100px))' },
+      })
+
+      // Cube size presets
+      const cubeSizes = { 'sm': '50px', 'DEFAULT': '100px', 'md': '150px', 'lg': '200px', 'xl': '300px' }
+      for (const [key, value] of Object.entries(cubeSizes)) {
+        const pattern = key === 'DEFAULT' ? 'cube-size' : `cube-size-${key}`
+        rules.push({ pattern, properties: { '--cube-size': value } })
+      }
+
+      // Arbitrary cube size
+      rules.push({
+        pattern: /^cube-size-\[(.+)\]$/,
+        handler: (match) => {
+          const v = match[1]
+          if (!v) { return null }
+          return { properties: { '--cube-size': v } }
+        },
+      })
+
+      // ========================================
+      // TILT / PARALLAX EFFECTS
+      // ========================================
+
+      // Tilt presets (for hover effects - use with group/peer)
+      rules.push({
+        pattern: 'tilt-up',
+        properties: { transform: 'perspective(1000px) rotateX(5deg)' },
+      })
+      rules.push({
+        pattern: 'tilt-down',
+        properties: { transform: 'perspective(1000px) rotateX(-5deg)' },
+      })
+      rules.push({
+        pattern: 'tilt-left',
+        properties: { transform: 'perspective(1000px) rotateY(-5deg)' },
+      })
+      rules.push({
+        pattern: 'tilt-right',
+        properties: { transform: 'perspective(1000px) rotateY(5deg)' },
+      })
+
+      // Stronger tilt
+      rules.push({
+        pattern: 'tilt-up-lg',
+        properties: { transform: 'perspective(1000px) rotateX(10deg)' },
+      })
+      rules.push({
+        pattern: 'tilt-down-lg',
+        properties: { transform: 'perspective(1000px) rotateX(-10deg)' },
+      })
+      rules.push({
+        pattern: 'tilt-left-lg',
+        properties: { transform: 'perspective(1000px) rotateY(-10deg)' },
+      })
+      rules.push({
+        pattern: 'tilt-right-lg',
+        properties: { transform: 'perspective(1000px) rotateY(10deg)' },
+      })
+
+      // Parallax depth layers
+      rules.push({ pattern: 'parallax-near', properties: { transform: 'translateZ(100px) scale(0.9)' } })
+      rules.push({ pattern: 'parallax-mid', properties: { transform: 'translateZ(50px) scale(0.95)' } })
+      rules.push({ pattern: 'parallax-far', properties: { transform: 'translateZ(0px) scale(1)' } })
+      rules.push({ pattern: 'parallax-very-far', properties: { transform: 'translateZ(-50px) scale(1.05)' } })
+
+      // ========================================
+      // SCALE 3D (Combined)
+      // ========================================
+
+      // Scale3d utility
+      rules.push({
+        pattern: /^scale-3d-\[(.+)\]$/,
+        handler: (match) => {
+          const v = match[1]
+          if (!v) { return null }
+          const parts = v.split(',').map(p => p.trim())
+          if (parts.length === 3) {
+            return { properties: { transform: `scale3d(${parts[0]}, ${parts[1]}, ${parts[2]})` } }
+          } else if (parts.length === 1) {
+            return { properties: { transform: `scale3d(${parts[0]}, ${parts[0]}, ${parts[0]})` } }
+          }
+          return null
+        },
+      })
+
+      // Translate3d utility
+      rules.push({
+        pattern: /^translate-3d-\[(.+)\]$/,
+        handler: (match) => {
+          const v = match[1]
+          if (!v) { return null }
+          const parts = v.split(',').map(p => p.trim())
+          if (parts.length === 3) {
+            return { properties: { transform: `translate3d(${parts[0]}, ${parts[1]}, ${parts[2]})` } }
+          }
+          return null
+        },
+      })
+
+      // ========================================
+      // WILL-CHANGE (Performance Hints)
+      // ========================================
+
+      rules.push({ pattern: 'will-change-transform', properties: { 'will-change': 'transform' } })
+      rules.push({ pattern: 'will-change-opacity', properties: { 'will-change': 'opacity' } })
+      rules.push({ pattern: 'will-change-scroll', properties: { 'will-change': 'scroll-position' } })
+      rules.push({ pattern: 'will-change-contents', properties: { 'will-change': 'contents' } })
+      rules.push({ pattern: 'will-change-auto', properties: { 'will-change': 'auto' } })
+
+      // Combined will-change for common animations
+      rules.push({
+        pattern: 'will-change-transform-opacity',
+        properties: { 'will-change': 'transform, opacity' },
+      })
+
+      // Arbitrary will-change
+      rules.push({
+        pattern: /^will-change-\[(.+)\]$/,
+        handler: (match) => {
+          const v = match[1]
+          if (!v) { return null }
+          return { properties: { 'will-change': v } }
+        },
+      })
+
+      // ========================================
+      // CONTAIN (Layout Performance)
+      // ========================================
+
+      rules.push({ pattern: 'contain-none', properties: { contain: 'none' } })
+      rules.push({ pattern: 'contain-strict', properties: { contain: 'strict' } })
+      rules.push({ pattern: 'contain-content', properties: { contain: 'content' } })
+      rules.push({ pattern: 'contain-size', properties: { contain: 'size' } })
+      rules.push({ pattern: 'contain-layout', properties: { contain: 'layout' } })
+      rules.push({ pattern: 'contain-style', properties: { contain: 'style' } })
+      rules.push({ pattern: 'contain-paint', properties: { contain: 'paint' } })
+
+      // Combined contains
+      rules.push({ pattern: 'contain-layout-paint', properties: { contain: 'layout paint' } })
+      rules.push({ pattern: 'contain-size-layout', properties: { contain: 'size layout' } })
+      rules.push({ pattern: 'contain-inline-size', properties: { contain: 'inline-size' } })
+
+      // Arbitrary contain
+      rules.push({
+        pattern: /^contain-\[(.+)\]$/,
+        handler: (match) => {
+          const v = match[1]
+          if (!v) { return null }
+          return { properties: { contain: v } }
+        },
+      })
+
       // Register all rules
       for (const rule of rules) {
         ctx.addRule(rule)

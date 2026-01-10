@@ -97,6 +97,136 @@
         "default": "./dist/components/index.cjs"
       }
     },
+    "./cva": {
+      "import": {
+        "types": "./dist/cva/index.d.ts",
+        "default": "./dist/cva/index.js"
+      },
+      "require": {
+        "types": "./dist/cva/index.d.cts",
+        "default": "./dist/cva/index.cjs"
+      }
+    },
+    "./tokens": {
+      "import": {
+        "types": "./dist/tokens/index.d.ts",
+        "default": "./dist/tokens/index.js"
+      },
+      "require": {
+        "types": "./dist/tokens/index.d.cts",
+        "default": "./dist/tokens/index.cjs"
+      }
+    },
+    "./ui-kit": {
+      "import": {
+        "types": "./dist/ui-kit/index.d.ts",
+        "default": "./dist/ui-kit/index.js"
+      },
+      "require": {
+        "types": "./dist/ui-kit/index.d.cts",
+        "default": "./dist/ui-kit/index.cjs"
+      }
+    },
+    "./templates": {
+      "import": {
+        "types": "./dist/templates/index.d.ts",
+        "default": "./dist/templates/index.js"
+      },
+      "require": {
+        "types": "./dist/templates/index.d.cts",
+        "default": "./dist/templates/index.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.cts",
+        "default": "./dist/react/index.cjs"
+      }
+    },
+    "./vue": {
+      "import": {
+        "types": "./dist/vue/index.d.ts",
+        "default": "./dist/vue/index.js"
+      },
+      "require": {
+        "types": "./dist/vue/index.d.cts",
+        "default": "./dist/vue/index.cjs"
+      }
+    },
+    "./svelte": {
+      "import": {
+        "types": "./dist/svelte/index.d.ts",
+        "default": "./dist/svelte/index.js"
+      },
+      "require": {
+        "types": "./dist/svelte/index.d.cts",
+        "default": "./dist/svelte/index.cjs"
+      }
+    },
+    "./solid": {
+      "import": {
+        "types": "./dist/solid/index.d.ts",
+        "default": "./dist/solid/index.js"
+      },
+      "require": {
+        "types": "./dist/solid/index.d.cts",
+        "default": "./dist/solid/index.cjs"
+      }
+    },
+    "./preact": {
+      "import": {
+        "types": "./dist/preact/index.d.ts",
+        "default": "./dist/preact/index.js"
+      },
+      "require": {
+        "types": "./dist/preact/index.d.cts",
+        "default": "./dist/preact/index.cjs"
+      }
+    },
+    "./angular": {
+      "import": {
+        "types": "./dist/angular/index.d.ts",
+        "default": "./dist/angular/index.js"
+      },
+      "require": {
+        "types": "./dist/angular/index.d.cts",
+        "default": "./dist/angular/index.cjs"
+      }
+    },
+    "./intellisense": {
+      "import": {
+        "types": "./dist/intellisense/index.d.ts",
+        "default": "./dist/intellisense/index.js"
+      },
+      "require": {
+        "types": "./dist/intellisense/index.d.cts",
+        "default": "./dist/intellisense/index.cjs"
+      }
+    },
+    "./prettier": {
+      "import": {
+        "types": "./dist/prettier/index.d.ts",
+        "default": "./dist/prettier/index.js"
+      },
+      "require": {
+        "types": "./dist/prettier/index.d.cts",
+        "default": "./dist/prettier/index.cjs"
+      }
+    },
+    "./eslint": {
+      "import": {
+        "types": "./dist/eslint/index.d.ts",
+        "default": "./dist/eslint/index.js"
+      },
+      "require": {
+        "types": "./dist/eslint/index.d.cts",
+        "default": "./dist/eslint/index.cjs"
+      }
+    },
     "./theme": {
       "import": {
         "types": "./dist/theme/index.d.ts",
@@ -105,6 +235,26 @@
       "require": {
         "types": "./dist/theme/index.d.cts",
         "default": "./dist/theme/index.cjs"
+      }
+    },
+    "./testing": {
+      "import": {
+        "types": "./dist/testing/index.d.ts",
+        "default": "./dist/testing/index.js"
+      },
+      "require": {
+        "types": "./dist/testing/index.d.cts",
+        "default": "./dist/testing/index.cjs"
+      }
+    },
+    "./storybook": {
+      "import": {
+        "types": "./dist/storybook/index.d.ts",
+        "default": "./dist/storybook/index.js"
+      },
+      "require": {
+        "types": "./dist/storybook/index.d.cts",
+        "default": "./dist/storybook/index.cjs"
       }
     },
     "./coral.css": "./dist/coral.css",
@@ -173,27 +323,69 @@
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.0.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "@vitest/coverage-v8": "^2.1.9",
     "eslint": "^9.0.0",
     "jsdom": "^27.4.0",
     "playwright": "^1.49.0",
+    "preact": "^10.25.0",
     "prettier": "^3.4.0",
     "rimraf": "^6.0.0",
+    "solid-js": "^1.9.0",
+    "svelte": "^5.46.1",
     "tsup": "^8.3.0",
     "typescript": "^5.7.0",
-    "vitest": "^2.1.0"
+    "vitest": "^2.1.0",
+    "vue": "^3.5.26"
   },
   "peerDependencies": {
+    "@angular/core": ">=16.0.0",
+    "eslint": ">=8.0.0",
     "postcss": ">=8.0.0",
-    "vite": ">=5.0.0"
+    "preact": ">=10.0.0",
+    "prettier": ">=3.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "solid-js": ">=1.8.0",
+    "svelte": ">=4.0.0",
+    "vite": ">=5.0.0",
+    "vue": ">=3.3.0"
   },
   "peerDependenciesMeta": {
+    "@angular/core": {
+      "optional": true
+    },
+    "eslint": {
+      "optional": true
+    },
     "vite": {
       "optional": true
     },
     "postcss": {
+      "optional": true
+    },
+    "preact": {
+      "optional": true
+    },
+    "prettier": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "solid-js": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
       "optional": true
     }
   }

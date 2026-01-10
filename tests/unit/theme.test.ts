@@ -26,6 +26,9 @@ import {
   generateDarkModeCSS,
   generateLightModeCSS,
   generateThemeCSS,
+  wrapInDarkMode,
+  usesClassStrategy,
+  usesMediaStrategy,
 } from '../../src/theme'
 
 describe('Colors', () => {
@@ -243,6 +246,92 @@ describe('Dark Mode', () => {
       const css = generateThemeCSS('class')
       expect(css).toContain(':root')
       expect(css).toContain('.dark')
+    })
+
+    it('should generate complete theme CSS with custom selector', () => {
+      const css = generateThemeCSS('selector', '[data-mode="dark"]')
+      expect(css).toContain(':root')
+      expect(css).toContain('[data-mode="dark"]')
+    })
+  })
+
+  describe('generateDarkModeCSS additional cases', () => {
+    it('should use default selector for selector strategy', () => {
+      const css = generateDarkModeCSS('selector')
+      expect(css).toContain('[data-theme="dark"]')
+    })
+
+    it('should handle unknown strategy as default', () => {
+      const css = generateDarkModeCSS('unknown' as never)
+      expect(css).toContain('.dark')
+    })
+  })
+
+  describe('wrapInDarkMode', () => {
+    it('should wrap CSS with class strategy', () => {
+      const result = wrapInDarkMode('.test { color: red; }', 'class')
+      expect(result).toBe('.dark .test { color: red; }')
+    })
+
+    it('should wrap CSS with media strategy', () => {
+      const result = wrapInDarkMode('.test { color: red; }', 'media')
+      expect(result).toBe('@media (prefers-color-scheme: dark) { .test { color: red; } }')
+    })
+
+    it('should wrap CSS with selector strategy', () => {
+      const result = wrapInDarkMode('.test { color: red; }', 'selector', '[data-theme="dark"]')
+      expect(result).toBe('[data-theme="dark"] .test { color: red; }')
+    })
+
+    it('should use default selector for selector strategy', () => {
+      const result = wrapInDarkMode('.test { color: red; }', 'selector')
+      expect(result).toBe('[data-theme="dark"] .test { color: red; }')
+    })
+
+    it('should wrap CSS with auto strategy (uses class)', () => {
+      const result = wrapInDarkMode('.test { color: red; }', 'auto')
+      expect(result).toBe('.dark .test { color: red; }')
+    })
+
+    it('should handle unknown strategy as default', () => {
+      const result = wrapInDarkMode('.test { color: red; }', 'unknown' as never)
+      expect(result).toBe('.dark .test { color: red; }')
+    })
+  })
+
+  describe('usesClassStrategy', () => {
+    it('should return true for class strategy', () => {
+      expect(usesClassStrategy('class')).toBe(true)
+    })
+
+    it('should return true for auto strategy', () => {
+      expect(usesClassStrategy('auto')).toBe(true)
+    })
+
+    it('should return false for media strategy', () => {
+      expect(usesClassStrategy('media')).toBe(false)
+    })
+
+    it('should return false for selector strategy', () => {
+      expect(usesClassStrategy('selector')).toBe(false)
+    })
+  })
+
+  describe('usesMediaStrategy', () => {
+    it('should return true for media strategy', () => {
+      expect(usesMediaStrategy('media')).toBe(true)
+    })
+
+    it('should return true for auto strategy', () => {
+      expect(usesMediaStrategy('auto')).toBe(true)
+    })
+
+    it('should return false for class strategy', () => {
+      expect(usesMediaStrategy('class')).toBe(false)
+    })
+
+    it('should return false for selector strategy', () => {
+      expect(usesMediaStrategy('selector')).toBe(false)
     })
   })
 })

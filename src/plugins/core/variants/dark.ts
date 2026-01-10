@@ -45,12 +45,12 @@ export function darkModeVariantsPlugin(options: DarkModeVariantsOptions = {}): P
           variants.push({
             name: 'dark',
             handler: (s) => s,
-            wrapper: (css) => `@media (prefers-color-scheme: dark) { ${css} }`,
+            wrapper: (css: string) => `@media (prefers-color-scheme: dark) { ${css} }`,
           })
           variants.push({
             name: 'light',
             handler: (s) => s,
-            wrapper: (css) => `@media (prefers-color-scheme: light) { ${css} }`,
+            wrapper: (css: string) => `@media (prefers-color-scheme: light) { ${css} }`,
           })
           break
 
@@ -75,7 +75,7 @@ export function darkModeVariantsPlugin(options: DarkModeVariantsOptions = {}): P
           variants.push({
             name: 'dark-media',
             handler: (s) => s,
-            wrapper: (css) => `@media (prefers-color-scheme: dark) { ${css} }`,
+            wrapper: (css: string) => `@media (prefers-color-scheme: dark) { ${css} }`,
           })
           variants.push({
             name: 'light',

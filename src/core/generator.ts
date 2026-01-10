@@ -18,6 +18,58 @@ import { escapeSelector } from '../utils/string'
 import { formatRule } from '../utils/css'
 
 /**
+ * Convert hex color to rgb values
+ */
+function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  if (!result || !result[1] || !result[2] || !result[3]) { return null }
+  return {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16),
+  }
+}
+
+/**
+ * Apply opacity to a color value
+ */
+function applyOpacityToColor(color: string, opacity: number): string {
+  // Handle hex colors
+  if (color.startsWith('#')) {
+    const rgb = hexToRgb(color)
+    if (rgb) {
+      return `rgb(${rgb.r} ${rgb.g} ${rgb.b} / ${opacity})`
+    }
+  }
+  // Handle existing rgb/rgba
+  if (color.startsWith('rgb(')) {
+    // rgb(r g b) or rgb(r, g, b)
+    const match = color.match(/rgb\(([^)]+)\)/)
+    if (match && match[1]) {
+      const values = match[1].replace(/,/g, ' ').trim()
+      return `rgb(${values} / ${opacity})`
+    }
+  }
+  if (color.startsWith('rgba(')) {
+    // Replace existing alpha
+    const match = color.match(/rgba\(([^,]+),\s*([^,]+),\s*([^,]+),\s*[^)]+\)/)
+    if (match) {
+      return `rgba(${match[1]}, ${match[2]}, ${match[3]}, ${opacity})`
+    }
+  }
+  // Handle hsl
+  if (color.startsWith('hsl(')) {
+    const match = color.match(/hsl\(([^)]+)\)/)
+    if (match && match[1]) {
+      const values = match[1].replace(/,/g, ' ').trim()
+      return `hsl(${values} / ${opacity})`
+    }
+  }
+  // Fallback: return color with opacity as CSS variable
+  return color
+}
+
+/**
  * Generator options
  */
 export interface GeneratorOptions {
@@ -128,7 +180,60 @@ export class Generator {
     // Apply variants
     baseCSS.variants = parsed.variants
 
+    // Handle important modifier
+    if (parsed.important) {
+      const importantProps: CSSProperties = {}
+      for (const [key, value] of Object.entries(baseCSS.properties)) {
+        if (typeof value === 'string' || typeof value === 'number') {
+          importantProps[key] = `${value} !important`
+        } else {
+          importantProps[key] = value
+        }
+      }
+      baseCSS.properties = importantProps
+    }
+
+    // Handle opacity modifier
+    if (parsed.opacity) {
+      const opacityValue = parsed.opacity.startsWith('[')
+        ? parseFloat(parsed.opacity.slice(1, -1))
+        : parseInt(parsed.opacity, 10) / 100
+
+      // Apply opacity to color properties by converting to rgba
+      const colorProps = ['color', 'backgroundColor', 'borderColor', 'background-color', 'border-color', 'outline-color', 'fill', 'stroke']
+      for (const key of colorProps) {
+        const value = baseCSS.properties[key]
+        if (typeof value === 'string') {
+          baseCSS.properties[key] = applyOpacityToColor(value, opacityValue)
+        }
+      }
+    }
+
     return baseCSS
+  }
+
+  /**
+   * Find a variant by name, supporting pattern matching for dynamic variants
+   * @returns The variant and optional regex match array
+   */
+  private findVariant(variantName: string): { variant: Variant; matches: RegExpMatchArray | null } | null {
+    // First try exact match
+    const exactMatch = this.variants.get(variantName)
+    if (exactMatch) {
+      return { variant: exactMatch, matches: null }
+    }
+
+    // Try pattern matching for dynamic variants (e.g., has-[.foo], data-[state=open])
+    for (const [, variant] of this.variants) {
+      if (variant.match instanceof RegExp) {
+        const matches = variantName.match(variant.match)
+        if (matches) {
+          return { variant, matches }
+        }
+      }
+    }
+
+    return null
   }
 
   /**
@@ -147,24 +252,44 @@ export class Generator {
     const wrappers: ((css: string) => string)[] = []
 
     for (const variantName of appliedVariants) {
-      const variant = this.variants.get(variantName)
-      if (!variant) {
+      const result = this.findVariant(variantName)
+      if (!result) {
         // Unknown variant, skip
         continue
       }
+
+      const { variant, matches } = result
 
       // Use transform if available, otherwise construct from handler
       if (variant.transform) {
         cssString = variant.transform(selector, cssString)
       } else if (variant.handler) {
-        const newSelector = variant.handler(selector)
+        // Pass matches to handler for dynamic variants
+        const newSelector = variant.handler(selector, matches)
         cssString = cssString.replace(selector, newSelector)
         selector = newSelector
       }
 
       // Collect wrappers (for at-rules like media queries)
       if (variant.wrapper) {
-        wrappers.push(variant.wrapper)
+        // Convert string wrapper to function, supporting dynamic wrappers
+        let wrapperFn: (css: string) => string
+        if (typeof variant.wrapper === 'string') {
+          wrapperFn = (cssStr: string) => `${variant.wrapper} {\n${cssStr}\n}`
+        } else if (typeof variant.wrapper === 'function') {
+          // Check if wrapper is a factory function that takes matches
+          const wrapperResult = (variant.wrapper as unknown as (m: RegExpMatchArray | null) => string)(matches)
+          if (typeof wrapperResult === 'string') {
+            // It's a factory function that returns wrapper string
+            wrapperFn = (cssStr: string) => `${wrapperResult} {\n${cssStr}\n}`
+          } else {
+            // It's a regular wrapper function
+            wrapperFn = variant.wrapper as (css: string) => string
+          }
+        } else {
+          continue
+        }
+        wrappers.push(wrapperFn)
       }
     }
 
@@ -358,6 +483,29 @@ export class CSSGenerator {
   }
 
   /**
+   * Find a variant by name, supporting pattern matching for dynamic variants
+   */
+  private findVariant(variantName: string): { variant: Variant; matches: RegExpMatchArray | null } | null {
+    // First try exact match
+    const exactMatch = this.variants.get(variantName)
+    if (exactMatch) {
+      return { variant: exactMatch, matches: null }
+    }
+
+    // Try pattern matching for dynamic variants
+    for (const [, variant] of this.variants) {
+      if (variant.match instanceof RegExp) {
+        const matches = variantName.match(variant.match)
+        if (matches) {
+          return { variant, matches }
+        }
+      }
+    }
+
+    return null
+  }
+
+  /**
    * Generate CSS for a single class
    */
   generateClass(className: string): string {
@@ -403,12 +551,29 @@ export class CSSGenerator {
     // Create selector
     const escapedClass = escapeSelector(className)
     let selector = `.${escapedClass}`
+    const wrappers: string[] = []
 
     // Apply variants to selector
     for (const variantName of variantNames.reverse()) {
-      const variant = this.variants.get(variantName)
-      if (variant?.handler) {
-        selector = variant.handler(selector)
+      const result = this.findVariant(variantName)
+      if (!result) { continue }
+
+      const { variant, matches } = result
+
+      if (variant.handler) {
+        selector = variant.handler(selector, matches)
+      }
+
+      // Collect wrappers for at-rules
+      if (variant.wrapper) {
+        if (typeof variant.wrapper === 'string') {
+          wrappers.push(variant.wrapper)
+        } else if (typeof variant.wrapper === 'function') {
+          const wrapperResult = (variant.wrapper as unknown as (m: RegExpMatchArray | null) => string)(matches)
+          if (typeof wrapperResult === 'string') {
+            wrappers.push(wrapperResult)
+          }
+        }
       }
     }
 
@@ -421,7 +586,14 @@ export class CSSGenerator {
       })
       .join('; ')
 
-    return `${selector} { ${propsString}; }`
+    let cssOutput = `${selector} { ${propsString}; }`
+
+    // Apply wrappers (reverse order - inner to outer)
+    for (const wrapper of wrappers.reverse()) {
+      cssOutput = `${wrapper} {\n${cssOutput}\n}`
+    }
+
+    return cssOutput
   }
 
   /**

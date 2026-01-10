@@ -1,4 +1,5 @@
 /**
+ * @vitest-environment jsdom
  * Comprehensive Component Tests
  *
  * Tests for all exported components to ensure coverage.

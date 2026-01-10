@@ -193,6 +193,37 @@ export type { RangeSliderConfig, RangeSliderState } from './range-slider'
 export { DataTable, createDataTable } from './data-table'
 export type { DataTableConfig, DataTableState, DataTableColumn } from './data-table'
 
+// Batch 4 Components
+export { Sheet, createSheet } from './sheet'
+export type { SheetConfig, SheetState, SheetSide } from './sheet'
+
+export { Menubar, createMenubar } from './menubar'
+export type { MenubarConfig, MenubarState, MenubarItem, MenubarSubItem } from './menubar'
+
+export { VirtualList, createVirtualList } from './virtual-list'
+export type { VirtualListConfig, VirtualListState } from './virtual-list'
+
+export { Combobox, createCombobox } from './combobox'
+export type { ComboboxConfig, ComboboxState, ComboboxOption } from './combobox'
+
+export { MultiSelect, createMultiSelect } from './multi-select'
+export type { MultiSelectConfig, MultiSelectState, MultiSelectOption } from './multi-select'
+
+export { TagInput, createTagInput } from './tag-input'
+export type { TagInputConfig, TagInputState, TagItem } from './tag-input'
+
+export { Mention, createMention } from './mention'
+export type { MentionConfig, MentionState, MentionItem } from './mention'
+
+export { DateRangePicker, createDateRangePicker } from './date-range-picker'
+export type { DateRangePickerConfig, DateRangePickerState, DateRange, PresetRange } from './date-range-picker'
+
+export { Tour, createTour } from './tour'
+export type { TourConfig, TourState, TourStep, TourStepAction } from './tour'
+
+export { ImageCrop, createImageCrop } from './image-crop'
+export type { ImageCropConfig, ImageCropState, CropArea, CropResult } from './image-crop'
+
 // Layout Components
 export { Navbar, createNavbar } from './navbar'
 export type { NavbarConfig, NavbarState } from './navbar'
@@ -265,6 +296,19 @@ import { Marquee } from './marquee'
 import { ImageGallery } from './image-gallery'
 import { RangeSlider } from './range-slider'
 import { DataTable } from './data-table'
+// Batch 4
+import { Sheet } from './sheet'
+import { Menubar } from './menubar'
+import { VirtualList } from './virtual-list'
+import { Combobox } from './combobox'
+// Batch 5
+import { MultiSelect } from './multi-select'
+import { TagInput } from './tag-input'
+// Batch 6
+import { Mention } from './mention'
+import { DateRangePicker } from './date-range-picker'
+import { Tour } from './tour'
+import { ImageCrop } from './image-crop'
 
 import { createButton, createButtonGroup } from './button'
 import { createDialog } from './dialog'
@@ -327,6 +371,19 @@ import { createMarquee } from './marquee'
 import { createImageGallery } from './image-gallery'
 import { createRangeSlider } from './range-slider'
 import { createDataTable } from './data-table'
+// Batch 4
+import { createSheet } from './sheet'
+import { createMenubar } from './menubar'
+import { createVirtualList } from './virtual-list'
+import { createCombobox } from './combobox'
+// Batch 5
+import { createMultiSelect } from './multi-select'
+import { createTagInput } from './tag-input'
+// Batch 6
+import { createMention } from './mention'
+import { createDateRangePicker } from './date-range-picker'
+import { createTour } from './tour'
+import { createImageCrop } from './image-crop'
 // Layout
 import { Navbar } from './navbar'
 import { Sidebar } from './sidebar'
@@ -419,6 +476,22 @@ export function initComponents(): void {
   autoInit('[data-coral-range-slider]', RangeSlider as never)
   autoInit('[data-coral-data-table]', DataTable as never)
 
+  // Batch 4 components
+  autoInit('[data-coral-sheet]', Sheet as never)
+  autoInit('[data-coral-menubar]', Menubar as never)
+  autoInit('[data-coral-virtual-list]', VirtualList as never)
+  autoInit('[data-coral-combobox]', Combobox as never)
+
+  // Batch 5 components
+  autoInit('[data-coral-multi-select]', MultiSelect as never)
+  autoInit('[data-coral-tag-input]', TagInput as never)
+
+  // Batch 6 components
+  autoInit('[data-coral-mention]', Mention as never)
+  autoInit('[data-coral-date-range-picker]', DateRangePicker as never)
+  autoInit('[data-coral-tour]', Tour as never)
+  autoInit('[data-coral-image-crop]', ImageCrop as never)
+
   // Layout components
   autoInit('[data-coral-navbar]', Navbar as never)
   autoInit('[data-coral-sidebar]', Sidebar as never)
@@ -495,6 +568,19 @@ export const components = {
   ImageGallery,
   RangeSlider,
   DataTable,
+  // Batch 4
+  Sheet,
+  Menubar,
+  VirtualList,
+  Combobox,
+  // Batch 5
+  MultiSelect,
+  TagInput,
+  // Batch 6
+  Mention,
+  DateRangePicker,
+  Tour,
+  ImageCrop,
   // Layout
   Navbar,
   Sidebar,
@@ -572,6 +658,19 @@ export const factories = {
   createImageGallery,
   createRangeSlider,
   createDataTable,
+  // Batch 4
+  createSheet,
+  createMenubar,
+  createVirtualList,
+  createCombobox,
+  // Batch 5
+  createMultiSelect,
+  createTagInput,
+  // Batch 6
+  createMention,
+  createDateRangePicker,
+  createTour,
+  createImageCrop,
   // Layout
   createNavbar,
   createSidebar,

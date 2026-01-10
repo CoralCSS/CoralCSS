@@ -417,6 +417,333 @@ export function modernCSSPlugin(): Plugin {
       // ============================================
       rules.push({ name: 'display-contents', pattern: 'display-contents', properties: { display: 'contents' } })
 
+      // ============================================
+      // @starting-style Support (CSS Transitions Level 2)
+      // For enter animations on elements that go from display:none
+      // ============================================
+
+      // Starting style utilities - these indicate the initial state
+      // before transition begins (used with @starting-style rule)
+      rules.push({
+        name: 'starting-opacity-0',
+        pattern: 'starting-opacity-0',
+        properties: {
+          '--coral-starting-opacity': '0',
+          opacity: 'var(--coral-starting-opacity)',
+        },
+      })
+      rules.push({
+        name: 'starting-scale-0',
+        pattern: 'starting-scale-0',
+        properties: {
+          '--coral-starting-scale': '0',
+          transform: 'scale(var(--coral-starting-scale))',
+        },
+      })
+      rules.push({
+        name: 'starting-scale-75',
+        pattern: 'starting-scale-75',
+        properties: {
+          '--coral-starting-scale': '0.75',
+          transform: 'scale(var(--coral-starting-scale))',
+        },
+      })
+      rules.push({
+        name: 'starting-scale-95',
+        pattern: 'starting-scale-95',
+        properties: {
+          '--coral-starting-scale': '0.95',
+          transform: 'scale(var(--coral-starting-scale))',
+        },
+      })
+      rules.push({
+        name: 'starting-translate-y-4',
+        pattern: 'starting-translate-y-4',
+        properties: {
+          '--coral-starting-translate-y': '1rem',
+          transform: 'translateY(var(--coral-starting-translate-y))',
+        },
+      })
+      rules.push({
+        name: 'starting-translate-y-full',
+        pattern: 'starting-translate-y-full',
+        properties: {
+          '--coral-starting-translate-y': '100%',
+          transform: 'translateY(var(--coral-starting-translate-y))',
+        },
+      })
+      rules.push({
+        name: 'starting--translate-y-full',
+        pattern: 'starting--translate-y-full',
+        properties: {
+          '--coral-starting-translate-y': '-100%',
+          transform: 'translateY(var(--coral-starting-translate-y))',
+        },
+      })
+
+      // Arbitrary starting style values
+      rules.push({
+        name: 'starting-opacity-arb',
+        pattern: /^starting-opacity-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          return {
+            properties: {
+              '--coral-starting-opacity': value,
+              opacity: 'var(--coral-starting-opacity)',
+            },
+          }
+        },
+      })
+      rules.push({
+        name: 'starting-scale-arb',
+        pattern: /^starting-scale-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          return {
+            properties: {
+              '--coral-starting-scale': value,
+              transform: 'scale(var(--coral-starting-scale))',
+            },
+          }
+        },
+      })
+      rules.push({
+        name: 'starting-translate-arb',
+        pattern: /^starting-translate-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          return {
+            properties: {
+              '--coral-starting-translate': value,
+              transform: `translate(var(--coral-starting-translate))`,
+            },
+          }
+        },
+      })
+
+      // ============================================
+      // Transition Behavior (for discrete animations)
+      // ============================================
+      rules.push({
+        name: 'transition-discrete',
+        pattern: 'transition-discrete',
+        properties: { 'transition-behavior': 'allow-discrete' },
+      })
+      rules.push({
+        name: 'transition-normal',
+        pattern: 'transition-normal',
+        properties: { 'transition-behavior': 'normal' },
+      })
+
+      // ============================================
+      // Overlay Property (for top-layer elements)
+      // ============================================
+      rules.push({
+        name: 'overlay-auto',
+        pattern: 'overlay-auto',
+        properties: { overlay: 'auto' },
+      })
+      rules.push({
+        name: 'overlay-none',
+        pattern: 'overlay-none',
+        properties: { overlay: 'none' },
+      })
+
+      // ============================================
+      // Color-Mix Utilities (Beyond basic)
+      // ============================================
+
+      // Pre-defined color mixes
+      const colorMixPercentages = ['10', '20', '25', '30', '40', '50', '60', '70', '75', '80', '90']
+      for (const pct of colorMixPercentages) {
+        // Mix with white (lighten)
+        rules.push({
+          name: `mix-white-${pct}`,
+          pattern: `mix-white-${pct}`,
+          properties: {
+            '--coral-color-mix': `color-mix(in srgb, currentColor, white ${pct}%)`,
+          },
+        })
+        // Mix with black (darken)
+        rules.push({
+          name: `mix-black-${pct}`,
+          pattern: `mix-black-${pct}`,
+          properties: {
+            '--coral-color-mix': `color-mix(in srgb, currentColor, black ${pct}%)`,
+          },
+        })
+      }
+
+      // Color space for mixing
+      rules.push({ name: 'mix-space-srgb', pattern: 'mix-space-srgb', properties: { '--coral-mix-space': 'srgb' } })
+      rules.push({ name: 'mix-space-srgb-linear', pattern: 'mix-space-srgb-linear', properties: { '--coral-mix-space': 'srgb-linear' } })
+      rules.push({ name: 'mix-space-lab', pattern: 'mix-space-lab', properties: { '--coral-mix-space': 'lab' } })
+      rules.push({ name: 'mix-space-oklab', pattern: 'mix-space-oklab', properties: { '--coral-mix-space': 'oklab' } })
+      rules.push({ name: 'mix-space-lch', pattern: 'mix-space-lch', properties: { '--coral-mix-space': 'lch' } })
+      rules.push({ name: 'mix-space-oklch', pattern: 'mix-space-oklch', properties: { '--coral-mix-space': 'oklch' } })
+      rules.push({ name: 'mix-space-hsl', pattern: 'mix-space-hsl', properties: { '--coral-mix-space': 'hsl' } })
+      rules.push({ name: 'mix-space-hwb', pattern: 'mix-space-hwb', properties: { '--coral-mix-space': 'hwb' } })
+
+      // Arbitrary color-mix for backgrounds, text, borders
+      rules.push({
+        name: 'bg-mix-arb',
+        pattern: /^bg-mix-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          return { properties: { 'background-color': `color-mix(in var(--coral-mix-space, srgb), ${value.replace(/_/g, ' ')})` } }
+        },
+      })
+      rules.push({
+        name: 'text-mix-arb',
+        pattern: /^text-mix-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          return { properties: { color: `color-mix(in var(--coral-mix-space, srgb), ${value.replace(/_/g, ' ')})` } }
+        },
+      })
+      rules.push({
+        name: 'border-mix-arb',
+        pattern: /^border-mix-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          return { properties: { 'border-color': `color-mix(in var(--coral-mix-space, srgb), ${value.replace(/_/g, ' ')})` } }
+        },
+      })
+
+      // ============================================
+      // Light-Dark Function
+      // ============================================
+      rules.push({
+        name: 'bg-light-dark-arb',
+        pattern: /^bg-light-dark-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          const [light, dark] = value.split(',').map(v => v.trim())
+          return { properties: { 'background-color': `light-dark(${light}, ${dark})` } }
+        },
+      })
+      rules.push({
+        name: 'text-light-dark-arb',
+        pattern: /^text-light-dark-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          const [light, dark] = value.split(',').map(v => v.trim())
+          return { properties: { color: `light-dark(${light}, ${dark})` } }
+        },
+      })
+
+      // ============================================
+      // Relative Colors (from keyword)
+      // ============================================
+      rules.push({
+        name: 'bg-relative-arb',
+        pattern: /^bg-relative-\[(.+)\]$/,
+        handler: (match) => {
+          const value = match[1]
+          if (!value) { return null }
+          return { properties: { 'background-color': value.replace(/_/g, ' ') } }
+        },
+      })
+
+      // ============================================
+      // CSS @property Support Utilities
+      // ============================================
+      rules.push({
+        name: 'property-number',
+        pattern: 'property-number',
+        properties: { '--coral-property-syntax': '<number>' },
+      })
+      rules.push({
+        name: 'property-percentage',
+        pattern: 'property-percentage',
+        properties: { '--coral-property-syntax': '<percentage>' },
+      })
+      rules.push({
+        name: 'property-length',
+        pattern: 'property-length',
+        properties: { '--coral-property-syntax': '<length>' },
+      })
+      rules.push({
+        name: 'property-color',
+        pattern: 'property-color',
+        properties: { '--coral-property-syntax': '<color>' },
+      })
+      rules.push({
+        name: 'property-angle',
+        pattern: 'property-angle',
+        properties: { '--coral-property-syntax': '<angle>' },
+      })
+      rules.push({
+        name: 'property-inherit',
+        pattern: 'property-inherit',
+        properties: { '--coral-property-inherits': 'true' },
+      })
+      rules.push({
+        name: 'property-no-inherit',
+        pattern: 'property-no-inherit',
+        properties: { '--coral-property-inherits': 'false' },
+      })
+
+      // ============================================
+      // Interpolate Size (for transitioning auto)
+      // ============================================
+      rules.push({
+        name: 'interpolate-size-allow-keywords',
+        pattern: 'interpolate-size-allow-keywords',
+        properties: { 'interpolate-size': 'allow-keywords' },
+      })
+      rules.push({
+        name: 'interpolate-size-numeric-only',
+        pattern: 'interpolate-size-numeric-only',
+        properties: { 'interpolate-size': 'numeric-only' },
+      })
+
+      // ============================================
+      // Calc-Size (for animating to/from auto)
+      // ============================================
+      rules.push({
+        name: 'h-calc-size-auto',
+        pattern: 'h-calc-size-auto',
+        properties: { height: 'calc-size(auto)' },
+      })
+      rules.push({
+        name: 'w-calc-size-auto',
+        pattern: 'w-calc-size-auto',
+        properties: { width: 'calc-size(auto)' },
+      })
+      rules.push({
+        name: 'max-h-calc-size-auto',
+        pattern: 'max-h-calc-size-auto',
+        properties: { 'max-height': 'calc-size(auto)' },
+      })
+      rules.push({
+        name: 'max-w-calc-size-auto',
+        pattern: 'max-w-calc-size-auto',
+        properties: { 'max-width': 'calc-size(auto)' },
+      })
+
+      // ============================================
+      // Inert Attribute Support
+      // ============================================
+      rules.push({
+        name: 'inert',
+        pattern: 'inert',
+        properties: {
+          'pointer-events': 'none',
+          'user-select': 'none',
+          opacity: '0.5',
+        },
+      })
+
       // Register all rules
       for (const rule of rules) {
         ctx.addRule(rule)

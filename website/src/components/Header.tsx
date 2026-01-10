@@ -83,6 +83,9 @@ function Header() {
           <NavLink to="/showcase" active={isActive('/showcase')}>
             Showcase
           </NavLink>
+          <NavLink to="/playground" active={isActive('/playground')}>
+            Playground
+          </NavLink>
           <a
             href="https://github.com/ersinkoc/CoralCSS"
             target="_blank"
@@ -181,6 +184,9 @@ function Header() {
             </MobileNavLink>
             <MobileNavLink to="/showcase" active={isActive('/showcase')}>
               Showcase
+            </MobileNavLink>
+            <MobileNavLink to="/playground" active={isActive('/playground')}>
+              Playground
             </MobileNavLink>
             <a
               href="https://github.com/ersinkoc/CoralCSS"

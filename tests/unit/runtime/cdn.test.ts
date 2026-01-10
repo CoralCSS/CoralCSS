@@ -1,4 +1,5 @@
 /**
+ * @vitest-environment jsdom
  * Tests for CDN runtime
  */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
@@ -199,6 +200,89 @@ describe('CDN Runtime', () => {
       const win = window as unknown as { CoralCSS: { createCoralCDN: typeof createCoralCDN } }
       expect(win.CoralCSS).toBeDefined()
       expect(win.CoralCSS.createCoralCDN).toBe(createCoralCDN)
+    })
+
+    it('should expose Coral API on window', () => {
+      const win = window as unknown as {
+        Coral: {
+          init: (config?: unknown) => unknown
+          getInstance: () => unknown
+          create: (config?: unknown) => unknown
+          generate: (classes: string[]) => string
+          generateFromHTML: (html: string) => string
+          getCSS: () => string
+          reset: () => void
+          initComponents: () => void
+          stop: () => void
+          start: () => void
+        }
+      }
+
+      expect(win.Coral).toBeDefined()
+      expect(typeof win.Coral.init).toBe('function')
+      expect(typeof win.Coral.getInstance).toBe('function')
+      expect(typeof win.Coral.create).toBe('function')
+      expect(typeof win.Coral.generate).toBe('function')
+      expect(typeof win.Coral.generateFromHTML).toBe('function')
+      expect(typeof win.Coral.getCSS).toBe('function')
+      expect(typeof win.Coral.reset).toBe('function')
+      expect(typeof win.Coral.initComponents).toBe('function')
+      expect(typeof win.Coral.stop).toBe('function')
+      expect(typeof win.Coral.start).toBe('function')
+    })
+
+    it('should use Coral.generate method', () => {
+      const win = window as unknown as {
+        Coral: {
+          generate: (classes: string[]) => string
+          stop: () => void
+        }
+      }
+
+      const css = win.Coral.generate(['bg-indigo-500'])
+      expect(typeof css).toBe('string')
+      win.Coral.stop()
+    })
+
+    it('should use Coral.generateFromHTML method', () => {
+      const win = window as unknown as {
+        Coral: {
+          generateFromHTML: (html: string) => string
+          stop: () => void
+        }
+      }
+
+      const css = win.Coral.generateFromHTML('<div class="text-lg">Test</div>')
+      expect(typeof css).toBe('string')
+      win.Coral.stop()
+    })
+
+    it('should use Coral.getCSS method', () => {
+      const win = window as unknown as {
+        Coral: {
+          getCSS: () => string
+          stop: () => void
+        }
+      }
+
+      const css = win.Coral.getCSS()
+      expect(typeof css).toBe('string')
+      win.Coral.stop()
+    })
+
+    it('should use Coral.reset method', () => {
+      const win = window as unknown as {
+        Coral: {
+          reset: () => void
+          getCSS: () => string
+          stop: () => void
+        }
+      }
+
+      win.Coral.reset()
+      const css = win.Coral.getCSS()
+      expect(css).toBe('')
+      win.Coral.stop()
     })
   })
 

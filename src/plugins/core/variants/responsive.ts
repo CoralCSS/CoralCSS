@@ -25,7 +25,7 @@ export function responsiveVariantsPlugin(): Plugin {
           name,
           match: name,
           handler: (selector) => selector,
-          wrapper: (css) => `@media (min-width: ${width}) { ${css} }`,
+          wrapper: (css: string) => `@media (min-width: ${width}) { ${css} }`,
         })
       }
 
@@ -37,7 +37,7 @@ export function responsiveVariantsPlugin(): Plugin {
           name: `max-${name}`,
           match: `max-${name}`,
           handler: (selector) => selector,
-          wrapper: (css) => `@media (max-width: ${maxWidth}) { ${css} }`,
+          wrapper: (css: string) => `@media (max-width: ${maxWidth}) { ${css} }`,
         })
       }
 
@@ -54,7 +54,7 @@ export function responsiveVariantsPlugin(): Plugin {
           name: `${minName}-only`,
           match: `${minName}-only`,
           handler: (selector) => selector,
-          wrapper: (css) => `@media (min-width: ${minWidth}) and (max-width: ${maxWidth}) { ${css} }`,
+          wrapper: (css: string) => `@media (min-width: ${minWidth}) and (max-width: ${maxWidth}) { ${css} }`,
         })
       }
 
@@ -63,13 +63,13 @@ export function responsiveVariantsPlugin(): Plugin {
         name: 'portrait',
         match: 'portrait',
         handler: (selector) => selector,
-        wrapper: (css) => `@media (orientation: portrait) { ${css} }`,
+        wrapper: (css: string) => `@media (orientation: portrait) { ${css} }`,
       })
       variants.push({
         name: 'landscape',
         match: 'landscape',
         handler: (selector) => selector,
-        wrapper: (css) => `@media (orientation: landscape) { ${css} }`,
+        wrapper: (css: string) => `@media (orientation: landscape) { ${css} }`,
       })
 
       // Print
@@ -77,7 +77,7 @@ export function responsiveVariantsPlugin(): Plugin {
         name: 'print',
         match: 'print',
         handler: (selector) => selector,
-        wrapper: (css) => `@media print { ${css} }`,
+        wrapper: (css: string) => `@media print { ${css} }`,
       })
 
       // Reduced motion
@@ -85,13 +85,13 @@ export function responsiveVariantsPlugin(): Plugin {
         name: 'motion-safe',
         match: 'motion-safe',
         handler: (selector) => selector,
-        wrapper: (css) => `@media (prefers-reduced-motion: no-preference) { ${css} }`,
+        wrapper: (css: string) => `@media (prefers-reduced-motion: no-preference) { ${css} }`,
       })
       variants.push({
         name: 'motion-reduce',
         match: 'motion-reduce',
         handler: (selector) => selector,
-        wrapper: (css) => `@media (prefers-reduced-motion: reduce) { ${css} }`,
+        wrapper: (css: string) => `@media (prefers-reduced-motion: reduce) { ${css} }`,
       })
 
       // Contrast preferences
@@ -99,13 +99,13 @@ export function responsiveVariantsPlugin(): Plugin {
         name: 'contrast-more',
         match: 'contrast-more',
         handler: (selector) => selector,
-        wrapper: (css) => `@media (prefers-contrast: more) { ${css} }`,
+        wrapper: (css: string) => `@media (prefers-contrast: more) { ${css} }`,
       })
       variants.push({
         name: 'contrast-less',
         match: 'contrast-less',
         handler: (selector) => selector,
-        wrapper: (css) => `@media (prefers-contrast: less) { ${css} }`,
+        wrapper: (css: string) => `@media (prefers-contrast: less) { ${css} }`,
       })
 
       // Register all variants

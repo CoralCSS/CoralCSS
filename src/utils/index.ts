@@ -118,3 +118,35 @@ export {
   getDataAttribute,
   setDataAttribute,
 } from './dom'
+
+// CVA (Class Variance Authority)
+export {
+  cva,
+  cx,
+  cn,
+  compose,
+  slots,
+  responsiveVariants,
+  when,
+  toggle,
+  focusRing,
+  disabledStyles,
+  transition,
+  buttonVariants,
+  badgeVariants,
+  inputVariants,
+  cardSlots,
+} from './cva'
+export type {
+  ClassValue,
+  VariantConfig,
+  VariantProps,
+  CVAReturn,
+  VariantPropsOf,
+  SlotsConfig,
+  SlotsReturn,
+  ResponsiveVariantValue,
+  ResponsiveVariantProps,
+  VariantKeys,
+  VariantValues,
+} from './cva'

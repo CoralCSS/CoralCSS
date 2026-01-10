@@ -48,6 +48,8 @@ export function parse(className: string): ParsedClass {
   const variants: string[] = []
   let negative = false
   let arbitrary: string | null = null
+  let important = false
+  let opacity: string | null = null
 
   // Split by colon, respecting brackets
   const parts = splitByDelimiter(remaining, ':')
@@ -59,11 +61,25 @@ export function parse(className: string): ParsedClass {
     remaining = utility
   }
 
+  // Check for important prefix (!)
+  if (remaining.startsWith('!')) {
+    important = true
+    remaining = remaining.slice(1)
+  }
+
   // Check for negative prefix
   const negativeMatch = remaining.match(NEGATIVE_PATTERN)
   if (negativeMatch) {
     negative = true
     remaining = negativeMatch[1]!
+  }
+
+  // Check for opacity modifier (e.g., bg-red-500/50 or bg-red-500/[0.5])
+  const opacityMatch = remaining.match(/\/(\d+|[\d.]+%?|\[[^\]]+\])$/)
+  if (opacityMatch) {
+    opacity = opacityMatch[1]!
+    // Remove opacity from utility for matching
+    remaining = remaining.slice(0, -opacityMatch[0].length)
   }
 
   // Check for arbitrary value
@@ -78,6 +94,8 @@ export function parse(className: string): ParsedClass {
     utility: remaining,
     negative,
     arbitrary,
+    important,
+    opacity,
   }
 }
 

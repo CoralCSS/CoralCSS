@@ -327,3 +327,15 @@ export type {
   CLIOptions,
   CLIResult,
 } from './build'
+
+// Template exports
+export * from './templates'
+
+// UI Kit exports
+export * as uiKit from './ui-kit'
+
+// Design Tokens exports
+export * as tokens from './tokens'
+
+// CVA (Class Variance Authority) exports
+export * from './cva'
