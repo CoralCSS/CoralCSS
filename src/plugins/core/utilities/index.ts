@@ -21,6 +21,7 @@ export { interactivityPlugin } from './interactivity'
 export { backgroundsPlugin } from './backgrounds'
 export { accessibilityPlugin } from './accessibility'
 export { svgPlugin } from './svg'
+export { layersPlugin } from './layers'
 
 import type { Plugin } from '../../../types'
 
@@ -40,6 +41,7 @@ import { interactivityPlugin } from './interactivity'
 import { backgroundsPlugin } from './backgrounds'
 import { accessibilityPlugin } from './accessibility'
 import { svgPlugin } from './svg'
+import { layersPlugin } from './layers'
 
 /**
  * Get all core utility plugins
@@ -62,6 +64,7 @@ export function coreUtilitiesPlugins(): Plugin[] {
     backgroundsPlugin(),
     accessibilityPlugin(),
     svgPlugin(),
+    layersPlugin(),
   ]
 }
 

@@ -175,13 +175,13 @@ function TextWrapPreview() {
 function LightDarkPreview() {
   return (
     <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
-      <div className="p-4 bg-white text-black rounded-lg border">
+      <div className="p-4 bg-card text-foreground rounded-lg border border-border">
         <span className="text-sm font-medium">Light Mode</span>
-        <p className="text-xs opacity-60">Adapts to light scheme</p>
+        <p className="text-xs text-muted-foreground">Adapts to light scheme</p>
       </div>
-      <div className="p-4 bg-black text-white rounded-lg border border-white/20">
+      <div className="p-4 bg-muted text-foreground rounded-lg border border-border">
         <span className="text-sm font-medium">Dark Mode</span>
-        <p className="text-xs opacity-60">Adapts to dark scheme</p>
+        <p className="text-xs text-muted-foreground">Adapts to dark scheme</p>
       </div>
     </div>
   )
@@ -241,6 +241,260 @@ function ColorMixPreview() {
       <p className="text-xs text-muted-foreground text-center">
         color-mix() interpolates between colors in various color spaces
       </p>
+    </div>
+  )
+}
+
+function WideGamutColorsPreview() {
+  return (
+    <div className="grid grid-cols-3 gap-3 w-full max-w-sm">
+      {[
+        { name: 'P3', color: 'color(display-p3 1 0 0)' },
+        { name: 'REC.2020', color: 'color(rec2020 1 0 0)' },
+        { name: 'OKLCH', color: 'oklch(0.7 0.15 0)' },
+        { name: 'OKLAB', color: 'oklab(0.8 0.1 0)' },
+        { name: 'LCH', color: 'lch(70 50 0)' },
+        { name: 'LAB', color: 'lab(70 50 0)' },
+      ].map((color, i) => (
+        <div
+          key={i}
+          className="aspect-square rounded-lg flex items-end p-2 text-xs font-medium text-white"
+          style={{ backgroundColor: color.color }}
+        >
+          {color.name}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function EntryAnimationsPreview() {
+  const [items, setItems] = useState([
+    { id: 1, text: 'Fade in' },
+    { id: 2, text: 'Slide up' },
+    { id: 3, text: 'Scale in' },
+  ])
+
+  return (
+    <div className="w-full max-w-sm">
+      <div className="space-y-3">
+        {items.map((item, i) => (
+          <div
+            key={item.id}
+            className="p-4 bg-card border border-border rounded-lg transition-all hover:scale-[1.02]"
+            style={{
+              animation: `slideIn 300ms ease-out ${i * 100}ms both`,
+            }}
+          >
+            <span className="font-medium text-foreground">{item.text}</span>
+          </div>
+        ))}
+      </div>
+      <button
+        onClick={() => setItems([...items, { id: items.length + 1, text: 'New item' }])}
+        className="mt-4 w-full py-2 bg-primary text-primary-foreground rounded-lg text-sm"
+      >
+        Add Item
+      </button>
+      <style>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+function FieldSizingPreview() {
+  return (
+    <div className="space-y-4 w-full max-w-sm">
+      <div>
+        <label className="text-xs text-muted-foreground mb-1 block">field-sizing: content (auto)</label>
+        <input
+          type="text"
+          value="Hello"
+          className="px-3 py-2 bg-background border border-border rounded-lg"
+          style={{ fieldSizing: 'content' as any }}
+        />
+      </div>
+      <div>
+        <label className="text-xs text-muted-foreground mb-1 block">field-sizing: fixed</label>
+        <input
+          type="text"
+          defaultValue="Fixed width input"
+          className="px-3 py-2 bg-background border border-border rounded-lg w-full"
+          style={{ fieldSizing: 'fixed' as any }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function AdvancedSelectorsPreview() {
+  return (
+    <div className="space-y-3 w-full max-w-sm">
+      <div className="p-3 bg-card border border-border rounded-lg">
+        <p className="text-sm text-muted-foreground">
+          Uses :is(), :where(), and :has() for advanced selection
+        </p>
+      </div>
+      <div className="p-3 bg-muted rounded-lg">
+        <p className="text-sm text-muted-foreground">
+          :is() - Matches any of the selectors
+        </p>
+      </div>
+      <div className="p-3 bg-muted rounded-lg">
+        <p className="text-sm text-muted-foreground">
+          :where() - Zero-specificity selector
+        </p>
+      </div>
+      <div className="p-3 bg-muted rounded-lg">
+        <p className="text-sm text-muted-foreground">
+          :has() - Parent state selector
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function CSSNestedPreview() {
+  return (
+    <div className="w-full max-w-sm">
+      <div className="p-4 bg-card border border-border rounded-lg">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold">
+            N
+          </div>
+          <div>
+            <h4 className="font-semibold text-foreground">Nested Styles</h4>
+            <p className="text-xs text-muted-foreground">CSS nesting support</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CSSLayerPreview() {
+  return (
+    <div className="space-y-3 w-full max-w-sm">
+      <div className="p-3 bg-card border border-border rounded-lg">
+        <h4 className="text-sm font-semibold text-foreground mb-1">CSS Cascade Layers</h4>
+        <p className="text-xs text-muted-foreground">@layer utility, components, base</p>
+      </div>
+      <div className="p-3 bg-muted rounded-lg">
+        <h4 className="text-sm font-semibold text-foreground mb-1">Layer Order</h4>
+        <p className="text-xs text-muted-foreground">Explicit layer ordering</p>
+      </div>
+    </div>
+  )
+}
+
+function IndividualTransformPropertiesPreview() {
+  const [rotated, setRotated] = useState(false)
+  const [scaled, setScaled] = useState(false)
+
+  return (
+    <div className="w-full max-w-sm">
+      <div className="flex gap-4 justify-center mb-4">
+        <button
+          onClick={() => setRotated(!rotated)}
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm"
+        >
+          {rotated ? 'Remove' : 'Add'} Rotation
+        </button>
+        <button
+          onClick={() => setScaled(!scaled)}
+          className="px-4 py-2 bg-info text-info-foreground rounded-lg text-sm"
+        >
+          {scaled ? 'Remove' : 'Add'} Scale
+        </button>
+      </div>
+      <div className="flex justify-center">
+        <div
+          className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center text-white font-bold"
+          style={{
+            rotate: rotated ? '45deg' : '0deg',
+            scale: scaled ? '1.2' : '1',
+          }}
+        >
+          CSS
+        </div>
+      </div>
+      <p className="text-xs text-muted-foreground text-center mt-4">
+        Individual transform properties (rotate, scale, translate)
+      </p>
+    </div>
+  )
+}
+
+function CssLogicPropertiesPreview() {
+  return (
+    <div className="space-y-4 w-full max-w-sm">
+      <div className="p-4 bg-card border border-border rounded-lg">
+        <h4 className="font-medium text-foreground mb-2">Logical Properties</h4>
+        <div className="space-y-2">
+          <div className="flex justify-between">
+            <span className="text-xs text-muted-foreground">inline-size:</span>
+            <code className="text-xs bg-muted px-2 py-1 rounded">200px</code>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-xs text-muted-foreground">block-size:</span>
+            <code className="text-xs bg-muted px-2 py-1 rounded">100px</code>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-xs text-muted-foreground">inset-inline:</span>
+            <code className="text-xs bg-muted px-2 py-1 rounded">1rem</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MediaQueryRangePreview() {
+  const [width, setWidth] = useState(50)
+
+  return (
+    <div className="w-full max-w-sm">
+      <div
+        className="p-6 bg-card border border-border rounded-lg text-center transition-all"
+        style={{ width: `${width}%`, maxWidth: '100%' }}
+      >
+        <p className="text-sm text-muted-foreground">
+          Resize to test media query ranges
+        </p>
+      </div>
+      <input
+        type="range"
+        min="20"
+        max="100"
+        value={width}
+        onChange={(e) => setWidth(Number(e.target.value))}
+        className="w-full mt-4"
+      />
+    </div>
+  )
+}
+
+function CustomMediaQueriesPreview() {
+  return (
+    <div className="space-y-3 w-full max-w-sm">
+      <div className="p-3 bg-card border border-border rounded-lg">
+        <h4 className="text-sm font-semibold text-foreground mb-1">@media queries</h4>
+        <p className="text-xs text-muted-foreground">Custom media query ranges</p>
+      </div>
+      <div className="p-3 bg-muted rounded-lg">
+        <h4 className="text-sm font-semibold text-foreground mb-1">@custom-media</h4>
+        <p className="text-xs text-muted-foreground">Named media features</p>
+      </div>
     </div>
   )
 }
@@ -395,6 +649,167 @@ const modernCSSComponents = [
       { name: 'data-color-space', type: 'string', default: '"srgb"', description: 'Color interpolation space' },
     ],
     preview: ColorMixPreview,
+  },
+  {
+    id: 'wide-gamut-colors',
+    name: 'WideGamutColors',
+    description: 'Display-P3, REC.2020, OKLCH, and other wide color gamuts.',
+    usage: `<div style="background: color(display-p3 1 0 0)">
+  Wide gamut color
+</div>`,
+    props: [
+      { name: 'data-gamut', type: '"display-p3" | "rec2020" | "oklch" | "oklab"', default: '"display-p3"', description: 'Color gamut space' },
+    ],
+    preview: WideGamutColorsPreview,
+  },
+  {
+    id: 'entry-animations',
+    name: 'EntryAnimations',
+    description: 'View Transitions API for element entry animations.',
+    usage: `<div data-coral-view-transition data-name="item">
+  <div data-coral-transition-enter>
+    Animated content
+  </div>
+</div>`,
+    props: [
+      { name: 'data-name', type: 'string', default: 'required', description: 'Transition name' },
+      { name: 'data-duration', type: 'string', default: '"300ms"', description: 'Animation duration' },
+    ],
+    preview: EntryAnimationsPreview,
+  },
+  {
+    id: 'field-sizing',
+    name: 'FieldSizing',
+    description: 'Auto or fixed sizing for form inputs.',
+    usage: `<input type="text" style="field-sizing: content" />
+<input type="text" style="field-sizing: fixed" />`,
+    props: [
+      { name: 'field-sizing', type: '"content" | "fixed"', default: '"content"', description: 'Input sizing strategy' },
+    ],
+    preview: FieldSizingPreview,
+  },
+  {
+    id: 'advanced-selectors',
+    name: 'AdvancedSelectors',
+    description: ':is(), :where(), :has() for powerful selection.',
+    usage: `:is(header, footer) p {
+  /* Styles for paragraphs in header or footer */
+}
+
+:where(.btn) {
+  /* Zero-specificity button styles */
+}
+
+:has(input:checked) {
+  /* Parent styles when checkbox checked */
+}`,
+    props: [
+      { name: 'data-selector', type: 'string', default: 'required', description: 'Advanced selector type' },
+    ],
+    preview: AdvancedSelectorsPreview,
+  },
+  {
+    id: 'css-nested',
+    name: 'CSSNested',
+    description: 'Native CSS nesting like Sass.',
+    usage: `.card {
+  padding: 1rem;
+
+  .title {
+    font-size: 1.5rem;
+
+    &:hover {
+      color: blue;
+    }
+  }
+}`,
+    props: [
+      { name: 'data-nesting', type: 'boolean', default: 'true', description: 'Enable CSS nesting' },
+    ],
+    preview: CSSNestedPreview,
+  },
+  {
+    id: 'css-layer',
+    name: 'CSSLayer',
+    description: 'Cascade layers for explicit style ordering.',
+    usage: `@layer base, components, utilities;
+
+@layer base {
+  body { margin: 0; }
+}
+
+@layer components {
+  .btn { padding: 0.5rem; }
+}`,
+    props: [
+      { name: 'data-layer', type: 'string', default: 'required', description: 'Layer name' },
+      { name: 'data-order', type: 'number', default: 'undefined', description: 'Layer order' },
+    ],
+    preview: CSSLayerPreview,
+  },
+  {
+    id: 'individual-transform',
+    name: 'IndividualTransformProperties',
+    description: 'Separate transform properties: rotate, scale, translate.',
+    usage: `<div style="
+  rotate: 45deg;
+  scale: 1.2;
+  translate: 10px 20px;
+">
+  Transformed element
+</div>`,
+    props: [
+      { name: 'rotate', type: 'angle', default: '"0deg"', description: 'Rotation angle' },
+      { name: 'scale', type: 'number', default: '1', description: 'Scale factor' },
+    ],
+    preview: IndividualTransformPropertiesPreview,
+  },
+  {
+    id: 'css-logic-properties',
+    name: 'CssLogicProperties',
+    description: 'Logical properties for internationalization.',
+    usage: `<div style="
+  inline-size: 200px;
+  block-size: 100px;
+  inset-inline: 1rem;
+  margin-block: 0.5rem;
+">
+  Logical properties
+</div>`,
+    props: [
+      { name: 'data-property', type: '"inline-size" | "block-size" | "inset-inline"', default: '"inline-size"', description: 'Logical property type' },
+    ],
+    preview: CssLogicPropertiesPreview,
+  },
+  {
+    id: 'media-query-range',
+    name: 'MediaQueryRange',
+    description: 'Range syntax for media queries.',
+    usage: `@media (width >= 320px) and (width <= 768px) {
+  /* Styles for mobile */
+}`,
+    props: [
+      { name: 'data-feature', type: 'string', default: '"width"', description: 'Media feature' },
+      { name: 'data-min', type: 'string', default: 'undefined', description: 'Minimum value' },
+      { name: 'data-max', type: 'string', default: 'undefined', description: 'Maximum value' },
+    ],
+    preview: MediaQueryRangePreview,
+  },
+  {
+    id: 'custom-media-queries',
+    name: 'CustomMediaQueries',
+    description: 'Named custom media queries.',
+    usage: `@custom-media --small (width >= 320px);
+@custom-media --large (width >= 1024px);
+
+@media (--small) and (--large) {
+  /* Styles */
+}`,
+    props: [
+      { name: 'data-name', type: 'string', default: 'required', description: 'Custom media query name' },
+      { name: 'data-query', type: 'string', default: 'required', description: 'Media query definition' },
+    ],
+    preview: CustomMediaQueriesPreview,
   },
 ]
 

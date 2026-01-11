@@ -124,8 +124,8 @@ describe('Build Next.js', () => {
       })
       const config = withCoralTurboConfig({})
 
-      expect(config.env!.CORAL_DARK_MODE).toBe('media')
-      expect(config.env!.CORAL_CONTENT).toBeDefined()
+      expect(config.env?.CORAL_DARK_MODE).toBe('media')
+      expect(config.env?.CORAL_CONTENT).toBeDefined()
     })
   })
 

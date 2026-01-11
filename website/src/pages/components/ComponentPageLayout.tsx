@@ -61,16 +61,16 @@ export function ComponentPageLayout({
         </div>
       </div>
 
-      {/* Component Tabs - Horizontal on all screens */}
+      {/* Component Tabs - Responsive Grid */}
       <div className="border-b border-border bg-card/50 sticky top-20 z-40 backdrop-blur-sm">
         <div className="container">
-          <div className="flex overflow-x-auto py-2 gap-1 scrollbar-hide">
+          <div className="flex flex-wrap py-2 gap-2 max-w-full">
             {components.map((comp) => (
               <button
                 key={comp.id}
                 onClick={() => setActiveComponent(comp.id)}
                 className={`
-                  px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all
+                  px-3 py-2 rounded-lg text-sm font-medium transition-all flex-shrink-0
                   ${activeComponent === comp.id
                     ? 'bg-primary text-primary-foreground'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -156,51 +156,41 @@ export function ComponentPageLayout({
             </div>
           </section>
 
-          {/* Usage Section */}
-          {currentComponent.usage && (
-            <section className="mb-10">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Usage</h3>
-              <div className="bg-[#1e1e1e] rounded-xl p-6 overflow-x-auto">
-                <pre className="text-sm font-mono text-gray-300 whitespace-pre-wrap">
-                  {currentComponent.usage}
-                </pre>
-              </div>
-            </section>
-          )}
-
           {/* Props Section */}
           {currentComponent.props && currentComponent.props.length > 0 && (
             <section className="mb-10">
               <h3 className="text-lg font-semibold text-foreground mb-4">Props</h3>
-              <div className="overflow-x-auto rounded-xl border border-border">
-                <table className="w-full text-sm">
-                  <thead className="bg-muted/50">
-                    <tr>
-                      <th className="text-left p-4 font-medium text-foreground">Prop</th>
-                      <th className="text-left p-4 font-medium text-foreground">Type</th>
-                      <th className="text-left p-4 font-medium text-foreground">Default</th>
-                      <th className="text-left p-4 font-medium text-foreground">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {currentComponent.props.map((prop) => (
-                      <tr key={prop.name} className="hover:bg-muted/30 transition-colors">
-                        <td className="p-4">
-                          <code className="px-2 py-1 bg-muted rounded text-xs font-medium text-primary">
-                            {prop.name}
-                          </code>
-                        </td>
-                        <td className="p-4">
-                          <code className="text-muted-foreground text-xs">{prop.type}</code>
-                        </td>
-                        <td className="p-4">
-                          <code className="text-muted-foreground text-xs">{prop.default}</code>
-                        </td>
-                        <td className="p-4 text-muted-foreground">{prop.description}</td>
+              <div className="rounded-xl border border-border overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm min-w-[600px]">
+                    <thead className="bg-muted/50">
+                      <tr>
+                        <th className="text-left p-4 font-medium text-foreground">Prop</th>
+                        <th className="text-left p-4 font-medium text-foreground">Type</th>
+                        <th className="text-left p-4 font-medium text-foreground">Default</th>
+                        <th className="text-left p-4 font-medium text-foreground">Description</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      {currentComponent.props.map((prop) => (
+                        <tr key={prop.name} className="hover:bg-muted/30 transition-colors">
+                          <td className="p-4">
+                            <code className="px-2 py-1 bg-muted rounded text-xs font-medium text-primary">
+                              {prop.name}
+                            </code>
+                          </td>
+                          <td className="p-4">
+                            <code className="text-muted-foreground text-xs">{prop.type}</code>
+                          </td>
+                          <td className="p-4">
+                            <code className="text-muted-foreground text-xs">{prop.default}</code>
+                          </td>
+                          <td className="p-4 text-muted-foreground">{prop.description}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </section>
           )}

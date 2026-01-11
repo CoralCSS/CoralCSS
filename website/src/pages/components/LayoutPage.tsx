@@ -223,6 +223,189 @@ function ResizablePreview() {
   )
 }
 
+function MasonryPreview() {
+  const items = [
+    { height: 'h-32', color: 'bg-primary/20' },
+    { height: 'h-48', color: 'bg-info/20' },
+    { height: 'h-24', color: 'bg-success/20' },
+    { height: 'h-40', color: 'bg-warning/20' },
+    { height: 'h-36', color: 'bg-error/20' },
+    { height: 'h-28', color: 'bg-accent/20' },
+  ]
+  return (
+    <div className="columns-3 gap-4 w-full max-w-lg">
+      {items.map((item, i) => (
+        <div key={i} className={`${item.height} ${item.color} rounded-lg mb-4 flex items-center justify-center border border-border`}>
+          <span className="text-sm text-muted-foreground">{i + 1}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function SpacerPreview() {
+  return (
+    <div className="w-full max-w-sm bg-card rounded-xl border border-border p-4">
+      <div className="flex items-center">
+        <div className="w-10 h-10 bg-primary rounded-full" />
+        <div className="flex-1" /> {/* Spacer */}
+        <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm">Follow</button>
+      </div>
+      <div className="h-6" /> {/* Vertical spacer */}
+      <div className="flex items-center gap-2">
+        <span className="text-sm text-muted-foreground">Spacer pushes elements apart</span>
+      </div>
+    </div>
+  )
+}
+
+function SplitterPreview() {
+  return (
+    <div className="w-full max-w-lg h-48 flex border border-border rounded-xl overflow-hidden">
+      <div className="flex-1 bg-card p-4 flex items-center justify-center">
+        <span className="text-sm text-muted-foreground">Panel A</span>
+      </div>
+      <div className="w-1 bg-border cursor-col-resize hover:bg-primary transition-colors" />
+      <div className="flex-1 bg-card p-4 flex items-center justify-center">
+        <span className="text-sm text-muted-foreground">Panel B</span>
+      </div>
+    </div>
+  )
+}
+
+function StickyPreview() {
+  return (
+    <div className="w-full max-w-sm h-48 overflow-auto border border-border rounded-xl">
+      <div className="sticky top-0 bg-primary text-primary-foreground p-3 text-sm font-medium z-10">
+        Sticky Header
+      </div>
+      <div className="p-4 space-y-4">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div key={i} className="p-3 bg-muted rounded-lg text-sm text-muted-foreground">
+            Content item {i}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function VisuallyHiddenPreview() {
+  return (
+    <div className="space-y-4">
+      <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        <span className="sr-only">Add to favorites</span>
+        Like
+      </button>
+      <p className="text-sm text-muted-foreground">
+        The "Add to favorites" text is visually hidden but readable by screen readers.
+      </p>
+    </div>
+  )
+}
+
+function ResponsiveHidePreview() {
+  return (
+    <div className="w-full">
+      <div className="p-4 bg-card rounded-xl border border-border">
+        <div className="flex items-center gap-4">
+          <div className="hidden md:block p-3 bg-primary/10 rounded-lg">
+            <span className="text-sm text-primary">Visible on md+</span>
+          </div>
+          <div className="block md:hidden p-3 bg-info/10 rounded-lg">
+            <span className="text-sm text-info">Visible on mobile</span>
+          </div>
+          <div className="p-3 bg-muted rounded-lg">
+            <span className="text-sm text-muted-foreground">Always visible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function OverflowPreview() {
+  return (
+    <div className="flex gap-4">
+      <div className="w-32">
+        <p className="text-xs text-muted-foreground mb-2">Truncate</p>
+        <div className="p-3 bg-card rounded-lg border border-border">
+          <p className="text-sm truncate">This is a very long text that will be truncated</p>
+        </div>
+      </div>
+      <div className="w-32">
+        <p className="text-xs text-muted-foreground mb-2">Line Clamp</p>
+        <div className="p-3 bg-card rounded-lg border border-border">
+          <p className="text-sm line-clamp-2">This is a very long text that spans multiple lines and will be clamped to two lines</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SectionPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <section className="p-6 bg-card rounded-xl border border-border">
+        <h2 className="text-lg font-semibold text-foreground mb-2">Section Title</h2>
+        <p className="text-sm text-muted-foreground mb-4">
+          This is a semantic section element with proper heading hierarchy.
+        </p>
+        <div className="flex gap-2">
+          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm">Action</button>
+          <button className="px-4 py-2 bg-muted text-muted-foreground rounded-lg text-sm">Cancel</button>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+function WrapPreview() {
+  const tags = ['React', 'TypeScript', 'CSS', 'HTML', 'JavaScript', 'Node.js', 'GraphQL', 'REST']
+  return (
+    <div className="w-full max-w-sm">
+      <div className="flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <span key={tag} className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function InlinePreview() {
+  return (
+    <div className="w-full max-w-md">
+      <p className="text-muted-foreground">
+        This is an <span className="inline-flex items-center px-2 py-0.5 bg-primary/10 text-primary text-sm rounded">inline element</span> within text, along with
+        <span className="inline-flex items-center px-2 py-0.5 bg-info/10 text-info text-sm rounded mx-1">another one</span>
+        that flows naturally.
+      </p>
+    </div>
+  )
+}
+
+function BoxPreview() {
+  return (
+    <div className="flex gap-4">
+      <div className="w-24 h-24 bg-card rounded-xl border border-border shadow-sm flex items-center justify-center">
+        <span className="text-xs text-muted-foreground">Default</span>
+      </div>
+      <div className="w-24 h-24 bg-card rounded-xl border-2 border-primary shadow-lg flex items-center justify-center">
+        <span className="text-xs text-primary">Elevated</span>
+      </div>
+      <div className="w-24 h-24 bg-muted/50 rounded-xl border border-dashed border-border flex items-center justify-center">
+        <span className="text-xs text-muted-foreground">Dashed</span>
+      </div>
+    </div>
+  )
+}
+
 const layoutComponents = [
   {
     id: 'container',
@@ -411,6 +594,155 @@ const layoutComponents = [
       { name: 'data-max-size', type: 'number', default: '90', description: 'Maximum panel size (%)' },
     ],
     preview: ResizablePreview,
+  },
+  {
+    id: 'masonry',
+    name: 'Masonry',
+    description: 'A Pinterest-style masonry grid layout.',
+    usage: `<div data-coral-masonry data-columns="3" data-gap="4">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>`,
+    props: [
+      { name: 'data-columns', type: '2 | 3 | 4 | 5', default: '3', description: 'Number of columns' },
+      { name: 'data-gap', type: '0-12', default: '4', description: 'Gap between items' },
+    ],
+    preview: MasonryPreview,
+  },
+  {
+    id: 'spacer',
+    name: 'Spacer',
+    description: 'A flexible spacer that expands to fill available space.',
+    usage: `<div data-coral-flex>
+  <span>Left</span>
+  <div data-coral-spacer></div>
+  <span>Right</span>
+</div>`,
+    props: [
+      { name: 'data-size', type: 'string', default: 'auto', description: 'Fixed size (e.g., "20px")' },
+    ],
+    preview: SpacerPreview,
+  },
+  {
+    id: 'splitter',
+    name: 'Splitter',
+    description: 'A draggable splitter between two panels.',
+    usage: `<div data-coral-splitter data-direction="horizontal">
+  <div data-coral-splitter-panel>Panel A</div>
+  <div data-coral-splitter-handle></div>
+  <div data-coral-splitter-panel>Panel B</div>
+</div>`,
+    props: [
+      { name: 'data-direction', type: '"horizontal" | "vertical"', default: '"horizontal"', description: 'Split direction' },
+    ],
+    preview: SplitterPreview,
+  },
+  {
+    id: 'sticky',
+    name: 'Sticky',
+    description: 'A container that sticks to the viewport on scroll.',
+    usage: `<div data-coral-sticky data-offset="80">
+  <nav>Sticky Navigation</nav>
+</div>`,
+    props: [
+      { name: 'data-offset', type: 'number', default: '0', description: 'Offset from top in pixels' },
+      { name: 'data-boundary', type: 'string', default: 'undefined', description: 'Sticky boundary selector' },
+    ],
+    preview: StickyPreview,
+  },
+  {
+    id: 'visually-hidden',
+    name: 'VisuallyHidden',
+    description: 'Hides content visually while keeping it accessible to screen readers.',
+    usage: `<button>
+  <svg><!-- icon --></svg>
+  <span data-coral-visually-hidden>Close dialog</span>
+</button>`,
+    props: [
+      { name: 'data-focusable', type: 'boolean', default: 'false', description: 'Show on focus' },
+    ],
+    preview: VisuallyHiddenPreview,
+  },
+  {
+    id: 'responsive-hide',
+    name: 'ResponsiveHide',
+    description: 'Show or hide content based on viewport size.',
+    usage: `<div data-coral-show="md">
+  Only visible on medium screens and up
+</div>
+<div data-coral-hide="lg">
+  Hidden on large screens
+</div>`,
+    props: [
+      { name: 'data-show', type: '"sm" | "md" | "lg" | "xl"', default: 'undefined', description: 'Show at breakpoint' },
+      { name: 'data-hide', type: '"sm" | "md" | "lg" | "xl"', default: 'undefined', description: 'Hide at breakpoint' },
+    ],
+    preview: ResponsiveHidePreview,
+  },
+  {
+    id: 'overflow',
+    name: 'Overflow',
+    description: 'Utilities for handling text and content overflow.',
+    usage: `<p data-coral-truncate>Long text that will be truncated...</p>
+<p data-coral-line-clamp="2">Text clamped to 2 lines...</p>`,
+    props: [
+      { name: 'data-truncate', type: 'boolean', default: 'false', description: 'Single line truncation' },
+      { name: 'data-line-clamp', type: '1-6', default: 'undefined', description: 'Multi-line clamp' },
+    ],
+    preview: OverflowPreview,
+  },
+  {
+    id: 'section',
+    name: 'Section',
+    description: 'A semantic section wrapper with consistent spacing.',
+    usage: `<section data-coral-section>
+  <h2 data-coral-section-title>Section Title</h2>
+  <div data-coral-section-content>Content here</div>
+</section>`,
+    props: [
+      { name: 'data-spacing', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Vertical spacing' },
+    ],
+    preview: SectionPreview,
+  },
+  {
+    id: 'wrap',
+    name: 'Wrap',
+    description: 'A flex container that wraps its children.',
+    usage: `<div data-coral-wrap data-gap="2">
+  <span>Tag 1</span>
+  <span>Tag 2</span>
+  <span>Tag 3</span>
+</div>`,
+    props: [
+      { name: 'data-gap', type: '0-12', default: '2', description: 'Gap between items' },
+      { name: 'data-justify', type: '"start" | "center" | "end"', default: '"start"', description: 'Justify content' },
+    ],
+    preview: WrapPreview,
+  },
+  {
+    id: 'inline',
+    name: 'Inline',
+    description: 'Inline elements that flow within text content.',
+    usage: `<p>Text with <span data-coral-inline data-variant="highlight">inline element</span> inside.</p>`,
+    props: [
+      { name: 'data-variant', type: '"default" | "highlight" | "badge"', default: '"default"', description: 'Display style' },
+    ],
+    preview: InlinePreview,
+  },
+  {
+    id: 'box',
+    name: 'Box',
+    description: 'A versatile container with configurable styling.',
+    usage: `<div data-coral-box data-shadow="md" data-rounded="lg">
+  Content in a styled box
+</div>`,
+    props: [
+      { name: 'data-shadow', type: '"none" | "sm" | "md" | "lg"', default: '"sm"', description: 'Box shadow' },
+      { name: 'data-rounded', type: '"none" | "sm" | "md" | "lg" | "full"', default: '"md"', description: 'Border radius' },
+      { name: 'data-border', type: 'boolean', default: 'true', description: 'Show border' },
+    ],
+    preview: BoxPreview,
   },
 ]
 

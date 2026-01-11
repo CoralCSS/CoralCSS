@@ -249,17 +249,17 @@ describe('BaseComponent', () => {
   })
 
   describe('autoInit', () => {
-    it('should auto initialize components', () => {
+    it('should auto initialize dialog components', () => {
       const el = createElement('div', { 'data-coral-dialog': '' })
 
-      // autoInit should not throw
-      expect(() => autoInit()).not.toThrow()
+      // autoInit with Dialog class should not throw
+      expect(() => autoInit('[data-coral-dialog]', Dialog as never)).not.toThrow()
     })
 
-    it('should initialize specific component type', () => {
+    it('should initialize specific accordion components', () => {
       const el = createElement('div', { 'data-coral-accordion': '' })
 
-      expect(() => autoInit('accordion')).not.toThrow()
+      expect(() => autoInit('[data-coral-accordion]', Accordion as never)).not.toThrow()
     })
   })
 

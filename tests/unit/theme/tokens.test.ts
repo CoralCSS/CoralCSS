@@ -218,6 +218,40 @@ describe('Theme Tokens', () => {
       expect(ts).toContain('colors:')
       expect(ts).toContain('primitive:')
     })
+
+    it('should handle plain string token values', () => {
+      // Create tokens with plain string values
+      const customTokens = createDesignTokens({
+        colors: {
+          primitive: {
+            'plain-string': '#ffffff' as unknown as { value: string },
+          },
+          semantic: {},
+        },
+      })
+      const ts = generateTokensTypeScript(customTokens)
+      expect(ts).toContain('tokens')
+    })
+
+    it('should handle nested token categories', () => {
+      // Test with default tokens which have nested categories
+      const ts = generateTokensTypeScript()
+      expect(ts).toContain('typography:')
+      expect(ts).toContain('fontFamily:')
+      expect(ts).toContain('fontSize:')
+    })
+
+    it('should quote keys that need quoting', () => {
+      const ts = generateTokensTypeScript()
+      // Keys like '0.5', '2xl' should be quoted
+      expect(ts).toContain("'")
+    })
+
+    it('should not quote safe keys', () => {
+      const ts = generateTokensTypeScript()
+      // Keys like 'sans', 'base' should not need quoting
+      expect(ts).toContain('sans:')
+    })
   })
 
   describe('createDesignTokens', () => {

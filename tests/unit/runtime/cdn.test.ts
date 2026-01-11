@@ -393,4 +393,89 @@ describe('CDN Runtime', () => {
       cdn.destroy()
     })
   })
+
+  describe('DOMContentLoaded handling', () => {
+    it('should handle DOM loading state', () => {
+      // When document is already loaded, autoStart executes immediately
+      const cdn = createCoralCDN({
+        autoStart: true,
+        autoInitComponents: true
+      })
+      expect(cdn).toBeDefined()
+      cdn.stop()
+      cdn.destroy()
+    })
+
+    it('should queue DOMContentLoaded listener when document is loading', () => {
+      // Mock document.readyState to be 'loading'
+      const originalReadyState = Object.getOwnPropertyDescriptor(Document.prototype, 'readyState')
+
+      Object.defineProperty(document, 'readyState', {
+        configurable: true,
+        get: () => 'loading'
+      })
+
+      const events: Record<string, EventListener[]> = {}
+      const originalAddEventListener = document.addEventListener.bind(document)
+      document.addEventListener = function(type: string, listener: EventListener) {
+        if (!events[type]) events[type] = []
+        events[type].push(listener)
+      } as typeof document.addEventListener
+
+      const cdn = createCoralCDN({
+        autoStart: true,
+        autoInitComponents: true
+      })
+
+      // Restore original readyState
+      if (originalReadyState) {
+        Object.defineProperty(document, 'readyState', originalReadyState)
+      } else {
+        Object.defineProperty(document, 'readyState', {
+          configurable: true,
+          get: () => 'complete'
+        })
+      }
+      document.addEventListener = originalAddEventListener
+
+      // Verify DOMContentLoaded listener was added
+      expect(events['DOMContentLoaded']).toBeDefined()
+      expect(events['DOMContentLoaded'].length).toBeGreaterThan(0)
+
+      // Manually trigger the listener
+      events['DOMContentLoaded'].forEach(listener => listener(new Event('DOMContentLoaded')))
+
+      cdn.stop()
+      cdn.destroy()
+    })
+
+    it('should handle different document ready states', () => {
+      // Test with 'interactive' state (DOM parsed but resources loading)
+      const originalReadyState = Object.getOwnPropertyDescriptor(Document.prototype, 'readyState')
+
+      Object.defineProperty(document, 'readyState', {
+        configurable: true,
+        get: () => 'interactive'
+      })
+
+      const cdn = createCoralCDN({
+        autoStart: true,
+        autoInitComponents: false
+      })
+
+      // Restore original readyState
+      if (originalReadyState) {
+        Object.defineProperty(document, 'readyState', originalReadyState)
+      } else {
+        Object.defineProperty(document, 'readyState', {
+          configurable: true,
+          get: () => 'complete'
+        })
+      }
+
+      expect(cdn).toBeDefined()
+      cdn.stop()
+      cdn.destroy()
+    })
+  })
 })

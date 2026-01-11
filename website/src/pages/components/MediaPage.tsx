@@ -141,7 +141,7 @@ function IconPreview() {
 function QRCodePreview() {
   return (
     <div className="flex items-center gap-6">
-      <div data-coral-qrcode className="p-4 bg-white rounded-lg">
+      <div data-coral-qrcode className="p-4 bg-card rounded-lg border border-border">
         <div className="w-24 h-24 grid grid-cols-5 gap-0.5">
           {Array.from({ length: 25 }).map((_, i) => (
             <div
@@ -186,6 +186,184 @@ function EmojiPickerPreview() {
       <div data-coral-emoji-picker-footer>
         <span className="text-muted-foreground">Selected:</span>
         <span className="text-2xl">{selected}</span>
+      </div>
+    </div>
+  )
+}
+
+function IframePreview() {
+  return (
+    <div className="w-full max-w-md">
+      <div data-coral-iframe className="aspect-video rounded-lg overflow-hidden border border-border">
+        <div className="w-full h-full bg-muted flex items-center justify-center">
+          <div className="text-center">
+            <svg className="w-12 h-12 text-muted-foreground mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+            <p className="text-sm text-muted-foreground">Embedded content</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function BarcodePreview() {
+  return (
+    <div className="flex items-center gap-6">
+      <div data-coral-barcode className="p-4 bg-card rounded-lg border border-border">
+        <div className="flex gap-0.5 h-16">
+          {Array.from({ length: 30 }).map((_, i) => (
+            <div
+              key={i}
+              className="bg-foreground"
+              style={{ width: `${Math.random() > 0.5 ? 2 : 1}px` }}
+            />
+          ))}
+        </div>
+        <p className="text-xs text-center text-muted-foreground mt-2">1234567890</p>
+      </div>
+    </div>
+  )
+}
+
+function GifPickerPreview() {
+  const gifs = Array.from({ length: 6 }).map((_, i) => ({
+    id: i,
+    color: ['from-primary to-accent', 'from-info to-primary', 'from-success to-info', 'from-warning to-success', 'from-error to-warning', 'from-accent to-error'][i]
+  }))
+  return (
+    <div className="w-64">
+      <div className="mb-3">
+        <input
+          type="text"
+          placeholder="Search GIFs..."
+          className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm"
+        />
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        {gifs.map((gif) => (
+          <div
+            key={gif.id}
+            className={`h-20 bg-gradient-to-br ${gif.color} rounded-lg cursor-pointer hover:scale-105 transition-transform`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function MediaPlayerPreview() {
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [progress, setProgress] = useState(35)
+  return (
+    <div className="w-full max-w-md bg-card rounded-xl border border-border overflow-hidden">
+      <div className="aspect-video bg-gradient-to-br from-muted to-muted/50 relative">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="w-16 h-16 rounded-full bg-primary/90 hover:bg-primary flex items-center justify-center transition-colors"
+          >
+            {isPlaying ? (
+              <svg className="w-6 h-6 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6 text-primary-foreground ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+          </button>
+        </div>
+      </div>
+      <div className="p-4">
+        <div className="flex items-center gap-3 mb-3">
+          <button onClick={() => setIsPlaying(!isPlaying)} className="text-foreground">
+            {isPlaying ? (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            )}
+          </button>
+          <div className="flex-1 h-1 bg-muted rounded-full cursor-pointer" onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            setProgress((e.clientX - rect.left) / rect.width * 100)
+          }}>
+            <div className="h-full bg-primary rounded-full" style={{ width: `${progress}%` }} />
+          </div>
+          <span className="text-xs text-muted-foreground">1:24 / 4:02</span>
+          <button className="text-foreground">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function AvatarGroupPreview() {
+  const avatars = ['JD', 'AS', 'MK', 'LP', 'RW']
+  return (
+    <div className="flex items-center">
+      <div className="flex -space-x-3">
+        {avatars.slice(0, 4).map((initials, i) => (
+          <div
+            key={i}
+            className="w-10 h-10 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center text-sm font-medium text-primary"
+          >
+            {initials}
+          </div>
+        ))}
+        <div className="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center text-sm font-medium text-muted-foreground">
+          +3
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ImageGridPreview() {
+  return (
+    <div className="w-full max-w-sm">
+      <div className="grid grid-cols-3 gap-1 rounded-xl overflow-hidden">
+        <div className="aspect-square bg-gradient-to-br from-primary to-accent" />
+        <div className="aspect-square bg-gradient-to-br from-info to-primary" />
+        <div className="aspect-square bg-gradient-to-br from-success to-info" />
+        <div className="aspect-square bg-gradient-to-br from-warning to-success" />
+        <div className="aspect-square bg-gradient-to-br from-error to-warning relative">
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+            <span className="text-white font-medium">+5</span>
+          </div>
+        </div>
+        <div className="aspect-square bg-gradient-to-br from-accent to-error" />
+      </div>
+    </div>
+  )
+}
+
+function ThumbnailPreview() {
+  return (
+    <div className="flex gap-4">
+      <div className="relative w-24">
+        <div className="aspect-video bg-gradient-to-br from-primary to-accent rounded-lg" />
+        <div className="absolute bottom-1 right-1 px-1.5 py-0.5 bg-black/80 rounded text-xs text-white">
+          3:45
+        </div>
+      </div>
+      <div className="relative w-24">
+        <div className="aspect-video bg-gradient-to-br from-info to-success rounded-lg" />
+        <div className="absolute bottom-1 right-1 px-1.5 py-0.5 bg-black/80 rounded text-xs text-white">
+          12:30
+        </div>
+        <div className="absolute top-1 left-1 px-1.5 py-0.5 bg-red-500 rounded text-xs text-white">
+          LIVE
+        </div>
       </div>
     </div>
   )
@@ -307,6 +485,111 @@ const mediaComponents = [
       { name: 'data-search', type: 'boolean', default: 'true', description: 'Enable search' },
     ],
     preview: EmojiPickerPreview,
+  },
+  {
+    id: 'iframe',
+    name: 'Iframe',
+    description: 'Responsive iframe container for embedded content.',
+    usage: `<div data-coral-iframe data-ratio="16/9">
+  <iframe src="..." title="..." />
+</div>`,
+    props: [
+      { name: 'data-ratio', type: '"16/9" | "4/3" | "1/1"', default: '"16/9"', description: 'Aspect ratio' },
+      { name: 'data-loading', type: '"lazy" | "eager"', default: '"lazy"', description: 'Loading behavior' },
+    ],
+    preview: IframePreview,
+  },
+  {
+    id: 'barcode',
+    name: 'Barcode',
+    description: 'Generate barcodes for product codes and IDs.',
+    usage: `<div data-coral-barcode data-value="1234567890">
+</div>`,
+    props: [
+      { name: 'data-value', type: 'string', default: 'required', description: 'Data to encode' },
+      { name: 'data-format', type: '"CODE128" | "EAN13" | "UPC"', default: '"CODE128"', description: 'Barcode format' },
+    ],
+    preview: BarcodePreview,
+  },
+  {
+    id: 'gif-picker',
+    name: 'GifPicker',
+    description: 'A searchable GIF picker for adding animations.',
+    usage: `<div data-coral-gif-picker>
+  <input data-coral-gif-search placeholder="Search GIFs..." />
+  <div data-coral-gif-grid>
+    <!-- GIF items -->
+  </div>
+</div>`,
+    props: [
+      { name: 'data-provider', type: '"giphy" | "tenor"', default: '"giphy"', description: 'GIF provider' },
+      { name: 'data-columns', type: '2 | 3 | 4', default: '2', description: 'Grid columns' },
+    ],
+    preview: GifPickerPreview,
+  },
+  {
+    id: 'media-player',
+    name: 'MediaPlayer',
+    description: 'Full-featured media player with controls and progress.',
+    usage: `<div data-coral-media-player>
+  <video data-coral-media-video src="..." />
+  <div data-coral-media-controls>
+    <button data-coral-media-play />
+    <div data-coral-media-progress />
+    <button data-coral-media-volume />
+    <button data-coral-media-fullscreen />
+  </div>
+</div>`,
+    props: [
+      { name: 'data-autoplay', type: 'boolean', default: 'false', description: 'Auto-play media' },
+      { name: 'data-controls', type: 'boolean', default: 'true', description: 'Show controls' },
+    ],
+    preview: MediaPlayerPreview,
+  },
+  {
+    id: 'avatar-group',
+    name: 'AvatarGroup',
+    description: 'Stacked avatar display for showing multiple users.',
+    usage: `<div data-coral-avatar-group data-max="4">
+  <img data-coral-avatar src="..." alt="User 1" />
+  <img data-coral-avatar src="..." alt="User 2" />
+  <span data-coral-avatar-overflow>+3</span>
+</div>`,
+    props: [
+      { name: 'data-max', type: 'number', default: '5', description: 'Max visible avatars' },
+      { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Avatar size' },
+    ],
+    preview: AvatarGroupPreview,
+  },
+  {
+    id: 'image-grid',
+    name: 'ImageGrid',
+    description: 'Multi-image grid layout with overflow indicator.',
+    usage: `<div data-coral-image-grid data-max="5">
+  <img src="..." />
+  <img src="..." />
+  <span data-coral-image-grid-overflow>+3</span>
+</div>`,
+    props: [
+      { name: 'data-columns', type: '2 | 3 | 4', default: '3', description: 'Grid columns' },
+      { name: 'data-max', type: 'number', default: '6', description: 'Max visible images' },
+    ],
+    preview: ImageGridPreview,
+  },
+  {
+    id: 'thumbnail',
+    name: 'Thumbnail',
+    description: 'Video thumbnails with duration and live indicators.',
+    usage: `<div data-coral-thumbnail>
+  <img src="..." alt="Video thumbnail" />
+  <span data-coral-thumbnail-duration>3:45</span>
+  <span data-coral-thumbnail-live>LIVE</span>
+</div>`,
+    props: [
+      { name: 'data-duration', type: 'string', default: 'undefined', description: 'Video duration' },
+      { name: 'data-live', type: 'boolean', default: 'false', description: 'Show live indicator' },
+    ],
+    preview: ThumbnailPreview,
   },
 ]
 

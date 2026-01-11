@@ -260,6 +260,337 @@ function CommandMenuPreview() {
   )
 }
 
+function DockPreview() {
+  const [activeItem, setActiveItem] = useState('finder')
+  const apps = [
+    { id: 'finder', name: 'Finder', color: 'bg-blue-500' },
+    { id: 'safari', name: 'Safari', color: 'bg-sky-500' },
+    { id: 'messages', name: 'Messages', color: 'bg-green-500' },
+    { id: 'music', name: 'Music', color: 'bg-red-500' },
+    { id: 'photos', name: 'Photos', color: 'bg-gradient-to-br from-pink-500 to-orange-500' },
+  ]
+  return (
+    <div className="w-full flex justify-center">
+      <div data-coral-dock className="flex items-end gap-1 p-2 bg-card/80 backdrop-blur-xl rounded-2xl border border-border shadow-xl">
+        {apps.map((app) => (
+          <button
+            key={app.id}
+            onClick={() => setActiveItem(app.id)}
+            className={`w-12 h-12 ${app.color} rounded-xl transition-all hover:scale-110 hover:-translate-y-1 ${activeItem === app.id ? 'scale-110 -translate-y-1' : ''}`}
+            title={app.name}
+          />
+        ))}
+        <div className="w-px h-10 bg-border mx-2" />
+        <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center">
+          <svg className="w-6 h-6 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function MegaMenuPreview() {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div className="w-full">
+      <nav className="flex items-center gap-6 p-4 bg-card rounded-xl border border-border">
+        <span className="font-semibold text-foreground">Logo</span>
+        <div className="relative">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex items-center gap-1 text-sm text-foreground hover:text-primary transition-colors"
+          >
+            Products
+            <svg className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {isOpen && (
+            <div className="absolute top-full left-0 mt-2 w-[500px] p-6 bg-card rounded-xl border border-border shadow-xl grid grid-cols-2 gap-6">
+              <div>
+                <h4 className="font-semibold text-foreground mb-3">Solutions</h4>
+                <div className="space-y-2">
+                  <a href="#" className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <span className="text-sm font-medium text-foreground">Analytics</span>
+                      <p className="text-xs text-muted-foreground">Track your metrics</p>
+                    </div>
+                  </a>
+                  <a href="#" className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors">
+                    <div className="w-10 h-10 bg-info/10 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5 text-info" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <span className="text-sm font-medium text-foreground">Security</span>
+                      <p className="text-xs text-muted-foreground">Protect your data</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground mb-3">Resources</h4>
+                <div className="space-y-2">
+                  <a href="#" className="block p-2 text-sm text-foreground hover:text-primary transition-colors">Documentation</a>
+                  <a href="#" className="block p-2 text-sm text-foreground hover:text-primary transition-colors">API Reference</a>
+                  <a href="#" className="block p-2 text-sm text-foreground hover:text-primary transition-colors">Guides</a>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
+        <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a>
+      </nav>
+    </div>
+  )
+}
+
+function TreePreview() {
+  const [expanded, setExpanded] = useState<string[]>(['src'])
+  const toggle = (id: string) => {
+    setExpanded(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+  }
+  return (
+    <div className="w-full max-w-xs bg-card rounded-xl border border-border p-4">
+      <div data-coral-tree>
+        <div data-coral-tree-item>
+          <button onClick={() => toggle('src')} className="flex items-center gap-2 w-full p-1 hover:bg-muted rounded">
+            <svg className={`w-4 h-4 transition-transform ${expanded.includes('src') ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+            </svg>
+            <span className="text-sm text-foreground">src</span>
+          </button>
+          {expanded.includes('src') && (
+            <div className="ml-6 border-l border-border pl-2">
+              <div className="flex items-center gap-2 p-1">
+                <div className="w-4" />
+                <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span className="text-sm text-foreground">index.ts</span>
+              </div>
+              <div className="flex items-center gap-2 p-1">
+                <div className="w-4" />
+                <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span className="text-sm text-foreground">utils.ts</span>
+              </div>
+              <button onClick={() => toggle('components')} className="flex items-center gap-2 w-full p-1 hover:bg-muted rounded">
+                <svg className={`w-4 h-4 transition-transform ${expanded.includes('components') ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+                <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                </svg>
+                <span className="text-sm text-foreground">components</span>
+              </button>
+              {expanded.includes('components') && (
+                <div className="ml-6 border-l border-border pl-2">
+                  <div className="flex items-center gap-2 p-1">
+                    <div className="w-4" />
+                    <svg className="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span className="text-sm text-foreground">Button.tsx</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function VerticalTabsPreview() {
+  const [activeTab, setActiveTab] = useState(0)
+  const tabs = ['Profile', 'Account', 'Security', 'Notifications']
+  return (
+    <div className="flex gap-6 w-full max-w-lg">
+      <div className="flex flex-col gap-1 w-40 border-r border-border pr-4">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(i)}
+            className={`px-4 py-2 text-sm text-left rounded-lg transition-colors ${activeTab === i ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold text-foreground mb-2">{tabs[activeTab]}</h3>
+        <p className="text-sm text-muted-foreground">Content for {tabs[activeTab]} settings goes here.</p>
+      </div>
+    </div>
+  )
+}
+
+function AnchorLinksPreview() {
+  const [activeSection, setActiveSection] = useState('intro')
+  const sections = [
+    { id: 'intro', label: 'Introduction' },
+    { id: 'install', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'api', label: 'API Reference' },
+  ]
+  return (
+    <div className="flex gap-6 w-full">
+      <nav className="w-48 sticky top-4">
+        <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">On this page</h4>
+        <div className="space-y-1">
+          {sections.map((section) => (
+            <button
+              key={section.id}
+              onClick={() => setActiveSection(section.id)}
+              className={`block w-full text-left px-3 py-1.5 text-sm rounded transition-colors ${activeSection === section.id ? 'text-primary bg-primary/10 border-l-2 border-primary' : 'text-muted-foreground hover:text-foreground'}`}
+            >
+              {section.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+      <div className="flex-1 bg-card rounded-xl border border-border p-6">
+        <h2 className="text-xl font-bold text-foreground mb-2">{sections.find(s => s.id === activeSection)?.label}</h2>
+        <p className="text-muted-foreground">Content for this section would appear here.</p>
+      </div>
+    </div>
+  )
+}
+
+function LinkGroupPreview() {
+  return (
+    <div className="flex gap-8">
+      <div>
+        <h4 className="text-sm font-semibold text-foreground mb-3">Company</h4>
+        <div className="space-y-2">
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">About</a>
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Careers</a>
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Blog</a>
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Press</a>
+        </div>
+      </div>
+      <div>
+        <h4 className="text-sm font-semibold text-foreground mb-3">Products</h4>
+        <div className="space-y-2">
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Features</a>
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Pricing</a>
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Enterprise</a>
+        </div>
+      </div>
+      <div>
+        <h4 className="text-sm font-semibold text-foreground mb-3">Support</h4>
+        <div className="space-y-2">
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Help Center</a>
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Contact</a>
+          <a href="#" className="block text-sm text-muted-foreground hover:text-primary transition-colors">Status</a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SkipLinkPreview() {
+  return (
+    <div className="w-full">
+      <div className="relative">
+        <a href="#main-content" className="absolute -top-10 left-0 px-4 py-2 bg-primary text-primary-foreground rounded focus:top-2 transition-all z-50">
+          Skip to main content
+        </a>
+        <div className="bg-card rounded-xl border border-border p-4">
+          <p className="text-sm text-muted-foreground mb-2">Press Tab to see the skip link appear</p>
+          <div id="main-content" className="p-4 bg-muted rounded-lg">
+            <p className="text-sm text-foreground">Main content area</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SegmentedControlPreview() {
+  const [selected, setSelected] = useState('list')
+  const options = [
+    { id: 'grid', icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z' },
+    { id: 'list', icon: 'M4 6h16M4 10h16M4 14h16M4 18h16' },
+    { id: 'columns', icon: 'M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2' },
+  ]
+  return (
+    <div className="inline-flex p-1 bg-muted rounded-lg">
+      {options.map((option) => (
+        <button
+          key={option.id}
+          onClick={() => setSelected(option.id)}
+          className={`p-2 rounded-md transition-colors ${selected === option.id ? 'bg-card shadow-sm' : 'hover:bg-card/50'}`}
+        >
+          <svg className={`w-5 h-5 ${selected === option.id ? 'text-foreground' : 'text-muted-foreground'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={option.icon} />
+          </svg>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function FloatingNavPreview() {
+  return (
+    <div className="w-full flex justify-center">
+      <nav className="inline-flex items-center gap-1 p-1.5 bg-card/95 backdrop-blur-xl rounded-full border border-border shadow-xl">
+        <a href="#" className="px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-full">Home</a>
+        <a href="#" className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">About</a>
+        <a href="#" className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Work</a>
+        <a href="#" className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Contact</a>
+      </nav>
+    </div>
+  )
+}
+
+function ProgressStepsPreview() {
+  const [currentStep, setCurrentStep] = useState(2)
+  const steps = ['Cart', 'Shipping', 'Payment', 'Review']
+  return (
+    <div className="w-full max-w-lg">
+      <div className="flex items-center justify-between mb-4">
+        {steps.map((step, i) => (
+          <div key={step} className="flex items-center">
+            <button
+              onClick={() => setCurrentStep(i)}
+              className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${i < currentStep ? 'bg-success text-white' : i === currentStep ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}
+            >
+              {i < currentStep ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              ) : i + 1}
+            </button>
+            {i < steps.length - 1 && (
+              <div className={`w-16 h-1 mx-2 rounded ${i < currentStep ? 'bg-success' : 'bg-muted'}`} />
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="text-center">
+        <span className="text-sm text-muted-foreground">Step {currentStep + 1}: </span>
+        <span className="text-sm font-medium text-foreground">{steps[currentStep]}</span>
+      </div>
+    </div>
+  )
+}
+
 const navigationComponents = [
   {
     id: 'navbar',
@@ -408,6 +739,167 @@ const navigationComponents = [
       { name: 'data-hotkey', type: 'string', default: '"cmd+k"', description: 'Keyboard shortcut' },
     ],
     preview: CommandMenuPreview,
+  },
+  {
+    id: 'dock',
+    name: 'Dock',
+    description: 'A macOS-style dock with hover effects and app indicators.',
+    usage: `<div data-coral-dock>
+  <button data-coral-dock-item data-active>
+    <img src="app-icon.png" alt="App" />
+  </button>
+  <div data-coral-dock-separator></div>
+  <button data-coral-dock-item>
+    <svg><!-- icon --></svg>
+  </button>
+</div>`,
+    props: [
+      { name: 'data-position', type: '"bottom" | "left" | "right"', default: '"bottom"', description: 'Dock position' },
+      { name: 'data-magnify', type: 'boolean', default: 'true', description: 'Enable magnification on hover' },
+    ],
+    preview: DockPreview,
+  },
+  {
+    id: 'mega-menu',
+    name: 'MegaMenu',
+    description: 'A full-featured navigation menu with multi-column dropdowns.',
+    usage: `<nav data-coral-mega-menu>
+  <div data-coral-mega-menu-trigger>Products</div>
+  <div data-coral-mega-menu-content>
+    <div data-coral-mega-menu-section>
+      <h4>Solutions</h4>
+      <a href="#">Analytics</a>
+    </div>
+  </div>
+</nav>`,
+    props: [
+      { name: 'data-trigger', type: '"click" | "hover"', default: '"hover"', description: 'Trigger method' },
+      { name: 'data-full-width', type: 'boolean', default: 'false', description: 'Full viewport width' },
+    ],
+    preview: MegaMenuPreview,
+  },
+  {
+    id: 'tree',
+    name: 'Tree',
+    description: 'A hierarchical tree view for file systems and nested data.',
+    usage: `<div data-coral-tree>
+  <div data-coral-tree-item data-expanded>
+    <button data-coral-tree-toggle></button>
+    <span>Folder</span>
+    <div data-coral-tree-children>
+      <div data-coral-tree-item>
+        <span>File.txt</span>
+      </div>
+    </div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-selectable', type: 'boolean', default: 'true', description: 'Enable selection' },
+      { name: 'data-multi-select', type: 'boolean', default: 'false', description: 'Allow multiple selections' },
+    ],
+    preview: TreePreview,
+  },
+  {
+    id: 'vertical-tabs',
+    name: 'VerticalTabs',
+    description: 'Vertically stacked tabs for settings and preference panels.',
+    usage: `<div data-coral-vertical-tabs>
+  <div data-coral-vertical-tabs-list>
+    <button data-coral-vertical-tab data-active>Profile</button>
+    <button data-coral-vertical-tab>Settings</button>
+  </div>
+  <div data-coral-vertical-tabs-content>
+    Content here
+  </div>
+</div>`,
+    props: [
+      { name: 'data-variant', type: '"default" | "pills"', default: '"default"', description: 'Tab style' },
+    ],
+    preview: VerticalTabsPreview,
+  },
+  {
+    id: 'anchor-links',
+    name: 'AnchorLinks',
+    description: 'A table of contents navigation that tracks scroll position.',
+    usage: `<nav data-coral-anchor-links>
+  <a data-coral-anchor-link href="#intro" data-active>Introduction</a>
+  <a data-coral-anchor-link href="#usage">Usage</a>
+  <a data-coral-anchor-link href="#api">API</a>
+</nav>`,
+    props: [
+      { name: 'data-offset', type: 'number', default: '80', description: 'Scroll offset in pixels' },
+      { name: 'data-smooth', type: 'boolean', default: 'true', description: 'Smooth scroll behavior' },
+    ],
+    preview: AnchorLinksPreview,
+  },
+  {
+    id: 'link-group',
+    name: 'LinkGroup',
+    description: 'Grouped navigation links for footers and sidebars.',
+    usage: `<div data-coral-link-group>
+  <h4 data-coral-link-group-title>Company</h4>
+  <a data-coral-link-group-item href="#">About</a>
+  <a data-coral-link-group-item href="#">Careers</a>
+</div>`,
+    props: [
+      { name: 'data-direction', type: '"vertical" | "horizontal"', default: '"vertical"', description: 'Layout direction' },
+    ],
+    preview: LinkGroupPreview,
+  },
+  {
+    id: 'skip-link',
+    name: 'SkipLink',
+    description: 'Accessibility skip link for keyboard users to bypass navigation.',
+    usage: `<a data-coral-skip-link href="#main-content">
+  Skip to main content
+</a>
+<main id="main-content">...</main>`,
+    props: [
+      { name: 'data-visible-on-focus', type: 'boolean', default: 'true', description: 'Show only on focus' },
+    ],
+    preview: SkipLinkPreview,
+  },
+  {
+    id: 'segmented-control',
+    name: 'SegmentedControl',
+    description: 'A segmented button group for view switching and filtering.',
+    usage: `<div data-coral-segmented-control>
+  <button data-coral-segment data-active>Grid</button>
+  <button data-coral-segment>List</button>
+  <button data-coral-segment>Table</button>
+</div>`,
+    props: [
+      { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Control size' },
+    ],
+    preview: SegmentedControlPreview,
+  },
+  {
+    id: 'floating-nav',
+    name: 'FloatingNav',
+    description: 'A floating pill-style navigation bar.',
+    usage: `<nav data-coral-floating-nav>
+  <a data-coral-floating-nav-item data-active href="#">Home</a>
+  <a data-coral-floating-nav-item href="#">About</a>
+  <a data-coral-floating-nav-item href="#">Contact</a>
+</nav>`,
+    props: [
+      { name: 'data-position', type: '"top" | "bottom"', default: '"bottom"', description: 'Fixed position' },
+    ],
+    preview: FloatingNavPreview,
+  },
+  {
+    id: 'progress-steps',
+    name: 'ProgressSteps',
+    description: 'A checkout-style progress indicator with clickable steps.',
+    usage: `<div data-coral-progress-steps>
+  <div data-coral-progress-step data-completed>Cart</div>
+  <div data-coral-progress-step data-active>Shipping</div>
+  <div data-coral-progress-step>Payment</div>
+</div>`,
+    props: [
+      { name: 'data-clickable', type: 'boolean', default: 'true', description: 'Allow clicking past steps' },
+    ],
+    preview: ProgressStepsPreview,
   },
 ]
 

@@ -23,6 +23,7 @@ import MediaPage from './pages/components/MediaPage'
 import AdvancedPage from './pages/components/AdvancedPage'
 import ModernCSSPage from './pages/components/ModernCSSPage'
 import ChartsPage from './pages/components/ChartsPage'
+import DashboardPage from './pages/components/DashboardPage'
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route path="/components/advanced" element={<AdvancedPage />} />
             <Route path="/components/modern-css" element={<ModernCSSPage />} />
             <Route path="/components/charts" element={<ChartsPage />} />
+            <Route path="/components/dashboard" element={<DashboardPage />} />
             <Route path="/themes" element={<Themes />} />
             <Route path="/docs" element={<Docs />} />
             <Route path="/examples" element={<Examples />} />

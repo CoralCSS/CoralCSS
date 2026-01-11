@@ -833,4 +833,64 @@ describe('DOM Utilities', () => {
       style.remove()
     })
   })
+
+  describe('cssSupports without CSS.supports', () => {
+    it('should return false when CSS.supports is not available', () => {
+      // Save original CSS object
+      const originalCSS = (globalThis as Record<string, unknown>).CSS as { supports?: typeof CSS.supports }
+      const originalSupports = CSS.supports
+
+      // Remove CSS.supports
+      Object.defineProperty(CSS, 'supports', { value: undefined, configurable: true })
+
+      const result = cssSupports('display', 'flex')
+
+      // Restore
+      Object.defineProperty(CSS, 'supports', { value: originalSupports, configurable: true })
+
+      expect(result).toBe(false)
+    })
+  })
+
+  describe('supportsHasSelector catch block', () => {
+    it('should return false when :has selector throws', () => {
+      // Save original querySelector
+      const originalQuerySelector = document.querySelector.bind(document)
+
+      // Mock querySelector to throw for :has selector
+      document.querySelector = vi.fn((selector: string) => {
+        if (selector.includes(':has')) {
+          throw new Error('Unsupported selector')
+        }
+        return originalQuerySelector(selector)
+      })
+
+      const result = supportsHasSelector()
+
+      // Restore
+      document.querySelector = originalQuerySelector
+
+      expect(result).toBe(false)
+    })
+
+    it('should return true when :has selector works', () => {
+      // In jsdom, :has usually throws, but we can mock it to succeed
+      const originalQuerySelector = document.querySelector.bind(document)
+
+      // Mock querySelector to return null (success) for :has selector
+      document.querySelector = vi.fn((selector: string) => {
+        if (selector.includes(':has')) {
+          return null // Successfully executed, just no match
+        }
+        return originalQuerySelector(selector)
+      })
+
+      const result = supportsHasSelector()
+
+      // Restore
+      document.querySelector = originalQuerySelector
+
+      expect(result).toBe(true)
+    })
+  })
 })

@@ -187,8 +187,8 @@ describe('Build Remix', () => {
     it('should include virtual:coral.css stylesheet', () => {
       const links = coralLinks()
 
-      expect(links[0].rel).toBe('stylesheet')
-      expect(links[0].href).toBe('virtual:coral.css')
+      expect(links[0]?.rel).toBe('stylesheet')
+      expect(links[0]?.href).toBe('virtual:coral.css')
     })
   })
 

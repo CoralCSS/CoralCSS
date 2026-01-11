@@ -94,7 +94,7 @@ describe('Angular Module', () => {
         (p: { provide: string }) => p.provide === CORAL_CONFIG
       )
       expect(configProvider).toBeDefined()
-      expect(configProvider.useValue).toEqual({ darkMode: 'class' })
+      expect(configProvider?.useValue).toEqual({ darkMode: 'class' })
     })
 
     it('should destroy service', () => {
@@ -132,7 +132,7 @@ describe('Angular Module', () => {
         (p: { provide: string }) => p.provide === CORAL_CONFIG
       )
       expect(configProvider).toBeDefined()
-      expect(configProvider.useValue).toEqual({ darkMode: 'class' })
+      expect(configProvider?.useValue).toEqual({ darkMode: 'class' })
     })
 
     it('should include service factory', () => {
@@ -142,7 +142,7 @@ describe('Angular Module', () => {
         (p: { provide: string }) => p.provide === 'CoralService'
       )
       expect(serviceProvider).toBeDefined()
-      expect(serviceProvider.useFactory).toBeDefined()
+      expect(serviceProvider?.useFactory).toBeDefined()
     })
 
     it('should create service from factory', () => {
@@ -151,7 +151,8 @@ describe('Angular Module', () => {
       const serviceProvider = result.useValue.find(
         (p: { provide: string }) => p.provide === 'CoralService'
       )
-      const service = serviceProvider.useFactory()
+      expect(serviceProvider?.useFactory).toBeDefined()
+      const service = serviceProvider?.useFactory?.()
       expect(service).toBeInstanceOf(CoralService)
     })
   })
@@ -168,10 +169,10 @@ describe('Angular Module', () => {
       const result = getCoralProviders({ darkMode: 'media' })
 
       const configProvider = result.find(
-        (p: { provide: string }) => p.provide === CORAL_CONFIG
+        (p: { provide: string | typeof CoralService }) => p.provide === CORAL_CONFIG
       )
       expect(configProvider).toBeDefined()
-      expect(configProvider.useValue).toEqual({ darkMode: 'media' })
+      expect(configProvider?.useValue).toEqual({ darkMode: 'media' })
     })
 
     it('should include CoralService provider', () => {
@@ -181,7 +182,7 @@ describe('Angular Module', () => {
         (p: { provide: unknown }) => p.provide === CoralService
       )
       expect(serviceProvider).toBeDefined()
-      expect(serviceProvider.useFactory).toBeDefined()
+      expect(serviceProvider?.useFactory).toBeDefined()
     })
 
     it('should create service instance from factory', () => {
@@ -190,9 +191,10 @@ describe('Angular Module', () => {
       const serviceProvider = result.find(
         (p: { provide: unknown }) => p.provide === CoralService
       )
-      const service = serviceProvider.useFactory()
+      expect(serviceProvider?.useFactory).toBeDefined()
+      const service = serviceProvider?.useFactory?.()
       expect(service).toBeInstanceOf(CoralService)
-      expect(service.getInstance().config.darkMode).toBe('class')
+      expect(service?.getInstance().config.darkMode).toBe('class')
     })
   })
 

@@ -91,7 +91,7 @@ describe('Build Rollup', () => {
       expect(typeof plugin.generateBundle).toBe('function')
 
       const mockEmitFile = vi.fn()
-      const generateBundle = plugin.generateBundle as (this: { emitFile: typeof mockEmitFile }) => void
+      const generateBundle = plugin.generateBundle as unknown as (this: { emitFile: typeof mockEmitFile }) => void
 
       // Call generateBundle - it may or may not emit depending on collected classes
       generateBundle.call({ emitFile: mockEmitFile })

@@ -3,7 +3,7 @@
  */
 import { describe, it, expect } from 'vitest'
 import { createCoral } from '../../src/kernel'
-import { coralPreset } from '../../src/presets/coral'
+import { coralPreset, coralPresetConfig } from '../../src/presets/coral'
 import { windPreset } from '../../src/presets/wind'
 import { miniPreset } from '../../src/presets/mini'
 import { fullPreset } from '../../src/presets/full'
@@ -62,6 +62,56 @@ describe('Presets Integration', () => {
 
       const css = coral.generate(['dark:bg-slate-900'])
       expect(css).toContain('.dark')
+    })
+
+    it('should work without modern CSS features', () => {
+      const coral = createCoral()
+      const plugins = coralPreset({ modernCSS: false })
+      plugins.forEach((p) => coral.use(p))
+
+      // Should still generate basic utilities
+      const css = coral.generate(['flex', 'p-4'])
+      expect(css).toContain('display: flex')
+      expect(css).toContain('padding')
+
+      // Should have fewer plugins without modern CSS
+      const withModern = coralPreset({ modernCSS: true })
+      expect(plugins.length).toBeLessThan(withModern.length)
+    })
+
+    it('should support custom dark mode selector', () => {
+      const coral = createCoral()
+      coralPreset({ darkMode: 'selector', darkModeSelector: '[data-theme="dark"]' }).forEach((p) => coral.use(p))
+
+      const css = coral.generate(['dark:bg-slate-900'])
+      expect(css).toBeDefined()
+    })
+  })
+
+  describe('coralPresetConfig', () => {
+    it('should return default config with empty options', () => {
+      const config = coralPresetConfig()
+      expect(config.prefix).toBe('')
+      expect(config.darkMode).toBe('class')
+    })
+
+    it('should return config with custom prefix', () => {
+      const config = coralPresetConfig({ prefix: 'tw-' })
+      expect(config.prefix).toBe('tw-')
+    })
+
+    it('should return config with custom dark mode', () => {
+      const config = coralPresetConfig({ darkMode: 'media' })
+      expect(config.darkMode).toBe('media')
+    })
+
+    it('should return config with all options', () => {
+      const config = coralPresetConfig({
+        prefix: 'coral-',
+        darkMode: 'selector'
+      })
+      expect(config.prefix).toBe('coral-')
+      expect(config.darkMode).toBe('selector')
     })
   })
 

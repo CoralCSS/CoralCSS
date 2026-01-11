@@ -139,6 +139,167 @@ function ProsePreview() {
   )
 }
 
+function ListPreview() {
+  return (
+    <div className="flex gap-8 w-full max-w-lg">
+      <div>
+        <h4 className="text-sm font-semibold text-foreground mb-2">Unordered</h4>
+        <ul data-coral-list data-type="unordered" className="space-y-1 text-muted-foreground">
+          <li>First item</li>
+          <li>Second item</li>
+          <li>Third item</li>
+        </ul>
+      </div>
+      <div>
+        <h4 className="text-sm font-semibold text-foreground mb-2">Ordered</h4>
+        <ol data-coral-list data-type="ordered" className="space-y-1 text-muted-foreground list-decimal list-inside">
+          <li>First step</li>
+          <li>Second step</li>
+          <li>Third step</li>
+        </ol>
+      </div>
+      <div>
+        <h4 className="text-sm font-semibold text-foreground mb-2">Check</h4>
+        <ul data-coral-list data-type="check" className="space-y-1">
+          <li className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-muted-foreground">Completed</span>
+          </li>
+          <li className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-muted-foreground">Done</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+function LinkPreview() {
+  return (
+    <div className="space-y-4 w-full max-w-md">
+      <p className="text-muted-foreground">
+        Check out our <a data-coral-link href="#">documentation</a> for more information.
+      </p>
+      <p className="text-muted-foreground">
+        Visit <a data-coral-link data-variant="subtle" href="#">this page</a> for details.
+      </p>
+      <p className="text-muted-foreground">
+        <a data-coral-link data-variant="underline" href="#">Underlined link</a> for emphasis.
+      </p>
+    </div>
+  )
+}
+
+function LabelPreview() {
+  return (
+    <div className="space-y-4 w-full max-w-sm">
+      <div>
+        <label data-coral-label>Email Address</label>
+        <input type="email" className="w-full px-3 py-2 bg-card border border-border rounded-lg" placeholder="you@example.com" />
+      </div>
+      <div>
+        <label data-coral-label data-required>Password</label>
+        <input type="password" className="w-full px-3 py-2 bg-card border border-border rounded-lg" placeholder="••••••••" />
+      </div>
+    </div>
+  )
+}
+
+function DescriptionPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <dl data-coral-description-list>
+        <div className="py-2 border-b border-border">
+          <dt className="text-sm font-medium text-foreground">Full Name</dt>
+          <dd className="text-sm text-muted-foreground">John Doe</dd>
+        </div>
+        <div className="py-2 border-b border-border">
+          <dt className="text-sm font-medium text-foreground">Email</dt>
+          <dd className="text-sm text-muted-foreground">john@example.com</dd>
+        </div>
+        <div className="py-2">
+          <dt className="text-sm font-medium text-foreground">Role</dt>
+          <dd className="text-sm text-muted-foreground">Administrator</dd>
+        </div>
+      </dl>
+    </div>
+  )
+}
+
+function MonoPreview() {
+  return (
+    <div className="space-y-4 w-full max-w-md">
+      <p className="font-mono text-sm text-foreground">
+        This is monospace text for technical content.
+      </p>
+      <p className="font-mono text-xs text-muted-foreground">
+        const API_KEY = "sk-1234567890abcdef"
+      </p>
+      <div className="p-3 bg-muted rounded-lg">
+        <p className="font-mono text-sm text-foreground">$ npm install @coral-css/core</p>
+      </div>
+    </div>
+  )
+}
+
+function LeadPreview() {
+  return (
+    <div className="w-full max-w-lg">
+      <p data-coral-lead className="text-xl text-muted-foreground leading-relaxed">
+        A beautiful, modern CSS framework that helps you build stunning websites with ease. Start building your next project today.
+      </p>
+    </div>
+  )
+}
+
+function SmallPreview() {
+  return (
+    <div className="space-y-3 w-full max-w-md">
+      <p className="text-foreground">
+        Regular text with <small data-coral-small>small text inline</small> for reference.
+      </p>
+      <small data-coral-small className="text-muted-foreground block">
+        © 2024 CoralCSS. All rights reserved.
+      </small>
+      <small data-coral-small data-variant="muted" className="block">
+        Last updated: January 2024
+      </small>
+    </div>
+  )
+}
+
+function AbbreviationPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <p className="text-muted-foreground">
+        The <abbr data-coral-abbr title="HyperText Markup Language" className="text-foreground border-b border-dotted border-muted-foreground cursor-help">HTML</abbr> specification
+        is maintained by the <abbr data-coral-abbr title="World Wide Web Consortium" className="text-foreground border-b border-dotted border-muted-foreground cursor-help">W3C</abbr>.
+      </p>
+    </div>
+  )
+}
+
+function SubscriptSuperscriptPreview() {
+  return (
+    <div className="space-y-4 w-full max-w-md">
+      <p className="text-foreground">
+        Water formula: H<sub className="text-muted-foreground">2</sub>O
+      </p>
+      <p className="text-foreground">
+        Einstein's equation: E = mc<sup className="text-muted-foreground">2</sup>
+      </p>
+      <p className="text-foreground">
+        1<sup className="text-muted-foreground">st</sup>, 2<sup className="text-muted-foreground">nd</sup>, 3<sup className="text-muted-foreground">rd</sup> place
+      </p>
+    </div>
+  )
+}
+
 const typographyComponents = [
   {
     id: 'heading',
@@ -253,6 +414,113 @@ const typographyComponents = [
       { name: 'data-invert', type: 'boolean', default: 'false', description: 'Invert colors for dark backgrounds' },
     ],
     preview: ProsePreview,
+  },
+  {
+    id: 'list',
+    name: 'List',
+    description: 'Styled lists with various types (unordered, ordered, checklist).',
+    usage: `<ul data-coral-list data-type="unordered">
+  <li>First item</li>
+  <li>Second item</li>
+</ul>
+<ul data-coral-list data-type="check">
+  <li data-checked>Completed</li>
+</ul>`,
+    props: [
+      { name: 'data-type', type: '"unordered" | "ordered" | "check"', default: '"unordered"', description: 'List type' },
+      { name: 'data-spacing', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Item spacing' },
+    ],
+    preview: ListPreview,
+  },
+  {
+    id: 'link',
+    name: 'Link',
+    description: 'Styled anchor links with various visual treatments.',
+    usage: `<a data-coral-link href="#">Default link</a>
+<a data-coral-link data-variant="underline" href="#">Underlined</a>
+<a data-coral-link data-variant="subtle" href="#">Subtle link</a>`,
+    props: [
+      { name: 'data-variant', type: '"default" | "underline" | "subtle"', default: '"default"', description: 'Link style' },
+      { name: 'data-external', type: 'boolean', default: 'false', description: 'Show external icon' },
+    ],
+    preview: LinkPreview,
+  },
+  {
+    id: 'label',
+    name: 'Label',
+    description: 'Form labels with required indicators and help text.',
+    usage: `<label data-coral-label>Email</label>
+<label data-coral-label data-required>Password</label>`,
+    props: [
+      { name: 'data-required', type: 'boolean', default: 'false', description: 'Show required asterisk' },
+    ],
+    preview: LabelPreview,
+  },
+  {
+    id: 'description-list',
+    name: 'DescriptionList',
+    description: 'Definition lists for term-description pairs.',
+    usage: `<dl data-coral-description-list>
+  <dt>Name</dt>
+  <dd>John Doe</dd>
+</dl>`,
+    props: [
+      { name: 'data-layout', type: '"stacked" | "inline"', default: '"stacked"', description: 'Layout style' },
+    ],
+    preview: DescriptionPreview,
+  },
+  {
+    id: 'mono',
+    name: 'Mono',
+    description: 'Monospace text for code snippets and technical content.',
+    usage: `<span data-coral-mono>const x = 42</span>
+<p data-coral-mono data-variant="block">Block of monospace text</p>`,
+    props: [
+      { name: 'data-variant', type: '"inline" | "block"', default: '"inline"', description: 'Display style' },
+    ],
+    preview: MonoPreview,
+  },
+  {
+    id: 'lead',
+    name: 'Lead',
+    description: 'Lead paragraphs for introductions and summaries.',
+    usage: `<p data-coral-lead>
+  A beautiful, modern CSS framework that helps you build stunning websites.
+</p>`,
+    props: [
+      { name: 'data-size', type: '"md" | "lg" | "xl"', default: '"lg"', description: 'Lead text size' },
+    ],
+    preview: LeadPreview,
+  },
+  {
+    id: 'small',
+    name: 'Small',
+    description: 'Small text for footnotes, captions, and legal text.',
+    usage: `<small data-coral-small>© 2024 CoralCSS</small>
+<small data-coral-small data-variant="muted">Last updated: Jan 2024</small>`,
+    props: [
+      { name: 'data-variant', type: '"default" | "muted"', default: '"default"', description: 'Text style' },
+    ],
+    preview: SmallPreview,
+  },
+  {
+    id: 'abbreviation',
+    name: 'Abbreviation',
+    description: 'Abbreviations with tooltip explanations.',
+    usage: `<abbr data-coral-abbr title="HyperText Markup Language">HTML</abbr>`,
+    props: [
+      { name: 'title', type: 'string', default: 'required', description: 'Full text explanation' },
+    ],
+    preview: AbbreviationPreview,
+  },
+  {
+    id: 'subscript-superscript',
+    name: 'Subscript/Superscript',
+    description: 'Subscript and superscript text for math and chemistry.',
+    usage: `<p>H<sub>2</sub>O</p>
+<p>E = mc<sup>2</sup></p>`,
+    props: [],
+    preview: SubscriptSuperscriptPreview,
   },
 ]
 

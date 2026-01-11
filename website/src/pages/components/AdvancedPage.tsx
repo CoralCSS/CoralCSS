@@ -252,6 +252,321 @@ function FocusTrapPreview() {
   )
 }
 
+function OnboardingPreview() {
+  const [currentStep, setCurrentStep] = useState(0)
+  const steps = [
+    { title: 'Welcome', description: 'Let\'s get started with your onboarding tour' },
+    { title: 'Profile Setup', description: 'Configure your profile settings' },
+    { title: 'Preferences', description: 'Customize your experience' },
+    { title: 'Complete', description: 'You\'re all set!' },
+  ]
+
+  return (
+    <div className="w-full max-w-md bg-card border border-border rounded-xl p-6 shadow-lg">
+      <div className="flex items-center gap-2 mb-4">
+        {steps.map((_, i) => (
+          <div
+            key={i}
+            className={`h-2 flex-1 rounded-full transition-all ${
+              i <= currentStep ? 'bg-primary' : 'bg-muted'
+            }`}
+          />
+        ))}
+      </div>
+      <h3 className="text-xl font-bold text-foreground mb-2">{steps[currentStep].title}</h3>
+      <p className="text-muted-foreground mb-6">{steps[currentStep].description}</p>
+      <div className="flex justify-between">
+        <button
+          onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+          disabled={currentStep === 0}
+          className="px-4 py-2 border border-border rounded-lg text-sm disabled:opacity-50"
+        >
+          Back
+        </button>
+        <button
+          onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm"
+        >
+          {currentStep === steps.length - 1 ? 'Finish' : 'Next'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function PortalPreview() {
+  const [mounted, setMounted] = useState(false)
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="p-4 bg-card border border-border rounded-lg">
+        <p className="text-muted-foreground mb-4">Portal content renders in a different DOM location.</p>
+        <button
+          onClick={() => setMounted(!mounted)}
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm"
+        >
+          {mounted ? 'Unmount' : 'Mount'} Portal
+        </button>
+      </div>
+      {mounted && (
+        <div className="mt-4 p-4 bg-accent rounded-lg border-2 border-dashed border-primary">
+          <p className="text-foreground font-medium">Portal Content</p>
+          <p className="text-xs text-muted-foreground mt-1">This is rendered via Portal</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ResizeObserverPreview() {
+  const [size, setSize] = useState({ width: 300, height: 200 })
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="mb-4 p-3 bg-muted rounded-lg">
+        <p className="text-xs text-muted-foreground">Element size: {size.width} × {size.height}px</p>
+      </div>
+      <div
+        className="bg-card border border-border rounded-lg p-4 transition-all"
+        style={{ width: size.width, height: size.height }}
+      >
+        <p className="text-foreground">Resize me!</p>
+      </div>
+      <div className="mt-4 flex gap-2">
+        <button
+          onClick={() => setSize({ width: size.width - 50, height: size.height })}
+          className="px-3 py-1.5 bg-muted rounded text-sm"
+        >
+          - Width
+        </button>
+        <button
+          onClick={() => setSize({ width: size.width + 50, height: size.height })}
+          className="px-3 py-1.5 bg-muted rounded text-sm"
+        >
+          + Width
+        </button>
+        <button
+          onClick={() => setSize({ width: size.width, height: size.height - 50 })}
+          className="px-3 py-1.5 bg-muted rounded text-sm"
+        >
+          - Height
+        </button>
+        <button
+          onClick={() => setSize({ width: size.width, height: size.height + 50 })}
+          className="px-3 py-1.5 bg-muted rounded text-sm"
+        >
+          + Height
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function IntersectionObserverPreview() {
+  const [visible] = useState(false)
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="relative">
+        <div className="h-32 overflow-y-auto bg-muted rounded-lg p-4">
+          <div className="h-48 relative">
+            <div
+              className={`absolute inset-0 flex items-center justify-center rounded transition-all ${
+                visible ? 'bg-primary text-primary-foreground' : 'bg-card border-2 border-dashed border-border'
+              }`}
+            >
+              <span className="font-medium">
+                {visible ? 'Element is visible!' : 'Scroll to make me visible'}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-4 p-3 bg-muted rounded-lg">
+        <p className="text-sm">
+          Status: <span className={visible ? 'text-success font-medium' : 'text-muted-foreground'}>{visible ? 'Visible' : 'Hidden'}</span>
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function VirtualListPreview() {
+  const items = Array.from({ length: 1000 }, (_, i) => ({ id: i, text: `Item ${i}` }))
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="h-64 overflow-y-auto bg-card border border-border rounded-lg">
+        <div className="p-2">
+          {items.slice(0, 20).map((item) => (
+            <div
+              key={item.id}
+              className="px-3 py-2 rounded hover:bg-muted transition-colors"
+            >
+              <span className="text-foreground">{item.text}</span>
+            </div>
+          ))}
+          <div className="text-center py-4">
+            <span className="text-xs text-muted-foreground">
+              Virtualized list (showing 1000 items)
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ImageComparisonPreview() {
+  const [position, setPosition] = useState(50)
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-primary to-accent"
+          style={{ clipPath: `polygon(0 0, ${position}% 0, ${position}% 100%, 0 100%)` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-info to-success" />
+        <div
+          className="absolute top-0 bottom-0 w-1 bg-primary-foreground cursor-ew-resize"
+          style={{ left: `${position}%` }}
+        >
+          <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-primary-foreground rounded-full shadow-lg flex items-center justify-center">
+            <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={position}
+        onChange={(e) => setPosition(Number(e.target.value))}
+        className="w-full mt-4"
+      />
+    </div>
+  )
+}
+
+function BeforeAfterSliderPreview() {
+  const [position, setPosition] = useState(50)
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="relative aspect-video bg-muted rounded-lg overflow-hidden">
+        <div className="absolute inset-0 flex">
+          <div className="flex-1 bg-gradient-to-br from-warning to-destructive flex items-center justify-center">
+            <span className="text-2xl font-bold text-white">BEFORE</span>
+          </div>
+          <div
+            className="flex-1 bg-gradient-to-br from-success to-primary flex items-center justify-center"
+            style={{ clipPath: `polygon(${position}% 0, 100% 0, 100% 100%, ${position}% 100%)` }}
+          >
+            <span className="text-2xl font-bold text-white">AFTER</span>
+          </div>
+        </div>
+        <div
+          className="absolute top-0 bottom-0 w-0.5 bg-primary-foreground"
+          style={{ left: `${position}%` }}
+        />
+        <div
+          className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 bg-primary rounded-full shadow-lg flex items-center justify-center cursor-ew-resize"
+          style={{ left: `${position}%` }}
+        >
+          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+          </svg>
+        </div>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={position}
+        onChange={(e) => setPosition(Number(e.target.value))}
+        className="w-full mt-4"
+      />
+    </div>
+  )
+}
+
+function StickyHeadroomPreview() {
+  const [scrolled] = useState(false)
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="relative">
+        <div className={`bg-card border border-border rounded-lg p-4 transition-all ${scrolled ? 'shadow-lg' : ''}`}>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+              L
+            </div>
+            <div className="flex-1">
+              <h4 className="font-semibold text-foreground">Logo</h4>
+              <p className="text-xs text-muted-foreground">Scroll to see headroom effect</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-4 p-3 bg-muted rounded-lg">
+        <p className="text-sm text-muted-foreground">
+          Header becomes {scrolled ? 'smaller' : 'larger'} when scrolling
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function GlassmorphismPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-lg blur-xl opacity-30" />
+        <div className="relative bg-background/40 backdrop-blur-md border border-white/20 rounded-xl p-6 shadow-xl">
+          <h3 className="text-xl font-bold text-foreground mb-2">Glassmorphism</h3>
+          <p className="text-muted-foreground text-sm">
+            Frosted glass effect with backdrop blur and transparency
+          </p>
+          <div className="mt-4 flex gap-2">
+            <button className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg text-sm text-foreground hover:bg-white/30 transition-colors">
+              Action
+            </button>
+            <button className="px-4 py-2 border border-white/20 rounded-lg text-sm text-foreground hover:bg-white/10 transition-colors">
+              Secondary
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SplitTextPreview() {
+  const text = "CoralCSS"
+
+  return (
+    <div className="w-full max-w-md flex justify-center">
+      <div className="flex">
+        {text.split('').map((char, i) => (
+          <span
+            key={i}
+            className="text-5xl font-bold text-foreground transition-all hover:translate-y-[-10px] cursor-default"
+            style={{
+              transitionDelay: `${i * 50}ms`,
+              textShadow: '0 0 20px hsl(var(--primary) / 0.5)',
+            }}
+          >
+            {char}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 const advancedComponents = [
   {
     id: 'command',
@@ -390,6 +705,161 @@ const advancedComponents = [
       { name: 'data-return-focus', type: 'boolean', default: 'true', description: 'Return focus on deactivate' },
     ],
     preview: FocusTrapPreview,
+  },
+  {
+    id: 'onboarding',
+    name: 'Onboarding',
+    description: 'Multi-step onboarding flow for new users.',
+    usage: `<div data-coral-onboarding data-active>
+  <div data-coral-onboarding-step data-index="0">
+    <h3>Welcome</h3>
+    <p>Get started with your tour</p>
+    <button data-coral-onboarding-next>Next</button>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-active', type: 'boolean', default: 'false', description: 'Start onboarding' },
+      { name: 'data-step', type: 'number', default: '0', description: 'Current step index' },
+    ],
+    preview: OnboardingPreview,
+  },
+  {
+    id: 'portal',
+    name: 'Portal',
+    description: 'Renders children into a different DOM subtree.',
+    usage: `<div data-coral-portal data-target="#portal-root">
+  <div>Content rendered elsewhere</div>
+</div>`,
+    props: [
+      { name: 'data-target', type: 'string', default: '"body"', description: 'Portal target selector' },
+      { name: 'data-portal-id', type: 'string', default: 'undefined', description: 'Unique portal ID' },
+    ],
+    preview: PortalPreview,
+  },
+  {
+    id: 'resize-observer',
+    name: 'ResizeObserver',
+    description: 'Observes changes to element dimensions.',
+    usage: `<div data-coral-resize-observer>
+  <div data-coral-resize-target>
+    Resize me to observe changes
+  </div>
+</div>`,
+    props: [
+      { name: 'data-on-resize', type: 'function', default: 'undefined', description: 'Resize callback' },
+      { name: 'data-box', type: '"content-box" | "border-box"', default: '"content-box"', description: 'Observed box model' },
+    ],
+    preview: ResizeObserverPreview,
+  },
+  {
+    id: 'intersection-observer',
+    name: 'IntersectionObserver',
+    description: 'Observes element visibility in viewport.',
+    usage: `<div data-coral-intersection-observer data-threshold="0.5">
+  <div data-coral-intersection-target>
+    Visible when 50% in viewport
+  </div>
+</div>`,
+    props: [
+      { name: 'data-threshold', type: 'number | number[]', default: '0', description: 'Visibility threshold' },
+      { name: 'data-root-margin', type: 'string', default: '"0px"', description: 'Root margin' },
+    ],
+    preview: IntersectionObserverPreview,
+  },
+  {
+    id: 'virtual-list',
+    name: 'VirtualList',
+    description: 'Efficiently renders large lists.',
+    usage: `<div data-coral-virtual-list data-height="400" data-item-height="50">
+  <div data-coral-virtual-item>Item 1</div>
+  <div data-coral-virtual-item>Item 2</div>
+</div>`,
+    props: [
+      { name: 'data-height', type: 'number', default: '400', description: 'List height in px' },
+      { name: 'data-item-height', type: 'number', default: '50', description: 'Item height in px' },
+    ],
+    preview: VirtualListPreview,
+  },
+  {
+    id: 'image-comparison',
+    name: 'ImageComparison',
+    description: 'Side-by-side image comparison slider.',
+    usage: `<div data-coral-image-comparison data-position="50">
+  <div data-coral-image-comparison-before>
+    <img src="before.jpg" alt="Before" />
+  </div>
+  <div data-coral-image-comparison-after>
+    <img src="after.jpg" alt="After" />
+  </div>
+</div>`,
+    props: [
+      { name: 'data-position', type: 'number', default: '50', description: 'Initial slider position (%)' },
+      { name: 'data-vertical', type: 'boolean', default: 'false', description: 'Vertical orientation' },
+    ],
+    preview: ImageComparisonPreview,
+  },
+  {
+    id: 'before-after-slider',
+    name: 'BeforeAfterSlider',
+    description: 'Interactive before/after transformation slider.',
+    usage: `<div data-coral-before-after data-position="50">
+  <div data-coral-before-after-before>
+    <img src="before.jpg" alt="Before" />
+  </div>
+  <div data-coral-before-after-after>
+    <img src="after.jpg" alt="After" />
+  </div>
+</div>`,
+    props: [
+      { name: 'data-position', type: 'number', default: '50', description: 'Initial slider position (%)' },
+      { name: 'data-snap', type: 'boolean', default: 'false', description: 'Snap to positions' },
+    ],
+    preview: BeforeAfterSliderPreview,
+  },
+  {
+    id: 'sticky-headroom',
+    name: 'StickyHeadroom',
+    description: 'Shrinks header when scrolling down.',
+    usage: `<div data-coral-headroom data-scroll-height="100">
+  <header data-coral-headroom-target>
+    Sticky header content
+  </header>
+</div>`,
+    props: [
+      { name: 'data-scroll-height', type: 'number', default: '100', description: 'Scroll threshold' },
+      { name: 'data-classes', type: 'string', default: '"headroom--scrolled"', description: 'Applied class on scroll' },
+    ],
+    preview: StickyHeadroomPreview,
+  },
+  {
+    id: 'glassmorphism',
+    name: 'Glassmorphism',
+    description: 'Frosted glass visual effect.',
+    usage: `<div data-coral-glassmorphism data-blur="10" data-opacity="0.2">
+  <div class="glass-content">
+    Glassmorphism content
+  </div>
+</div>`,
+    props: [
+      { name: 'data-blur', type: 'number', default: '10', description: 'Backdrop blur intensity' },
+      { name: 'data-opacity', type: 'number', default: '0.2', description: 'Background opacity' },
+    ],
+    preview: GlassmorphismPreview,
+  },
+  {
+    id: 'split-text',
+    name: 'SplitText',
+    description: 'Animated text splitting and reveal.',
+    usage: `<div data-coral-split-text data-animation="slide-up">
+  <span data-coral-split-text-item>C</span>
+  <span data-coral-split-text-item>o</span>
+  <span data-coral-split-text-item>r</span>
+</div>`,
+    props: [
+      { name: 'data-animation', type: '"fade" | "slide-up" | "slide-left" | "rotate"', default: '"fade"', description: 'Animation type' },
+      { name: 'data-stagger', type: 'number', default: '50', description: 'Stagger delay (ms)' },
+    ],
+    preview: SplitTextPreview,
   },
 ]
 

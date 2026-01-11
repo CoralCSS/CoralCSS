@@ -7,8 +7,8 @@ const categories = [
     name: 'Buttons',
     description: 'Interactive button components with multiple variants, sizes, and states.',
     icon: 'M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122',
-    count: 9,
-    components: ['Button', 'IconButton', 'ButtonGroup', 'FloatingButton', 'CopyButton', 'ShareButton', 'LikeButton', 'ToggleButton', 'SplitButton']
+    count: 15,
+    components: ['Button', 'IconButton', 'ButtonGroup', 'FloatingButton', 'CopyButton', 'ShareButton', 'LikeButton', 'ToggleButton', 'SplitButton', 'ButtonWithProgress', 'ButtonWithBadge', 'ButtonWithIconBadge', 'SocialButton', 'ButtonWithDropdown']
   },
   {
     id: 'forms',
@@ -23,80 +23,88 @@ const categories = [
     name: 'Data Display',
     description: 'Components for presenting data in various formats and layouts.',
     icon: 'M4 6h16M4 10h16M4 14h16M4 18h16',
-    count: 21,
-    components: ['Card', 'Avatar', 'Badge', 'Chip', 'Accordion', 'Table', 'DataTable', 'List', 'Timeline', 'Calendar', 'Stat', 'Progress', 'Skeleton', 'Rating', 'Code', 'JsonViewer', 'Diff', 'Feed', 'Comment', 'TreeView', 'VirtualList']
+    count: 14,
+    components: ['Card', 'Avatar', 'Badge', 'Table', 'Accordion', 'Timeline', 'Progress', 'Skeleton', 'Stat', 'List', 'Calendar', 'Comment', 'TreeView', 'Rating']
   },
   {
     id: 'feedback',
     name: 'Feedback',
     description: 'Components for displaying feedback, alerts, and status to users.',
     icon: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
-    count: 11,
-    components: ['Alert', 'Toast', 'Notification', 'Banner', 'Snackbar', 'Spinner', 'Progress', 'ProgressRing', 'EmptyState', 'ErrorBoundary', 'StatusIndicator']
+    count: 15,
+    components: ['Alert', 'Toast', 'Notification', 'Banner', 'Spinner', 'Progress', 'ProgressRing', 'EmptyState', 'ErrorBoundary', 'StatusIndicator', 'Snackbar', 'ProgressBar', 'SkeletonLoader', 'InlineMessage']
   },
   {
     id: 'overlays',
     name: 'Overlays',
     description: 'Modal dialogs, drawers, and overlay components.',
     icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z',
-    count: 11,
-    components: ['Dialog', 'Modal', 'Drawer', 'Sheet', 'Popover', 'Tooltip', 'Dropdown', 'ContextMenu', 'Lightbox', 'ImageGallery', 'Backdrop']
+    count: 17,
+    components: ['Dialog', 'Modal', 'Drawer', 'Sheet', 'Popover', 'Tooltip', 'Dropdown', 'ContextMenu', 'Lightbox', 'AlertDialog', 'HoverCard', 'ImageGallery', 'Backdrop', 'NotificationCenter', 'ModalStack', 'CommandPalette', 'FullscreenModal']
   },
   {
     id: 'navigation',
     name: 'Navigation',
     description: 'Navigation components for routing and wayfinding.',
     icon: 'M4 6h16M4 12h16M4 18h16',
-    count: 12,
-    components: ['Menu', 'Navbar', 'Sidebar', 'Tabs', 'Breadcrumb', 'Pagination', 'Stepper', 'Tree', 'BottomNav', 'CommandMenu', 'Dock', 'MegaMenu']
+    count: 19,
+    components: ['Menu', 'Navbar', 'Sidebar', 'Tabs', 'Breadcrumb', 'Pagination', 'Stepper', 'Tree', 'BottomNav', 'CommandMenu', 'Dock', 'MegaMenu', 'VerticalTabs', 'AnchorLinks', 'LinkGroup', 'SkipLink', 'SegmentedControl', 'FloatingNav', 'ProgressSteps']
   },
   {
     id: 'layout',
     name: 'Layout',
     description: 'Structural components for page layout and spacing.',
     icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z',
-    count: 13,
-    components: ['Container', 'Grid', 'Flex', 'Stack', 'Divider', 'Spacer', 'AspectRatio', 'Center', 'Masonry', 'Resizable', 'Splitter', 'ScrollArea', 'Collapsible']
+    count: 22,
+    components: ['Container', 'Grid', 'Flex', 'Stack', 'Divider', 'Spacer', 'AspectRatio', 'Center', 'Masonry', 'Resizable', 'Splitter', 'ScrollArea', 'Collapsible', 'Sticky', 'VisuallyHidden', 'ResponsiveHide', 'Overflow', 'Section', 'Wrap', 'Inline', 'Box']
   },
   {
     id: 'typography',
     name: 'Typography',
     description: 'Text and typography components for content presentation.',
     icon: 'M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129',
-    count: 8,
-    components: ['Heading', 'Text', 'Blockquote', 'Highlight', 'Mark', 'Prose', 'Truncate', 'Gradient']
+    count: 17,
+    components: ['Heading', 'Text', 'Blockquote', 'Highlight', 'Code', 'Gradient', 'Truncate', 'Prose', 'List', 'Link', 'Label', 'DescriptionList', 'Mono', 'Lead', 'Small', 'Abbreviation', 'SubscriptSuperscript']
   },
   {
     id: 'media',
     name: 'Media',
     description: 'Components for displaying images, videos, and other media.',
     icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
-    count: 11,
-    components: ['Image', 'Video', 'Audio', 'Iframe', 'Figure', 'Icon', 'QRCode', 'Barcode', 'EmojiPicker', 'GifPicker', 'MediaPlayer']
+    count: 15,
+    components: ['Image', 'Video', 'Audio', 'Figure', 'Icon', 'QRCode', 'EmojiPicker', 'Iframe', 'Barcode', 'GifPicker', 'MediaPlayer', 'AvatarGroup', 'ImageGrid', 'Thumbnail']
   },
   {
     id: 'charts',
     name: 'Charts',
     description: 'Data visualization components for displaying charts and graphs.',
     icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-    count: 9,
-    components: ['BarChart', 'LineChart', 'PieChart', 'DonutChart', 'AreaChart', 'Sparkline', 'Gauge', 'Meter', 'Heatmap']
+    count: 17,
+    components: ['BarChart', 'LineChart', 'PieChart', 'DonutChart', 'AreaChart', 'Sparkline', 'Gauge', 'Meter', 'Heatmap', 'RadarChart', 'ScatterPlot', 'TimelineChart', 'WaterfallChart', 'TreemapChart', 'FunnelChart', 'SankeyChart', 'ChordDiagram']
   },
   {
     id: 'advanced',
     name: 'Advanced',
     description: 'Advanced interactive components for complex use cases.',
     icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
-    count: 12,
-    components: ['Command', 'Carousel', 'Marquee', 'Kbd', 'Spotlight', 'Tour', 'Onboarding', 'Hotkeys', 'Portal', 'FocusTrap', 'Toast', 'ContextMenu']
+    count: 22,
+    components: ['Command', 'Carousel', 'Marquee', 'Kbd', 'Spotlight', 'Tour', 'Onboarding', 'Hotkeys', 'Portal', 'FocusTrap', 'Toast', 'ContextMenu', 'ResizeObserver', 'IntersectionObserver', 'VirtualList', 'ImageComparison', 'BeforeAfterSlider', 'StickyHeadroom', 'Glassmorphism', 'SplitText']
+  },
+  {
+    id: 'dashboard',
+    name: 'Dashboard',
+    description: 'Dashboard-specific components for analytics, KPI tracking, and data visualization.',
+    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    count: 16,
+    components: ['StatsCard', 'MetricCard', 'Counter', 'ProgressRing', 'ActivityFeed', 'KPIWidget', 'SalesChart', 'TeamOverview', 'RecentOrders', 'NotificationPanel', 'GoalTracker', 'PerformanceMeters', 'RevenueBreakdown', 'UserActivity', 'TaskList', 'QuickStats']
   },
   {
     id: 'modern-css',
     name: 'Modern CSS',
     description: 'Components showcasing modern CSS features like container queries and scroll animations.',
     icon: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
-    count: 14,
-    components: ['Card3D', 'ContainerQuery', 'AnchorPosition', 'ScrollTimeline', 'ViewTransition', 'HasSelector', 'SubGrid', 'WideGamutColors', 'EntryAnimations', 'FieldSizing', 'TextWrap', 'LightDark', 'PopoverAPI', 'AdvancedSelectors']
+    count: 24,
+    components: ['Card3D', 'ContainerQuery', 'AnchorPosition', 'ScrollTimeline', 'ViewTransition', 'HasSelector', 'SubGrid', 'WideGamutColors', 'EntryAnimations', 'FieldSizing', 'TextWrap', 'LightDark', 'PopoverAPI', 'AdvancedSelectors', 'ColorMix', 'CSSNested', 'CSSLayer', 'IndividualTransformProperties', 'CssLogicProperties', 'MediaQueryRange', 'CustomMediaQueries']
   },
 ]
 

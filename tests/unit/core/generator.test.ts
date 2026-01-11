@@ -513,10 +513,10 @@ describe('Generator with function wrapper variant', () => {
     expect(results.length).toBe(2)
   })
 
-  it('should handle important flag', () => {
+  it('should handle generator with options', () => {
     const theme = {} as Theme
     const variants = new Map<string, Variant>()
-    const generator = new Generator(theme, variants, { important: true })
+    const generator = new Generator(theme, variants, { prefix: 'coral-' })
 
     const rule: Rule = {
       name: 'test',
@@ -1076,7 +1076,7 @@ describe('CSSGenerator', () => {
     const matcher = { match: () => null }
     const generator = new CSSGenerator(matcher)
 
-    generator.setTheme({ colors: { red: '#ff0000' } } as Theme)
+    generator.setTheme({ colors: { red: '#ff0000' }, spacing: {}, sizing: {}, fonts: {}, fontSizes: [], fontWeights: [], lineHeights: [], letterSpacings: [] } as Theme as unknown as Theme)
     expect(generator).toBeDefined()
   })
 
@@ -1112,9 +1112,9 @@ describe('sortGeneratedCSS', () => {
     ]
 
     const sorted = sortGeneratedCSS(items)
-    expect(sorted[0].priority).toBe(1)
-    expect(sorted[1].priority).toBe(3)
-    expect(sorted[2].priority).toBe(5)
+    expect(sorted[0]?.priority).toBe(1)
+    expect(sorted[1]?.priority).toBe(3)
+    expect(sorted[2]?.priority).toBe(5)
   })
 
   it('should sort CSS items by layer first, then priority', () => {
@@ -1126,8 +1126,8 @@ describe('sortGeneratedCSS', () => {
 
     const sorted = sortGeneratedCSS(items)
     // Base layer should come first (order: base=0, components=1, utilities=2)
-    expect(sorted[0].layer).toBe('base')
-    expect(sorted[1].layer).toBe('components')
-    expect(sorted[2].layer).toBe('utilities')
+    expect(sorted[0]?.layer).toBe('base')
+    expect(sorted[1]?.layer).toBe('components')
+    expect(sorted[2]?.layer).toBe('utilities')
   })
 })

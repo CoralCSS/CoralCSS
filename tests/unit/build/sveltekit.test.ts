@@ -143,10 +143,10 @@ describe('Build SvelteKit', () => {
       expect(result).toBeUndefined()
     })
 
-    it('should process @apply directives', () => {
+    it('should process @apply directives', async () => {
       const preprocessor = coralPreprocessor()
 
-      const result = preprocessor.style({
+      const result = await preprocessor.style({
         content: '.test { @apply p-4; }',
         filename: 'App.svelte',
         attributes: {},
@@ -198,10 +198,9 @@ describe('Build SvelteKit', () => {
       const handle = createCoralHandle()
 
       const mockEvent = {
-        request: {
+        request: new Request('http://localhost/', {
           headers: new Headers(),
-          url: 'http://localhost/',
-        },
+        }),
         url: new URL('http://localhost/'),
         locals: {} as Record<string, unknown>,
       }
@@ -217,10 +216,9 @@ describe('Build SvelteKit', () => {
       const handle = createCoralHandle({ darkMode: 'class' })
 
       const mockEvent = {
-        request: {
+        request: new Request('http://localhost/', {
           headers: new Headers({ cookie: 'coral-dark-mode=dark' }),
-          url: 'http://localhost/',
-        },
+        }),
         url: new URL('http://localhost/'),
         locals: {} as Record<string, unknown>,
       }
@@ -236,10 +234,9 @@ describe('Build SvelteKit', () => {
       const handle = createCoralHandle({ darkMode: 'class' })
 
       const mockEvent = {
-        request: {
+        request: new Request('http://localhost/', {
           headers: new Headers({ cookie: 'coral-dark-mode=dark' }),
-          url: 'http://localhost/',
-        },
+        }),
         url: new URL('http://localhost/'),
         locals: {} as Record<string, unknown>,
       }
