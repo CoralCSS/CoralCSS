@@ -666,6 +666,138 @@ describe('backgroundsPlugin', () => {
     })
   })
 
+  describe('Radial Gradients', () => {
+    it('should generate bg-gradient-radial', () => {
+      const css = coral.generate(['bg-gradient-radial'])
+      expect(css).toContain('radial-gradient')
+    })
+
+    it('should generate bg-radial-circle', () => {
+      const css = coral.generate(['bg-radial-circle'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('circle')
+    })
+
+    it('should generate bg-radial-ellipse', () => {
+      const css = coral.generate(['bg-radial-ellipse'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('ellipse')
+    })
+
+    it('should generate bg-radial-closest-side', () => {
+      const css = coral.generate(['bg-radial-closest-side'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('closest-side')
+    })
+
+    it('should generate bg-radial-closest-corner', () => {
+      const css = coral.generate(['bg-radial-closest-corner'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('closest-corner')
+    })
+
+    it('should generate bg-radial-farthest-side', () => {
+      const css = coral.generate(['bg-radial-farthest-side'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('farthest-side')
+    })
+
+    it('should generate bg-radial-farthest-corner', () => {
+      const css = coral.generate(['bg-radial-farthest-corner'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('farthest-corner')
+    })
+
+    it('should generate bg-radial-at-center', () => {
+      const css = coral.generate(['bg-radial-at-center'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at center')
+    })
+
+    it('should generate bg-radial-at-top', () => {
+      const css = coral.generate(['bg-radial-at-top'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at top')
+    })
+
+    it('should generate bg-radial-at-top-right', () => {
+      const css = coral.generate(['bg-radial-at-top-right'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at top right')
+    })
+
+    it('should generate bg-radial-at-right', () => {
+      const css = coral.generate(['bg-radial-at-right'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at right')
+    })
+
+    it('should generate bg-radial-at-bottom-right', () => {
+      const css = coral.generate(['bg-radial-at-bottom-right'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at bottom right')
+    })
+
+    it('should generate bg-radial-at-bottom', () => {
+      const css = coral.generate(['bg-radial-at-bottom'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at bottom')
+    })
+
+    it('should generate bg-radial-at-bottom-left', () => {
+      const css = coral.generate(['bg-radial-at-bottom-left'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at bottom left')
+    })
+
+    it('should generate bg-radial-at-left', () => {
+      const css = coral.generate(['bg-radial-at-left'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at left')
+    })
+
+    it('should generate bg-radial-at-top-left', () => {
+      const css = coral.generate(['bg-radial-at-top-left'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('at top left')
+    })
+
+    it('should generate bg-radial-circle-at-center', () => {
+      const css = coral.generate(['bg-radial-circle-at-center'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('circle')
+      expect(css).toContain('at center')
+    })
+
+    it('should generate bg-radial-circle-at-top', () => {
+      const css = coral.generate(['bg-radial-circle-at-top'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('circle')
+      expect(css).toContain('at top')
+    })
+
+    it('should generate bg-radial-circle-at-bottom', () => {
+      const css = coral.generate(['bg-radial-circle-at-bottom'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('circle')
+      expect(css).toContain('at bottom')
+    })
+
+    it('should generate bg-radial-circle-at-left', () => {
+      const css = coral.generate(['bg-radial-circle-at-left'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('circle')
+      expect(css).toContain('at left')
+    })
+
+    it('should generate bg-radial-circle-at-right', () => {
+      const css = coral.generate(['bg-radial-circle-at-right'])
+      expect(css).toContain('radial-gradient')
+      expect(css).toContain('circle')
+      expect(css).toContain('at right')
+    })
+  })
+
   describe('gradient position arbitrary', () => {
     it('should generate gradient-from-[45deg]', () => {
       const css = coral.generate(['gradient-from-[45deg]'])
