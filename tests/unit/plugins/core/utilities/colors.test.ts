@@ -534,6 +534,47 @@ describe('Colors Utilities Plugin', () => {
     })
   })
 
+  describe('Gradient Edge Cases', () => {
+    it('should generate gradient with opacity', () => {
+      const css = coral.generate(['from-red-500/50'])
+      expect(css).toContain('--coral-gradient-from')
+    })
+
+    it('should generate gradient with custom opacity values', () => {
+      const css = coral.generate(['to-blue-500/25'])
+      expect(css).toContain('--coral-gradient-to')
+    })
+
+    it('should handle multiple gradient stops', () => {
+      const css = coral.generate(['from-green-400', 'via-yellow-500', 'to-red-500'])
+      expect(css).toContain('--coral-gradient-from')
+      expect(css).toContain('--coral-gradient-via')
+      expect(css).toContain('--coral-gradient-to')
+    })
+  })
+
+  describe('Empty and Edge Case Values', () => {
+    it('should handle empty from-[] gracefully', () => {
+      const css = coral.generate(['from-[]'])
+      expect(css).not.toContain('--coral-gradient-from')
+    })
+
+    it('should handle empty via-[] gracefully', () => {
+      const css = coral.generate(['via-[]'])
+      expect(css).not.toContain('--coral-gradient-via')
+    })
+
+    it('should handle empty to-[] gracefully', () => {
+      const css = coral.generate(['to-[]'])
+      expect(css).not.toContain('--coral-gradient-to')
+    })
+
+    it('should handle empty gradient-from-[]', () => {
+      const css = coral.generate(['gradient-from-[]'])
+      expect(css).not.toContain('--coral-gradient-position')
+    })
+  })
+
   describe('Default Export', () => {
     it('should export default function', async () => {
       const { default: defaultExport } = await import(
