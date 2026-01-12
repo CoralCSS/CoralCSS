@@ -22,6 +22,10 @@ export { backgroundsPlugin } from './backgrounds'
 export { accessibilityPlugin } from './accessibility'
 export { svgPlugin } from './svg'
 export { layersPlugin } from './layers'
+export { printPlugin } from './print'
+export { columnsPlugin } from './columns'
+export { performancePlugin } from './performance'
+export { masksPlugin } from './masks'
 
 import type { Plugin } from '../../../types'
 
@@ -42,6 +46,10 @@ import { backgroundsPlugin } from './backgrounds'
 import { accessibilityPlugin } from './accessibility'
 import { svgPlugin } from './svg'
 import { layersPlugin } from './layers'
+import { printPlugin } from './print'
+import { columnsPlugin } from './columns'
+import { performancePlugin } from './performance'
+import { masksPlugin } from './masks'
 
 /**
  * Get all core utility plugins
@@ -65,6 +73,10 @@ export function coreUtilitiesPlugins(): Plugin[] {
     accessibilityPlugin(),
     svgPlugin(),
     layersPlugin(),
+    printPlugin(),
+    columnsPlugin(),
+    performancePlugin(),
+    masksPlugin(),
   ]
 }
 

@@ -360,7 +360,7 @@ function TreePreview() {
     setExpanded(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
   }
   return (
-    <div className="w-full max-w-xs bg-card rounded-xl border border-border p-4">
+    <div className="w-full max-w-sm mx-auto bg-card rounded-xl border border-border p-4">
       <div data-coral-tree>
         <div data-coral-tree-item>
           <button onClick={() => toggle('src')} className="flex items-center gap-2 w-full p-1 hover:bg-muted rounded">
@@ -587,6 +587,507 @@ function ProgressStepsPreview() {
         <span className="text-sm text-muted-foreground">Step {currentStep + 1}: </span>
         <span className="text-sm font-medium text-foreground">{steps[currentStep]}</span>
       </div>
+    </div>
+  )
+}
+
+function HamburgerMenuPreview() {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div className="w-full">
+      <button
+        data-coral-hamburger-menu
+        data-open={isOpen || undefined}
+        onClick={() => setIsOpen(!isOpen)}
+        className="relative w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+        aria-label="Toggle menu"
+      >
+        <span className={`w-6 h-0.5 bg-foreground transition-all ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
+        <span className={`w-6 h-0.5 bg-foreground transition-opacity ${isOpen ? 'opacity-0' : ''}`} />
+        <span className={`w-6 h-0.5 bg-foreground transition-all ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+      </button>
+      {isOpen && (
+        <nav className="mt-4 p-4 bg-card rounded-lg border border-border">
+          <a href="#" className="block py-2 text-foreground hover:text-primary">Home</a>
+          <a href="#" className="block py-2 text-foreground hover:text-primary">Products</a>
+          <a href="#" className="block py-2 text-foreground hover:text-primary">About</a>
+          <a href="#" className="block py-2 text-foreground hover:text-primary">Contact</a>
+        </nav>
+      )}
+    </div>
+  )
+}
+
+function AccordionNavPreview() {
+  const [expanded, setExpanded] = useState<string[]>(['products'])
+  const toggle = (id: string) => setExpanded(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+  const sections = [
+    { id: 'products', label: 'Products', items: ['Electronics', 'Clothing', 'Books'] },
+    { id: 'services', label: 'Services', items: ['Consulting', 'Support', 'Training'] },
+    { id: 'resources', label: 'Resources', items: ['Documentation', 'API', 'Community'] },
+  ]
+  return (
+    <nav data-coral-accordion-nav className="w-full max-w-sm mx-auto space-y-1">
+      {sections.map(section => (
+        <div key={section.id} className="border border-border rounded-lg overflow-hidden">
+          <button
+            onClick={() => toggle(section.id)}
+            className="w-full flex items-center justify-between p-3 bg-card hover:bg-muted transition-colors"
+          >
+            <span className="font-medium text-foreground">{section.label}</span>
+            <svg className={`w-4 h-4 transition-transform ${expanded.includes(section.id) ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {expanded.includes(section.id) && (
+            <div className="bg-muted/30">
+              {section.items.map(item => (
+                <a key={item} href="#" className="block px-6 py-2 text-sm text-muted-foreground hover:text-primary transition-colors">{item}</a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+  )
+}
+
+function DotNavPreview() {
+  const [active, setActive] = useState(2)
+  const total = 5
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <div data-coral-dot-nav className="flex gap-2">
+        {Array.from({ length: total }).map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            data-coral-dot
+            data-active={active === i || undefined}
+            className={`w-3 h-3 rounded-full transition-all ${active === i ? 'bg-primary scale-125' : 'bg-muted hover:bg-muted-foreground'}`}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+      <span className="text-sm text-muted-foreground">Slide {active + 1} of {total}</span>
+    </div>
+  )
+}
+
+function TabStripPreview() {
+  const [activeTab, setActiveTab] = useState(3)
+  const tabs = ['Overview', 'Features', 'Pricing', 'Reviews', 'FAQ', 'Support', 'Docs', 'Community']
+  return (
+    <div className="w-full max-w-md">
+      <div data-coral-tab-strip className="flex gap-1 overflow-x-auto pb-2 scrollbar-thin">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(i)}
+            className={`px-4 py-2 text-sm font-medium whitespace-nowrap rounded-lg transition-colors ${activeTab === i ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}`}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function QuickNavPreview() {
+  return (
+    <div data-coral-quick-nav className="flex items-center gap-2 p-2 bg-card rounded-lg border border-border">
+      {[
+        { icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6', label: 'Home' },
+        { icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z', label: 'Search' },
+        { icon: 'M12 4v16m8-8H4', label: 'Add' },
+        { icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35', label: 'Settings' },
+      ].map((item, i) => (
+        <button key={i} className="p-2 rounded-lg hover:bg-muted transition-colors group" title={item.label}>
+          <svg className="w-5 h-5 text-muted-foreground group-hover:text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
+          </svg>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function NavigationDrawerPreview() {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div className="w-full">
+      <button onClick={() => setIsOpen(true)} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg">Open Drawer</button>
+      {isOpen && (
+        <>
+          <div className="fixed inset-0 bg-black/50 z-40" onClick={() => setIsOpen(false)} />
+          <aside data-coral-navigation-drawer className="fixed left-0 top-0 bottom-0 w-64 bg-card border-r border-border p-4 z-50 animate-in slide-in-from-left">
+            <div className="flex items-center justify-between mb-6">
+              <span className="font-semibold text-foreground">Menu</span>
+              <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-muted rounded">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <nav className="space-y-2">
+              <a href="#" className="block px-4 py-2 rounded-lg bg-primary/10 text-primary">Dashboard</a>
+              <a href="#" className="block px-4 py-2 rounded-lg hover:bg-muted text-foreground">Projects</a>
+              <a href="#" className="block px-4 py-2 rounded-lg hover:bg-muted text-foreground">Team</a>
+              <a href="#" className="block px-4 py-2 rounded-lg hover:bg-muted text-foreground">Settings</a>
+            </nav>
+          </aside>
+        </>
+      )}
+    </div>
+  )
+}
+
+function TimelineNavPreview() {
+  const [active, setActive] = useState(1)
+  const events = ['2021', '2022', '2023', '2024', '2025']
+  return (
+    <div data-coral-timeline-nav className="w-full max-w-md">
+      <div className="relative flex items-center justify-between">
+        <div className="absolute left-0 right-0 h-1 bg-muted rounded-full" />
+        <div className="absolute left-0 h-1 bg-primary rounded-full transition-all" style={{ width: `${(active / (events.length - 1)) * 100}%` }} />
+        {events.map((event, i) => (
+          <button
+            key={event}
+            onClick={() => setActive(i)}
+            className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium transition-all ${i <= active ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div>
+      <div className="flex justify-between mt-2">
+        {events.map((event, i) => (
+          <span key={event} className={`text-xs ${i === active ? 'text-primary font-medium' : 'text-muted-foreground'}`}>{event}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ToolbarNavPreview() {
+  return (
+    <div data-coral-toolbar-nav className="flex items-center gap-1 p-2 bg-card rounded-lg border border-border">
+      <button className="p-2 hover:bg-muted rounded-lg transition-colors">
+        <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      </button>
+      <button className="p-2 hover:bg-muted rounded-lg transition-colors">
+        <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      </button>
+      <div className="w-px h-6 bg-border mx-1" />
+      <button className="p-2 hover:bg-muted rounded-lg transition-colors">
+        <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+        </svg>
+      </button>
+      <button className="p-2 hover:bg-muted rounded-lg transition-colors">
+        <svg className="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </button>
+      <div className="w-px h-6 bg-border mx-1" />
+      <button className="p-2 hover:bg-muted rounded-lg transition-colors">
+        <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </button>
+    </div>
+  )
+}
+
+function DropdownNavPreview() {
+  const [open, setOpen] = useState(false)
+  return (
+    <div data-coral-dropdown-nav className="relative inline-block">
+      <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg hover:bg-muted transition-colors">
+        <span className="text-foreground">Navigate to</span>
+        <svg className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-1 w-48 bg-card border border-border rounded-lg shadow-xl overflow-hidden z-10">
+          <a href="#" className="block px-4 py-2 text-foreground hover:bg-muted transition-colors">Dashboard</a>
+          <a href="#" className="block px-4 py-2 text-foreground hover:bg-muted transition-colors">Analytics</a>
+          <a href="#" className="block px-4 py-2 text-foreground hover:bg-muted transition-colors">Reports</a>
+          <div className="border-t border-border" />
+          <a href="#" className="block px-4 py-2 text-red-500 hover:bg-muted transition-colors">Logout</a>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function SplitNavPreview() {
+  const [open, setOpen] = useState(false)
+  return (
+    <div data-coral-split-nav className="inline-flex rounded-lg overflow-hidden border border-border">
+      <button className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">Create</button>
+      <div className="relative">
+        <button onClick={() => setOpen(!open)} className="px-2 py-2 bg-primary text-primary-foreground hover:bg-primary/90 border-l border-primary-foreground/20 transition-colors">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        {open && (
+          <div className="absolute top-full right-0 mt-1 w-40 bg-card border border-border rounded-lg shadow-xl overflow-hidden z-10">
+            <button className="w-full text-left px-4 py-2 text-foreground hover:bg-muted transition-colors">New File</button>
+            <button className="w-full text-left px-4 py-2 text-foreground hover:bg-muted transition-colors">New Folder</button>
+            <button className="w-full text-left px-4 py-2 text-foreground hover:bg-muted transition-colors">Import</button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function FilterNavPreview() {
+  const [active, setActive] = useState('all')
+  const filters = ['All', 'Active', 'Completed', 'Archived']
+  return (
+    <div data-coral-filter-nav className="flex items-center gap-2 p-1 bg-muted rounded-lg">
+      {filters.map(filter => (
+        <button
+          key={filter}
+          onClick={() => setActive(filter.toLowerCase())}
+          className={`px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${active === filter.toLowerCase() ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+        >
+          {filter}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function IconNavPreview() {
+  const [active, setActive] = useState('home')
+  const items = [
+    { id: 'home', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+    { id: 'search', icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' },
+    { id: 'bell', icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9' },
+    { id: 'user', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
+  ]
+  return (
+    <nav data-coral-icon-nav className="flex flex-col gap-2 p-2 bg-card rounded-lg border border-border">
+      {items.map(item => (
+        <button
+          key={item.id}
+          onClick={() => setActive(item.id)}
+          className={`p-3 rounded-lg transition-colors ${active === item.id ? 'bg-primary text-primary-foreground' : 'hover:bg-muted text-muted-foreground'}`}
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
+          </svg>
+        </button>
+      ))}
+    </nav>
+  )
+}
+
+function LanguageSwitcherPreview() {
+  const [open, setOpen] = useState(false)
+  const [lang, setLang] = useState('en')
+  const languages = [
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+    { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+    { code: 'ja', name: '日本語', flag: '🇯🇵' },
+  ]
+  const current = languages.find(l => l.code === lang)!
+  return (
+    <div data-coral-language-switcher className="relative inline-block">
+      <button onClick={() => setOpen(!open)} className="flex items-center gap-2 px-3 py-2 bg-card border border-border rounded-lg hover:bg-muted transition-colors">
+        <span className="text-lg">{current.flag}</span>
+        <span className="text-sm text-foreground">{current.name}</span>
+        <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute top-full left-0 mt-1 w-40 bg-card border border-border rounded-lg shadow-xl overflow-hidden z-10">
+          {languages.map(language => (
+            <button
+              key={language.code}
+              onClick={() => { setLang(language.code); setOpen(false) }}
+              className={`w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-muted transition-colors ${lang === language.code ? 'bg-primary/10' : ''}`}
+            >
+              <span>{language.flag}</span>
+              <span className="text-sm text-foreground">{language.name}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function UserMenuPreview() {
+  const [open, setOpen] = useState(false)
+  return (
+    <div data-coral-user-menu className="relative inline-block">
+      <button onClick={() => setOpen(!open)} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted transition-colors">
+        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-medium">JD</div>
+        <div className="text-left hidden sm:block">
+          <div className="text-sm font-medium text-foreground">John Doe</div>
+          <div className="text-xs text-muted-foreground">john@example.com</div>
+        </div>
+        <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute top-full right-0 mt-1 w-56 bg-card border border-border rounded-lg shadow-xl overflow-hidden z-10">
+          <div className="px-4 py-3 border-b border-border">
+            <div className="font-medium text-foreground">John Doe</div>
+            <div className="text-sm text-muted-foreground">john@example.com</div>
+          </div>
+          <a href="#" className="block px-4 py-2 text-foreground hover:bg-muted transition-colors">Profile</a>
+          <a href="#" className="block px-4 py-2 text-foreground hover:bg-muted transition-colors">Settings</a>
+          <a href="#" className="block px-4 py-2 text-foreground hover:bg-muted transition-colors">Billing</a>
+          <div className="border-t border-border" />
+          <a href="#" className="block px-4 py-2 text-red-500 hover:bg-muted transition-colors">Sign out</a>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function NotificationMenuPreview() {
+  const [open, setOpen] = useState(false)
+  const notifications = [
+    { id: 1, title: 'New comment', message: 'Someone commented on your post', time: '2m ago', unread: true },
+    { id: 2, title: 'Task completed', message: 'Project setup is done', time: '1h ago', unread: true },
+    { id: 3, title: 'New follower', message: 'Jane started following you', time: '3h ago', unread: false },
+  ]
+  return (
+    <div data-coral-notification-menu className="relative inline-block">
+      <button onClick={() => setOpen(!open)} className="relative p-2 rounded-lg hover:bg-muted transition-colors">
+        <svg className="w-6 h-6 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+        </svg>
+        <span className="absolute top-0 right-0 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">2</span>
+      </button>
+      {open && (
+        <div className="absolute top-full right-0 mt-1 w-80 bg-card border border-border rounded-lg shadow-xl overflow-hidden z-10">
+          <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+            <span className="font-medium text-foreground">Notifications</span>
+            <button className="text-xs text-primary hover:underline">Mark all read</button>
+          </div>
+          <div className="max-h-64 overflow-y-auto">
+            {notifications.map(n => (
+              <div key={n.id} className={`px-4 py-3 hover:bg-muted transition-colors ${n.unread ? 'bg-primary/5' : ''}`}>
+                <div className="flex items-start gap-3">
+                  {n.unread && <span className="w-2 h-2 bg-primary rounded-full mt-2" />}
+                  <div className={n.unread ? '' : 'ml-5'}>
+                    <div className="text-sm font-medium text-foreground">{n.title}</div>
+                    <div className="text-xs text-muted-foreground">{n.message}</div>
+                    <div className="text-xs text-muted-foreground mt-1">{n.time}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <a href="#" className="block px-4 py-3 text-center text-sm text-primary hover:bg-muted transition-colors border-t border-border">View all notifications</a>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function SearchNavPreview() {
+  const [query, setQuery] = useState('')
+  const [focused, setFocused] = useState(false)
+  const suggestions = ['Dashboard', 'Analytics', 'Settings', 'Profile'].filter(s => s.toLowerCase().includes(query.toLowerCase()))
+  return (
+    <div data-coral-search-nav className="relative w-full max-w-sm">
+      <div className="relative">
+        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setTimeout(() => setFocused(false), 200)}
+          placeholder="Search pages..."
+          className="w-full pl-10 pr-4 py-2 border border-border rounded-lg bg-background focus:ring-2 focus:ring-primary/20 focus:border-primary"
+        />
+      </div>
+      {focused && query && suggestions.length > 0 && (
+        <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-xl overflow-hidden z-10">
+          {suggestions.map(s => (
+            <button key={s} className="w-full text-left px-4 py-2 text-foreground hover:bg-muted transition-colors">{s}</button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function BackToTopPreview() {
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <p className="text-sm text-muted-foreground">Back to top button appears when scrolling</p>
+      <button data-coral-back-to-top className="p-3 bg-primary text-primary-foreground rounded-full shadow-lg hover:bg-primary/90 transition-colors">
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </button>
+    </div>
+  )
+}
+
+function ScrollspyPreview() {
+  const [active, setActive] = useState('intro')
+  const sections = ['intro', 'features', 'pricing', 'faq']
+  return (
+    <div className="flex gap-6 w-full">
+      <nav data-coral-scrollspy className="w-40 flex-shrink-0">
+        <div className="space-y-1">
+          {sections.map(section => (
+            <button
+              key={section}
+              onClick={() => setActive(section)}
+              className={`block w-full text-left px-3 py-2 text-sm rounded-lg transition-colors capitalize ${active === section ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}`}
+            >
+              {section}
+            </button>
+          ))}
+        </div>
+      </nav>
+      <div className="flex-1 p-4 bg-card rounded-lg border border-border">
+        <h3 className="text-lg font-semibold text-foreground capitalize mb-2">{active}</h3>
+        <p className="text-muted-foreground">Content for {active} section...</p>
+      </div>
+    </div>
+  )
+}
+
+function PillTabsPreview() {
+  const [active, setActive] = useState(0)
+  const tabs = ['All', 'Unread', 'Important', 'Archived']
+  return (
+    <div data-coral-pill-tabs className="flex gap-2 p-1 bg-muted rounded-full">
+      {tabs.map((tab, i) => (
+        <button
+          key={tab}
+          onClick={() => setActive(i)}
+          className={`px-4 py-1.5 text-sm font-medium rounded-full transition-all ${active === i ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+        >
+          {tab}
+        </button>
+      ))}
     </div>
   )
 }
@@ -900,6 +1401,294 @@ const navigationComponents = [
       { name: 'data-clickable', type: 'boolean', default: 'true', description: 'Allow clicking past steps' },
     ],
     preview: ProgressStepsPreview,
+  },
+  {
+    id: 'hamburger-menu',
+    name: 'HamburgerMenu',
+    description: 'An animated hamburger menu toggle for mobile navigation.',
+    usage: `<button data-coral-hamburger-menu data-open>
+  <span data-coral-hamburger-line />
+  <span data-coral-hamburger-line />
+  <span data-coral-hamburger-line />
+</button>`,
+    props: [
+      { name: 'data-open', type: 'boolean', default: 'false', description: 'Menu open state' },
+      { name: 'data-animation', type: '"rotate" | "collapse"', default: '"rotate"', description: 'Animation style' },
+    ],
+    preview: HamburgerMenuPreview,
+  },
+  {
+    id: 'accordion-nav',
+    name: 'AccordionNav',
+    description: 'Collapsible accordion-style navigation for nested menu items.',
+    usage: `<nav data-coral-accordion-nav>
+  <div data-coral-accordion-section data-expanded>
+    <button data-coral-accordion-trigger>Products</button>
+    <div data-coral-accordion-content>
+      <a href="#">Item 1</a>
+    </div>
+  </div>
+</nav>`,
+    props: [
+      { name: 'data-allow-multiple', type: 'boolean', default: 'false', description: 'Allow multiple open sections' },
+    ],
+    preview: AccordionNavPreview,
+  },
+  {
+    id: 'dot-nav',
+    name: 'DotNav',
+    description: 'Minimal dot-style pagination for carousels and slideshows.',
+    usage: `<div data-coral-dot-nav>
+  <button data-coral-dot data-active />
+  <button data-coral-dot />
+  <button data-coral-dot />
+</div>`,
+    props: [
+      { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Dot size' },
+      { name: 'data-variant', type: '"default" | "line"', default: '"default"', description: 'Indicator style' },
+    ],
+    preview: DotNavPreview,
+  },
+  {
+    id: 'tab-strip',
+    name: 'TabStrip',
+    description: 'A horizontally scrollable tab strip for many tabs.',
+    usage: `<div data-coral-tab-strip>
+  <button data-coral-tab-strip-item data-active>Tab 1</button>
+  <button data-coral-tab-strip-item>Tab 2</button>
+  ...
+</div>`,
+    props: [
+      { name: 'data-scroll-arrows', type: 'boolean', default: 'true', description: 'Show scroll arrows' },
+    ],
+    preview: TabStripPreview,
+  },
+  {
+    id: 'quick-nav',
+    name: 'QuickNav',
+    description: 'A compact icon-based quick navigation toolbar.',
+    usage: `<div data-coral-quick-nav>
+  <button data-coral-quick-nav-item>
+    <svg><!-- icon --></svg>
+  </button>
+</div>`,
+    props: [
+      { name: 'data-orientation', type: '"horizontal" | "vertical"', default: '"horizontal"', description: 'Layout direction' },
+    ],
+    preview: QuickNavPreview,
+  },
+  {
+    id: 'navigation-drawer',
+    name: 'NavigationDrawer',
+    description: 'A slide-out drawer navigation for mobile interfaces.',
+    usage: `<aside data-coral-navigation-drawer data-open>
+  <div data-coral-drawer-header>Menu</div>
+  <nav data-coral-drawer-content>
+    <a href="#">Link</a>
+  </nav>
+</aside>`,
+    props: [
+      { name: 'data-position', type: '"left" | "right"', default: '"left"', description: 'Drawer position' },
+      { name: 'data-overlay', type: 'boolean', default: 'true', description: 'Show backdrop overlay' },
+    ],
+    preview: NavigationDrawerPreview,
+  },
+  {
+    id: 'timeline-nav',
+    name: 'TimelineNav',
+    description: 'A timeline-based navigation for historical or sequential content.',
+    usage: `<div data-coral-timeline-nav>
+  <button data-coral-timeline-point data-active>2023</button>
+  <button data-coral-timeline-point>2024</button>
+</div>`,
+    props: [
+      { name: 'data-orientation', type: '"horizontal" | "vertical"', default: '"horizontal"', description: 'Timeline direction' },
+    ],
+    preview: TimelineNavPreview,
+  },
+  {
+    id: 'toolbar-nav',
+    name: 'ToolbarNav',
+    description: 'A toolbar with grouped action buttons and separators.',
+    usage: `<div data-coral-toolbar-nav>
+  <button data-coral-toolbar-item>Edit</button>
+  <div data-coral-toolbar-separator />
+  <button data-coral-toolbar-item>Delete</button>
+</div>`,
+    props: [
+      { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Button size' },
+    ],
+    preview: ToolbarNavPreview,
+  },
+  {
+    id: 'dropdown-nav',
+    name: 'DropdownNav',
+    description: 'A dropdown-based navigation for quick page access.',
+    usage: `<div data-coral-dropdown-nav>
+  <button data-coral-dropdown-trigger>Navigate to</button>
+  <div data-coral-dropdown-content>
+    <a href="#">Dashboard</a>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-align', type: '"start" | "end"', default: '"start"', description: 'Dropdown alignment' },
+    ],
+    preview: DropdownNavPreview,
+  },
+  {
+    id: 'split-nav',
+    name: 'SplitNav',
+    description: 'A split button with primary action and dropdown options.',
+    usage: `<div data-coral-split-nav>
+  <button data-coral-split-primary>Create</button>
+  <button data-coral-split-toggle>
+    <svg><!-- chevron --></svg>
+  </button>
+  <div data-coral-split-dropdown>
+    <button>New File</button>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-variant', type: '"primary" | "secondary"', default: '"primary"', description: 'Button style' },
+    ],
+    preview: SplitNavPreview,
+  },
+  {
+    id: 'filter-nav',
+    name: 'FilterNav',
+    description: 'A filter-style segmented navigation for content filtering.',
+    usage: `<div data-coral-filter-nav>
+  <button data-coral-filter-item data-active>All</button>
+  <button data-coral-filter-item>Active</button>
+  <button data-coral-filter-item>Archived</button>
+</div>`,
+    props: [
+      { name: 'data-variant', type: '"pills" | "underline"', default: '"pills"', description: 'Filter style' },
+    ],
+    preview: FilterNavPreview,
+  },
+  {
+    id: 'icon-nav',
+    name: 'IconNav',
+    description: 'A compact icon-only vertical navigation sidebar.',
+    usage: `<nav data-coral-icon-nav>
+  <button data-coral-icon-nav-item data-active>
+    <svg><!-- icon --></svg>
+  </button>
+</nav>`,
+    props: [
+      { name: 'data-tooltips', type: 'boolean', default: 'true', description: 'Show tooltip labels on hover' },
+    ],
+    preview: IconNavPreview,
+  },
+  {
+    id: 'language-switcher',
+    name: 'LanguageSwitcher',
+    description: 'A dropdown for selecting website language/locale.',
+    usage: `<div data-coral-language-switcher>
+  <button data-coral-language-trigger>
+    <span>🇺🇸</span> English
+  </button>
+  <div data-coral-language-dropdown>
+    <button data-coral-language-option>🇪🇸 Español</button>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-show-flags', type: 'boolean', default: 'true', description: 'Show flag icons' },
+    ],
+    preview: LanguageSwitcherPreview,
+  },
+  {
+    id: 'user-menu',
+    name: 'UserMenu',
+    description: 'A user profile dropdown menu with account options.',
+    usage: `<div data-coral-user-menu>
+  <button data-coral-user-trigger>
+    <img data-coral-user-avatar src="avatar.jpg" />
+    <span>John Doe</span>
+  </button>
+  <div data-coral-user-dropdown>
+    <a href="#">Profile</a>
+    <a href="#">Sign out</a>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-show-email', type: 'boolean', default: 'true', description: 'Show email address' },
+    ],
+    preview: UserMenuPreview,
+  },
+  {
+    id: 'notification-menu',
+    name: 'NotificationMenu',
+    description: 'A notification bell dropdown with unread indicators.',
+    usage: `<div data-coral-notification-menu>
+  <button data-coral-notification-trigger>
+    <svg><!-- bell icon --></svg>
+    <span data-coral-notification-badge>3</span>
+  </button>
+  <div data-coral-notification-dropdown>
+    <div data-coral-notification-item data-unread>New message</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-max-items', type: 'number', default: '5', description: 'Max items to show' },
+    ],
+    preview: NotificationMenuPreview,
+  },
+  {
+    id: 'search-nav',
+    name: 'SearchNav',
+    description: 'A search-based navigation with autocomplete suggestions.',
+    usage: `<div data-coral-search-nav>
+  <input data-coral-search-input placeholder="Search..." />
+  <div data-coral-search-suggestions>
+    <button data-coral-search-item>Dashboard</button>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-min-chars', type: 'number', default: '2', description: 'Min chars to show suggestions' },
+    ],
+    preview: SearchNavPreview,
+  },
+  {
+    id: 'back-to-top',
+    name: 'BackToTop',
+    description: 'A floating button to scroll back to the top of the page.',
+    usage: `<button data-coral-back-to-top>
+  <svg><!-- up arrow --></svg>
+</button>`,
+    props: [
+      { name: 'data-threshold', type: 'number', default: '300', description: 'Scroll threshold to show button' },
+      { name: 'data-smooth', type: 'boolean', default: 'true', description: 'Smooth scroll animation' },
+    ],
+    preview: BackToTopPreview,
+  },
+  {
+    id: 'scrollspy',
+    name: 'Scrollspy',
+    description: 'Navigation that highlights the current section while scrolling.',
+    usage: `<nav data-coral-scrollspy>
+  <a data-coral-scrollspy-link href="#intro" data-active>Intro</a>
+  <a data-coral-scrollspy-link href="#features">Features</a>
+</nav>`,
+    props: [
+      { name: 'data-offset', type: 'number', default: '100', description: 'Offset for active state' },
+    ],
+    preview: ScrollspyPreview,
+  },
+  {
+    id: 'pill-tabs',
+    name: 'PillTabs',
+    description: 'Rounded pill-style tabs for inline content switching.',
+    usage: `<div data-coral-pill-tabs>
+  <button data-coral-pill-tab data-active>All</button>
+  <button data-coral-pill-tab>Unread</button>
+  <button data-coral-pill-tab>Important</button>
+</div>`,
+    props: [
+      { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Tab size' },
+    ],
+    preview: PillTabsPreview,
   },
 ]
 

@@ -533,6 +533,380 @@ const formComponents = [
     ],
     preview: SignaturePadPreview,
   },
+  {
+    id: 'password-strength',
+    name: 'PasswordStrength',
+    description: 'Password input with real-time strength indicator.',
+    usage: `<div data-coral-password-strength>
+  <input data-coral-password-input type="password" />
+  <div data-coral-password-meter data-strength="strong">
+    <div data-coral-password-bar></div>
+  </div>
+  <span data-coral-password-label>Strong</span>
+</div>`,
+    props: [
+      { name: 'data-strength', type: '"weak" | "medium" | "strong"', default: '"weak"', description: 'Password strength level' },
+      { name: 'data-show-meter', type: 'boolean', default: 'true', description: 'Show strength meter' },
+    ],
+    preview: PasswordStrengthPreview,
+  },
+  {
+    id: 'masked-input',
+    name: 'MaskedInput',
+    description: 'Input with customizable mask patterns.',
+    usage: `<input data-coral-masked-input
+  data-mask="(###) ###-####"
+  placeholder="(123) 456-7890" />`,
+    props: [
+      { name: 'data-mask', type: 'string', default: '""', description: 'Mask pattern (# for digit, A for letter)' },
+      { name: 'data-placeholder-char', type: 'string', default: '"_"', description: 'Placeholder character' },
+    ],
+    preview: MaskedInputPreview,
+  },
+  {
+    id: 'currency-input',
+    name: 'CurrencyInput',
+    description: 'Number input formatted as currency.',
+    usage: `<div data-coral-currency-input>
+  <span data-coral-currency-symbol>$</span>
+  <input data-coral-currency-field type="text" value="1,234.56" />
+</div>`,
+    props: [
+      { name: 'data-currency', type: 'string', default: '"USD"', description: 'Currency code' },
+      { name: 'data-locale', type: 'string', default: '"en-US"', description: 'Locale for formatting' },
+    ],
+    preview: CurrencyInputPreview,
+  },
+  {
+    id: 'date-range-picker',
+    name: 'DateRangePicker',
+    description: 'Select a date range with start and end dates.',
+    usage: `<div data-coral-date-range-picker>
+  <input data-coral-date-range-start placeholder="Start date" />
+  <span data-coral-date-range-separator>to</span>
+  <input data-coral-date-range-end placeholder="End date" />
+</div>`,
+    props: [
+      { name: 'data-format', type: 'string', default: '"MM/DD/YYYY"', description: 'Date format' },
+      { name: 'data-max-range', type: 'number', default: 'undefined', description: 'Maximum days in range' },
+    ],
+    preview: DateRangePickerPreview,
+  },
+  {
+    id: 'otp-input',
+    name: 'OTPInput',
+    description: 'One-time password input with auto-focus.',
+    usage: `<div data-coral-otp-input data-length="6">
+  <input data-coral-otp-field type="text" maxlength="1" />
+  <!-- Repeat for each digit -->
+</div>`,
+    props: [
+      { name: 'data-length', type: 'number', default: '6', description: 'Number of OTP digits' },
+      { name: 'data-type', type: '"number" | "alphanumeric"', default: '"number"', description: 'Input type' },
+    ],
+    preview: OTPInputPreview,
+  },
+  {
+    id: 'rich-text-editor',
+    name: 'RichTextEditor',
+    description: 'Basic rich text editor with formatting toolbar.',
+    usage: `<div data-coral-rich-text-editor>
+  <div data-coral-editor-toolbar>
+    <button data-coral-editor-bold>B</button>
+    <button data-coral-editor-italic>I</button>
+  </div>
+  <div data-coral-editor-content contenteditable></div>
+</div>`,
+    props: [
+      { name: 'data-toolbar', type: 'string[]', default: '["bold", "italic", "underline"]', description: 'Toolbar buttons' },
+      { name: 'data-min-height', type: 'string', default: '"200px"', description: 'Minimum editor height' },
+    ],
+    preview: RichTextEditorPreview,
+  },
+  {
+    id: 'mentions-input',
+    name: 'MentionsInput',
+    description: 'Text input with @mentions support.',
+    usage: `<div data-coral-mentions-input>
+  <textarea data-coral-mentions-field placeholder="Type @ to mention..."></textarea>
+  <div data-coral-mentions-dropdown>
+    <div data-coral-mentions-option>@user1</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-trigger', type: 'string', default: '"@"', description: 'Trigger character' },
+      { name: 'data-suggestions', type: 'array', default: '[]', description: 'List of suggestions' },
+    ],
+    preview: MentionsInputPreview,
+  },
+  {
+    id: 'address-input',
+    name: 'AddressInput',
+    description: 'Complete address input with autocomplete.',
+    usage: `<div data-coral-address-input>
+  <input data-coral-address-street placeholder="Street address" />
+  <input data-coral-address-city placeholder="City" />
+  <input data-coral-address-state placeholder="State" />
+  <input data-coral-address-zip placeholder="ZIP" />
+</div>`,
+    props: [
+      { name: 'data-autocomplete', type: 'boolean', default: 'true', description: 'Enable autocomplete' },
+      { name: 'data-country', type: 'string', default: '"US"', description: 'Default country' },
+    ],
+    preview: AddressInputPreview,
+  },
+  {
+    id: 'email-input',
+    name: 'EmailInput',
+    description: 'Email input with domain suggestions.',
+    usage: `<div data-coral-email-input>
+  <input data-coral-email-field type="email" placeholder="name@company.com" />
+  <div data-coral-email-suggestions>
+    <span>@gmail.com</span>
+    <span>@yahoo.com</span>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-domains', type: 'string[]', default: '["gmail.com", "yahoo.com", "outlook.com"]', description: 'Suggested domains' },
+    ],
+    preview: EmailInputPreview,
+  },
+  {
+    id: 'url-input',
+    name: 'URLInput',
+    description: 'URL input with protocol prefix.',
+    usage: `<div data-coral-url-input>
+  <span data-coral-url-prefix>https://</span>
+  <input data-coral-url-field type="text" placeholder="example.com" />
+</div>`,
+    props: [
+      { name: 'data-prefix', type: 'string', default: '"https://"', description: 'URL prefix' },
+      { name: 'data-validate', type: 'boolean', default: 'true', description: 'Validate URL format' },
+    ],
+    preview: URLInputPreview,
+  },
+  {
+    id: 'inline-edit',
+    name: 'InlineEdit',
+    description: 'Text that becomes editable on click.',
+    usage: `<div data-coral-inline-edit>
+  <span data-coral-inline-text>Click to edit</span>
+  <input data-coral-inline-input />
+  <button data-coral-inline-save>✓</button>
+  <button data-coral-inline-cancel>✕</button>
+</div>`,
+    props: [
+      { name: 'data-editing', type: 'boolean', default: 'false', description: 'Edit mode active' },
+      { name: 'data-save-on-blur', type: 'boolean', default: 'true', description: 'Save on blur' },
+    ],
+    preview: InlineEditPreview,
+  },
+  {
+    id: 'tree-select',
+    name: 'TreeSelect',
+    description: 'Select with hierarchical options.',
+    usage: `<div data-coral-tree-select>
+  <button data-coral-tree-select-trigger>Select category</button>
+  <div data-coral-tree-select-content>
+    <div data-coral-tree-node data-has-children>
+      Parent Node
+      <div data-coral-tree-children>
+        <div data-coral-tree-node>Child Node</div>
+      </div>
+    </div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-expandable', type: 'boolean', default: 'true', description: 'Allow expanding nodes' },
+      { name: 'data-multi-select', type: 'boolean', default: 'false', description: 'Multiple selection' },
+    ],
+    preview: TreeSelectPreview,
+  },
+  {
+    id: 'cascade-select',
+    name: 'CascadeSelect',
+    description: 'Cascading dropdown selection.',
+    usage: `<div data-coral-cascade-select>
+  <select data-coral-cascade-level="1">
+    <option>Country</option>
+  </select>
+  <select data-coral-cascade-level="2">
+    <option>State</option>
+  </select>
+  <select data-coral-cascade-level="3">
+    <option>City</option>
+  </select>
+</div>`,
+    props: [
+      { name: 'data-levels', type: 'number', default: '3', description: 'Number of cascade levels' },
+    ],
+    preview: CascadeSelectPreview,
+  },
+  {
+    id: 'transfer-list',
+    name: 'TransferList',
+    description: 'Move items between two lists.',
+    usage: `<div data-coral-transfer-list>
+  <div data-coral-transfer-source>
+    <div data-coral-transfer-item>Item 1</div>
+  </div>
+  <div data-coral-transfer-controls>
+    <button data-coral-transfer-right>→</button>
+    <button data-coral-transfer-left>←</button>
+  </div>
+  <div data-coral-transfer-target>
+    <div data-coral-transfer-item>Item 2</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-searchable', type: 'boolean', default: 'true', description: 'Enable search in lists' },
+    ],
+    preview: TransferListPreview,
+  },
+  {
+    id: 'password-input',
+    name: 'PasswordInput',
+    description: 'Password input with show/hide toggle.',
+    usage: `<div data-coral-password-input>
+  <input data-coral-password-field type="password" />
+  <button data-coral-password-toggle>👁</button>
+</div>`,
+    props: [
+      { name: 'data-visible', type: 'boolean', default: 'false', description: 'Show password' },
+    ],
+    preview: PasswordInputPreview,
+  },
+  {
+    id: 'zip-code-input',
+    name: 'ZipCodeInput',
+    description: 'ZIP code input with format validation.',
+    usage: `<input data-coral-zip-input
+  data-format="US"
+  placeholder="12345" />`,
+    props: [
+      { name: 'data-format', type: '"US" | "CA" | "UK"', default: '"US"', description: 'ZIP format' },
+      { name: 'data-lookup', type: 'boolean', default: 'false', description: 'Enable city/state lookup' },
+    ],
+    preview: ZipCodeInputPreview,
+  },
+  {
+    id: 'form-progress',
+    name: 'FormProgress',
+    description: 'Progress indicator for form completion.',
+    usage: `<div data-coral-form-progress data-value="60">
+  <div data-coral-form-progress-bar></div>
+  <span data-coral-form-progress-label>60% complete</span>
+</div>`,
+    props: [
+      { name: 'data-value', type: 'number', default: '0', description: 'Completion percentage' },
+      { name: 'data-show-label', type: 'boolean', default: 'true', description: 'Show percentage label' },
+    ],
+    preview: FormProgressPreview,
+  },
+  {
+    id: 'quantity-input',
+    name: 'QuantityInput',
+    description: 'Quantity selector with min/max limits.',
+    usage: `<div data-coral-quantity-input data-min="1" data-max="10">
+  <button data-coral-quantity-minus>-</button>
+  <input data-coral-quantity-field type="number" value="1" />
+  <button data-coral-quantity-plus>+</button>
+</div>`,
+    props: [
+      { name: 'data-min', type: 'number', default: '0', description: 'Minimum value' },
+      { name: 'data-max', type: 'number', default: '99', description: 'Maximum value' },
+    ],
+    preview: QuantityInputPreview,
+  },
+  {
+    id: 'percentage-input',
+    name: 'PercentageInput',
+    description: 'Input for percentage values with slider.',
+    usage: `<div data-coral-percentage-input>
+  <input data-coral-percentage-field type="number" min="0" max="100" value="50" />
+  <span data-coral-percentage-symbol>%</span>
+</div>`,
+    props: [
+      { name: 'data-min', type: 'number', default: '0', description: 'Minimum percentage' },
+      { name: 'data-max', type: 'number', default: '100', description: 'Maximum percentage' },
+    ],
+    preview: PercentageInputPreview,
+  },
+  {
+    id: 'unit-input',
+    name: 'UnitInput',
+    description: 'Number input with unit selector.',
+    usage: `<div data-coral-unit-input>
+  <input data-coral-unit-field type="number" value="100" />
+  <select data-coral-unit-select>
+    <option>px</option>
+    <option>%</option>
+    <option>rem</option>
+  </select>
+</div>`,
+    props: [
+      { name: 'data-units', type: 'string[]', default: '["px", "%", "rem"]', description: 'Available units' },
+    ],
+    preview: UnitInputPreview,
+  },
+  {
+    id: 'social-input',
+    name: 'SocialInput',
+    description: 'Social media username input.',
+    usage: `<div data-coral-social-input data-platform="twitter">
+  <span data-coral-social-prefix>@</span>
+  <input data-coral-social-field placeholder="username" />
+</div>`,
+    props: [
+      { name: 'data-platform', type: '"twitter" | "instagram" | "github"', default: '"twitter"', description: 'Social platform' },
+    ],
+    preview: SocialInputPreview,
+  },
+  {
+    id: 'hex-input',
+    name: 'HexInput',
+    description: 'Hex color code input with validation.',
+    usage: `<div data-coral-hex-input>
+  <span data-coral-hex-prefix>#</span>
+  <input data-coral-hex-field maxlength="6" placeholder="000000" />
+  <div data-coral-hex-preview></div>
+</div>`,
+    props: [
+      { name: 'data-show-preview', type: 'boolean', default: 'true', description: 'Show color preview' },
+    ],
+    preview: HexInputPreview,
+  },
+  {
+    id: 'char-counter',
+    name: 'CharCounter',
+    description: 'Textarea with character count.',
+    usage: `<div data-coral-char-counter data-max="280">
+  <textarea data-coral-char-textarea></textarea>
+  <span data-coral-char-count>0/280</span>
+</div>`,
+    props: [
+      { name: 'data-max', type: 'number', default: '280', description: 'Maximum characters' },
+      { name: 'data-warn-at', type: 'number', default: '20', description: 'Warn when remaining' },
+    ],
+    preview: CharCounterPreview,
+  },
+  {
+    id: 'form-array',
+    name: 'FormArray',
+    description: 'Dynamic form field array with add/remove.',
+    usage: `<div data-coral-form-array>
+  <div data-coral-form-array-item>
+    <input data-coral-input placeholder="Item 1" />
+    <button data-coral-form-array-remove>×</button>
+  </div>
+  <button data-coral-form-array-add>+ Add Item</button>
+</div>`,
+    props: [
+      { name: 'data-min', type: 'number', default: '1', description: 'Minimum items' },
+      { name: 'data-max', type: 'number', default: '10', description: 'Maximum items' },
+    ],
+    preview: FormArrayPreview,
+  },
 ]
 
 function FormsPage() {
@@ -1807,6 +2181,979 @@ function QRCodeInputPreview() {
           </div>
         </div>
       )}
+    </div>
+  )
+}
+
+function PasswordStrengthPreview() {
+  const [password, setPassword] = useState('')
+  const [visible, setVisible] = useState(false)
+
+  const getStrength = (pwd: string) => {
+    if (pwd.length < 6) return 'weak'
+    if (pwd.length < 10 || !/[A-Z]/.test(pwd) || !/[0-9]/.test(pwd)) return 'medium'
+    return 'strong'
+  }
+
+  const strength = getStrength(password)
+  const strengthColors = {
+    weak: 'bg-red-500',
+    medium: 'bg-yellow-500',
+    strong: 'bg-emerald-500'
+  }
+
+  return (
+    <div className="w-full max-w-sm">
+      <label data-coral-label>Password</label>
+      <div data-coral-password-strength>
+        <div className="relative">
+          <input
+            data-coral-password-input
+            type={visible ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Enter password"
+            className="w-full pr-10"
+          />
+          <button
+            type="button"
+            onClick={() => setVisible(!visible)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          >
+            {visible ? '🙈' : '👁'}
+          </button>
+        </div>
+        {password && (
+          <>
+            <div data-coral-password-meter data-strength={strength} className="mt-2 h-2 bg-muted rounded-full overflow-hidden">
+              <div
+                data-coral-password-bar
+                className={`h-full transition-all ${strengthColors[strength]}`}
+                style={{ width: strength === 'weak' ? '33%' : strength === 'medium' ? '66%' : '100%' }}
+              />
+            </div>
+            <span data-coral-password-label className="text-xs text-muted-foreground mt-1 capitalize">{strength}</span>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function MaskedInputPreview() {
+  const [phone, setPhone] = useState('')
+  const [ssn, setSsn] = useState('')
+
+  const formatPhone = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 10)
+    if (digits.length >= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
+    if (digits.length >= 3) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`
+    return digits
+  }
+
+  const formatSSN = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 9)
+    if (digits.length >= 5) return `${digits.slice(0, 3)}-${digits.slice(3, 5)}-${digits.slice(5)}`
+    if (digits.length >= 3) return `${digits.slice(0, 3)}-${digits.slice(3)}`
+    return digits
+  }
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <div>
+        <label data-coral-label>Phone Number</label>
+        <input
+          data-coral-masked-input
+          data-mask="phone"
+          type="text"
+          placeholder="(123) 456-7890"
+          value={phone}
+          onChange={(e) => setPhone(formatPhone(e.target.value))}
+        />
+      </div>
+      <div>
+        <label data-coral-label>SSN</label>
+        <input
+          data-coral-masked-input
+          data-mask="ssn"
+          type="text"
+          placeholder="123-45-6789"
+          value={ssn}
+          onChange={(e) => setSsn(formatSSN(e.target.value))}
+        />
+      </div>
+    </div>
+  )
+}
+
+function CurrencyInputPreview() {
+  const [value, setValue] = useState('1234.56')
+
+  const formatCurrency = (input: string) => {
+    const num = parseFloat(input.replace(/[^0-9.]/g, ''))
+    if (isNaN(num)) return ''
+    return num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  }
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <div>
+        <label data-coral-label>Amount (USD)</label>
+        <div data-coral-currency-input className="flex">
+          <span data-coral-currency-symbol className="flex items-center px-3 bg-muted border border-r-0 border-border rounded-l-lg text-muted-foreground">$</span>
+          <input
+            data-coral-currency-field
+            type="text"
+            value={value}
+            onChange={(e) => setValue(formatCurrency(e.target.value))}
+            className="rounded-l-none"
+          />
+        </div>
+      </div>
+      <div>
+        <label data-coral-label>Amount (EUR)</label>
+        <div data-coral-currency-input className="flex">
+          <span data-coral-currency-symbol className="flex items-center px-3 bg-muted border border-r-0 border-border rounded-l-lg text-muted-foreground">€</span>
+          <input
+            data-coral-currency-field
+            type="text"
+            placeholder="0.00"
+            className="rounded-l-none"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DateRangePickerPreview() {
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+
+  return (
+    <div className="w-full max-w-md">
+      <label data-coral-label>Select Date Range</label>
+      <div data-coral-date-range-picker className="flex items-center gap-2">
+        <input
+          data-coral-date-range-start
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          className="flex-1"
+        />
+        <span data-coral-date-range-separator className="text-muted-foreground">to</span>
+        <input
+          data-coral-date-range-end
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          className="flex-1"
+        />
+      </div>
+    </div>
+  )
+}
+
+function OTPInputPreview() {
+  const [otp, setOtp] = useState(['', '', '', '', '', ''])
+
+  const handleChange = (index: number, value: string) => {
+    if (value.length <= 1 && /^[0-9]*$/.test(value)) {
+      const newOtp = [...otp]
+      newOtp[index] = value
+      setOtp(newOtp)
+      if (value && index < 5) {
+        const nextInput = document.querySelector(`[data-otp-index="${index + 1}"]`) as HTMLInputElement
+        nextInput?.focus()
+      }
+    }
+  }
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+      const prevInput = document.querySelector(`[data-otp-index="${index - 1}"]`) as HTMLInputElement
+      prevInput?.focus()
+    }
+  }
+
+  return (
+    <div className="w-full max-w-sm">
+      <label data-coral-label>Enter OTP Code</label>
+      <div data-coral-otp-input data-length="6" className="flex gap-2 mt-2">
+        {otp.map((digit, i) => (
+          <input
+            key={i}
+            data-coral-otp-field
+            data-otp-index={i}
+            type="text"
+            inputMode="numeric"
+            maxLength={1}
+            value={digit}
+            onChange={(e) => handleChange(i, e.target.value)}
+            onKeyDown={(e) => handleKeyDown(i, e)}
+            className="w-12 h-12 text-center text-lg font-semibold border border-border rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20"
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function RichTextEditorPreview() {
+  const [content, setContent] = useState('<p>Hello <strong>World</strong>!</p>')
+
+  const execCommand = (command: string) => {
+    document.execCommand(command, false)
+  }
+
+  return (
+    <div className="w-full max-w-lg">
+      <label data-coral-label>Content</label>
+      <div data-coral-rich-text-editor className="border border-border rounded-lg overflow-hidden">
+        <div data-coral-editor-toolbar className="flex gap-1 p-2 bg-muted border-b border-border">
+          <button data-coral-editor-bold onClick={() => execCommand('bold')} className="p-2 hover:bg-background rounded font-bold">B</button>
+          <button data-coral-editor-italic onClick={() => execCommand('italic')} className="p-2 hover:bg-background rounded italic">I</button>
+          <button data-coral-editor-underline onClick={() => execCommand('underline')} className="p-2 hover:bg-background rounded underline">U</button>
+          <div className="w-px bg-border mx-1" />
+          <button onClick={() => execCommand('insertUnorderedList')} className="p-2 hover:bg-background rounded">• List</button>
+          <button onClick={() => execCommand('insertOrderedList')} className="p-2 hover:bg-background rounded">1. List</button>
+        </div>
+        <div
+          data-coral-editor-content
+          contentEditable
+          dangerouslySetInnerHTML={{ __html: content }}
+          onInput={(e) => setContent(e.currentTarget.innerHTML)}
+          className="p-4 min-h-[150px] focus:outline-none"
+        />
+      </div>
+    </div>
+  )
+}
+
+function MentionsInputPreview() {
+  const [text, setText] = useState('')
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const users = ['john_doe', 'jane_smith', 'bob_wilson', 'alice_jones']
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value
+    setText(value)
+    setShowSuggestions(value.includes('@') && value.endsWith('@'))
+  }
+
+  const insertMention = (user: string) => {
+    setText(text.slice(0, -1) + `@${user} `)
+    setShowSuggestions(false)
+  }
+
+  return (
+    <div className="w-full max-w-md">
+      <label data-coral-label>Comment</label>
+      <div data-coral-mentions-input className="relative">
+        <textarea
+          data-coral-mentions-field
+          placeholder="Type @ to mention someone..."
+          value={text}
+          onChange={handleChange}
+          rows={3}
+          className="w-full px-3 py-2 border border-border rounded-lg resize-none"
+        />
+        {showSuggestions && (
+          <div data-coral-mentions-dropdown className="absolute left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-10">
+            {users.map(user => (
+              <div
+                key={user}
+                data-coral-mentions-option
+                onClick={() => insertMention(user)}
+                className="px-3 py-2 hover:bg-muted cursor-pointer"
+              >
+                @{user}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function AddressInputPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <label data-coral-label>Shipping Address</label>
+      <div data-coral-address-input className="space-y-3">
+        <input data-coral-address-street placeholder="Street address" className="w-full" />
+        <input data-coral-address-street2 placeholder="Apt, suite, etc. (optional)" className="w-full" />
+        <div className="grid grid-cols-2 gap-3">
+          <input data-coral-address-city placeholder="City" />
+          <input data-coral-address-state placeholder="State" />
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <input data-coral-address-zip placeholder="ZIP Code" />
+          <select data-coral-address-country className="px-3 py-2 border border-border rounded-lg bg-background">
+            <option>United States</option>
+            <option>Canada</option>
+            <option>United Kingdom</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function EmailInputPreview() {
+  const [email, setEmail] = useState('')
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const domains = ['gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com']
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setEmail(value)
+    setShowSuggestions(value.includes('@') && !value.split('@')[1]?.includes('.'))
+  }
+
+  const selectDomain = (domain: string) => {
+    const username = email.split('@')[0]
+    setEmail(`${username}@${domain}`)
+    setShowSuggestions(false)
+  }
+
+  return (
+    <div className="w-full max-w-sm">
+      <label data-coral-label>Email Address</label>
+      <div data-coral-email-input className="relative">
+        <input
+          data-coral-email-field
+          type="email"
+          placeholder="name@company.com"
+          value={email}
+          onChange={handleChange}
+          className="w-full"
+        />
+        {showSuggestions && (
+          <div data-coral-email-suggestions className="absolute left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-10">
+            {domains.map(domain => (
+              <div
+                key={domain}
+                onClick={() => selectDomain(domain)}
+                className="px-3 py-2 hover:bg-muted cursor-pointer text-sm"
+              >
+                {email.split('@')[0]}@{domain}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function URLInputPreview() {
+  const [url, setUrl] = useState('')
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <div>
+        <label data-coral-label>Website URL</label>
+        <div data-coral-url-input className="flex">
+          <span data-coral-url-prefix className="flex items-center px-3 bg-muted border border-r-0 border-border rounded-l-lg text-muted-foreground text-sm">https://</span>
+          <input
+            data-coral-url-field
+            type="text"
+            placeholder="example.com"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            className="rounded-l-none"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function InlineEditPreview() {
+  const [editing, setEditing] = useState(false)
+  const [text, setText] = useState('Click to edit this text')
+  const [tempText, setTempText] = useState(text)
+
+  const save = () => {
+    setText(tempText)
+    setEditing(false)
+  }
+
+  const cancel = () => {
+    setTempText(text)
+    setEditing(false)
+  }
+
+  return (
+    <div className="w-full max-w-sm">
+      <label data-coral-label>Editable Title</label>
+      <div data-coral-inline-edit data-editing={editing || undefined} className="mt-2">
+        {editing ? (
+          <div className="flex items-center gap-2">
+            <input
+              data-coral-inline-input
+              type="text"
+              value={tempText}
+              onChange={(e) => setTempText(e.target.value)}
+              autoFocus
+              className="flex-1"
+            />
+            <button data-coral-inline-save onClick={save} className="p-2 text-emerald-500 hover:bg-emerald-500/10 rounded">✓</button>
+            <button data-coral-inline-cancel onClick={cancel} className="p-2 text-red-500 hover:bg-red-500/10 rounded">✕</button>
+          </div>
+        ) : (
+          <span
+            data-coral-inline-text
+            onClick={() => { setEditing(true); setTempText(text) }}
+            className="cursor-pointer hover:bg-muted px-2 py-1 rounded inline-block"
+          >
+            {text}
+          </span>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function TreeSelectPreview() {
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState('')
+  const [expanded, setExpanded] = useState<string[]>(['electronics'])
+
+  const tree = [
+    { id: 'electronics', label: 'Electronics', children: [
+      { id: 'phones', label: 'Phones' },
+      { id: 'laptops', label: 'Laptops' },
+    ]},
+    { id: 'clothing', label: 'Clothing', children: [
+      { id: 'mens', label: "Men's" },
+      { id: 'womens', label: "Women's" },
+    ]},
+  ]
+
+  const toggleExpand = (id: string) => {
+    setExpanded(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+  }
+
+  return (
+    <div className="w-full max-w-sm">
+      <label data-coral-label>Category</label>
+      <div data-coral-tree-select data-open={open || undefined}>
+        <button data-coral-tree-select-trigger onClick={() => setOpen(!open)} className="w-full flex justify-between items-center">
+          <span>{selected || 'Select category'}</span>
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        {open && (
+          <div data-coral-tree-select-content className="mt-1 p-2 border border-border rounded-lg bg-card">
+            {tree.map(parent => (
+              <div key={parent.id}>
+                <div
+                  data-coral-tree-node
+                  data-has-children
+                  onClick={() => toggleExpand(parent.id)}
+                  className="flex items-center gap-2 p-2 hover:bg-muted rounded cursor-pointer"
+                >
+                  <span className="text-xs">{expanded.includes(parent.id) ? '▼' : '▶'}</span>
+                  {parent.label}
+                </div>
+                {expanded.includes(parent.id) && (
+                  <div data-coral-tree-children className="ml-4">
+                    {parent.children.map(child => (
+                      <div
+                        key={child.id}
+                        data-coral-tree-node
+                        onClick={() => { setSelected(child.label); setOpen(false) }}
+                        className="p-2 hover:bg-muted rounded cursor-pointer"
+                      >
+                        {child.label}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function CascadeSelectPreview() {
+  const [country, setCountry] = useState('')
+  const [state, setState] = useState('')
+  const [city, setCity] = useState('')
+
+  const data: Record<string, Record<string, string[]>> = {
+    'USA': { 'California': ['Los Angeles', 'San Francisco'], 'New York': ['New York City', 'Buffalo'] },
+    'Canada': { 'Ontario': ['Toronto', 'Ottawa'], 'Quebec': ['Montreal', 'Quebec City'] },
+  }
+
+  return (
+    <div className="w-full max-w-md">
+      <label data-coral-label>Location</label>
+      <div data-coral-cascade-select className="grid grid-cols-3 gap-2 mt-2">
+        <select
+          data-coral-cascade-level="1"
+          value={country}
+          onChange={(e) => { setCountry(e.target.value); setState(''); setCity('') }}
+          className="px-3 py-2 border border-border rounded-lg bg-background"
+        >
+          <option value="">Country</option>
+          {Object.keys(data).map(c => <option key={c}>{c}</option>)}
+        </select>
+        <select
+          data-coral-cascade-level="2"
+          value={state}
+          onChange={(e) => { setState(e.target.value); setCity('') }}
+          disabled={!country}
+          className="px-3 py-2 border border-border rounded-lg bg-background disabled:opacity-50"
+        >
+          <option value="">State</option>
+          {country && Object.keys(data[country] || {}).map(s => <option key={s}>{s}</option>)}
+        </select>
+        <select
+          data-coral-cascade-level="3"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          disabled={!state}
+          className="px-3 py-2 border border-border rounded-lg bg-background disabled:opacity-50"
+        >
+          <option value="">City</option>
+          {state && (data[country]?.[state] || []).map(c => <option key={c}>{c}</option>)}
+        </select>
+      </div>
+    </div>
+  )
+}
+
+function TransferListPreview() {
+  const [source, setSource] = useState(['Item 1', 'Item 2', 'Item 3', 'Item 4'])
+  const [target, setTarget] = useState(['Item 5'])
+  const [selectedSource, setSelectedSource] = useState<string[]>([])
+  const [selectedTarget, setSelectedTarget] = useState<string[]>([])
+
+  const moveRight = () => {
+    setTarget([...target, ...selectedSource])
+    setSource(source.filter(i => !selectedSource.includes(i)))
+    setSelectedSource([])
+  }
+
+  const moveLeft = () => {
+    setSource([...source, ...selectedTarget])
+    setTarget(target.filter(i => !selectedTarget.includes(i)))
+    setSelectedTarget([])
+  }
+
+  const toggleSource = (item: string) => {
+    setSelectedSource(prev => prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item])
+  }
+
+  const toggleTarget = (item: string) => {
+    setSelectedTarget(prev => prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item])
+  }
+
+  return (
+    <div className="w-full max-w-lg">
+      <label data-coral-label>Transfer Items</label>
+      <div data-coral-transfer-list className="flex gap-4 mt-2">
+        <div data-coral-transfer-source className="flex-1 border border-border rounded-lg p-2 min-h-[150px]">
+          <div className="text-xs text-muted-foreground mb-2">Available</div>
+          {source.map(item => (
+            <div
+              key={item}
+              data-coral-transfer-item
+              data-selected={selectedSource.includes(item) || undefined}
+              onClick={() => toggleSource(item)}
+              className={`p-2 rounded cursor-pointer mb-1 ${selectedSource.includes(item) ? 'bg-primary/20' : 'hover:bg-muted'}`}
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+        <div data-coral-transfer-controls className="flex flex-col justify-center gap-2">
+          <button data-coral-transfer-right onClick={moveRight} disabled={!selectedSource.length} className="px-3 py-1 bg-muted hover:bg-muted/80 rounded disabled:opacity-50">→</button>
+          <button data-coral-transfer-left onClick={moveLeft} disabled={!selectedTarget.length} className="px-3 py-1 bg-muted hover:bg-muted/80 rounded disabled:opacity-50">←</button>
+        </div>
+        <div data-coral-transfer-target className="flex-1 border border-border rounded-lg p-2 min-h-[150px]">
+          <div className="text-xs text-muted-foreground mb-2">Selected</div>
+          {target.map(item => (
+            <div
+              key={item}
+              data-coral-transfer-item
+              data-selected={selectedTarget.includes(item) || undefined}
+              onClick={() => toggleTarget(item)}
+              className={`p-2 rounded cursor-pointer mb-1 ${selectedTarget.includes(item) ? 'bg-primary/20' : 'hover:bg-muted'}`}
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function PasswordInputPreview() {
+  const [password, setPassword] = useState('')
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <div className="w-full max-w-sm">
+      <label data-coral-label>Password</label>
+      <div data-coral-password-input className="relative">
+        <input
+          data-coral-password-field
+          type={visible ? 'text' : 'password'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter password"
+          className="w-full pr-10"
+        />
+        <button
+          data-coral-password-toggle
+          type="button"
+          onClick={() => setVisible(!visible)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+        >
+          {visible ? '🙈' : '👁'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function ZipCodeInputPreview() {
+  const [zip, setZip] = useState('')
+  const [format, setFormat] = useState<'US' | 'CA' | 'UK'>('US')
+
+  const formatZip = (value: string, fmt: string) => {
+    if (fmt === 'US') return value.replace(/\D/g, '').slice(0, 5)
+    if (fmt === 'CA') {
+      const clean = value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6)
+      if (clean.length > 3) return `${clean.slice(0, 3)} ${clean.slice(3)}`
+      return clean
+    }
+    if (fmt === 'UK') {
+      return value.toUpperCase().replace(/[^A-Z0-9 ]/g, '').slice(0, 8)
+    }
+    return value
+  }
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <div className="flex gap-2">
+        {(['US', 'CA', 'UK'] as const).map(f => (
+          <button
+            key={f}
+            onClick={() => { setFormat(f); setZip('') }}
+            className={`px-3 py-1 rounded text-sm ${format === f ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
+      <div>
+        <label data-coral-label>ZIP/Postal Code</label>
+        <input
+          data-coral-zip-input
+          data-format={format}
+          type="text"
+          placeholder={format === 'US' ? '12345' : format === 'CA' ? 'A1A 1A1' : 'SW1A 1AA'}
+          value={zip}
+          onChange={(e) => setZip(formatZip(e.target.value, format))}
+        />
+      </div>
+    </div>
+  )
+}
+
+function FormProgressPreview() {
+  const [progress, setProgress] = useState(60)
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <div data-coral-form-progress data-value={progress}>
+        <div className="flex justify-between text-sm mb-2">
+          <span className="text-muted-foreground">Form Progress</span>
+          <span data-coral-form-progress-label className="font-medium">{progress}% complete</span>
+        </div>
+        <div className="h-2 bg-muted rounded-full overflow-hidden">
+          <div
+            data-coral-form-progress-bar
+            className="h-full bg-primary transition-all"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={progress}
+        onChange={(e) => setProgress(parseInt(e.target.value))}
+        className="w-full"
+      />
+    </div>
+  )
+}
+
+function QuantityInputPreview() {
+  const [quantity, setQuantity] = useState(1)
+
+  return (
+    <div className="w-full max-w-sm mx-auto">
+      <label data-coral-label>Quantity</label>
+      <div data-coral-quantity-input data-min="1" data-max="10" className="flex items-center">
+        <button
+          data-coral-quantity-minus
+          onClick={() => setQuantity(Math.max(1, quantity - 1))}
+          disabled={quantity <= 1}
+          className="px-4 py-2 bg-muted hover:bg-muted/80 rounded-l-lg border border-border disabled:opacity-50"
+        >
+          −
+        </button>
+        <input
+          data-coral-quantity-field
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(Math.min(10, Math.max(1, parseInt(e.target.value) || 1)))}
+          className="w-16 text-center border-y border-border py-2"
+        />
+        <button
+          data-coral-quantity-plus
+          onClick={() => setQuantity(Math.min(10, quantity + 1))}
+          disabled={quantity >= 10}
+          className="px-4 py-2 bg-muted hover:bg-muted/80 rounded-r-lg border border-border disabled:opacity-50"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function PercentageInputPreview() {
+  const [percent, setPercent] = useState(50)
+
+  return (
+    <div className="w-full max-w-sm mx-auto">
+      <label data-coral-label>Discount</label>
+      <div data-coral-percentage-input className="flex items-center">
+        <input
+          data-coral-percentage-field
+          type="number"
+          min="0"
+          max="100"
+          value={percent}
+          onChange={(e) => setPercent(Math.min(100, Math.max(0, parseInt(e.target.value) || 0)))}
+          className="w-full rounded-r-none"
+        />
+        <span data-coral-percentage-symbol className="flex items-center px-3 bg-muted border border-l-0 border-border rounded-r-lg text-muted-foreground">%</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={percent}
+        onChange={(e) => setPercent(parseInt(e.target.value))}
+        className="w-full mt-2"
+      />
+    </div>
+  )
+}
+
+function UnitInputPreview() {
+  const [value, setValue] = useState('100')
+  const [unit, setUnit] = useState('px')
+
+  return (
+    <div className="w-full max-w-sm mx-auto">
+      <label data-coral-label>Width</label>
+      <div data-coral-unit-input className="flex">
+        <input
+          data-coral-unit-field
+          type="number"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="flex-1 rounded-r-none"
+        />
+        <select
+          data-coral-unit-select
+          value={unit}
+          onChange={(e) => setUnit(e.target.value)}
+          className="px-3 py-2 border border-l-0 border-border rounded-r-lg bg-muted"
+        >
+          <option>px</option>
+          <option>%</option>
+          <option>rem</option>
+          <option>em</option>
+          <option>vw</option>
+        </select>
+      </div>
+    </div>
+  )
+}
+
+function SocialInputPreview() {
+  const [platform, setPlatform] = useState<'twitter' | 'instagram' | 'github'>('twitter')
+  const [username, setUsername] = useState('')
+
+  const prefixes = { twitter: '@', instagram: '@', github: '' }
+  const placeholders = { twitter: 'username', instagram: 'username', github: 'username' }
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <div className="flex gap-2">
+        {(['twitter', 'instagram', 'github'] as const).map(p => (
+          <button
+            key={p}
+            onClick={() => setPlatform(p)}
+            className={`px-3 py-1 rounded text-sm capitalize ${platform === p ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}
+          >
+            {p}
+          </button>
+        ))}
+      </div>
+      <div>
+        <label data-coral-label className="capitalize">{platform} Username</label>
+        <div data-coral-social-input data-platform={platform} className="flex">
+          <span data-coral-social-prefix className="flex items-center px-3 bg-muted border border-r-0 border-border rounded-l-lg text-muted-foreground">{prefixes[platform]}</span>
+          <input
+            data-coral-social-field
+            type="text"
+            placeholder={placeholders[platform]}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="rounded-l-none"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function HexInputPreview() {
+  const [hex, setHex] = useState('ff7f50')
+
+  const isValidHex = (h: string) => /^[0-9A-Fa-f]{6}$/.test(h)
+
+  return (
+    <div className="w-full max-w-sm mx-auto">
+      <label data-coral-label>Color</label>
+      <div data-coral-hex-input className="flex items-center gap-2">
+        <div className="flex flex-1">
+          <span data-coral-hex-prefix className="flex items-center px-3 bg-muted border border-r-0 border-border rounded-l-lg text-muted-foreground">#</span>
+          <input
+            data-coral-hex-field
+            type="text"
+            maxLength={6}
+            placeholder="000000"
+            value={hex}
+            onChange={(e) => setHex(e.target.value.replace(/[^0-9A-Fa-f]/g, '').slice(0, 6))}
+            className="rounded-l-none"
+          />
+        </div>
+        <div
+          data-coral-hex-preview
+          className="w-10 h-10 rounded-lg border border-border"
+          style={{ backgroundColor: isValidHex(hex) ? `#${hex}` : '#fff' }}
+        />
+      </div>
+    </div>
+  )
+}
+
+function CharCounterPreview() {
+  const [text, setText] = useState('')
+  const maxLength = 280
+
+  const remaining = maxLength - text.length
+  const isWarning = remaining <= 20
+  const isError = remaining < 0
+
+  return (
+    <div className="w-full max-w-md">
+      <label data-coral-label>Tweet</label>
+      <div data-coral-char-counter data-max={maxLength}>
+        <textarea
+          data-coral-char-textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="What's happening?"
+          rows={4}
+          className="w-full px-3 py-2 border border-border rounded-lg resize-none"
+        />
+        <div className="flex justify-end mt-1">
+          <span
+            data-coral-char-count
+            className={`text-sm ${isError ? 'text-red-500' : isWarning ? 'text-yellow-500' : 'text-muted-foreground'}`}
+          >
+            {text.length}/{maxLength}
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function FormArrayPreview() {
+  const [items, setItems] = useState(['Item 1', 'Item 2'])
+
+  const addItem = () => {
+    if (items.length < 5) {
+      setItems([...items, `Item ${items.length + 1}`])
+    }
+  }
+
+  const removeItem = (index: number) => {
+    if (items.length > 1) {
+      setItems(items.filter((_, i) => i !== index))
+    }
+  }
+
+  const updateItem = (index: number, value: string) => {
+    const newItems = [...items]
+    newItems[index] = value
+    setItems(newItems)
+  }
+
+  return (
+    <div className="w-full max-w-md">
+      <label data-coral-label>Items</label>
+      <div data-coral-form-array className="space-y-2 mt-2">
+        {items.map((item, i) => (
+          <div key={i} data-coral-form-array-item className="flex gap-2">
+            <input
+              data-coral-input
+              value={item}
+              onChange={(e) => updateItem(i, e.target.value)}
+              placeholder={`Item ${i + 1}`}
+              className="flex-1"
+            />
+            <button
+              data-coral-form-array-remove
+              onClick={() => removeItem(i)}
+              disabled={items.length <= 1}
+              className="px-3 py-2 text-red-500 hover:bg-red-500/10 rounded disabled:opacity-50"
+            >
+              ×
+            </button>
+          </div>
+        ))}
+        <button
+          data-coral-form-array-add
+          onClick={addItem}
+          disabled={items.length >= 5}
+          className="w-full px-4 py-2 border border-dashed border-border rounded-lg text-muted-foreground hover:bg-muted disabled:opacity-50"
+        >
+          + Add Item
+        </button>
+      </div>
     </div>
   )
 }

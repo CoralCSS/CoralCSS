@@ -369,6 +369,277 @@ function ThumbnailPreview() {
   )
 }
 
+function CarouselPreview() {
+  const [current, setCurrent] = useState(0)
+  const items = ['from-primary to-accent', 'from-info to-primary', 'from-success to-info', 'from-warning to-success']
+  return (
+    <div className="w-full max-w-md">
+      <div className="relative overflow-hidden rounded-lg">
+        <div className="flex transition-transform duration-300" style={{ transform: `translateX(-${current * 100}%)` }}>
+          {items.map((gradient, i) => (
+            <div key={i} className={`w-full flex-shrink-0 aspect-video bg-gradient-to-br ${gradient} flex items-center justify-center text-white text-2xl font-bold`}>
+              {i + 1}
+            </div>
+          ))}
+        </div>
+        <button onClick={() => setCurrent(Math.max(0, current - 1))} className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full text-white">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button onClick={() => setCurrent(Math.min(items.length - 1, current + 1))} className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 rounded-full text-white">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+      <div className="flex justify-center gap-2 mt-3">
+        {items.map((_, i) => (
+          <button key={i} onClick={() => setCurrent(i)} className={`w-2 h-2 rounded-full ${i === current ? 'bg-primary' : 'bg-muted'}`} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function LightboxPreview() {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <button onClick={() => setOpen(true)} className="w-32 h-24 bg-gradient-to-br from-primary to-accent rounded-lg hover:scale-105 transition-transform cursor-zoom-in" />
+      {open && (
+        <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center" onClick={() => setOpen(false)}>
+          <button className="absolute top-4 right-4 text-white/70 hover:text-white">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+          <div className="w-[80vw] max-w-2xl aspect-video bg-gradient-to-br from-primary to-accent rounded-lg" />
+        </div>
+      )}
+    </>
+  )
+}
+
+function CompareSliderPreview() {
+  const [position, setPosition] = useState(50)
+  return (
+    <div className="w-full max-w-sm relative overflow-hidden rounded-lg" style={{ touchAction: 'none' }}>
+      <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-600" />
+      <div className="absolute inset-0 overflow-hidden" style={{ width: `${position}%` }}>
+        <div className="aspect-video bg-gradient-to-br from-primary to-accent" style={{ width: '100%' }} />
+      </div>
+      <div className="absolute inset-y-0" style={{ left: `${position}%` }}>
+        <div className="absolute inset-y-0 w-0.5 bg-white -translate-x-1/2" />
+        <button
+          className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center cursor-ew-resize"
+          onMouseDown={(e) => {
+            const parent = e.currentTarget.parentElement?.parentElement
+            const move = (ev: MouseEvent) => {
+              if (!parent) return
+              const rect = parent.getBoundingClientRect()
+              const pos = Math.max(0, Math.min(100, ((ev.clientX - rect.left) / rect.width) * 100))
+              setPosition(pos)
+            }
+            const up = () => { document.removeEventListener('mousemove', move); document.removeEventListener('mouseup', up) }
+            document.addEventListener('mousemove', move)
+            document.addEventListener('mouseup', up)
+          }}
+        >
+          <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function GalleryPreview() {
+  const images = ['from-primary to-accent', 'from-info to-primary', 'from-success to-info', 'from-warning to-success', 'from-error to-warning']
+  return (
+    <div className="w-full max-w-md grid grid-cols-4 gap-1 rounded-lg overflow-hidden">
+      <div className={`col-span-2 row-span-2 aspect-square bg-gradient-to-br ${images[0]}`} />
+      {images.slice(1).map((g, i) => (
+        <div key={i} className={`aspect-square bg-gradient-to-br ${g}`} />
+      ))}
+    </div>
+  )
+}
+
+function MasonryMediaPreview() {
+  const heights = ['h-32', 'h-40', 'h-24', 'h-36', 'h-28', 'h-44']
+  const gradients = ['from-primary to-accent', 'from-info to-primary', 'from-success to-info', 'from-warning to-success', 'from-error to-warning', 'from-accent to-error']
+  return (
+    <div className="columns-3 gap-2 w-full max-w-md">
+      {heights.map((h, i) => (
+        <div key={i} className={`${h} bg-gradient-to-br ${gradients[i]} rounded-lg mb-2`} />
+      ))}
+    </div>
+  )
+}
+
+function PosterPreview() {
+  return (
+    <div className="w-32 bg-card rounded-lg overflow-hidden shadow-lg border border-border">
+      <div className="aspect-[2/3] bg-gradient-to-br from-primary to-accent relative">
+        <div className="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+          <h4 className="text-white text-sm font-bold">Movie Title</h4>
+          <p className="text-white/70 text-xs">2024</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CoverPreview() {
+  return (
+    <div className="w-full max-w-sm relative rounded-xl overflow-hidden">
+      <div className="aspect-[21/9] bg-gradient-to-br from-primary to-accent" />
+      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+        <div className="text-center text-white">
+          <h3 className="text-2xl font-bold mb-1">Cover Title</h3>
+          <p className="text-sm opacity-80">Subtitle text</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function BackgroundMediaPreview() {
+  return (
+    <div className="w-full max-w-md h-48 relative rounded-xl overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent" />
+      <div className="absolute inset-0 bg-black/30" />
+      <div className="relative h-full flex flex-col items-center justify-center p-6">
+        <h3 className="text-white text-xl font-bold mb-2">Background Media</h3>
+        <p className="text-white/80 text-sm text-center">Content overlaid on background</p>
+      </div>
+    </div>
+  )
+}
+
+function LogoCloudPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <div className="grid grid-cols-4 gap-4 items-center justify-items-center opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+        {[1, 2, 3, 4].map(i => (
+          <div key={i} className="w-16 h-8 bg-muted rounded flex items-center justify-center text-xs text-muted-foreground">Logo {i}</div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function SpectrumPreview() {
+  const [active, setActive] = useState(true)
+  return (
+    <div className="w-full max-w-sm mx-auto">
+      <div className="flex items-end justify-center gap-1 h-20 p-4 bg-card border border-border rounded-lg">
+        {Array.from({ length: 16 }).map((_, i) => (
+          <div key={i} className={`w-1.5 bg-primary rounded-full transition-all ${active ? 'animate-pulse' : ''}`}
+            style={{ height: active ? `${Math.random() * 80 + 20}%` : '30%', animationDelay: `${i * 50}ms` }} />
+        ))}
+      </div>
+      <button onClick={() => setActive(!active)} className="mt-2 text-sm text-primary">{active ? 'Stop' : 'Start'}</button>
+    </div>
+  )
+}
+
+function EqualizerPreview() {
+  const bands = [60, 80, 50, 70, 90, 60, 75, 55]
+  return (
+    <div className="w-full max-w-sm mx-auto p-4 bg-card border border-border rounded-lg">
+      <div className="flex items-end justify-around h-24 gap-2">
+        {bands.map((h, i) => (
+          <div key={i} className="flex flex-col items-center gap-1 flex-1">
+            <div className="w-full bg-muted rounded-full overflow-hidden flex flex-col-reverse" style={{ height: '100%' }}>
+              <div className="bg-gradient-to-t from-primary to-accent transition-all" style={{ height: `${h}%` }} />
+            </div>
+            <span className="text-[10px] text-muted-foreground">{['60', '250', '1k', '4k', '8k', '12k', '14k', '16k'][i]}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function VideoThumbnailsPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <div className="flex gap-1 overflow-x-auto pb-2">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className={`w-20 flex-shrink-0 aspect-video rounded cursor-pointer hover:ring-2 ring-primary transition-all
+            bg-gradient-to-br ${['from-primary to-accent', 'from-info to-primary', 'from-success to-info', 'from-warning to-success'][i % 4]}`}
+          />
+        ))}
+      </div>
+      <div className="h-1 bg-muted rounded-full mt-2">
+        <div className="w-1/4 h-full bg-primary rounded-full" />
+      </div>
+    </div>
+  )
+}
+
+function MusicPlayerPreview() {
+  const [playing, setPlaying] = useState(false)
+  return (
+    <div className="w-full max-w-sm p-4 bg-card border border-border rounded-xl">
+      <div className="flex gap-4">
+        <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-lg flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <h4 className="font-medium text-foreground truncate">Song Title</h4>
+          <p className="text-sm text-muted-foreground truncate">Artist Name</p>
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-xs text-muted-foreground">1:24</span>
+            <div className="flex-1 h-1 bg-muted rounded-full">
+              <div className="w-1/3 h-full bg-primary rounded-full" />
+            </div>
+            <span className="text-xs text-muted-foreground">3:45</span>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-center gap-4 mt-4">
+        <button className="text-muted-foreground hover:text-foreground"><svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" /></svg></button>
+        <button onClick={() => setPlaying(!playing)} className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground">
+          {playing ? <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6zm8 0h4v16h-4z" /></svg>
+            : <svg className="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>}
+        </button>
+        <button className="text-muted-foreground hover:text-foreground"><svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg></button>
+      </div>
+    </div>
+  )
+}
+
+function SlideshowPreview() {
+  const [slide, setSlide] = useState(0)
+  const slides = ['from-primary to-accent', 'from-info to-primary', 'from-success to-info']
+  return (
+    <div className="w-full max-w-sm">
+      <div className="aspect-video bg-gradient-to-br rounded-lg relative overflow-hidden">
+        <div className={`absolute inset-0 bg-gradient-to-br ${slides[slide]} transition-opacity`} />
+        <div className="absolute bottom-2 inset-x-0 flex justify-center gap-2">
+          {slides.map((_, i) => (
+            <button key={i} onClick={() => setSlide(i)} className={`w-8 h-1 rounded-full ${i === slide ? 'bg-white' : 'bg-white/40'}`} />
+          ))}
+        </div>
+      </div>
+      <p className="text-xs text-muted-foreground text-center mt-2">Auto-advances every 5 seconds</p>
+    </div>
+  )
+}
+
+function FilmstripPreview() {
+  return (
+    <div className="w-full max-w-md p-3 bg-card border border-border rounded-lg">
+      <div className="flex gap-1">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className={`flex-1 aspect-[3/4] rounded bg-gradient-to-br ${
+            ['from-primary to-accent', 'from-info to-primary', 'from-success to-info', 'from-warning to-success', 'from-error to-warning', 'from-accent to-error'][i]
+          }`} />
+        ))}
+      </div>
+      <div className="flex justify-between text-xs text-muted-foreground mt-2">
+        <span>00:00</span><span>01:30</span><span>03:00</span>
+      </div>
+    </div>
+  )
+}
+
 const mediaComponents = [
   {
     id: 'image',
@@ -590,6 +861,204 @@ const mediaComponents = [
       { name: 'data-live', type: 'boolean', default: 'false', description: 'Show live indicator' },
     ],
     preview: ThumbnailPreview,
+  },
+  {
+    id: 'carousel',
+    name: 'Carousel',
+    description: 'Image/media carousel with navigation.',
+    usage: `<div data-coral-carousel>
+  <div data-coral-carousel-track>
+    <div data-coral-carousel-slide><img src="..." /></div>
+  </div>
+  <button data-coral-carousel-prev />
+  <button data-coral-carousel-next />
+</div>`,
+    props: [
+      { name: 'data-autoplay', type: 'boolean', default: 'false', description: 'Auto-advance' },
+      { name: 'data-loop', type: 'boolean', default: 'true', description: 'Loop slides' },
+    ],
+    preview: CarouselPreview,
+  },
+  {
+    id: 'lightbox',
+    name: 'Lightbox',
+    description: 'Image lightbox viewer overlay.',
+    usage: `<div data-coral-lightbox>
+  <img data-coral-lightbox-trigger src="thumbnail.jpg" />
+  <div data-coral-lightbox-content>
+    <img src="full.jpg" />
+  </div>
+</div>`,
+    props: [
+      { name: 'data-zoom', type: 'boolean', default: 'true', description: 'Enable zoom' },
+    ],
+    preview: LightboxPreview,
+  },
+  {
+    id: 'compare-slider',
+    name: 'CompareSlider',
+    description: 'Before/after image comparison slider.',
+    usage: `<div data-coral-compare-slider>
+  <img data-coral-compare-before src="before.jpg" />
+  <img data-coral-compare-after src="after.jpg" />
+</div>`,
+    props: [
+      { name: 'data-initial', type: 'number', default: '50', description: 'Initial position %' },
+    ],
+    preview: CompareSliderPreview,
+  },
+  {
+    id: 'gallery',
+    name: 'Gallery',
+    description: 'Photo gallery with mixed layouts.',
+    usage: `<div data-coral-gallery data-layout="grid">
+  <img data-coral-gallery-item src="..." />
+</div>`,
+    props: [
+      { name: 'data-layout', type: '"grid" | "masonry" | "justified"', default: '"grid"', description: 'Layout style' },
+    ],
+    preview: GalleryPreview,
+  },
+  {
+    id: 'masonry-media',
+    name: 'MasonryMedia',
+    description: 'Pinterest-style masonry media grid.',
+    usage: `<div data-coral-masonry-media data-columns="3">
+  <img data-coral-masonry-item src="..." />
+</div>`,
+    props: [
+      { name: 'data-columns', type: '2 | 3 | 4', default: '3', description: 'Columns' },
+    ],
+    preview: MasonryMediaPreview,
+  },
+  {
+    id: 'poster',
+    name: 'Poster',
+    description: 'Movie/media poster display.',
+    usage: `<div data-coral-poster>
+  <img src="..." />
+  <div data-coral-poster-info>
+    <h4>Title</h4>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-ratio', type: '"2/3" | "3/4"', default: '"2/3"', description: 'Poster ratio' },
+    ],
+    preview: PosterPreview,
+  },
+  {
+    id: 'cover',
+    name: 'Cover',
+    description: 'Cover image with text overlay.',
+    usage: `<div data-coral-cover>
+  <img data-coral-cover-image src="..." />
+  <div data-coral-cover-content>Title</div>
+</div>`,
+    props: [
+      { name: 'data-overlay', type: 'boolean', default: 'true', description: 'Show overlay' },
+    ],
+    preview: CoverPreview,
+  },
+  {
+    id: 'background-media',
+    name: 'BackgroundMedia',
+    description: 'Background image/video with content overlay.',
+    usage: `<div data-coral-background-media>
+  <video data-coral-bg-video src="..." />
+  <div data-coral-bg-content>Content</div>
+</div>`,
+    props: [
+      { name: 'data-parallax', type: 'boolean', default: 'false', description: 'Parallax effect' },
+    ],
+    preview: BackgroundMediaPreview,
+  },
+  {
+    id: 'logo-cloud',
+    name: 'LogoCloud',
+    description: 'Brand/partner logo display grid.',
+    usage: `<div data-coral-logo-cloud>
+  <img data-coral-logo src="logo1.svg" />
+  <img data-coral-logo src="logo2.svg" />
+</div>`,
+    props: [
+      { name: 'data-grayscale', type: 'boolean', default: 'true', description: 'Grayscale logos' },
+    ],
+    preview: LogoCloudPreview,
+  },
+  {
+    id: 'spectrum',
+    name: 'Spectrum',
+    description: 'Audio spectrum visualizer.',
+    usage: `<div data-coral-spectrum data-bars="16">
+  <!-- Auto-generated bars -->
+</div>`,
+    props: [
+      { name: 'data-bars', type: 'number', default: '16', description: 'Number of bars' },
+    ],
+    preview: SpectrumPreview,
+  },
+  {
+    id: 'equalizer',
+    name: 'Equalizer',
+    description: 'Audio equalizer control.',
+    usage: `<div data-coral-equalizer>
+  <div data-coral-eq-band data-freq="60" />
+  <div data-coral-eq-band data-freq="250" />
+</div>`,
+    props: [
+      { name: 'data-bands', type: 'number', default: '8', description: 'Number of bands' },
+    ],
+    preview: EqualizerPreview,
+  },
+  {
+    id: 'video-thumbnails',
+    name: 'VideoThumbnails',
+    description: 'Video thumbnail strip/timeline.',
+    usage: `<div data-coral-video-thumbnails>
+  <img data-coral-vt-item src="thumb1.jpg" />
+</div>`,
+    props: [
+      { name: 'data-count', type: 'number', default: '8', description: 'Thumbnail count' },
+    ],
+    preview: VideoThumbnailsPreview,
+  },
+  {
+    id: 'music-player',
+    name: 'MusicPlayer',
+    description: 'Full-featured music player.',
+    usage: `<div data-coral-music-player>
+  <div data-coral-mp-artwork />
+  <div data-coral-mp-info />
+  <div data-coral-mp-controls />
+</div>`,
+    props: [
+      { name: 'data-mini', type: 'boolean', default: 'false', description: 'Mini mode' },
+    ],
+    preview: MusicPlayerPreview,
+  },
+  {
+    id: 'slideshow',
+    name: 'Slideshow',
+    description: 'Auto-advancing slideshow.',
+    usage: `<div data-coral-slideshow data-interval="5000">
+  <div data-coral-slideshow-slide><img src="..." /></div>
+</div>`,
+    props: [
+      { name: 'data-interval', type: 'number', default: '5000', description: 'Interval ms' },
+    ],
+    preview: SlideshowPreview,
+  },
+  {
+    id: 'filmstrip',
+    name: 'Filmstrip',
+    description: 'Video filmstrip timeline preview.',
+    usage: `<div data-coral-filmstrip>
+  <div data-coral-filmstrip-frame />
+</div>`,
+    props: [
+      { name: 'data-frames', type: 'number', default: '6', description: 'Frame count' },
+    ],
+    preview: FilmstripPreview,
   },
 ]
 

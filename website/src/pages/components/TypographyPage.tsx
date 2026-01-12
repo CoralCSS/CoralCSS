@@ -300,6 +300,228 @@ function SubscriptSuperscriptPreview() {
   )
 }
 
+function KbdPreview() {
+  return (
+    <div className="space-y-4 w-full max-w-md">
+      <p className="text-muted-foreground">
+        Press <kbd data-coral-kbd className="px-2 py-1 bg-muted border border-border rounded text-xs font-mono">Ctrl</kbd> + <kbd data-coral-kbd className="px-2 py-1 bg-muted border border-border rounded text-xs font-mono">C</kbd> to copy
+      </p>
+      <p className="text-muted-foreground">
+        Use <kbd data-coral-kbd className="px-2 py-1 bg-muted border border-border rounded text-xs font-mono">⌘</kbd> + <kbd data-coral-kbd className="px-2 py-1 bg-muted border border-border rounded text-xs font-mono">K</kbd> for search
+      </p>
+      <div className="flex gap-2">
+        <kbd data-coral-kbd className="px-3 py-2 bg-card border border-border rounded shadow-sm text-sm font-mono">Esc</kbd>
+        <kbd data-coral-kbd className="px-3 py-2 bg-card border border-border rounded shadow-sm text-sm font-mono">Enter ↵</kbd>
+        <kbd data-coral-kbd className="px-3 py-2 bg-card border border-border rounded shadow-sm text-sm font-mono">Tab ⇥</kbd>
+      </div>
+    </div>
+  )
+}
+
+function MarkPreview() {
+  return (
+    <div className="space-y-3 w-full max-w-md">
+      <p className="text-muted-foreground">
+        Search results for "<mark data-coral-mark className="bg-amber-200 dark:bg-amber-500/30 px-0.5 rounded">coral</mark>": Found 42 matches.
+      </p>
+      <p className="text-muted-foreground">
+        <mark data-coral-mark data-variant="success" className="bg-emerald-200 dark:bg-emerald-500/30 px-0.5 rounded">Correct answer!</mark> Well done.
+      </p>
+    </div>
+  )
+}
+
+function DropCapPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <p className="text-muted-foreground">
+        <span data-coral-dropcap className="float-left text-5xl font-bold text-primary mr-2 leading-none">O</span>
+        nce upon a time, in a land of beautiful code, there lived a CSS framework named Coral. It helped developers create stunning websites with ease.
+      </p>
+    </div>
+  )
+}
+
+function StrikethroughPreview() {
+  return (
+    <div className="space-y-3 w-full max-w-md">
+      <p className="text-muted-foreground">
+        Regular price: <span data-coral-strikethrough className="line-through text-muted-foreground/60">$99</span> <span className="text-primary font-semibold">$49</span>
+      </p>
+      <p className="text-muted-foreground">
+        <span data-coral-strikethrough className="line-through decoration-destructive">Deprecated feature</span> - no longer supported
+      </p>
+    </div>
+  )
+}
+
+function TextAlignPreview() {
+  return (
+    <div className="w-full max-w-md space-y-4">
+      <p data-coral-align="left" className="text-left text-muted-foreground p-2 bg-muted rounded">Left aligned text</p>
+      <p data-coral-align="center" className="text-center text-muted-foreground p-2 bg-muted rounded">Center aligned text</p>
+      <p data-coral-align="right" className="text-right text-muted-foreground p-2 bg-muted rounded">Right aligned text</p>
+      <p data-coral-align="justify" className="text-justify text-muted-foreground p-2 bg-muted rounded">Justified text spreads across the line evenly.</p>
+    </div>
+  )
+}
+
+function LineHeightPreview() {
+  return (
+    <div className="w-full max-w-md space-y-4">
+      <div>
+        <span className="text-xs text-muted-foreground">Tight (1.25)</span>
+        <p data-coral-line-height="tight" className="leading-tight text-muted-foreground bg-muted p-2 rounded">
+          This text has tight line height. Multiple lines will be closer together.
+        </p>
+      </div>
+      <div>
+        <span className="text-xs text-muted-foreground">Relaxed (1.75)</span>
+        <p data-coral-line-height="relaxed" className="leading-relaxed text-muted-foreground bg-muted p-2 rounded">
+          This text has relaxed line height. Multiple lines will be more spaced out.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function LetterSpacingPreview() {
+  return (
+    <div className="w-full max-w-md space-y-3">
+      <p data-coral-tracking="tight" className="tracking-tight text-muted-foreground">Tight tracking (-0.025em)</p>
+      <p data-coral-tracking="normal" className="tracking-normal text-muted-foreground">Normal tracking (0)</p>
+      <p data-coral-tracking="wide" className="tracking-wide text-muted-foreground">Wide tracking (0.025em)</p>
+      <p data-coral-tracking="widest" className="tracking-widest text-muted-foreground uppercase text-sm">Widest tracking (0.1em) - great for headers</p>
+    </div>
+  )
+}
+
+function WordBreakPreview() {
+  return (
+    <div className="w-full max-w-sm mx-auto space-y-4">
+      <div>
+        <span className="text-xs text-muted-foreground">break-words</span>
+        <p data-coral-break="words" className="break-words bg-muted p-2 rounded text-muted-foreground">
+          Supercalifragilisticexpialidocious andanotherverylongword
+        </p>
+      </div>
+      <div>
+        <span className="text-xs text-muted-foreground">break-all</span>
+        <p data-coral-break="all" className="break-all bg-muted p-2 rounded text-muted-foreground">
+          https://example.com/very/long/url/that/needs/breaking
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function FirstLetterPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <p data-coral-first-letter className="text-muted-foreground first-letter:text-4xl first-letter:font-bold first-letter:text-primary first-letter:float-left first-letter:mr-2">
+        Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed.
+      </p>
+    </div>
+  )
+}
+
+function PlaceholderPreview() {
+  return (
+    <div className="w-full max-w-md space-y-4">
+      <div data-coral-placeholder className="h-20 bg-muted rounded-lg flex items-center justify-center">
+        <span className="text-muted-foreground text-sm">Placeholder content</span>
+      </div>
+      <div className="space-y-2">
+        <div data-coral-skeleton className="h-4 bg-muted rounded animate-pulse w-3/4" />
+        <div data-coral-skeleton className="h-4 bg-muted rounded animate-pulse w-full" />
+        <div data-coral-skeleton className="h-4 bg-muted rounded animate-pulse w-5/6" />
+      </div>
+    </div>
+  )
+}
+
+function NumberStylePreview() {
+  return (
+    <div className="w-full max-w-md space-y-4">
+      <div className="flex gap-6">
+        <div className="text-center">
+          <span data-coral-number data-variant="display" className="text-5xl font-bold text-primary">42</span>
+          <p className="text-xs text-muted-foreground">Display</p>
+        </div>
+        <div className="text-center">
+          <span data-coral-number data-variant="tabular" className="font-mono text-2xl text-foreground tabular-nums">1,234,567</span>
+          <p className="text-xs text-muted-foreground">Tabular</p>
+        </div>
+        <div className="text-center">
+          <span data-coral-number data-variant="oldstyle" className="text-2xl text-foreground" style={{ fontFeatureSettings: '"onum"' }}>0123456789</span>
+          <p className="text-xs text-muted-foreground">Old-style</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function InlineQuotePreview() {
+  return (
+    <div className="w-full max-w-md space-y-3">
+      <p className="text-muted-foreground">
+        As the saying goes, <q data-coral-quote className="italic text-foreground">"simplicity is the ultimate sophistication"</q>.
+      </p>
+      <p className="text-muted-foreground">
+        The French say <q data-coral-quote lang="fr" className="italic text-foreground">«c'est la vie»</q>.
+      </p>
+    </div>
+  )
+}
+
+function EmStrongPreview() {
+  return (
+    <div className="w-full max-w-md space-y-3">
+      <p className="text-muted-foreground">
+        Use <em data-coral-em className="italic text-foreground">emphasis</em> for stress or importance in context.
+      </p>
+      <p className="text-muted-foreground">
+        Use <strong data-coral-strong className="font-bold text-foreground">strong</strong> for serious or urgent content.
+      </p>
+      <p className="text-muted-foreground">
+        You can <em className="italic"><strong className="font-bold text-foreground">combine both</strong></em> for maximum impact!
+      </p>
+    </div>
+  )
+}
+
+function FontVariantPreview() {
+  return (
+    <div className="w-full max-w-md space-y-4">
+      <div>
+        <span className="text-xs text-muted-foreground">Small Caps</span>
+        <p data-coral-variant="small-caps" className="text-foreground" style={{ fontVariant: 'small-caps' }}>
+          The Quick Brown Fox Jumps Over The Lazy Dog
+        </p>
+      </div>
+      <div>
+        <span className="text-xs text-muted-foreground">All Small Caps</span>
+        <p data-coral-variant="all-small-caps" className="text-foreground" style={{ fontVariantCaps: 'all-small-caps' }}>
+          Typography Design Patterns
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function BalanceTextPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <h3 data-coral-balance className="text-xl font-semibold text-foreground mb-2" style={{ textWrap: 'balance' as never }}>
+        This is a headline that uses text balancing for better visual appearance
+      </h3>
+      <p className="text-muted-foreground text-sm">
+        Text balancing helps prevent orphaned words and creates visually pleasing line breaks in headings.
+      </p>
+    </div>
+  )
+}
+
 const typographyComponents = [
   {
     id: 'heading',
@@ -521,6 +743,163 @@ const typographyComponents = [
 <p>E = mc<sup>2</sup></p>`,
     props: [],
     preview: SubscriptSuperscriptPreview,
+  },
+  {
+    id: 'kbd',
+    name: 'Kbd',
+    description: 'Keyboard input display for shortcuts and keys.',
+    usage: `<kbd data-coral-kbd>Ctrl</kbd> + <kbd data-coral-kbd>C</kbd>`,
+    props: [
+      { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Key size' },
+    ],
+    preview: KbdPreview,
+  },
+  {
+    id: 'mark',
+    name: 'Mark',
+    description: 'Highlighted/marked text for search results or emphasis.',
+    usage: `<mark data-coral-mark>highlighted text</mark>
+<mark data-coral-mark data-variant="success">success</mark>`,
+    props: [
+      { name: 'data-variant', type: '"default" | "success" | "warning" | "error"', default: '"default"', description: 'Mark style' },
+    ],
+    preview: MarkPreview,
+  },
+  {
+    id: 'dropcap',
+    name: 'DropCap',
+    description: 'Large decorative first letter for articles.',
+    usage: `<p><span data-coral-dropcap>O</span>nce upon a time...</p>`,
+    props: [
+      { name: 'data-lines', type: '2 | 3 | 4', default: '3', description: 'Lines to span' },
+    ],
+    preview: DropCapPreview,
+  },
+  {
+    id: 'strikethrough',
+    name: 'Strikethrough',
+    description: 'Strikethrough text for deleted or deprecated content.',
+    usage: `<span data-coral-strikethrough>old price</span>`,
+    props: [
+      { name: 'data-color', type: 'string', default: '"muted"', description: 'Line color' },
+    ],
+    preview: StrikethroughPreview,
+  },
+  {
+    id: 'text-align',
+    name: 'TextAlign',
+    description: 'Text alignment utilities.',
+    usage: `<p data-coral-align="center">Centered text</p>
+<p data-coral-align="right">Right aligned</p>`,
+    props: [
+      { name: 'data-align', type: '"left" | "center" | "right" | "justify"', default: '"left"', description: 'Alignment' },
+    ],
+    preview: TextAlignPreview,
+  },
+  {
+    id: 'line-height',
+    name: 'LineHeight',
+    description: 'Line height/leading utilities.',
+    usage: `<p data-coral-line-height="tight">Tight leading</p>
+<p data-coral-line-height="relaxed">Relaxed leading</p>`,
+    props: [
+      { name: 'data-line-height', type: '"tight" | "normal" | "relaxed" | "loose"', default: '"normal"', description: 'Line height' },
+    ],
+    preview: LineHeightPreview,
+  },
+  {
+    id: 'letter-spacing',
+    name: 'LetterSpacing',
+    description: 'Letter spacing/tracking utilities.',
+    usage: `<p data-coral-tracking="wide">Wide tracking</p>
+<p data-coral-tracking="widest">Widest tracking</p>`,
+    props: [
+      { name: 'data-tracking', type: '"tighter" | "tight" | "normal" | "wide" | "wider" | "widest"', default: '"normal"', description: 'Tracking' },
+    ],
+    preview: LetterSpacingPreview,
+  },
+  {
+    id: 'word-break',
+    name: 'WordBreak',
+    description: 'Word break and overflow utilities.',
+    usage: `<p data-coral-break="words">Long text that breaks</p>
+<p data-coral-break="all">Break anywhere</p>`,
+    props: [
+      { name: 'data-break', type: '"normal" | "words" | "all"', default: '"normal"', description: 'Break style' },
+    ],
+    preview: WordBreakPreview,
+  },
+  {
+    id: 'first-letter',
+    name: 'FirstLetter',
+    description: 'Styled first letter for decorative paragraphs.',
+    usage: `<p data-coral-first-letter>Typography is...</p>`,
+    props: [
+      { name: 'data-size', type: '"md" | "lg" | "xl"', default: '"lg"', description: 'Letter size' },
+    ],
+    preview: FirstLetterPreview,
+  },
+  {
+    id: 'placeholder',
+    name: 'Placeholder',
+    description: 'Placeholder and skeleton text components.',
+    usage: `<div data-coral-placeholder>Loading...</div>
+<div data-coral-skeleton />`,
+    props: [
+      { name: 'data-animate', type: 'boolean', default: 'true', description: 'Animate skeleton' },
+    ],
+    preview: PlaceholderPreview,
+  },
+  {
+    id: 'number-style',
+    name: 'NumberStyle',
+    description: 'Stylized number displays.',
+    usage: `<span data-coral-number data-variant="display">42</span>
+<span data-coral-number data-variant="tabular">1,234</span>`,
+    props: [
+      { name: 'data-variant', type: '"display" | "tabular" | "oldstyle"', default: '"tabular"', description: 'Number style' },
+    ],
+    preview: NumberStylePreview,
+  },
+  {
+    id: 'inline-quote',
+    name: 'InlineQuote',
+    description: 'Inline quotation marks with proper localization.',
+    usage: `<q data-coral-quote>quoted text</q>
+<q data-coral-quote lang="fr">texte cité</q>`,
+    props: [
+      { name: 'lang', type: 'string', default: '"en"', description: 'Quote language' },
+    ],
+    preview: InlineQuotePreview,
+  },
+  {
+    id: 'em-strong',
+    name: 'Em/Strong',
+    description: 'Emphasis and strong importance text.',
+    usage: `<em data-coral-em>emphasized</em>
+<strong data-coral-strong>important</strong>`,
+    props: [],
+    preview: EmStrongPreview,
+  },
+  {
+    id: 'font-variant',
+    name: 'FontVariant',
+    description: 'Font variants like small-caps.',
+    usage: `<span data-coral-variant="small-caps">Small Caps Text</span>`,
+    props: [
+      { name: 'data-variant', type: '"small-caps" | "all-small-caps" | "petite-caps"', default: '"small-caps"', description: 'Variant' },
+    ],
+    preview: FontVariantPreview,
+  },
+  {
+    id: 'balance-text',
+    name: 'BalanceText',
+    description: 'CSS text-wrap balance for headings.',
+    usage: `<h2 data-coral-balance>Balanced headline text</h2>`,
+    props: [
+      { name: 'data-balance', type: 'boolean', default: 'true', description: 'Enable balancing' },
+    ],
+    preview: BalanceTextPreview,
   },
 ]
 

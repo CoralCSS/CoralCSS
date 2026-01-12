@@ -567,6 +567,470 @@ function SplitTextPreview() {
   )
 }
 
+function CopyToClipboardPreview() {
+  const [copied, setCopied] = useState(false)
+  const textToCopy = 'npm install coralcss'
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="flex items-center gap-2 p-3 bg-muted rounded-lg">
+        <code className="flex-1 text-sm text-foreground font-mono">{textToCopy}</code>
+        <button
+          onClick={() => {
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+          }}
+          className="px-3 py-1.5 bg-primary text-primary-foreground rounded text-sm flex items-center gap-2"
+        >
+          {copied ? (
+            <>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              Copied!
+            </>
+          ) : (
+            <>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              Copy
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function DragAndDropPreview() {
+  const [items, setItems] = useState(['Item 1', 'Item 2', 'Item 3', 'Item 4'])
+  const [dragIndex, setDragIndex] = useState<number | null>(null)
+
+  return (
+    <div className="w-full max-w-sm space-y-2">
+      {items.map((item, index) => (
+        <div
+          key={item}
+          draggable
+          onDragStart={() => setDragIndex(index)}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={() => {
+            if (dragIndex !== null) {
+              const newItems = [...items]
+              const [removed] = newItems.splice(dragIndex, 1)
+              newItems.splice(index, 0, removed)
+              setItems(newItems)
+              setDragIndex(null)
+            }
+          }}
+          className={`p-3 bg-card border border-border rounded-lg cursor-grab active:cursor-grabbing flex items-center gap-3 transition-all ${
+            dragIndex === index ? 'opacity-50 scale-95' : ''
+          }`}
+        >
+          <svg className="w-4 h-4 text-muted-foreground" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 6h2v2H8V6zm6 0h2v2h-2V6zM8 11h2v2H8v-2zm6 0h2v2h-2v-2zm-6 5h2v2H8v-2zm6 0h2v2h-2v-2z" />
+          </svg>
+          <span className="text-foreground">{item}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function SortablePreview() {
+  const [items] = useState([
+    { id: 1, name: 'Task A', priority: 'High' },
+    { id: 2, name: 'Task B', priority: 'Medium' },
+    { id: 3, name: 'Task C', priority: 'Low' },
+  ])
+
+  return (
+    <div className="w-full max-w-sm">
+      <div className="space-y-2">
+        {items.map((item) => (
+          <div key={item.id} className="p-3 bg-card border border-border rounded-lg flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-muted rounded flex items-center justify-center text-xs text-muted-foreground">
+                {item.id}
+              </div>
+              <span className="text-foreground">{item.name}</span>
+            </div>
+            <span className={`text-xs px-2 py-1 rounded ${
+              item.priority === 'High' ? 'bg-destructive/10 text-destructive' :
+              item.priority === 'Medium' ? 'bg-warning/10 text-warning' :
+              'bg-muted text-muted-foreground'
+            }`}>
+              {item.priority}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ParallaxPreview() {
+  return (
+    <div className="w-full max-w-md h-48 overflow-hidden rounded-lg relative">
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-primary to-accent"
+        style={{ transform: 'translateZ(-1px) scale(1.5)' }}
+      />
+      <div className="relative z-10 h-full flex items-center justify-center">
+        <div className="text-center text-white">
+          <h3 className="text-2xl font-bold mb-2">Parallax Effect</h3>
+          <p className="text-sm opacity-80">Background moves slower than foreground</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CountUpPreview() {
+  const [count, setCount] = useState(0)
+  const target = 1234
+
+  useState(() => {
+    const duration = 2000
+    const steps = 60
+    const increment = target / steps
+    let current = 0
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= target) {
+        setCount(target)
+        clearInterval(timer)
+      } else {
+        setCount(Math.floor(current))
+      }
+    }, duration / steps)
+    return () => clearInterval(timer)
+  })
+
+  return (
+    <div className="w-full max-w-sm text-center">
+      <div className="text-6xl font-bold text-primary mb-2">{count.toLocaleString()}</div>
+      <p className="text-muted-foreground">Happy customers</p>
+      <button
+        onClick={() => setCount(0)}
+        className="mt-4 px-4 py-2 bg-muted rounded-lg text-sm"
+      >
+        Reset
+      </button>
+    </div>
+  )
+}
+
+function TypeWriterPreview() {
+  const [text, setText] = useState('')
+  const fullText = 'Welcome to CoralCSS!'
+
+  useState(() => {
+    let index = 0
+    const timer = setInterval(() => {
+      if (index < fullText.length) {
+        setText(fullText.slice(0, index + 1))
+        index++
+      } else {
+        clearInterval(timer)
+      }
+    }, 100)
+    return () => clearInterval(timer)
+  })
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="p-6 bg-card border border-border rounded-lg">
+        <span className="text-2xl font-mono text-foreground">{text}</span>
+        <span className="animate-pulse text-primary">|</span>
+      </div>
+    </div>
+  )
+}
+
+function InfiniteScrollPreview() {
+  const [items] = useState(Array.from({ length: 10 }, (_, i) => `Item ${i + 1}`))
+
+  return (
+    <div className="w-full max-w-sm">
+      <div className="h-48 overflow-y-auto bg-card border border-border rounded-lg">
+        <div className="p-2 space-y-2">
+          {items.map((item, i) => (
+            <div key={i} className="p-3 bg-muted rounded-lg text-foreground">
+              {item}
+            </div>
+          ))}
+          <div className="py-4 text-center">
+            <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Loading more...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function PasswordStrengthPreview() {
+  const [password, setPassword] = useState('')
+  const strength = password.length === 0 ? 0 : password.length < 4 ? 1 : password.length < 8 ? 2 : password.length < 12 ? 3 : 4
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Enter password..."
+        className="w-full px-3 py-2 bg-background border border-border rounded-lg"
+      />
+      <div className="space-y-2">
+        <div className="flex gap-1">
+          {[1, 2, 3, 4].map((level) => (
+            <div
+              key={level}
+              className={`h-2 flex-1 rounded-full transition-all ${
+                level <= strength
+                  ? strength === 1 ? 'bg-destructive' : strength === 2 ? 'bg-warning' : strength === 3 ? 'bg-info' : 'bg-success'
+                  : 'bg-muted'
+              }`}
+            />
+          ))}
+        </div>
+        <p className="text-sm text-muted-foreground">
+          Strength: {['None', 'Weak', 'Fair', 'Good', 'Strong'][strength]}
+        </p>
+      </div>
+    </div>
+  )
+}
+
+function FileUploadPreview() {
+  const [files, setFiles] = useState<string[]>([])
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <div
+        className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer"
+        onClick={() => setFiles([...files, `file-${files.length + 1}.pdf`])}
+      >
+        <svg className="w-12 h-12 mx-auto text-muted-foreground mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+        </svg>
+        <p className="text-muted-foreground">Click to upload or drag and drop</p>
+        <p className="text-xs text-muted-foreground mt-1">PDF, DOC up to 10MB</p>
+      </div>
+      {files.length > 0 && (
+        <div className="space-y-2">
+          {files.map((file, i) => (
+            <div key={i} className="flex items-center gap-3 p-2 bg-muted rounded-lg">
+              <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <span className="text-sm text-foreground flex-1">{file}</span>
+              <button onClick={() => setFiles(files.filter((_, j) => j !== i))} className="text-muted-foreground hover:text-destructive">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function CodeHighlightPreview() {
+  return (
+    <div className="w-full max-w-md">
+      <div className="bg-[#1e1e1e] rounded-lg overflow-hidden">
+        <div className="flex items-center gap-2 px-4 py-2 bg-[#252526]">
+          <div className="w-3 h-3 rounded-full bg-red-500" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500" />
+          <div className="w-3 h-3 rounded-full bg-green-500" />
+          <span className="text-xs text-gray-400 ml-2">index.js</span>
+        </div>
+        <pre className="p-4 text-sm font-mono overflow-x-auto">
+          <code>
+            <span className="text-purple-400">const</span>{' '}
+            <span className="text-blue-300">coral</span>{' '}
+            <span className="text-white">=</span>{' '}
+            <span className="text-yellow-300">createCoral</span>
+            <span className="text-white">(</span>
+            <span className="text-orange-300">{`{`}</span>
+            {'\n  '}
+            <span className="text-blue-300">preset</span>
+            <span className="text-white">:</span>{' '}
+            <span className="text-green-300">'coral'</span>
+            <span className="text-white">,</span>
+            {'\n  '}
+            <span className="text-blue-300">darkMode</span>
+            <span className="text-white">:</span>{' '}
+            <span className="text-green-300">'class'</span>
+            {'\n'}
+            <span className="text-orange-300">{`}`}</span>
+            <span className="text-white">)</span>
+          </code>
+        </pre>
+      </div>
+    </div>
+  )
+}
+
+function SkeletonPreview() {
+  const [loading, setLoading] = useState(true)
+
+  return (
+    <div className="w-full max-w-sm space-y-4">
+      <button onClick={() => setLoading(!loading)} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm">
+        Toggle Loading
+      </button>
+      <div className="p-4 bg-card border border-border rounded-lg">
+        {loading ? (
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-muted rounded-full animate-pulse" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 bg-muted rounded w-3/4 animate-pulse" />
+                <div className="h-3 bg-muted rounded w-1/2 animate-pulse" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <div className="h-3 bg-muted rounded animate-pulse" />
+              <div className="h-3 bg-muted rounded w-5/6 animate-pulse" />
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">JD</div>
+            <div>
+              <h4 className="font-semibold text-foreground">John Doe</h4>
+              <p className="text-sm text-muted-foreground">Software Developer</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function TiltPreview() {
+  const [transform, setTransform] = useState('rotateX(0) rotateY(0)')
+
+  return (
+    <div className="w-full max-w-sm flex justify-center">
+      <div
+        className="w-48 h-48 bg-gradient-to-br from-primary to-accent rounded-xl shadow-xl flex items-center justify-center cursor-pointer"
+        style={{ transform, transition: 'transform 0.1s ease-out', transformStyle: 'preserve-3d' }}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect()
+          const x = (e.clientY - rect.top - rect.height / 2) / 10
+          const y = -(e.clientX - rect.left - rect.width / 2) / 10
+          setTransform(`perspective(500px) rotateX(${x}deg) rotateY(${y}deg)`)
+        }}
+        onMouseLeave={() => setTransform('rotateX(0) rotateY(0)')}
+      >
+        <span className="text-white text-xl font-bold">Tilt Me</span>
+      </div>
+    </div>
+  )
+}
+
+function ConfettiPreview() {
+  const [show, setShow] = useState(false)
+
+  return (
+    <div className="w-full max-w-sm text-center relative">
+      <button
+        onClick={() => {
+          setShow(true)
+          setTimeout(() => setShow(false), 3000)
+        }}
+        className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium"
+      >
+        Celebrate!
+      </button>
+      {show && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {Array.from({ length: 50 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-2 h-2 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                backgroundColor: ['#f59e0b', '#ef4444', '#10b981', '#3b82f6', '#8b5cf6'][i % 5],
+                animation: `confetti-fall ${1 + Math.random() * 2}s ease-out forwards`,
+                animationDelay: `${Math.random() * 0.5}s`,
+              }}
+            />
+          ))}
+        </div>
+      )}
+      <style>{`
+        @keyframes confetti-fall {
+          0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(300px) rotate(720deg); opacity: 0; }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+function QRCodePreview() {
+  return (
+    <div className="w-full max-w-sm flex flex-col items-center gap-4">
+      <div className="p-4 bg-white rounded-lg">
+        <svg viewBox="0 0 100 100" className="w-32 h-32">
+          <rect x="0" y="0" width="100" height="100" fill="white" />
+          {/* Simplified QR pattern */}
+          <rect x="10" y="10" width="25" height="25" fill="black" />
+          <rect x="65" y="10" width="25" height="25" fill="black" />
+          <rect x="10" y="65" width="25" height="25" fill="black" />
+          <rect x="15" y="15" width="15" height="15" fill="white" />
+          <rect x="70" y="15" width="15" height="15" fill="white" />
+          <rect x="15" y="70" width="15" height="15" fill="white" />
+          <rect x="20" y="20" width="5" height="5" fill="black" />
+          <rect x="75" y="20" width="5" height="5" fill="black" />
+          <rect x="20" y="75" width="5" height="5" fill="black" />
+          <rect x="40" y="10" width="5" height="5" fill="black" />
+          <rect x="50" y="10" width="5" height="5" fill="black" />
+          <rect x="40" y="20" width="10" height="5" fill="black" />
+          <rect x="45" y="45" width="10" height="10" fill="black" />
+        </svg>
+      </div>
+      <p className="text-sm text-muted-foreground">Scan to visit CoralCSS</p>
+    </div>
+  )
+}
+
+function LiveClockPreview() {
+  const [time, setTime] = useState(new Date())
+
+  useState(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000)
+    return () => clearInterval(timer)
+  })
+
+  return (
+    <div className="w-full max-w-sm text-center">
+      <div className="p-6 bg-card border border-border rounded-xl">
+        <div className="text-5xl font-mono font-bold text-foreground mb-2">
+          {time.toLocaleTimeString()}
+        </div>
+        <div className="text-muted-foreground">
+          {time.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const advancedComponents = [
   {
     id: 'command',
@@ -860,6 +1324,229 @@ const advancedComponents = [
       { name: 'data-stagger', type: 'number', default: '50', description: 'Stagger delay (ms)' },
     ],
     preview: SplitTextPreview,
+  },
+  {
+    id: 'copy-to-clipboard',
+    name: 'CopyToClipboard',
+    description: 'Button to copy text content to clipboard with feedback.',
+    usage: `<div data-coral-copy data-text="npm install coralcss">
+  <code>npm install coralcss</code>
+  <button data-coral-copy-trigger>Copy</button>
+</div>`,
+    props: [
+      { name: 'data-text', type: 'string', default: 'required', description: 'Text to copy' },
+      { name: 'data-success-text', type: 'string', default: '"Copied!"', description: 'Success message' },
+      { name: 'data-timeout', type: 'number', default: '2000', description: 'Reset timeout (ms)' },
+    ],
+    preview: CopyToClipboardPreview,
+  },
+  {
+    id: 'drag-and-drop',
+    name: 'DragAndDrop',
+    description: 'Draggable and droppable container for reordering items.',
+    usage: `<div data-coral-draggable-list>
+  <div data-coral-draggable-item data-id="1">Item 1</div>
+  <div data-coral-draggable-item data-id="2">Item 2</div>
+</div>`,
+    props: [
+      { name: 'data-group', type: 'string', default: 'undefined', description: 'Drag group name' },
+      { name: 'data-handle', type: 'string', default: 'undefined', description: 'Handle selector' },
+    ],
+    preview: DragAndDropPreview,
+  },
+  {
+    id: 'sortable',
+    name: 'Sortable',
+    description: 'Sortable list with drag handles and priority display.',
+    usage: `<div data-coral-sortable>
+  <div data-coral-sortable-item data-id="1" data-priority="high">
+    <span data-coral-sortable-handle></span>
+    Task A
+  </div>
+</div>`,
+    props: [
+      { name: 'data-animation', type: 'number', default: '150', description: 'Animation duration' },
+      { name: 'data-ghost-class', type: 'string', default: '"sortable-ghost"', description: 'Ghost element class' },
+    ],
+    preview: SortablePreview,
+  },
+  {
+    id: 'parallax',
+    name: 'Parallax',
+    description: 'Parallax scrolling effect for backgrounds.',
+    usage: `<div data-coral-parallax data-speed="0.5">
+  <div data-coral-parallax-layer data-depth="0.2">
+    Background content
+  </div>
+  <div data-coral-parallax-layer data-depth="1">
+    Foreground content
+  </div>
+</div>`,
+    props: [
+      { name: 'data-speed', type: 'number', default: '0.5', description: 'Parallax speed multiplier' },
+      { name: 'data-direction', type: '"vertical" | "horizontal"', default: '"vertical"', description: 'Scroll direction' },
+    ],
+    preview: ParallaxPreview,
+  },
+  {
+    id: 'count-up',
+    name: 'CountUp',
+    description: 'Animated number counter with customizable animation.',
+    usage: `<div data-coral-count-up data-end="1234" data-duration="2000">
+  0
+</div>`,
+    props: [
+      { name: 'data-start', type: 'number', default: '0', description: 'Start value' },
+      { name: 'data-end', type: 'number', default: 'required', description: 'End value' },
+      { name: 'data-duration', type: 'number', default: '2000', description: 'Animation duration (ms)' },
+    ],
+    preview: CountUpPreview,
+  },
+  {
+    id: 'type-writer',
+    name: 'TypeWriter',
+    description: 'Typewriter text animation effect.',
+    usage: `<div data-coral-typewriter data-text="Hello, World!" data-speed="100">
+</div>`,
+    props: [
+      { name: 'data-text', type: 'string', default: 'required', description: 'Text to type' },
+      { name: 'data-speed', type: 'number', default: '100', description: 'Typing speed (ms)' },
+      { name: 'data-loop', type: 'boolean', default: 'false', description: 'Loop animation' },
+    ],
+    preview: TypeWriterPreview,
+  },
+  {
+    id: 'infinite-scroll',
+    name: 'InfiniteScroll',
+    description: 'Automatically loads more content when scrolling.',
+    usage: `<div data-coral-infinite-scroll data-threshold="200">
+  <div data-coral-infinite-scroll-content>
+    <!-- Items -->
+  </div>
+  <div data-coral-infinite-scroll-loader>Loading...</div>
+</div>`,
+    props: [
+      { name: 'data-threshold', type: 'number', default: '200', description: 'Load threshold (px)' },
+      { name: 'data-has-more', type: 'boolean', default: 'true', description: 'More items available' },
+    ],
+    preview: InfiniteScrollPreview,
+  },
+  {
+    id: 'password-strength',
+    name: 'PasswordStrength',
+    description: 'Visual password strength indicator.',
+    usage: `<div data-coral-password-strength>
+  <input type="password" data-coral-password-input />
+  <div data-coral-password-meter></div>
+  <span data-coral-password-label></span>
+</div>`,
+    props: [
+      { name: 'data-min-length', type: 'number', default: '8', description: 'Minimum password length' },
+      { name: 'data-show-rules', type: 'boolean', default: 'false', description: 'Show password rules' },
+    ],
+    preview: PasswordStrengthPreview,
+  },
+  {
+    id: 'file-upload',
+    name: 'FileUpload',
+    description: 'Drag and drop file upload with preview.',
+    usage: `<div data-coral-file-upload data-accept="image/*,application/pdf">
+  <div data-coral-file-upload-dropzone>
+    Drop files here or click to browse
+  </div>
+  <div data-coral-file-upload-list></div>
+</div>`,
+    props: [
+      { name: 'data-accept', type: 'string', default: '"*"', description: 'Accepted file types' },
+      { name: 'data-max-size', type: 'number', default: '10485760', description: 'Max file size (bytes)' },
+      { name: 'data-multiple', type: 'boolean', default: 'true', description: 'Allow multiple files' },
+    ],
+    preview: FileUploadPreview,
+  },
+  {
+    id: 'code-highlight',
+    name: 'CodeHighlight',
+    description: 'Syntax-highlighted code block with line numbers.',
+    usage: `<pre data-coral-code data-language="javascript" data-theme="dark">
+  <code>const x = 42;</code>
+</pre>`,
+    props: [
+      { name: 'data-language', type: 'string', default: '"plaintext"', description: 'Programming language' },
+      { name: 'data-theme', type: '"light" | "dark"', default: '"dark"', description: 'Color theme' },
+      { name: 'data-line-numbers', type: 'boolean', default: 'true', description: 'Show line numbers' },
+    ],
+    preview: CodeHighlightPreview,
+  },
+  {
+    id: 'skeleton',
+    name: 'Skeleton',
+    description: 'Loading skeleton placeholder for content.',
+    usage: `<div data-coral-skeleton data-variant="card">
+  <div data-coral-skeleton-avatar></div>
+  <div data-coral-skeleton-line data-width="75%"></div>
+  <div data-coral-skeleton-line data-width="50%"></div>
+</div>`,
+    props: [
+      { name: 'data-variant', type: '"text" | "circle" | "rect" | "card"', default: '"text"', description: 'Skeleton variant' },
+      { name: 'data-animation', type: '"pulse" | "wave" | "none"', default: '"pulse"', description: 'Animation type' },
+    ],
+    preview: SkeletonPreview,
+  },
+  {
+    id: 'tilt',
+    name: 'Tilt',
+    description: '3D tilt effect on mouse movement.',
+    usage: `<div data-coral-tilt data-max="15" data-perspective="500">
+  <div class="tilt-content">
+    Hover to tilt
+  </div>
+</div>`,
+    props: [
+      { name: 'data-max', type: 'number', default: '15', description: 'Max tilt angle (degrees)' },
+      { name: 'data-perspective', type: 'number', default: '500', description: 'CSS perspective value' },
+      { name: 'data-scale', type: 'number', default: '1', description: 'Scale on hover' },
+    ],
+    preview: TiltPreview,
+  },
+  {
+    id: 'confetti',
+    name: 'Confetti',
+    description: 'Confetti celebration animation effect.',
+    usage: `<button data-coral-confetti-trigger data-particle-count="50">
+  Celebrate!
+</button>`,
+    props: [
+      { name: 'data-particle-count', type: 'number', default: '50', description: 'Number of particles' },
+      { name: 'data-spread', type: 'number', default: '360', description: 'Spread angle' },
+      { name: 'data-duration', type: 'number', default: '3000', description: 'Animation duration (ms)' },
+    ],
+    preview: ConfettiPreview,
+  },
+  {
+    id: 'qr-code',
+    name: 'QRCode',
+    description: 'QR code generator from text or URL.',
+    usage: `<div data-coral-qrcode data-value="https://coralcss.dev" data-size="128">
+</div>`,
+    props: [
+      { name: 'data-value', type: 'string', default: 'required', description: 'Content to encode' },
+      { name: 'data-size', type: 'number', default: '128', description: 'QR code size (px)' },
+      { name: 'data-level', type: '"L" | "M" | "Q" | "H"', default: '"M"', description: 'Error correction level' },
+    ],
+    preview: QRCodePreview,
+  },
+  {
+    id: 'live-clock',
+    name: 'LiveClock',
+    description: 'Real-time updating clock display.',
+    usage: `<div data-coral-clock data-format="HH:mm:ss" data-timezone="local">
+</div>`,
+    props: [
+      { name: 'data-format', type: 'string', default: '"HH:mm:ss"', description: 'Time format string' },
+      { name: 'data-timezone', type: 'string', default: '"local"', description: 'Timezone' },
+      { name: 'data-show-date', type: 'boolean', default: 'false', description: 'Show date' },
+    ],
+    preview: LiveClockPreview,
   },
 ]
 

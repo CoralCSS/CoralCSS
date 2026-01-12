@@ -24,6 +24,10 @@ import AdvancedPage from './pages/components/AdvancedPage'
 import ModernCSSPage from './pages/components/ModernCSSPage'
 import ChartsPage from './pages/components/ChartsPage'
 import DashboardPage from './pages/components/DashboardPage'
+import EcommercePage from './pages/components/EcommercePage'
+import ChatPage from './pages/components/ChatPage'
+import AIPage from './pages/components/AIPage'
+import FilesPage from './pages/components/FilesPage'
 
 function App() {
   return (
@@ -47,6 +51,10 @@ function App() {
             <Route path="/components/modern-css" element={<ModernCSSPage />} />
             <Route path="/components/charts" element={<ChartsPage />} />
             <Route path="/components/dashboard" element={<DashboardPage />} />
+            <Route path="/components/ecommerce" element={<EcommercePage />} />
+            <Route path="/components/chat" element={<ChatPage />} />
+            <Route path="/components/ai" element={<AIPage />} />
+            <Route path="/components/files" element={<FilesPage />} />
             <Route path="/themes" element={<Themes />} />
             <Route path="/docs" element={<Docs />} />
             <Route path="/examples" element={<Examples />} />

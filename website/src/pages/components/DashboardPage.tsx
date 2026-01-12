@@ -620,6 +620,529 @@ function QuickStatsPreview() {
   )
 }
 
+function UptimeMonitorPreview() {
+  const services = [
+    { name: 'API Server', status: 'up', uptime: '99.99%', lastCheck: '2s ago' },
+    { name: 'Database', status: 'up', uptime: '99.95%', lastCheck: '5s ago' },
+    { name: 'CDN', status: 'up', uptime: '100%', lastCheck: '10s ago' },
+    { name: 'Auth Service', status: 'degraded', uptime: '98.5%', lastCheck: '3s ago' },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">System Status</h3>
+      <div className="space-y-3">
+        {services.map((service) => (
+          <div key={service.name} className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
+            <div className="flex items-center gap-3">
+              <div className={`w-3 h-3 rounded-full ${
+                service.status === 'up' ? 'bg-emerald-500' : 'bg-amber-500'
+              }`} />
+              <span className="text-sm font-medium">{service.name}</span>
+            </div>
+            <div className="text-right">
+              <div className="text-sm font-medium text-emerald-500">{service.uptime}</div>
+              <div className="text-xs text-muted-foreground">{service.lastCheck}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function WorldMapPreview() {
+  const countries = [
+    { code: 'US', name: 'United States', visitors: 45, x: 70, y: 45 },
+    { code: 'UK', name: 'United Kingdom', visitors: 28, x: 165, y: 35 },
+    { code: 'DE', name: 'Germany', visitors: 22, x: 175, y: 40 },
+    { code: 'JP', name: 'Japan', visitors: 18, x: 285, y: 45 },
+    { code: 'AU', name: 'Australia', visitors: 12, x: 270, y: 100 },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Traffic by Location</h3>
+      <div className="relative h-40 bg-muted/30 rounded-lg overflow-hidden">
+        {countries.map((country) => (
+          <div
+            key={country.code}
+            className="absolute w-4 h-4 bg-primary rounded-full cursor-pointer animate-pulse"
+            style={{ left: country.x, top: country.y }}
+            title={`${country.name}: ${country.visitors}%`}
+          />
+        ))}
+      </div>
+      <div className="grid grid-cols-2 gap-2 mt-4">
+        {countries.slice(0, 4).map((country) => (
+          <div key={country.code} className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">{country.name}</span>
+            <span className="font-medium">{country.visitors}%</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function CalendarWidgetPreview() {
+  const today = new Date()
+  const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-sm md:text-base">
+          {today.toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
+        </h3>
+        <div className="flex gap-1">
+          <button className="p-1 hover:bg-muted rounded">←</button>
+          <button className="p-1 hover:bg-muted rounded">→</button>
+        </div>
+      </div>
+      <div className="grid grid-cols-7 gap-1 text-center">
+        {days.map((day) => (
+          <div key={day} className="text-xs text-muted-foreground py-1">{day}</div>
+        ))}
+        {Array.from({ length: 35 }, (_, i) => {
+          const dayNum = i - 3
+          const isToday = dayNum === today.getDate()
+          return (
+            <div
+              key={i}
+              className={`text-sm py-1 rounded ${
+                isToday ? 'bg-primary text-primary-foreground' :
+                dayNum > 0 && dayNum <= 31 ? 'hover:bg-muted cursor-pointer' : 'text-muted-foreground/30'
+              }`}
+            >
+              {dayNum > 0 && dayNum <= 31 ? dayNum : ''}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function WeatherWidgetPreview() {
+  return (
+    <div className="bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl p-4 md:p-6 text-white">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-sm opacity-80">San Francisco</p>
+          <p className="text-4xl font-bold mt-1">72°F</p>
+          <p className="text-sm opacity-80 mt-2">Partly Cloudy</p>
+        </div>
+        <svg className="w-20 h-20 opacity-80" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" />
+        </svg>
+      </div>
+      <div className="flex justify-between mt-4 text-sm">
+        <div className="text-center">
+          <p className="opacity-80">Mon</p>
+          <p className="font-medium">75°</p>
+        </div>
+        <div className="text-center">
+          <p className="opacity-80">Tue</p>
+          <p className="font-medium">68°</p>
+        </div>
+        <div className="text-center">
+          <p className="opacity-80">Wed</p>
+          <p className="font-medium">71°</p>
+        </div>
+        <div className="text-center">
+          <p className="opacity-80">Thu</p>
+          <p className="font-medium">73°</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SpeedDialPreview() {
+  const [open, setOpen] = useState(false)
+  const actions = [
+    { icon: '+', label: 'Add' },
+    { icon: '✉', label: 'Email' },
+    { icon: '📊', label: 'Report' },
+  ]
+
+  return (
+    <div className="relative h-48 flex items-end justify-end">
+      {open && (
+        <div className="absolute bottom-16 right-0 space-y-2">
+          {actions.map((action, i) => (
+            <button
+              key={i}
+              className="w-12 h-12 bg-card border border-border rounded-full flex items-center justify-center shadow-lg hover:bg-muted transition-all"
+              title={action.label}
+            >
+              {action.icon}
+            </button>
+          ))}
+        </div>
+      )}
+      <button
+        onClick={() => setOpen(!open)}
+        className={`w-14 h-14 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-lg transition-transform ${open ? 'rotate-45' : ''}`}
+      >
+        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+    </div>
+  )
+}
+
+function TopProductsPreview() {
+  const products = [
+    { name: 'Pro Subscription', sales: 1234, revenue: '$24,680', trend: '+12%' },
+    { name: 'Enterprise Plan', sales: 856, revenue: '$85,600', trend: '+8%' },
+    { name: 'Team License', sales: 642, revenue: '$19,260', trend: '+15%' },
+    { name: 'Starter Kit', sales: 428, revenue: '$4,280', trend: '-3%' },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Top Products</h3>
+      <div className="space-y-3">
+        {products.map((product, i) => (
+          <div key={product.name} className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+              {i + 1}
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">{product.name}</p>
+              <p className="text-xs text-muted-foreground">{product.sales} sales</p>
+            </div>
+            <div className="text-right">
+              <p className="text-sm font-medium">{product.revenue}</p>
+              <p className={`text-xs ${product.trend.startsWith('+') ? 'text-emerald-500' : 'text-coral-500'}`}>
+                {product.trend}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function CustomerSegmentsPreview() {
+  const segments = [
+    { name: 'Enterprise', count: 245, percentage: 35, color: 'bg-primary' },
+    { name: 'SMB', count: 512, percentage: 40, color: 'bg-blue-500' },
+    { name: 'Startup', count: 328, percentage: 25, color: 'bg-emerald-500' },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Customer Segments</h3>
+      <div className="flex h-4 rounded-full overflow-hidden mb-4">
+        {segments.map((segment) => (
+          <div key={segment.name} className={`${segment.color}`} style={{ width: `${segment.percentage}%` }} />
+        ))}
+      </div>
+      <div className="space-y-2">
+        {segments.map((segment) => (
+          <div key={segment.name} className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className={`w-3 h-3 rounded ${segment.color}`} />
+              <span className="text-sm">{segment.name}</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium">{segment.count}</span>
+              <span className="text-xs text-muted-foreground w-8">{segment.percentage}%</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ServerStatusPreview() {
+  const servers = [
+    { name: 'prod-server-01', cpu: 45, memory: 62, status: 'healthy' },
+    { name: 'prod-server-02', cpu: 78, memory: 85, status: 'warning' },
+    { name: 'staging-01', cpu: 23, memory: 34, status: 'healthy' },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Server Health</h3>
+      <div className="space-y-4">
+        {servers.map((server) => (
+          <div key={server.name} className="p-3 bg-muted/50 rounded-lg">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium">{server.name}</span>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                server.status === 'healthy' ? 'bg-emerald-500/20 text-emerald-500' : 'bg-amber-500/20 text-amber-500'
+              }`}>
+                {server.status}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div>
+                <span className="text-muted-foreground">CPU:</span>
+                <div className="h-1.5 bg-muted rounded-full mt-1 overflow-hidden">
+                  <div className={`h-full ${server.cpu > 70 ? 'bg-amber-500' : 'bg-emerald-500'}`} style={{ width: `${server.cpu}%` }} />
+                </div>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Memory:</span>
+                <div className="h-1.5 bg-muted rounded-full mt-1 overflow-hidden">
+                  <div className={`h-full ${server.memory > 70 ? 'bg-amber-500' : 'bg-emerald-500'}`} style={{ width: `${server.memory}%` }} />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function TrafficSourcesPreview() {
+  const sources = [
+    { name: 'Organic Search', value: 45, color: 'bg-emerald-500' },
+    { name: 'Direct', value: 25, color: 'bg-blue-500' },
+    { name: 'Social Media', value: 18, color: 'bg-violet-500' },
+    { name: 'Referral', value: 12, color: 'bg-amber-500' },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Traffic Sources</h3>
+      <div className="space-y-3">
+        {sources.map((source) => (
+          <div key={source.name}>
+            <div className="flex justify-between text-sm mb-1">
+              <span>{source.name}</span>
+              <span className="font-medium">{source.value}%</span>
+            </div>
+            <div className="h-2 bg-muted rounded-full overflow-hidden">
+              <div className={`h-full ${source.color} rounded-full`} style={{ width: `${source.value}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function SessionAnalyticsPreview() {
+  const hours = ['12am', '4am', '8am', '12pm', '4pm', '8pm']
+  const data = [15, 8, 45, 72, 85, 62]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Sessions by Hour</h3>
+      <div className="flex items-end gap-2 h-32">
+        {data.map((value, i) => (
+          <div key={i} className="flex-1 flex flex-col items-center gap-1">
+            <div className="w-full bg-primary/20 rounded-t relative overflow-hidden" style={{ height: `${value}%` }}>
+              <div className="absolute inset-0 bg-primary opacity-60" />
+            </div>
+            <span className="text-xs text-muted-foreground">{hours[i]}</span>
+          </div>
+        ))}
+      </div>
+      <div className="mt-4 flex justify-between text-sm">
+        <div>
+          <p className="text-muted-foreground">Peak Hour</p>
+          <p className="font-medium">4:00 PM</p>
+        </div>
+        <div className="text-right">
+          <p className="text-muted-foreground">Avg. Duration</p>
+          <p className="font-medium">4m 32s</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ConversionFunnelPreview() {
+  const steps = [
+    { name: 'Visitors', value: 10000, percentage: 100 },
+    { name: 'Sign Ups', value: 3500, percentage: 35 },
+    { name: 'Activated', value: 2100, percentage: 21 },
+    { name: 'Paid', value: 840, percentage: 8.4 },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Conversion Funnel</h3>
+      <div className="space-y-3">
+        {steps.map((step, i) => (
+          <div key={step.name}>
+            <div className="flex justify-between text-sm mb-1">
+              <span>{step.name}</span>
+              <span className="font-medium">{step.value.toLocaleString()}</span>
+            </div>
+            <div className="h-8 bg-muted rounded overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-primary to-primary/60 flex items-center justify-end pr-2"
+                style={{ width: `${step.percentage}%` }}
+              >
+                <span className="text-xs text-white font-medium">{step.percentage}%</span>
+              </div>
+            </div>
+            {i < steps.length - 1 && (
+              <div className="text-center text-xs text-muted-foreground mt-1">
+                ↓ {((steps[i + 1].value / step.value) * 100).toFixed(0)}% conversion
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function ProjectTimelinePreview() {
+  const projects = [
+    { name: 'Website Redesign', progress: 75, deadline: 'Jan 15', status: 'on-track' },
+    { name: 'Mobile App v2', progress: 45, deadline: 'Feb 1', status: 'at-risk' },
+    { name: 'API Integration', progress: 90, deadline: 'Jan 10', status: 'completed' },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Project Timeline</h3>
+      <div className="space-y-4">
+        {projects.map((project) => (
+          <div key={project.name}>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium">{project.name}</span>
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                project.status === 'completed' ? 'bg-emerald-500/20 text-emerald-500' :
+                project.status === 'at-risk' ? 'bg-amber-500/20 text-amber-500' :
+                'bg-blue-500/20 text-blue-500'
+              }`}>
+                {project.status}
+              </span>
+            </div>
+            <div className="h-2 bg-muted rounded-full overflow-hidden">
+              <div
+                className={`h-full rounded-full ${
+                  project.status === 'completed' ? 'bg-emerald-500' :
+                  project.status === 'at-risk' ? 'bg-amber-500' : 'bg-blue-500'
+                }`}
+                style={{ width: `${project.progress}%` }}
+              />
+            </div>
+            <div className="flex justify-between text-xs text-muted-foreground mt-1">
+              <span>{project.progress}%</span>
+              <span>Due: {project.deadline}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function BudgetGaugePreview() {
+  const spent = 67500
+  const total = 100000
+  const percentage = (spent / total) * 100
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border text-center">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Budget Status</h3>
+      <div className="relative w-32 h-32 mx-auto">
+        <svg className="w-32 h-32 transform -rotate-90">
+          <circle cx="64" cy="64" r="56" stroke="currentColor" strokeWidth="12" fill="none" className="text-muted-foreground/20" />
+          <circle
+            cx="64" cy="64" r="56"
+            stroke="currentColor"
+            strokeWidth="12"
+            fill="none"
+            strokeDasharray="351.86"
+            strokeDashoffset={351.86 - (351.86 * percentage / 100)}
+            className={percentage > 80 ? 'text-amber-500' : 'text-emerald-500'}
+          />
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-2xl font-bold">{percentage.toFixed(0)}%</span>
+          <span className="text-xs text-muted-foreground">used</span>
+        </div>
+      </div>
+      <div className="mt-4 space-y-1">
+        <p className="text-lg font-bold">${spent.toLocaleString()}</p>
+        <p className="text-sm text-muted-foreground">of ${total.toLocaleString()} budget</p>
+      </div>
+    </div>
+  )
+}
+
+function LeaderboardPreview() {
+  const leaders = [
+    { rank: 1, name: 'Sarah Chen', score: 9850, avatar: 'SC' },
+    { rank: 2, name: 'Mike Johnson', score: 8720, avatar: 'MJ' },
+    { rank: 3, name: 'Emma Wilson', score: 7890, avatar: 'EW' },
+    { rank: 4, name: 'James Brown', score: 6540, avatar: 'JB' },
+    { rank: 5, name: 'Lisa Park', score: 5230, avatar: 'LP' },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Top Performers</h3>
+      <div className="space-y-3">
+        {leaders.map((leader) => (
+          <div key={leader.rank} className="flex items-center gap-3">
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
+              leader.rank === 1 ? 'bg-amber-500 text-white' :
+              leader.rank === 2 ? 'bg-gray-400 text-white' :
+              leader.rank === 3 ? 'bg-amber-700 text-white' :
+              'bg-muted text-muted-foreground'
+            }`}>
+              {leader.rank}
+            </div>
+            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm">
+              {leader.avatar}
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium">{leader.name}</p>
+            </div>
+            <div className="text-sm font-bold text-primary">{leader.score.toLocaleString()}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function RecentSearchesPreview() {
+  const searches = [
+    { query: 'dashboard components', time: '2 min ago', results: 24 },
+    { query: 'chart examples', time: '5 min ago', results: 18 },
+    { query: 'form validation', time: '15 min ago', results: 32 },
+    { query: 'modal dialog', time: '1 hour ago', results: 12 },
+  ]
+
+  return (
+    <div className="bg-card rounded-xl p-4 md:p-6 border border-border">
+      <h3 className="font-semibold mb-4 text-sm md:text-base">Recent Searches</h3>
+      <div className="space-y-2">
+        {searches.map((search, i) => (
+          <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer">
+            <svg className="w-4 h-4 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <div className="flex-1">
+              <p className="text-sm">{search.query}</p>
+              <p className="text-xs text-muted-foreground">{search.results} results</p>
+            </div>
+            <span className="text-xs text-muted-foreground">{search.time}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // Component data
 const dashboardComponents = [
   {
@@ -888,6 +1411,231 @@ const dashboardComponents = [
       { name: 'data-trend', type: '"up" | "down" | "neutral"', default: '"neutral"', description: 'Overall trend' },
     ],
     preview: KPIWidgetPreview,
+  },
+  {
+    id: 'uptime-monitor',
+    name: 'UptimeMonitor',
+    description: 'Display service status and uptime percentages.',
+    usage: `<div data-coral-uptime-monitor>
+  <div data-coral-service data-status="up">
+    <div data-coral-service-name>API Server</div>
+    <div data-coral-service-uptime>99.99%</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-refresh', type: 'number', default: '5000', description: 'Auto-refresh interval (ms)' },
+      { name: 'data-compact', type: 'boolean', default: 'false', description: 'Compact display mode' },
+    ],
+    preview: UptimeMonitorPreview,
+  },
+  {
+    id: 'world-map',
+    name: 'WorldMap',
+    description: 'Geographic traffic visualization with hotspots.',
+    usage: `<div data-coral-world-map>
+  <div data-coral-map-marker data-country="US" data-value="45"></div>
+  <div data-coral-map-marker data-country="UK" data-value="28"></div>
+</div>`,
+    props: [
+      { name: 'data-theme', type: '"light" | "dark"', default: '"light"', description: 'Map color theme' },
+      { name: 'data-show-legend', type: 'boolean', default: 'true', description: 'Show country legend' },
+    ],
+    preview: WorldMapPreview,
+  },
+  {
+    id: 'calendar-widget',
+    name: 'CalendarWidget',
+    description: 'Mini calendar for date selection and event display.',
+    usage: `<div data-coral-calendar>
+  <div data-coral-calendar-header></div>
+  <div data-coral-calendar-grid></div>
+</div>`,
+    props: [
+      { name: 'data-selected', type: 'string', default: 'today', description: 'Selected date' },
+      { name: 'data-events', type: 'boolean', default: 'false', description: 'Show event indicators' },
+    ],
+    preview: CalendarWidgetPreview,
+  },
+  {
+    id: 'weather-widget',
+    name: 'WeatherWidget',
+    description: 'Weather display with forecast information.',
+    usage: `<div data-coral-weather data-location="San Francisco">
+  <div data-coral-weather-current></div>
+  <div data-coral-weather-forecast></div>
+</div>`,
+    props: [
+      { name: 'data-location', type: 'string', default: 'required', description: 'Location name' },
+      { name: 'data-unit', type: '"celsius" | "fahrenheit"', default: '"fahrenheit"', description: 'Temperature unit' },
+    ],
+    preview: WeatherWidgetPreview,
+  },
+  {
+    id: 'speed-dial',
+    name: 'SpeedDial',
+    description: 'Floating action button with expandable quick actions.',
+    usage: `<div data-coral-speed-dial>
+  <button data-coral-speed-dial-trigger>+</button>
+  <div data-coral-speed-dial-actions>
+    <button data-coral-speed-dial-action>Action 1</button>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-direction', type: '"up" | "down" | "left" | "right"', default: '"up"', description: 'Expand direction' },
+      { name: 'data-position', type: 'string', default: '"bottom-right"', description: 'Screen position' },
+    ],
+    preview: SpeedDialPreview,
+  },
+  {
+    id: 'top-products',
+    name: 'TopProducts',
+    description: 'Display best-selling products with sales and revenue.',
+    usage: `<div data-coral-top-products>
+  <div data-coral-product data-rank="1">
+    <div data-coral-product-name>Pro Subscription</div>
+    <div data-coral-product-sales>1234</div>
+    <div data-coral-product-revenue>$24,680</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-limit', type: 'number', default: '5', description: 'Number of products to show' },
+      { name: 'data-show-trend', type: 'boolean', default: 'true', description: 'Show trend indicator' },
+    ],
+    preview: TopProductsPreview,
+  },
+  {
+    id: 'customer-segments',
+    name: 'CustomerSegments',
+    description: 'Visual breakdown of customer segments.',
+    usage: `<div data-coral-customer-segments>
+  <div data-coral-segment data-name="Enterprise" data-percentage="35"></div>
+  <div data-coral-segment data-name="SMB" data-percentage="40"></div>
+</div>`,
+    props: [
+      { name: 'data-show-counts', type: 'boolean', default: 'true', description: 'Show customer counts' },
+      { name: 'data-chart-type', type: '"bar" | "pie"', default: '"bar"', description: 'Chart visualization' },
+    ],
+    preview: CustomerSegmentsPreview,
+  },
+  {
+    id: 'server-status',
+    name: 'ServerStatus',
+    description: 'Server health monitoring with CPU and memory metrics.',
+    usage: `<div data-coral-server-status>
+  <div data-coral-server data-name="prod-01">
+    <div data-coral-server-cpu>45</div>
+    <div data-coral-server-memory>62</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-refresh', type: 'number', default: '10000', description: 'Auto-refresh interval (ms)' },
+      { name: 'data-threshold', type: 'number', default: '80', description: 'Warning threshold %' },
+    ],
+    preview: ServerStatusPreview,
+  },
+  {
+    id: 'traffic-sources',
+    name: 'TrafficSources',
+    description: 'Display website traffic source breakdown.',
+    usage: `<div data-coral-traffic-sources>
+  <div data-coral-source data-name="Organic Search" data-value="45"></div>
+  <div data-coral-source data-name="Direct" data-value="25"></div>
+</div>`,
+    props: [
+      { name: 'data-show-percentage', type: 'boolean', default: 'true', description: 'Show percentage values' },
+      { name: 'data-color-scheme', type: 'string', default: '"default"', description: 'Color scheme name' },
+    ],
+    preview: TrafficSourcesPreview,
+  },
+  {
+    id: 'session-analytics',
+    name: 'SessionAnalytics',
+    description: 'Session distribution by hour with peak times.',
+    usage: `<div data-coral-session-analytics>
+  <div data-coral-session-bar data-hour="12am" data-value="15"></div>
+  <div data-coral-session-bar data-hour="4am" data-value="8"></div>
+</div>`,
+    props: [
+      { name: 'data-period', type: '"day" | "week"', default: '"day"', description: 'Time period' },
+      { name: 'data-show-peak', type: 'boolean', default: 'true', description: 'Highlight peak hour' },
+    ],
+    preview: SessionAnalyticsPreview,
+  },
+  {
+    id: 'conversion-funnel',
+    name: 'ConversionFunnel',
+    description: 'Visualize conversion steps with drop-off rates.',
+    usage: `<div data-coral-conversion-funnel>
+  <div data-coral-funnel-step data-name="Visitors" data-value="10000"></div>
+  <div data-coral-funnel-step data-name="Sign Ups" data-value="3500"></div>
+</div>`,
+    props: [
+      { name: 'data-show-conversion', type: 'boolean', default: 'true', description: 'Show conversion rates' },
+      { name: 'data-orientation', type: '"vertical" | "horizontal"', default: '"vertical"', description: 'Funnel direction' },
+    ],
+    preview: ConversionFunnelPreview,
+  },
+  {
+    id: 'project-timeline',
+    name: 'ProjectTimeline',
+    description: 'Track project progress with deadlines and status.',
+    usage: `<div data-coral-project-timeline>
+  <div data-coral-project data-name="Website Redesign" data-progress="75">
+    <div data-coral-project-deadline>Jan 15</div>
+    <div data-coral-project-status>on-track</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-show-deadline', type: 'boolean', default: 'true', description: 'Show deadline dates' },
+      { name: 'data-compact', type: 'boolean', default: 'false', description: 'Compact display mode' },
+    ],
+    preview: ProjectTimelinePreview,
+  },
+  {
+    id: 'budget-gauge',
+    name: 'BudgetGauge',
+    description: 'Circular gauge showing budget utilization.',
+    usage: `<div data-coral-budget-gauge data-spent="67500" data-total="100000">
+  <div data-coral-budget-label></div>
+</div>`,
+    props: [
+      { name: 'data-spent', type: 'number', default: 'required', description: 'Amount spent' },
+      { name: 'data-total', type: 'number', default: 'required', description: 'Total budget' },
+      { name: 'data-warning-threshold', type: 'number', default: '80', description: 'Warning at %' },
+    ],
+    preview: BudgetGaugePreview,
+  },
+  {
+    id: 'leaderboard',
+    name: 'Leaderboard',
+    description: 'Ranked list of top performers with scores.',
+    usage: `<div data-coral-leaderboard>
+  <div data-coral-leaderboard-item data-rank="1">
+    <div data-coral-leader-name>Sarah Chen</div>
+    <div data-coral-leader-score>9850</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-limit', type: 'number', default: '5', description: 'Number of entries' },
+      { name: 'data-show-medals', type: 'boolean', default: 'true', description: 'Show medal badges' },
+    ],
+    preview: LeaderboardPreview,
+  },
+  {
+    id: 'recent-searches',
+    name: 'RecentSearches',
+    description: 'Display recent search queries with results count.',
+    usage: `<div data-coral-recent-searches>
+  <div data-coral-search-item>
+    <div data-coral-search-query>dashboard components</div>
+    <div data-coral-search-results>24 results</div>
+  </div>
+</div>`,
+    props: [
+      { name: 'data-limit', type: 'number', default: '10', description: 'Maximum searches to show' },
+      { name: 'data-clickable', type: 'boolean', default: 'true', description: 'Make searches clickable' },
+    ],
+    preview: RecentSearchesPreview,
   },
 ]
 
