@@ -210,6 +210,8 @@ export class CoralWorker {
     }
 
     const task = this.taskQueue[taskIndex]
+    if (!task) return
+
     this.taskQueue.splice(taskIndex, 1)
     this.activeTasks--
 
@@ -591,7 +593,7 @@ export class WorkerPool {
    * Get next worker (round-robin)
    */
   private getNextWorker(): CoralWorker {
-    const worker = this.workers[this.nextWorkerIndex]
+    const worker = this.workers[this.nextWorkerIndex]!
     this.nextWorkerIndex = (this.nextWorkerIndex + 1) % this.workers.length
     return worker
   }

@@ -90,7 +90,7 @@ export function parseCSSConfig(cssContent: string): ParsedCSSConfig {
     } else {
       // Check for plugin options
       const optionMatch = plugin.match(/^(\w+)\s+(.+)$/)
-      if (optionMatch) {
+      if (optionMatch && optionMatch[1] && optionMatch[2]) {
         const pluginName = optionMatch[1]
         const options = optionMatch[2]
         config.plugins.push(pluginName)
@@ -110,7 +110,7 @@ export function parseCSSConfig(cssContent: string): ParsedCSSConfig {
 
     // Check if preset has extension
     const extendMatch = presetLine.match(/^(\w+)\s*\{([^}]+)\}/)
-    if (extendMatch) {
+    if (extendMatch && extendMatch[1] && extendMatch[2]) {
       const presetName = extendMatch[1]
       const extension = parseCSSVariables(extendMatch[2])
       config.presets = config.presets || []
@@ -139,7 +139,7 @@ function parseCSSVariables(css: string): Record<string, string> {
   while ((match = regex.exec(css)) !== null) {
     const name = match[1]
     const value = match[2]?.trim()
-    if (value) {
+    if (name && value) {
       variables[name] = value
     }
   }
@@ -237,11 +237,10 @@ export function mergeConfigs(
 
   // Merge plugin options
   if (cssConfig.pluginOptions) {
-    merged.plugins = merged.plugins || {}
-    merged.plugins = {
-      ...merged.plugins,
+    (merged as any).pluginOptions = {
+      ...(merged as any).pluginOptions,
       ...cssConfig.pluginOptions,
-    } as any
+    }
   }
 
   return merged

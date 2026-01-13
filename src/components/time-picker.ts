@@ -8,7 +8,7 @@
  */
 
 import { BaseComponent, createComponentFactory } from './base'
-import type { ComponentConfig, ComponentState } from './base'
+import type { ComponentConfig, ComponentState } from '../types'
 
 /**
  * Time format options
@@ -87,7 +87,9 @@ export interface TimePickerState extends ComponentState {
  * </div>
  * ```
  */
-export class TimePicker extends BaseComponent<TimePickerConfig, TimePickerState> {
+export class TimePicker extends BaseComponent {
+  protected override state!: TimePickerState
+  protected override config!: TimePickerConfig
   private inputElement: HTMLInputElement | null = null
   private dropdownElement: HTMLElement | null = null
   private hoursSelect: HTMLSelectElement | null = null
@@ -96,30 +98,34 @@ export class TimePicker extends BaseComponent<TimePickerConfig, TimePickerState>
   private periodSelect: HTMLSelectElement | null = null
 
   constructor(element: HTMLElement, config: TimePickerConfig = {}) {
-    super(element, {
+    super(element, config)
+    this.cacheElements()
+    this.render()
+  }
+
+  protected getDefaultConfig(): TimePickerConfig {
+    return {
       showSeconds: false,
       format: '24',
       step: 1,
       required: false,
       disabled: false,
       readonly: false,
-      ...config,
-    })
+    }
+  }
 
-    this.state = {
-      value: config.value || null,
+  protected getInitialState(): TimePickerState {
+    return {
+      value: this.config.value || null,
       isOpen: false,
       activeSection: null,
       error: null,
     }
-
-    this.init()
   }
 
-  protected init(): void {
-    this.cacheElements()
-    this.bindEvents()
-    this.render()
+  protected setupAria(): void {
+    this.element.setAttribute('role', 'group')
+    this.element.setAttribute('aria-label', 'Time picker')
   }
 
   private cacheElements(): void {
@@ -134,7 +140,7 @@ export class TimePicker extends BaseComponent<TimePickerConfig, TimePickerState>
     }
   }
 
-  private bindEvents(): void {
+  protected bindEvents(): void {
     // Input focus
     this.inputElement?.addEventListener('focus', this.handleInputFocus.bind(this))
     this.inputElement?.addEventListener('blur', this.handleInputBlur.bind(this))
@@ -232,8 +238,8 @@ export class TimePicker extends BaseComponent<TimePickerConfig, TimePickerState>
     if (match) {
       const [, hours, minutes, seconds, period] = match
       const timeValue: TimeValue = {
-        hours: parseInt(hours, 10),
-        minutes: parseInt(minutes, 10),
+        hours: parseInt(hours || '0', 10),
+        minutes: parseInt(minutes || '0', 10),
       }
 
       if (seconds) {
@@ -326,7 +332,7 @@ export class TimePicker extends BaseComponent<TimePickerConfig, TimePickerState>
     return totalSeconds1 > totalSeconds2
   }
 
-  private render(): void {
+  protected override render(): void {
     this.renderSelects()
     this.updateInput()
   }
@@ -453,7 +459,7 @@ export class TimePicker extends BaseComponent<TimePickerConfig, TimePickerState>
   /**
    * Destroy the component
    */
-  destroy(): void {
+  override destroy(): void {
     // Remove event listeners
     this.inputElement?.removeEventListener('focus', this.handleInputFocus.bind(this))
     this.inputElement?.removeEventListener('blur', this.handleInputBlur.bind(this))
@@ -482,8 +488,8 @@ export function createTimePicker(element: HTMLElement, config?: TimePickerConfig
 /**
  * Factory to create TimePicker components with consistent configuration
  */
-export const createTimePickerFactory = createComponentFactory<TimePickerConfig, TimePicker>(
-  (element, config) => new TimePicker(element, config)
+export const createTimePickerFactory = createComponentFactory<TimePicker, TimePickerConfig>(
+  TimePicker as unknown as new (element: HTMLElement, config?: Partial<TimePickerConfig>) => TimePicker
 )
 
 export default TimePicker

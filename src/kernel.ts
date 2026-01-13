@@ -116,6 +116,7 @@ export class Kernel implements Coral {
   private _variants: Map<string, Variant>
   private _components: Map<string, ComponentDefinition>
   private _eventHandlers: Map<KernelEvent, Set<EventHandler>>
+  private _data: Map<string, unknown>
   private _cache: CSSCache
   private _matcher: Matcher
   private _generator: Generator
@@ -129,6 +130,7 @@ export class Kernel implements Coral {
     this._variants = new Map()
     this._components = new Map()
     this._eventHandlers = new Map()
+    this._data = new Map()
     this._matcher = createMatcher()
     this._initialized = false
 
@@ -588,6 +590,18 @@ export class Kernel implements Coral {
 
       getConfig(): ResolvedConfig {
         return self._config
+      },
+
+      setData(key: string, value: unknown): void {
+        self._data.set(key, value)
+      },
+
+      getData(key: string): unknown {
+        return self._data.get(key)
+      },
+
+      emit(event: string, data?: unknown): void {
+        self.emit(event as KernelEvent, data)
       },
     }
   }

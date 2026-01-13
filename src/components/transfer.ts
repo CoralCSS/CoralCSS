@@ -8,7 +8,7 @@
  */
 
 import { BaseComponent, createComponentFactory } from './base'
-import type { ComponentConfig, ComponentState } from './base'
+import type { ComponentConfig, ComponentState } from '../types'
 
 /**
  * Transfer item structure
@@ -97,7 +97,9 @@ export interface TransferComponentState extends ComponentState {
  * </div>
  * ```
  */
-export class Transfer extends BaseComponent<TransferConfig, TransferComponentState> {
+export class Transfer extends BaseComponent {
+  protected override state!: TransferComponentState
+  protected override config!: TransferConfig
   private sourceListElement: HTMLElement | null = null
   private targetListElement: HTMLElement | null = null
   private sourceFilterInput: HTMLInputElement | null = null
@@ -106,37 +108,42 @@ export class Transfer extends BaseComponent<TransferConfig, TransferComponentSta
   private toSourceButton: HTMLButtonElement | null = null
 
   constructor(element: HTMLElement, config: TransferConfig) {
-    super(element, {
+    super(element, config)
+    this.cacheElements()
+    this.render()
+  }
+
+  protected getDefaultConfig(): TransferConfig {
+    return {
+      sourceItems: [],
       selectAll: true,
       searchable: true,
       showCount: true,
       mode: 'move',
       disabled: false,
       sortable: true,
-      ...config,
-    })
+    }
+  }
 
-    this.state = {
+  protected getInitialState(): TransferComponentState {
+    return {
       source: {
-        items: config.sourceItems,
+        items: this.config.sourceItems || [],
         selectedIds: new Set(),
         filter: '',
       },
       target: {
-        items: config.targetItems || [],
+        items: this.config.targetItems || [],
         selectedIds: new Set(),
         filter: '',
       },
-      disabled: config.disabled || false,
+      disabled: this.config.disabled || false,
     }
-
-    this.init()
   }
 
-  protected init(): void {
-    this.cacheElements()
-    this.bindEvents()
-    this.render()
+  protected setupAria(): void {
+    this.element.setAttribute('role', 'group')
+    this.element.setAttribute('aria-label', 'Transfer list')
   }
 
   private cacheElements(): void {
@@ -148,7 +155,7 @@ export class Transfer extends BaseComponent<TransferConfig, TransferComponentSta
     this.toSourceButton = this.element.querySelector('[data-coral-transfer-move="to-source"]') as HTMLButtonElement
   }
 
-  private bindEvents(): void {
+  protected bindEvents(): void {
     // Filter inputs
     this.sourceFilterInput?.addEventListener('input', (e) => this.handleFilterChange('source', (e.target as HTMLInputElement).value))
     this.targetFilterInput?.addEventListener('input', (e) => this.handleFilterChange('target', (e.target as HTMLInputElement).value))
@@ -251,7 +258,7 @@ export class Transfer extends BaseComponent<TransferConfig, TransferComponentSta
     )
   }
 
-  private render(): void {
+  protected override render(): void {
     this.renderList('source')
     this.renderList('target')
     this.updateControls()
@@ -495,7 +502,7 @@ export class Transfer extends BaseComponent<TransferConfig, TransferComponentSta
   /**
    * Destroy the component
    */
-  destroy(): void {
+  override destroy(): void {
     this.sourceFilterInput?.replaceWith(this.sourceFilterInput.cloneNode(true))
     this.targetFilterInput?.replaceWith(this.targetFilterInput.cloneNode(true))
     this.toTargetButton?.replaceWith(this.toTargetButton.cloneNode(true))
@@ -514,8 +521,8 @@ export function createTransfer(element: HTMLElement, config?: TransferConfig): T
 /**
  * Factory to create Transfer components with consistent configuration
  */
-export const createTransferFactory = createComponentFactory<TransferConfig, Transfer>(
-  (element, config) => new Transfer(element, config!)
+export const createTransferFactory = createComponentFactory<Transfer, TransferConfig>(
+  Transfer as unknown as new (element: HTMLElement, config?: Partial<TransferConfig>) => Transfer
 )
 
 export default Transfer

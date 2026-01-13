@@ -3,7 +3,7 @@
  */
 import { describe, it, expect } from 'vitest'
 import { createCoral } from '../../../../../src/kernel'
-import { patternsPlugin } from '../../../../../src/plugins/core/utilities/patterns'
+import { patternsPlugin, getPatternKeyframes, generatePatternCSS } from '../../../../../src/plugins/core/utilities/patterns'
 
 describe('Pattern Utilities Plugin', () => {
   describe('Plugin Registration', () => {
@@ -359,15 +359,26 @@ describe('Pattern Utilities Plugin', () => {
   })
 
   describe('Animated Patterns', () => {
-    it('should generate animate-pattern-scroll with keyframes', () => {
+    it('should generate animate-pattern-scroll utility', () => {
       const coral = createCoral({
         plugins: [patternsPlugin()]
       })
       const css = coral.generate(['animate-pattern-scroll'])
       expect(css).toContain('animation: pattern-scroll 20s linear infinite')
-      expect(css).toContain('@keyframes pattern-scroll')
-      expect(css).toContain('background-position: 0 0')
-      expect(css).toContain('background-position: 100px 100px')
+    })
+
+    it('should export pattern keyframes via getPatternKeyframes', () => {
+      const keyframes = getPatternKeyframes()
+      expect(typeof keyframes).toBe('string')
+      expect(keyframes).toContain('@keyframes pattern-scroll')
+      expect(keyframes).toContain('background-position: 0 0')
+      expect(keyframes).toContain('background-position: 100px 100px')
+    })
+
+    it('should export generatePatternCSS', () => {
+      const css = generatePatternCSS()
+      expect(typeof css).toBe('string')
+      expect(css).toContain('@keyframes')
     })
   })
 
@@ -411,7 +422,9 @@ describe('Pattern Utilities Plugin', () => {
       const css = coral.generate(['bg-pattern-stripe-md', 'animate-pattern-scroll'])
       expect(css).toContain('background-image:')
       expect(css).toContain('animation:')
-      expect(css).toContain('@keyframes pattern-scroll')
+      // Keyframes are exported separately via getPatternKeyframes()
+      const keyframes = getPatternKeyframes()
+      expect(keyframes).toContain('@keyframes pattern-scroll')
     })
   })
 

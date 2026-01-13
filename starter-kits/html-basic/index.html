@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoralCSS Starter</title>
+  <!-- CoralCSS CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@coral-css/core/dist/coral.min.css">
+  <style>
+    /* Custom styles */
+  </style>
+</head>
+<body class="bg-background text-foreground antialiased">
+  <!-- Header -->
+  <header class="border-b border-border">
+    <nav class="container mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2 text-xl font-bold">
+          <span>CoralCSS</span>
+        </a>
+        <div class="flex items-center gap-6">
+          <a href="#features" class="text-muted-foreground hover:text-foreground transition-colors">Features</a>
+          <a href="#docs" class="text-muted-foreground hover:text-foreground transition-colors">Docs</a>
+          <a href="https://github.com/coralcss/core" class="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors">
+            GitHub
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="container mx-auto px-4 py-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 bg-clip-text text-transparent">
+        The Fastest CSS Framework
+      </h1>
+      <p class="text-xl text-muted-foreground mb-8">
+        Build beautiful, responsive websites with CoralCSS.
+        Zero dependencies, modern CSS features, and Tailwind compatibility.
+      </p>
+      <div class="flex gap-4 justify-center">
+        <a href="https://coralcss.dev/docs" class="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors">
+          Get Started
+        </a>
+        <a href="https://coralcss.dev/playground" class="px-6 py-3 bg-muted rounded-lg font-medium hover:bg-muted/80 transition-colors">
+          Playground
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="bg-muted/50 py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Features</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="bg-card p-6 rounded-xl border border-border">
+          <div class="w-12 h-12 bg-cyan-500/10 rounded-lg flex items-center justify-center mb-4">
+            <span class="text-2xl">⚡</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Lightning Fast</h3>
+          <p class="text-muted-foreground">6x faster than alternatives with smart caching.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-card p-6 rounded-xl border border-border">
+          <div class="w-12 h-12 bg-teal-500/10 rounded-lg flex items-center justify-center mb-4">
+            <span class="text-2xl">🎨</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Modern CSS</h3>
+          <p class="text-muted-foreground">Container queries, anchor positioning, scroll animations.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-card p-6 rounded-xl border border-border">
+          <div class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-4">
+            <span class="text-2xl">✨</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2">60+ Animations</h3>
+          <p class="text-muted-foreground">Beautiful built-in animations ready to use.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container mx-auto px-4 py-20">
+    <div class="bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 rounded-2xl p-12 text-center text-white">
+      <h2 class="text-3xl font-bold mb-4">Ready to get started?</h2>
+      <p class="text-lg mb-8 opacity-90">Install CoralCSS and start building beautiful websites today.</p>
+      <code class="bg-black/20 px-4 py-2 rounded-lg font-mono">npm install @coral-css/core</code>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-border py-8">
+    <div class="container mx-auto px-4 text-center text-muted-foreground">
+      <p>Built with CoralCSS</p>
+      <p class="mt-2">
+        <a href="https://coralcss.dev" class="text-primary hover:underline">coralcss.dev</a>
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

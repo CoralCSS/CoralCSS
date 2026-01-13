@@ -62,3 +62,5 @@ website/node_modules/
 # Examples build
 examples/**/node_modules/
 examples/**/dist/
+
+tmpclaude-*-cwd

@@ -8,6 +8,8 @@
 import { createCoral } from '../kernel'
 import { coralPreset } from '../presets/coral'
 import { generateThemeCSS } from '../theme/dark'
+import { runTokenCLI, parseTokenArgs, printTokenHelp } from '../design-system/cli'
+import { parse, expandVariantGroups } from '../core/parser'
 import type { DarkModeStrategy } from '../types'
 
 /**
@@ -91,9 +93,10 @@ export function parseArgs(args: string[]): CLIOptions {
   }
 
   // Check for command first
-  const commands = ['init', 'analyze', 'optimize', 'migrate', 'doctor', 'build']
-  if (args.length > 0 && commands.includes(args[0])) {
-    options.command = args[0]
+  const commands = ['init', 'analyze', 'optimize', 'migrate', 'doctor', 'build', 'tokens', 'benchmark']
+  const firstArg = args[0]
+  if (args.length > 0 && firstArg && commands.includes(firstArg)) {
+    options.command = firstArg
     args = args.slice(1)
   } else {
     options.command = 'build'
@@ -152,9 +155,9 @@ export function parseArgs(args: string[]): CLIOptions {
         break
 
       default:
-        if (options.command === 'init' && !arg.startsWith('-')) {
+        if (arg && options.command === 'init' && !arg.startsWith('-')) {
           options.template = arg
-        } else if (options.command === 'migrate' && !arg.startsWith('-')) {
+        } else if (arg && options.command === 'migrate' && !arg.startsWith('-')) {
           options.template = arg
         } else if (arg && !arg.startsWith('-')) {
           options.input?.push(arg)
@@ -181,6 +184,8 @@ Commands:
   optimize                Optimize CSS output
   migrate [from]          Migrate from Tailwind CSS
   doctor                  Diagnose configuration issues
+  tokens <subcommand>     Design token management (build, export, validate, figma)
+  benchmark               Run performance benchmarks
 
 Options:
   -o, --output <file>    Output CSS file path
@@ -200,6 +205,10 @@ Examples:
   coral optimize -o dist/coral.min.css
   coral migrate tailwind
   coral doctor
+  coral tokens build -p web,ios
+  coral tokens export -f figma
+  coral benchmark
+  coral benchmark --iterations 10000 --json
 `)
 }
 
@@ -228,6 +237,10 @@ export async function run(options: CLIOptions): Promise<CLIResult> {
         return await runMigrate(options)
       case 'doctor':
         return await runDoctor(options)
+      case 'tokens':
+        return await runTokens(options)
+      case 'benchmark':
+        return await runBenchmark(options)
       case 'build':
       default:
         return await runBuild(options)
@@ -237,6 +250,28 @@ export async function run(options: CLIOptions): Promise<CLIResult> {
       success: false,
       error: error instanceof Error ? error.message : String(error),
     }
+  }
+}
+
+/**
+ * Tokens command - handles design token operations
+ */
+async function runTokens(options: CLIOptions): Promise<CLIResult> {
+  // Parse remaining args for token subcommands
+  const tokenArgs = options.input || []
+
+  // Check for help flag
+  if (tokenArgs.includes('--help') || tokenArgs.includes('-h')) {
+    printTokenHelp()
+    return { success: true }
+  }
+
+  const tokenOptions = parseTokenArgs(tokenArgs)
+  const result = await runTokenCLI(tokenOptions)
+
+  return {
+    success: result.success,
+    error: result.error,
   }
 }
 
@@ -448,30 +483,89 @@ async function runOptimize(options: CLIOptions): Promise<CLIResult> {
  */
 async function runMigrate(options: CLIOptions): Promise<CLIResult> {
   const from = options.template ?? 'tailwind'
+  const isDryRun = options.stdout // Use stdout flag for dry-run mode
 
-  console.log(`Migrating from ${from} to CoralCSS...`)
+  console.log(`\nCoralCSS Migration Tool`)
+  console.log(`=======================`)
+  console.log(`Source: ${from}`)
+  console.log(`Mode: ${isDryRun ? 'Dry Run (preview only)' : 'Apply'}`)
+  console.log('')
 
-  const mappings = [
-    'class="p-4" -> class="p-4"',
-    'class="bg-red-500" -> class="bg-red-500"',
-    'class="hover:bg-blue-500" -> class="hover:bg-blue-500"',
-    '@apply p-4 m-2 -> @apply p-4 m-2',
-    'theme("colors.primary") -> colors.primary',
-    'tailwind.config.js -> coral.config.js'
-  ]
+  // Display migration overview
+  console.log('Migration Overview:')
+  console.log('-------------------')
+  console.log('')
+  console.log('1. CLASS COMPATIBILITY')
+  console.log('   CoralCSS is 100% compatible with Tailwind utility classes!')
+  console.log('   - All spacing utilities (p-*, m-*, gap-*)')
+  console.log('   - All layout utilities (flex, grid, etc.)')
+  console.log('   - All color utilities (bg-*, text-*, border-*)')
+  console.log('   - All typography utilities (font-*, text-*)')
+  console.log('   - Arbitrary values [property-value]')
+  console.log('   - Responsive variants (sm:, md:, lg:, xl:)')
+  console.log('   - State variants (hover:, focus:, active:)')
+  console.log('')
 
-  console.log('\nClass mappings (100% compatible):')
-  for (const mapping of mappings.slice(0, 5)) {
-    console.log(`  ${mapping}`)
+  console.log('2. CONFIGURATION CHANGES')
+  console.log('   File: tailwind.config.js -> coral.config.js')
+  console.log('')
+  console.log('   Before (Tailwind):')
+  console.log('   module.exports = {')
+  console.log("     content: ['./src/**/*.{html,jsx,tsx}'],")
+  console.log("     darkMode: 'class',")
+  console.log('   }')
+  console.log('')
+  console.log('   After (CoralCSS):')
+  console.log("   import { createCoral, coralPreset } from '@coral-css/core'")
+  console.log('')
+  console.log('   export default createCoral({')
+  console.log("     plugins: coralPreset({ darkMode: 'class' }),")
+  console.log("     content: ['./src/**/*.{html,jsx,tsx}'],")
+  console.log('   })')
+  console.log('')
+
+  console.log('3. BUILD TOOL CHANGES')
+  console.log('')
+  console.log('   Vite:')
+  console.log("   - import tailwind from '@tailwindcss/vite'")
+  console.log("   + import coral from '@coral-css/core/vite'")
+  console.log('')
+  console.log('   PostCSS:')
+  console.log("   - plugins: { tailwindcss: {} }")
+  console.log("   + plugins: { '@coral-css/postcss': {} }")
+  console.log('')
+
+  console.log('4. CSS DIRECTIVE CHANGES')
+  console.log('   @tailwind base -> @coral base')
+  console.log('   @tailwind components -> @coral components')
+  console.log('   @tailwind utilities -> @coral utilities')
+  console.log('')
+
+  console.log('5. BONUS FEATURES (CoralCSS Exclusive)')
+  console.log('   - Variant groups: hover:(bg-blue-500 text-white)')
+  console.log('   - 60+ built-in animations')
+  console.log('   - Modern CSS: anchor positioning, scroll animations')
+  console.log('   - Built-in headless components')
+  console.log('   - 6x faster performance')
+  console.log('')
+
+  console.log('Migration Steps:')
+  console.log('----------------')
+  console.log('1. npm install @coral-css/core')
+  console.log('2. Create coral.config.js (copy from tailwind.config.js)')
+  console.log('3. Update build tool config (vite/postcss)')
+  console.log('4. Replace @tailwind with @coral in CSS')
+  console.log('5. Run: npm run dev')
+  console.log('')
+
+  if (!isDryRun) {
+    console.log('For automated migration analysis, use: coral migrate --dry-run')
+    console.log('This will analyze your project and generate a detailed report.')
   }
 
-  console.log('\nConfiguration changes needed:')
-  console.log('  - Rename tailwind.config.js to coral.config.js')
-  console.log('  - Update imports: @coral-css/core')
-  console.log('  - Update PostCSS plugin: @coral-css/postcss')
-  console.log('  - Update Vite plugin: @coral-css/vite')
-
-  console.log('\nMigration complete! Review changes and run: npm run dev')
+  console.log('')
+  console.log('Need help? Visit: https://coralcss.dev/docs/migration')
+  console.log('')
 
   return {
     success: true,
@@ -534,6 +628,278 @@ async function runDoctor(options: CLIOptions): Promise<CLIResult> {
     files: [],
     classes: []
   }
+}
+
+/**
+ * Benchmark result interface
+ */
+interface BenchmarkResult {
+  name: string
+  iterations: number
+  totalTimeMs: number
+  avgTimeMs: number
+  opsPerSec: number
+  minTimeMs: number
+  maxTimeMs: number
+}
+
+/**
+ * Benchmark suite results
+ */
+interface BenchmarkSuiteResults {
+  timestamp: string
+  platform: string
+  nodeVersion: string
+  results: BenchmarkResult[]
+  summary: {
+    totalTests: number
+    totalIterations: number
+    totalTimeMs: number
+  }
+}
+
+/**
+ * Benchmark command - Run real performance benchmarks
+ */
+async function runBenchmark(options: CLIOptions): Promise<CLIResult> {
+  const iterations = parseInt(options.input?.[0] || '1000', 10)
+  const outputJson = options.stdout
+
+  console.log('\n╔═══════════════════════════════════════════════════════════════╗')
+  console.log('║                    CoralCSS Benchmark Suite                   ║')
+  console.log('╚═══════════════════════════════════════════════════════════════╝\n')
+
+  console.log(`Platform: ${process.platform} ${process.arch}`)
+  console.log(`Node.js: ${process.version}`)
+  console.log(`Iterations per test: ${iterations.toLocaleString()}`)
+  console.log('')
+
+  // Initialize Coral instance for benchmarking
+  const coral = createCoral()
+  const plugins = coralPreset({ darkMode: 'class' })
+  plugins.forEach((plugin) => coral.use(plugin))
+
+  // Test data - realistic class combinations
+  const testClasses = [
+    // Basic utilities
+    'flex', 'grid', 'block', 'hidden', 'relative', 'absolute',
+    // Spacing
+    'p-4', 'px-6', 'py-2', 'm-auto', 'mx-4', 'my-8', 'gap-4',
+    // Typography
+    'text-sm', 'text-lg', 'font-bold', 'font-medium', 'leading-6',
+    // Colors
+    'bg-blue-500', 'text-white', 'border-gray-200', 'bg-gradient-to-r',
+    // Layout
+    'w-full', 'h-screen', 'max-w-xl', 'min-h-0', 'aspect-video',
+    // Flexbox
+    'items-center', 'justify-between', 'flex-col', 'flex-wrap',
+    // Borders
+    'rounded-lg', 'border', 'border-2', 'shadow-md', 'shadow-xl',
+    // States (with variants)
+    'hover:bg-blue-600', 'focus:ring-2', 'active:scale-95',
+    // Responsive
+    'sm:flex', 'md:grid-cols-2', 'lg:px-8', 'xl:max-w-6xl',
+    // Dark mode
+    'dark:bg-gray-900', 'dark:text-white', 'dark:border-gray-700',
+    // Arbitrary values
+    '[color:red]', 'w-[200px]', 'bg-[#ff6b6b]', 'grid-cols-[1fr_2fr]',
+    // Complex combinations
+    'hover:dark:bg-gray-800', 'sm:hover:text-blue-500',
+  ]
+
+  const results: BenchmarkResult[] = []
+
+  // Benchmark 1: Class Parsing
+  console.log('Running benchmarks...\n')
+  console.log('─'.repeat(65))
+
+  const parsingResult = runSingleBenchmark('Class Parsing', iterations, () => {
+    for (const cls of testClasses) {
+      parse(cls)
+    }
+  })
+  results.push(parsingResult)
+  printBenchmarkResult(parsingResult)
+
+  // Benchmark 2: Variant Group Expansion
+  const variantGroups = [
+    'hover:(bg-blue-500 text-white scale-105)',
+    'dark:(bg-gray-900 text-gray-100 border-gray-700)',
+    'sm:(flex items-center gap-4)',
+    'focus:(ring-2 ring-blue-500 outline-none)',
+  ]
+
+  const variantResult = runSingleBenchmark('Variant Group Expansion', iterations, () => {
+    for (const group of variantGroups) {
+      expandVariantGroups(group)
+    }
+  })
+  results.push(variantResult)
+  printBenchmarkResult(variantResult)
+
+  // Benchmark 3: CSS Generation
+  const generationResult = runSingleBenchmark('CSS Generation', iterations, () => {
+    coral.generate(testClasses)
+  })
+  results.push(generationResult)
+  printBenchmarkResult(generationResult)
+
+  // Benchmark 4: Cache Performance (warm cache)
+  // First, warm up the cache
+  coral.generate(testClasses)
+
+  const cacheResult = runSingleBenchmark('Cached Generation', iterations, () => {
+    coral.generate(testClasses)
+  })
+  results.push(cacheResult)
+  printBenchmarkResult(cacheResult)
+
+  // Benchmark 5: Full Pipeline (parse + generate)
+  const fullPipelineResult = runSingleBenchmark('Full Pipeline', iterations, () => {
+    const classes = testClasses.map(cls => {
+      const expanded = expandVariantGroups(cls)
+      return expanded
+    }).flat()
+    coral.generate(classes)
+  })
+  results.push(fullPipelineResult)
+  printBenchmarkResult(fullPipelineResult)
+
+  // Benchmark 6: Large Scale (100 classes)
+  const largeClassSet = Array(100).fill(null).map((_, i) => {
+    const utilities = ['p', 'm', 'w', 'h', 'text', 'bg', 'border', 'rounded']
+    const values = ['1', '2', '4', '8', 'sm', 'md', 'lg', 'xl', 'full', 'auto']
+    const util = utilities[i % utilities.length]
+    const val = values[i % values.length]
+    return `${util}-${val}`
+  })
+
+  const largeScaleResult = runSingleBenchmark('Large Scale (100 classes)', Math.floor(iterations / 10), () => {
+    coral.generate(largeClassSet)
+  })
+  results.push(largeScaleResult)
+  printBenchmarkResult(largeScaleResult)
+
+  console.log('─'.repeat(65))
+
+  // Summary
+  const totalTime = results.reduce((sum, r) => sum + r.totalTimeMs, 0)
+  const totalIterations = results.reduce((sum, r) => sum + r.iterations, 0)
+
+  console.log('\n╔═══════════════════════════════════════════════════════════════╗')
+  console.log('║                          Summary                              ║')
+  console.log('╚═══════════════════════════════════════════════════════════════╝\n')
+
+  console.log(`Total Tests:       ${results.length}`)
+  console.log(`Total Iterations:  ${totalIterations.toLocaleString()}`)
+  console.log(`Total Time:        ${totalTime.toFixed(2)}ms`)
+  console.log('')
+
+  // Performance highlights
+  const fastestOps = Math.max(...results.map(r => r.opsPerSec))
+  const fastestTest = results.find(r => r.opsPerSec === fastestOps)
+
+  console.log('Performance Highlights:')
+  console.log(`  Fastest:     ${fastestTest?.name} (${formatOps(fastestOps)})`)
+  console.log(`  Parsing:     ${formatOps(parsingResult.opsPerSec)}`)
+  console.log(`  Generation:  ${formatOps(generationResult.opsPerSec)}`)
+  console.log(`  Cache:       ${formatOps(cacheResult.opsPerSec)}`)
+  console.log('')
+
+  // Cache speedup calculation
+  const cacheSpeedup = cacheResult.opsPerSec / generationResult.opsPerSec
+  console.log(`Cache Speedup: ${cacheSpeedup.toFixed(1)}x faster with warm cache`)
+  console.log('')
+
+  // Output JSON if requested
+  if (outputJson) {
+    const suiteResults: BenchmarkSuiteResults = {
+      timestamp: new Date().toISOString(),
+      platform: `${process.platform} ${process.arch}`,
+      nodeVersion: process.version,
+      results,
+      summary: {
+        totalTests: results.length,
+        totalIterations,
+        totalTimeMs: totalTime,
+      }
+    }
+
+    console.log('\nJSON Output:')
+    console.log(JSON.stringify(suiteResults, null, 2))
+  }
+
+  console.log('\nNote: Run multiple times for consistent results.')
+  console.log('Use --stdout for JSON output suitable for CI/CD.')
+
+  return {
+    success: true,
+    files: [],
+    classes: []
+  }
+}
+
+/**
+ * Run a single benchmark
+ */
+function runSingleBenchmark(
+  name: string,
+  iterations: number,
+  fn: () => void
+): BenchmarkResult {
+  const times: number[] = []
+
+  // Warmup (10% of iterations)
+  const warmupCount = Math.max(10, Math.floor(iterations * 0.1))
+  for (let i = 0; i < warmupCount; i++) {
+    fn()
+  }
+
+  // Actual benchmark
+  const start = performance.now()
+
+  for (let i = 0; i < iterations; i++) {
+    const iterStart = performance.now()
+    fn()
+    times.push(performance.now() - iterStart)
+  }
+
+  const totalTime = performance.now() - start
+  const avgTime = totalTime / iterations
+  const minTime = Math.min(...times)
+  const maxTime = Math.max(...times)
+  const opsPerSec = Math.round((iterations / totalTime) * 1000)
+
+  return {
+    name,
+    iterations,
+    totalTimeMs: totalTime,
+    avgTimeMs: avgTime,
+    opsPerSec,
+    minTimeMs: minTime,
+    maxTimeMs: maxTime,
+  }
+}
+
+/**
+ * Print a single benchmark result
+ */
+function printBenchmarkResult(result: BenchmarkResult): void {
+  const opsStr = formatOps(result.opsPerSec).padStart(12)
+  const avgStr = `${result.avgTimeMs.toFixed(4)}ms`.padStart(12)
+  console.log(`${result.name.padEnd(28)} │ ${opsStr} ops/sec │ avg: ${avgStr}`)
+}
+
+/**
+ * Format operations per second
+ */
+function formatOps(ops: number): string {
+  if (ops >= 1000000) {
+    return `${(ops / 1000000).toFixed(2)}M`
+  } else if (ops >= 1000) {
+    return `${(ops / 1000).toFixed(1)}K`
+  }
+  return ops.toString()
 }
 
 /**

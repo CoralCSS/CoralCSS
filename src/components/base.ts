@@ -147,6 +147,13 @@ export abstract class BaseComponent {
   }
 
   /**
+   * Emit a custom event (alias for dispatch)
+   */
+  protected emit(eventName: string, detail?: unknown): boolean {
+    return this.dispatch(eventName, detail)
+  }
+
+  /**
    * Add event listener with cleanup tracking
    */
   protected addEventListener(

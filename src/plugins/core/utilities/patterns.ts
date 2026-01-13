@@ -11,6 +11,30 @@ import type { Plugin } from '../../../types'
 /**
  * Pattern utilities plugin for CoralCSS
  */
+/**
+ * Pattern animation keyframes
+ */
+const patternKeyframes = {
+  'pattern-scroll': `@keyframes pattern-scroll {
+  from { background-position: 0 0; }
+  to { background-position: 100px 100px; }
+}`,
+}
+
+/**
+ * Get all pattern keyframes CSS
+ */
+export function getPatternKeyframes(): string {
+  return Object.values(patternKeyframes).join('\n\n')
+}
+
+/**
+ * Generate complete pattern CSS (keyframes + utilities base)
+ */
+export function generatePatternCSS(): string {
+  return getPatternKeyframes()
+}
+
 export const patternsPlugin = (): Plugin => ({
   name: 'patterns',
   version: '1.0.0',
@@ -240,16 +264,9 @@ export const patternsPlugin = (): Plugin => ({
     api.addRule({
       name: 'animate-pattern-scroll',
       pattern: 'animate-pattern-scroll',
-      generate: () => ({
-        properties: {
-          'animation': 'pattern-scroll 20s linear infinite',
-        },
-        atRules: [
-          '@keyframes pattern-scroll',
-          '0% { background-position: 0 0 }',
-          '100% { background-position: 100px 100px }',
-        ],
-      }),
+      properties: {
+        'animation': 'pattern-scroll 20s linear infinite',
+      },
     })
 
     // Pattern overlays for cards

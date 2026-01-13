@@ -8,7 +8,7 @@
  * - Base/reset styles
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync, copyFileSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -16,9 +16,16 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const rootDir = join(__dirname, '..')
 
-// CSS files to concatenate
+// CSS files to concatenate (in order)
 const cssFiles = [
-  'src/theme/components.css',
+  'src/theme/ui-styles.css',      // UI style presets (coral, material, bootstrap, etc.)
+  'website/src/themes/index.css', // Theme color palettes
+  'src/theme/components.css',     // Component styles
+]
+
+// Paths to copy the final CSS to
+const copyDestinations = [
+  'website/src/coral-theme.css',
 ]
 
 // Read and concatenate all CSS files
@@ -62,7 +69,23 @@ function buildCSS() {
   writeFileSync(minOutputPath, minifiedCSS)
   console.log(`  Output: dist/coral.min.css (${(minifiedCSS.length / 1024).toFixed(2)} KB)`)
 
-  console.log('CSS build complete!')
+  // Copy to additional destinations
+  console.log('\nCopying CSS to destinations...')
+  for (const dest of copyDestinations) {
+    const destPath = join(rootDir, dest)
+    const destDir = dirname(destPath)
+
+    // Ensure destination directory exists
+    if (!existsSync(destDir)) {
+      mkdirSync(destDir, { recursive: true })
+    }
+
+    // Copy the unminified version
+    copyFileSync(outputPath, destPath)
+    console.log(`  Copied: ${dest}`)
+  }
+
+  console.log('\nCSS build complete!')
 }
 
 // Basic CSS minification

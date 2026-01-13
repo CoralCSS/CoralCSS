@@ -83,6 +83,19 @@ function Header() {
           <NavLink to="/showcase" active={isActive('/showcase')}>
             Showcase
           </NavLink>
+          <Link
+            to="/playground"
+            className={`px-4 py-2 rounded-lg transition-colors flex items-center gap-1.5 ${
+              isActive('/playground')
+                ? 'text-primary bg-primary/10 font-medium'
+                : 'text-muted-foreground hover:text-primary hover:bg-accent'
+            }`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            Playground
+          </Link>
           <a
             href="https://github.com/ersinkoc/CoralCSS"
             target="_blank"
@@ -182,6 +195,19 @@ function Header() {
             <MobileNavLink to="/showcase" active={isActive('/showcase')}>
               Showcase
             </MobileNavLink>
+            <Link
+              to="/playground"
+              className={`flex items-center gap-2 px-4 py-3 rounded-lg transition-colors ${
+                isActive('/playground')
+                  ? 'text-primary bg-primary/10 font-medium'
+                  : 'text-muted-foreground hover:text-primary hover:bg-accent'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
+              Playground
+            </Link>
             <a
               href="https://github.com/ersinkoc/CoralCSS"
               target="_blank"

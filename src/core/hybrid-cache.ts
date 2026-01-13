@@ -12,7 +12,7 @@ import type { CacheStats } from '../types'
 /**
  * Cache entry with metadata
  */
-interface CacheEntry<T = string> {
+export interface CacheEntry<T = string> {
   value: T
   timestamp: number
   expiresAt: number
@@ -23,7 +23,7 @@ interface CacheEntry<T = string> {
 /**
  * Persistent cache entry (for IndexedDB)
  */
-interface PersistentCacheEntry {
+export interface PersistentCacheEntry {
   key: string
   value: string
   timestamp: number

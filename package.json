@@ -282,6 +282,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
+    "benchmark": "npx tsx benchmarks/compare.ts",
+    "benchmark:full": "node --expose-gc --loader tsx benchmarks/compare.ts 5000",
+    "benchmark:json": "npx tsx benchmarks/compare.ts 1000 --json",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run clean && npm run build && npm run test:coverage"
   },
@@ -336,6 +339,7 @@
     "rimraf": "^6.0.0",
     "solid-js": "^1.9.0",
     "svelte": "^5.46.1",
+    "tailwindcss": "^4.1.18",
     "tsup": "^8.3.0",
     "typescript": "^5.7.0",
     "vitest": "^2.1.0",

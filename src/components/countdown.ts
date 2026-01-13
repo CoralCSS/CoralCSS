@@ -8,7 +8,7 @@
  */
 
 import { BaseComponent, createComponentFactory } from './base'
-import type { ComponentConfig, ComponentState } from './base'
+import type { ComponentConfig, ComponentState } from '../types'
 
 /**
  * Countdown target types
@@ -94,14 +94,26 @@ export interface CountdownState extends ComponentState {
  * </div>
  * ```
  */
-export class Countdown extends BaseComponent<CountdownConfig, CountdownState> {
+export class Countdown extends BaseComponent {
+  protected override state!: CountdownState
+  protected override config!: CountdownConfig
   private intervalId: number | null = null
   private valueElement: HTMLElement | null = null
   private pauseButton: HTMLButtonElement | null = null
   private resetButton: HTMLButtonElement | null = null
 
   constructor(element: HTMLElement, config: CountdownConfig) {
-    super(element, {
+    super(element, config)
+    this.cacheElements()
+    this.render()
+
+    if (this.config.autoStart) {
+      this.start()
+    }
+  }
+
+  protected getDefaultConfig(): CountdownConfig {
+    return {
       format: 'full',
       showMilliseconds: false,
       autoStart: true,
@@ -109,12 +121,12 @@ export class Countdown extends BaseComponent<CountdownConfig, CountdownState> {
       pauseable: true,
       resettable: true,
       separator: ':',
-      ...config,
-    })
+    }
+  }
 
+  protected getInitialState(): CountdownState {
     const totalDuration = this.calculateTotalDuration()
-
-    this.state = {
+    return {
       remaining: totalDuration,
       total: totalDuration,
       isRunning: false,
@@ -122,18 +134,11 @@ export class Countdown extends BaseComponent<CountdownConfig, CountdownState> {
       isCompleted: false,
       timeUnits: this.calculateTimeUnits(totalDuration),
     }
-
-    this.init()
   }
 
-  protected init(): void {
-    this.cacheElements()
-    this.bindEvents()
-    this.render()
-
-    if (this.config.autoStart) {
-      this.start()
-    }
+  protected setupAria(): void {
+    this.element.setAttribute('role', 'timer')
+    this.element.setAttribute('aria-live', 'polite')
   }
 
   private cacheElements(): void {
@@ -142,7 +147,7 @@ export class Countdown extends BaseComponent<CountdownConfig, CountdownState> {
     this.resetButton = this.element.querySelector('[data-coral-countdown-reset]') as HTMLButtonElement
   }
 
-  private bindEvents(): void {
+  protected bindEvents(): void {
     this.pauseButton?.addEventListener('click', () => this.togglePause())
     this.resetButton?.addEventListener('click', () => this.reset())
   }
@@ -310,7 +315,7 @@ export class Countdown extends BaseComponent<CountdownConfig, CountdownState> {
     }
   }
 
-  private render(): void {
+  protected override render(): void {
     if (!this.valueElement) return
 
     const formattedTime = this.formatTime()
@@ -446,7 +451,7 @@ export class Countdown extends BaseComponent<CountdownConfig, CountdownState> {
   /**
    * Destroy the component
    */
-  destroy(): void {
+  override destroy(): void {
     this.stop()
     this.pauseButton?.replaceWith(this.pauseButton.cloneNode(true))
     this.resetButton?.replaceWith(this.resetButton.cloneNode(true))
@@ -464,8 +469,8 @@ export function createCountdown(element: HTMLElement, config?: CountdownConfig):
 /**
  * Factory to create Countdown components with consistent configuration
  */
-export const createCountdownFactory = createComponentFactory<CountdownConfig, Countdown>(
-  (element, config) => new Countdown(element, config!)
+export const createCountdownFactory = createComponentFactory<Countdown, CountdownConfig>(
+  Countdown as unknown as new (element: HTMLElement, config?: Partial<CountdownConfig>) => Countdown
 )
 
 export default Countdown

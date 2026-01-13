@@ -30,7 +30,7 @@ function Home() {
     return count
   }
 
-  const componentCount = useCounter(168)
+  const componentCount = useCounter(21)
   const coverageCount = useCounter(98)
 
   const codeExamples = [
@@ -89,7 +89,7 @@ function Home() {
 
           <p className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed text-muted-foreground">
             A modern, zero-dependency CSS framework with JIT compilation,
-            TypeScript support, and 168+ ready-to-use components.
+            TypeScript support, and 100+ component examples.
           </p>
 
           {/* CTAs */}

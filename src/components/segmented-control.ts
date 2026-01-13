@@ -132,8 +132,9 @@ export class SegmentedControl extends BaseComponent {
     }
   }
 
-  protected init(): void {
+  protected override init(): void {
     this.cacheElements()
+    super.init()
     this.updateSegments()
     this.updateIndicator()
   }
@@ -142,6 +143,7 @@ export class SegmentedControl extends BaseComponent {
     if (this.state.disabled) return
 
     const segment = this.segments[index]
+    if (!segment) return
     const value = segment.getAttribute('data-value') || ''
     const isDisabled = segment.getAttribute('data-disabled') === 'true'
 
@@ -292,6 +294,7 @@ export class SegmentedControl extends BaseComponent {
   selectByIndex(index: number): void {
     if (index >= 0 && index < this.segments.length) {
       const segment = this.segments[index]
+      if (!segment) return
       const value = segment.getAttribute('data-value') || ''
       this.setValue(value)
     }
@@ -360,8 +363,10 @@ export function createSegmentedControl(
  * Factory to create SegmentedControl components with consistent configuration
  */
 export const createSegmentedControlFactory = createComponentFactory<
-  SegmentedControlConfig,
-  SegmentedControl
->((element, config) => new SegmentedControl(element, config || {}))
+  SegmentedControl,
+  SegmentedControlConfig
+>(
+  SegmentedControl as unknown as new (element: HTMLElement, config?: Partial<SegmentedControlConfig>) => SegmentedControl
+)
 
 export default SegmentedControl

@@ -8,7 +8,7 @@
  */
 
 import { BaseComponent, createComponentFactory } from './base'
-import type { ComponentConfig, ComponentState } from './base'
+import type { ComponentConfig, ComponentState } from '../types'
 
 /**
  * QR Code error correction levels
@@ -98,7 +98,7 @@ class QRCodeGenerator {
     for (let row = 0; row < this.size; row++) {
       this.modules[row] = []
       for (let col = 0; col < this.size; col++) {
-        this.modules[row][col] = { row, col, isDark: false }
+        this.modules[row]![col] = { row, col, isDark: false }
       }
     }
   }
@@ -126,13 +126,22 @@ class QRCodeGenerator {
  * </div>
  * ```
  */
-export class QRCode extends BaseComponent<QRCodeConfig, QRCodeState> {
+export class QRCode extends BaseComponent {
+  protected override state!: QRCodeState
+  protected override config!: QRCodeConfig
   private canvas: HTMLCanvasElement | null = null
   private downloadLink: HTMLAnchorElement | null = null
   private generator: QRCodeGenerator | null = null
 
   constructor(element: HTMLElement, config: QRCodeConfig) {
-    super(element, {
+    super(element, config)
+    this.cacheElements()
+    this.generate()
+  }
+
+  protected getDefaultConfig(): QRCodeConfig {
+    return {
+      data: '',
       size: 200,
       level: 'M',
       color: '#000000',
@@ -142,23 +151,21 @@ export class QRCode extends BaseComponent<QRCodeConfig, QRCodeState> {
       quietZone: true,
       downloadable: false,
       downloadFilename: 'qrcode.png',
-      ...config,
-    })
+    }
+  }
 
-    this.state = {
-      data: config.data,
+  protected getInitialState(): QRCodeState {
+    return {
+      data: this.config.data,
       loading: true,
       error: null,
       qrUrl: null,
     }
-
-    this.init()
   }
 
-  protected init(): void {
-    this.cacheElements()
-    this.bindEvents()
-    this.generate()
+  protected setupAria(): void {
+    this.element.setAttribute('role', 'img')
+    this.element.setAttribute('aria-label', 'QR Code')
   }
 
   private cacheElements(): void {
@@ -173,9 +180,9 @@ export class QRCode extends BaseComponent<QRCodeConfig, QRCodeState> {
     }
   }
 
-  private bindEvents(): void {
+  protected bindEvents(): void {
     // Download button
-    if (this.config.downloadable && this.downloadLink) {
+    if ((this.config as QRCodeConfig).downloadable && this.downloadLink) {
       this.downloadLink.addEventListener('click', this.handleDownload.bind(this))
     }
   }
@@ -354,7 +361,7 @@ export class QRCode extends BaseComponent<QRCodeConfig, QRCodeState> {
     return Math.abs(hash)
   }
 
-  private render(): void {
+  protected override render(): void {
     if (!this.canvas) return
 
     // Draw logo if specified
@@ -442,7 +449,7 @@ export class QRCode extends BaseComponent<QRCodeConfig, QRCodeState> {
   /**
    * Destroy the component
    */
-  destroy(): void {
+  override destroy(): void {
     this.downloadLink?.removeEventListener('click', this.handleDownload.bind(this))
     super.destroy()
   }
@@ -458,8 +465,8 @@ export function createQRCode(element: HTMLElement, config: QRCodeConfig): QRCode
 /**
  * Factory to create QRCode components with consistent configuration
  */
-export const createQRCodeFactory = createComponentFactory<QRCodeConfig, QRCode>(
-  (element, config) => new QRCode(element, config)
+export const createQRCodeFactory = createComponentFactory<QRCode, QRCodeConfig>(
+  QRCode as unknown as new (element: HTMLElement, config?: Partial<QRCodeConfig>) => QRCode
 )
 
 export default QRCode

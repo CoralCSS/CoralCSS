@@ -70,16 +70,16 @@ function Showcase() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="py-24 bg-gradient-to-b from-primary/10 via-primary/5 to-background relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--accent)/0.08),transparent_50%)]" />
+      <section className="py-24 bg-muted/30 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--primary)/0.05),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--accent)/0.05),transparent_50%)]" />
         <div className="container text-center relative">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-card border border-border text-foreground text-sm font-medium mb-6 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             Live Interactive Demo
           </div>
           <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-            Component <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Showcase</span>
+            Component Showcase
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Beautiful, accessible, theme-aware headless components styled with CoralCSS.

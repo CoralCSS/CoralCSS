@@ -198,6 +198,12 @@ export interface PluginAPI {
   on(event: KernelEvent, handler: EventHandler): () => void
   /** Get current config */
   getConfig(): ResolvedConfig
+  /** Store data for later retrieval */
+  setData(key: string, value: unknown): void
+  /** Get stored data */
+  getData(key: string): unknown
+  /** Emit a custom event */
+  emit(event: string, data?: unknown): void
 }
 
 /**

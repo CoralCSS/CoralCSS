@@ -9,10 +9,12 @@ const sections = [
   { id: 'variants', label: 'Variants', icon: '🔀' },
   { id: 'modern-css', label: 'Modern CSS', icon: '🌟' },
   { id: 'themes', label: 'Theming', icon: '🎭' },
+  { id: 'design-system', label: 'Design System', icon: '🎯' },
   { id: 'components', label: 'Components', icon: '🧩' },
   { id: 'plugins', label: 'Plugins', icon: '🔌' },
   { id: 'presets', label: 'Presets', icon: '📋' },
   { id: 'typescript', label: 'TypeScript', icon: '💎' },
+  { id: 'cli', label: 'CLI', icon: '⌨️' },
 ]
 
 function CodeBlock({ children, filename, language = 'typescript' }: { children: string; filename?: string; language?: string }) {
@@ -774,6 +776,187 @@ coral({ darkMode: ['selector', '[data-theme="dark"]'] })`}</CodeBlock>
               </div>
             </section>
 
+            {/* Design System */}
+            <section id="design-system" className="mb-16 scroll-mt-28">
+              <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                  </svg>
+                </span>
+                Design System
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Enterprise-grade design token system with Style Dictionary and Figma integration.
+              </p>
+
+              <Callout type="tip" title="W3C DTCG Compliant">
+                CoralCSS uses the W3C Design Tokens Community Group format for maximum interoperability.
+              </Callout>
+
+              {/* Token Structure */}
+              <h3 className="text-lg font-semibold text-foreground mt-8 mb-4">Token Structure</h3>
+              <p className="text-muted-foreground mb-4">
+                Design tokens are organized into three layers: Primitive, Semantic, and Component tokens.
+              </p>
+
+              <div className="grid md:grid-cols-3 gap-4 mb-6">
+                <div className="p-4 rounded-xl border border-border bg-card">
+                  <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-3">
+                    <span className="text-xl">🎨</span>
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-1">Primitive</h4>
+                  <p className="text-sm text-muted-foreground">Raw values like colors, spacing scales, and typography.</p>
+                </div>
+                <div className="p-4 rounded-xl border border-border bg-card">
+                  <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-3">
+                    <span className="text-xl">🔗</span>
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-1">Semantic</h4>
+                  <p className="text-sm text-muted-foreground">Theme-aware tokens that reference primitives.</p>
+                </div>
+                <div className="p-4 rounded-xl border border-border bg-card">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-3">
+                    <span className="text-xl">🧩</span>
+                  </div>
+                  <h4 className="font-semibold text-foreground mb-1">Component</h4>
+                  <p className="text-sm text-muted-foreground">Component-specific tokens for buttons, cards, etc.</p>
+                </div>
+              </div>
+
+              <CodeBlock filename="tokens.json" language="json">{`{
+  "$name": "CoralCSS Design Tokens",
+  "$version": "1.1.0",
+
+  "color": {
+    "coral": {
+      "500": { "$value": "#ff6347", "$type": "color" }
+    }
+  },
+
+  "semantic": {
+    "primary": {
+      "default": { "$value": "{color.coral.500}", "$type": "color" }
+    }
+  },
+
+  "component": {
+    "button": {
+      "borderRadius": { "$value": "{borderRadius.lg}", "$type": "borderRadius" }
+    }
+  }
+}`}</CodeBlock>
+
+              {/* Platform Support */}
+              <h3 className="text-lg font-semibold text-foreground mt-8 mb-4">Multi-Platform Export</h3>
+              <p className="text-muted-foreground mb-4">
+                Export tokens to 12+ platforms including web, iOS, Android, and design tools.
+              </p>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                {[
+                  { name: 'CSS', icon: '🎨' },
+                  { name: 'SCSS', icon: '💅' },
+                  { name: 'JavaScript', icon: '📜' },
+                  { name: 'TypeScript', icon: '💎' },
+                  { name: 'iOS Swift', icon: '🍎' },
+                  { name: 'Android', icon: '🤖' },
+                  { name: 'React Native', icon: '⚛️' },
+                  { name: 'Figma', icon: '🎯' },
+                ].map((platform) => (
+                  <div key={platform.name} className="flex items-center gap-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <span>{platform.icon}</span>
+                    <span className="text-sm font-medium text-foreground">{platform.name}</span>
+                  </div>
+                ))}
+              </div>
+
+              <CodeBlock filename="terminal" language="bash">{`# Build tokens for web platforms
+coral tokens build -p web,web-ts
+
+# Export to Figma format
+coral tokens export -f figma
+
+# Build for all platforms
+coral tokens build --preset all
+
+# Validate tokens
+coral tokens validate --verbose`}</CodeBlock>
+
+              {/* Figma Integration */}
+              <h3 className="text-lg font-semibold text-foreground mt-8 mb-4">Figma Integration</h3>
+              <p className="text-muted-foreground mb-4">
+                Sync tokens with Figma using Tokens Studio plugin or the new Figma Variables API.
+              </p>
+
+              <div className="p-4 rounded-xl border border-border bg-gradient-to-br from-purple-500/5 to-pink-500/5 mb-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51z"/>
+                      <path d="M8.148 24c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v4.49c0 2.476-2.012 4.49-4.588 4.49zm0-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02c1.664 0 3.116-1.354 3.116-3.02v-3.019H8.148z"/>
+                      <path d="M8.148 8.981c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981H8.148zm0-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V1.471H8.148z"/>
+                      <path d="M8.148 15.02H3.658v-4.49c0-2.476 2.014-4.49 4.49-4.49h4.588v4.49c0 2.476-2.012 4.49-4.588 4.49zm-3.117-1.471h3.117c1.664 0 3.116-1.354 3.116-3.019V7.51H8.148c-1.665 0-3.019 1.355-3.019 3.019v3.02z"/>
+                      <path d="M15.852 15.02h-3.117v-4.49h3.117c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49-4.49-2.014-4.49-4.49h1.471c0 1.664 1.354 3.019 3.019 3.019s3.019-1.355 3.019-3.019-1.355-3.019-3.019-3.019z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground mb-1">Tokens Studio Compatible</h4>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Export tokens in Figma Tokens Studio format for seamless designer-developer handoff.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-2 py-1 text-xs rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400">Import</span>
+                      <span className="px-2 py-1 text-xs rounded-full bg-pink-500/10 text-pink-600 dark:text-pink-400">Export</span>
+                      <span className="px-2 py-1 text-xs rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">Variables API</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <CodeBlock filename="figma-export.ts">{`import { toFigmaTokens, toFigmaVariables } from '@coral-css/core/design-system'
+
+// Export to Tokens Studio format
+const figmaTokens = toFigmaTokens(tokens, {
+  includePrimitives: true,
+  includeSemantics: true,
+  includeComponents: true,
+})
+
+// Export to Figma Variables format
+const figmaVariables = toFigmaVariables(tokens)
+
+// Write to file
+fs.writeFileSync('tokens.json', JSON.stringify(figmaTokens, null, 2))`}</CodeBlock>
+
+              {/* Token Validation */}
+              <h3 className="text-lg font-semibold text-foreground mt-8 mb-4">Token Validation</h3>
+              <p className="text-muted-foreground mb-4">
+                Built-in validation ensures token integrity and catches errors early.
+              </p>
+
+              <CodeBlock filename="validate.ts">{`import { validateTokens, generateValidationReport } from '@coral-css/core/design-system'
+
+const result = validateTokens(tokens, {
+  checkCircularRefs: true,  // Detect circular references
+  checkNaming: true,        // Validate naming conventions
+  checkAccessibility: true, // Check color contrast ratios
+  checkUnused: true,        // Find unused tokens
+})
+
+if (!result.valid) {
+  console.log(generateValidationReport(result))
+}
+
+// Output:
+// # Token Validation Report
+// Status: Invalid
+// ## Errors
+// - **color.primary**: Circular reference detected
+// ## Warnings
+// - **color.legacy**: Token is deprecated`}</CodeBlock>
+            </section>
+
             {/* Headless Components */}
             <section id="components" className="mb-16 scroll-mt-28">
               <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
@@ -785,7 +968,7 @@ coral({ darkMode: ['selector', '[data-theme="dark"]'] })`}</CodeBlock>
                 Headless Components
               </h2>
               <p className="text-muted-foreground mb-6">
-                168+ accessible, unstyled components ready to customize.
+                7 accessible headless components and 100+ component examples across 21 categories.
               </p>
               <CodeBlock filename="components.ts">{`import {
   createDialog,
@@ -820,7 +1003,7 @@ tabs.selectTab(1)`}</CodeBlock>
                   to="/components"
                   className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
                 >
-                  Browse all 168+ components
+                  Browse all components
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
@@ -996,6 +1179,100 @@ coralPreset({ darkMode: 'class' }).forEach(p => coral.use(p))`}</CodeBlock>
   Theme,
   ComponentConfig,
 } from '@coral-css/core'`}</CodeBlock>
+            </section>
+
+            {/* CLI */}
+            <section id="cli" className="mb-16 scroll-mt-28">
+              <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </span>
+                CLI
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Powerful command-line interface for building, analyzing, and optimizing your CSS.
+              </p>
+
+              <h3 className="text-lg font-semibold text-foreground mt-6 mb-4">Installation</h3>
+              <CodeBlock filename="terminal" language="bash">{`# Install globally
+npm install -g @coral-css/cli
+
+# Or use with npx
+npx coral build`}</CodeBlock>
+
+              <h3 className="text-lg font-semibold text-foreground mt-8 mb-4">Available Commands</h3>
+              <div className="space-y-3 mb-6">
+                {[
+                  { cmd: 'build', desc: 'Build CSS from input files', flags: '-o, -w, -m' },
+                  { cmd: 'init', desc: 'Initialize a new project', flags: '[template]' },
+                  { cmd: 'analyze', desc: 'Analyze bundle size and usage', flags: '' },
+                  { cmd: 'optimize', desc: 'Optimize and minify CSS output', flags: '-o' },
+                  { cmd: 'migrate', desc: 'Migrate from Tailwind CSS', flags: '[from]' },
+                  { cmd: 'doctor', desc: 'Diagnose configuration issues', flags: '' },
+                  { cmd: 'tokens', desc: 'Design token management', flags: 'build, export, validate' },
+                ].map((item) => (
+                  <div key={item.cmd} className="flex items-start gap-4 p-3 rounded-lg bg-muted/30 border border-border">
+                    <code className="px-2 py-1 rounded bg-primary/10 text-primary text-sm font-mono">
+                      {item.cmd}
+                    </code>
+                    <div className="flex-1">
+                      <p className="text-sm text-foreground">{item.desc}</p>
+                      {item.flags && (
+                        <p className="text-xs text-muted-foreground mt-1">{item.flags}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <h3 className="text-lg font-semibold text-foreground mt-8 mb-4">Common Usage</h3>
+              <CodeBlock filename="terminal" language="bash">{`# Build CSS from source files
+coral src/**/*.html -o dist/styles.css
+
+# Initialize a React project
+coral init react
+
+# Build with minification and watch mode
+coral src/**/*.tsx -o dist/app.css -m -w
+
+# Analyze unused utilities
+coral analyze dist/styles.css
+
+# Migrate from Tailwind
+coral migrate tailwind
+
+# Build design tokens
+coral tokens build -p web,ios --prefix myapp`}</CodeBlock>
+
+              <h3 className="text-lg font-semibold text-foreground mt-8 mb-4">Options</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border">
+                      <th className="text-left py-3 px-4 font-semibold text-foreground">Option</th>
+                      <th className="text-left py-3 px-4 font-semibold text-foreground">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {[
+                      { opt: '-o, --output', desc: 'Output CSS file path' },
+                      { opt: '-w, --watch', desc: 'Watch for file changes' },
+                      { opt: '-m, --minify', desc: 'Minify output CSS' },
+                      { opt: '--dark-mode', desc: 'Strategy: class, media, selector, auto' },
+                      { opt: '--no-base', desc: "Don't include base styles" },
+                      { opt: '-c, --config', desc: 'Path to config file' },
+                      { opt: '--stdout', desc: 'Output to stdout instead of file' },
+                    ].map((row) => (
+                      <tr key={row.opt} className="hover:bg-muted/30">
+                        <td className="py-3 px-4 font-mono text-primary text-xs">{row.opt}</td>
+                        <td className="py-3 px-4 text-muted-foreground">{row.desc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </section>
 
             {/* Navigation */}

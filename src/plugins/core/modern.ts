@@ -975,7 +975,7 @@ export function modernCSSPlugin(): Plugin {
         name: 'view-transition-type-arb',
         pattern: /^view-transition-type-\[(.+?)\]$/,
         handler: (match) => ({
-          properties: { 'view-transition-type': match[1] },
+          properties: { 'view-transition-type': match[1] ?? 'none' },
         }),
       })
 
