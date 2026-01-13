@@ -5,8 +5,9 @@ const sections = [
   { id: 'installation', label: 'Installation', icon: '📦' },
   { id: 'quick-start', label: 'Quick Start', icon: '⚡' },
   { id: 'utilities', label: 'Utility Classes', icon: '🎨' },
+  { id: 'modern-utilities', label: 'Modern Utilities', icon: '✨' },
   { id: 'variants', label: 'Variants', icon: '🔀' },
-  { id: 'modern-css', label: 'Modern CSS', icon: '✨' },
+  { id: 'modern-css', label: 'Modern CSS', icon: '🌟' },
   { id: 'themes', label: 'Theming', icon: '🎭' },
   { id: 'components', label: 'Components', icon: '🧩' },
   { id: 'plugins', label: 'Plugins', icon: '🔌' },
@@ -418,6 +419,122 @@ blur-{sm|md|lg|xl}`
                     <pre className="text-xs font-mono text-muted-foreground whitespace-pre-wrap">{item.code}</pre>
                   </div>
                 ))}
+              </div>
+            </section>
+
+            {/* Modern Utilities */}
+            <section id="modern-utilities" className="mb-16 scroll-mt-28">
+              <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-3">
+                <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-lg">
+                  ✨
+                </span>
+                Modern Utilities
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Advanced utilities for modern web development with cutting-edge CSS features.
+              </p>
+
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
+                {[
+                  {
+                    title: 'Aspect Ratio',
+                    code: `aspect-auto, aspect-square, aspect-video
+aspect-[16/9], aspect-[1.618]
+object-cover, object-contain, object-fill
+object-top, object-bottom, object-center`
+                  },
+                  {
+                    title: 'Text Decoration',
+                    code: `underline, overline, line-through
+no-underline, decoration-0
+decoration-coral-500, decoration-wavy
+underline-offset-4, underline-offset-auto`
+                  },
+                  {
+                    title: 'Line Clamp',
+                    code: `line-clamp-1 to line-clamp-6
+line-clamp-none
+Displays: -webkit-box, -webkit-line-clamp
+Overflow: hidden`
+                  },
+                  {
+                    title: 'List Style',
+                    code: `list-disc, list-decimal, list-none
+list-square, list-circle
+list-inside, list-outside
+list-image-none`
+                  },
+                  {
+                    title: 'Accent Color',
+                    code: `accent-coral-500, accent-blue-500
+accent-red-500, accent-green-500
+Uses CSS variables for theme colors
+Supports all standard color shades`
+                  },
+                  {
+                    title: 'Scroll Snap',
+                    code: `snap-none, snap-x, snap-y, snap-both
+snap-start, snap-end, snap-center
+snap-mandatory, snap-proximity
+snap-p-4, snap-m-4, snap-mt-4`
+                  },
+                  {
+                    title: 'Scroll Behavior',
+                    code: `scroll-auto, scroll-smooth
+overscroll-auto, overscroll-contain
+overscroll-none
+-webkit-overflow-scrolling-auto`
+                  },
+                  {
+                    title: 'Caret & Place',
+                    code: `caret-auto, caret-current
+caret-coral-500, caret-blue-500
+place-items-center, place-self-start
+place-content-between, place-content-center`
+                  },
+                  {
+                    title: 'Positioning',
+                    code: `inset-0, inset-4, inset-auto
+inset-x-4, inset-y-2
+top-4, right-4, bottom-4, left-4
+float-left, float-right, clear-both`
+                  },
+                  {
+                    title: 'Tables',
+                    code: `table-auto, table-fixed
+border-collapse, border-separate
+caption-top, caption-bottom
+col-span-2, row-span-3
+border-spacing-4`
+                  },
+                ].map((item) => (
+                  <div key={item.title} className="p-5 rounded-xl bg-card border border-border hover:border-primary/30 transition-colors">
+                    <h3 className="text-sm font-semibold text-primary mb-3">{item.title}</h3>
+                    <pre className="text-xs font-mono text-muted-foreground whitespace-pre-wrap">{item.code}</pre>
+                  </div>
+                ))}
+              </div>
+
+              <Callout type="info" title="Modern CSS Features">
+                These utilities use modern CSS properties like <code className="text-xs bg-muted px-1.5 py-0.5 rounded">aspect-ratio</code>, <code className="text-xs bg-muted px-1.5 py-0.5 rounded">object-fit</code>, and CSS custom properties for optimal browser compatibility and theme integration.
+              </Callout>
+
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold text-foreground mb-4">Interactive Examples</h3>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="aspect-square bg-gradient-to-br from-coral-400 to-accent-500 rounded-lg mb-3"></div>
+                    <p className="text-xs font-mono text-muted-foreground">aspect-square</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="aspect-video bg-gradient-to-br from-primary-400 to-coral-500 rounded-lg mb-3"></div>
+                    <p className="text-xs font-mono text-muted-foreground">aspect-video</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="aspect-[4/3] bg-gradient-to-br from-accent-400 to-primary-500 rounded-lg mb-3"></div>
+                    <p className="text-xs font-mono text-muted-foreground">aspect-[4/3]</p>
+                  </div>
+                </div>
               </div>
             </section>
 

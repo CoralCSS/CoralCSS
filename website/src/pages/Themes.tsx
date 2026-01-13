@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ThemePalette } from '../components/ThemeSwitcher'
 
 // Theme presets with their CSS variable values
@@ -17,73 +17,112 @@ const themePresets = [
   { name: 'fuchsia', label: 'Fuchsia', primary: '292 84% 61%', accent: '295 85% 53%' },
 ]
 
-// CSS variable categories
-const cssVariableGroups = [
-  {
-    name: 'Base Colors',
-    description: 'Background and foreground colors',
-    variables: [
-      { name: '--background', label: 'Background', defaultLight: '0 0% 100%', defaultDark: '0 0% 7%' },
-      { name: '--foreground', label: 'Foreground', defaultLight: '0 0% 3.9%', defaultDark: '0 0% 98%' },
-    ]
-  },
-  {
-    name: 'Brand Colors',
-    description: 'Primary brand and accent colors',
-    variables: [
-      { name: '--primary', label: 'Primary', defaultLight: '12 76% 61%', defaultDark: '12 76% 61%' },
-      { name: '--primary-foreground', label: 'Primary Text', defaultLight: '0 0% 98%', defaultDark: '0 0% 98%' },
-      { name: '--accent', label: 'Accent', defaultLight: '12 6% 15%', defaultDark: '0 0% 14.9%' },
-      { name: '--accent-foreground', label: 'Accent Text', defaultLight: '0 0% 98%', defaultDark: '0 0% 98%' },
-    ]
-  },
-  {
-    name: 'UI Colors',
-    description: 'Card, muted, and border colors',
-    variables: [
-      { name: '--card', label: 'Card', defaultLight: '0 0% 100%', defaultDark: '0 0% 7%' },
-      { name: '--card-foreground', label: 'Card Text', defaultLight: '0 0% 3.9%', defaultDark: '0 0% 98%' },
-      { name: '--muted', label: 'Muted', defaultLight: '0 0% 96.1%', defaultDark: '0 0% 14.9%' },
-      { name: '--muted-foreground', label: 'Muted Text', defaultLight: '0 0% 45.1%', defaultDark: '0 0% 63.9%' },
-      { name: '--border', label: 'Border', defaultLight: '0 0% 89.8%', defaultDark: '0 0% 14.9%' },
-    ]
-  },
-  {
-    name: 'Status Colors',
-    description: 'Success, warning, error, and info colors',
-    variables: [
-      { name: '--success', label: 'Success', defaultLight: '142 76% 36%', defaultDark: '142 70% 45%' },
-      { name: '--warning', label: 'Warning', defaultLight: '38 92% 50%', defaultDark: '45 93% 47%' },
-      { name: '--destructive', label: 'Destructive', defaultLight: '0 84% 60%', defaultDark: '0 62% 50%' },
-      { name: '--info', label: 'Info', defaultLight: '199 89% 48%', defaultDark: '200 98% 39%' },
-    ]
-  },
-]
+// Get CSS variable groups based on current theme
+const getCSSVariableGroups = (themeId: string | null) => {
+  const currentPreset = themePresets.find(p => p.name === themeId) || themePresets[0]
+
+  return [
+    {
+      name: 'Base Colors',
+      description: 'Background and foreground colors',
+      variables: [
+        { name: '--background', label: 'Background', defaultLight: '0 0% 100%', defaultDark: '0 0% 7%' },
+        { name: '--foreground', label: 'Foreground', defaultLight: '0 0% 3.9%', defaultDark: '0 0% 98%' },
+      ]
+    },
+    {
+      name: `Brand Colors (${currentPreset.label})`,
+      description: 'Primary brand and accent colors',
+      variables: [
+        { name: '--primary', label: 'Primary', defaultLight: currentPreset.primary, defaultDark: currentPreset.primary },
+        { name: '--primary-foreground', label: 'Primary Text', defaultLight: '0 0% 98%', defaultDark: '0 0% 98%' },
+        { name: '--accent', label: 'Accent', defaultLight: currentPreset.accent, defaultDark: currentPreset.accent },
+        { name: '--accent-foreground', label: 'Accent Text', defaultLight: '0 0% 98%', defaultDark: '0 0% 98%' },
+      ]
+    },
+    {
+      name: 'UI Colors',
+      description: 'Card, muted, and border colors',
+      variables: [
+        { name: '--card', label: 'Card', defaultLight: '0 0% 100%', defaultDark: '0 0% 7%' },
+        { name: '--card-foreground', label: 'Card Text', defaultLight: '0 0% 3.9%', defaultDark: '0 0% 98%' },
+        { name: '--muted', label: 'Muted', defaultLight: '0 0% 96.1%', defaultDark: '0 0% 14.9%' },
+        { name: '--muted-foreground', label: 'Muted Text', defaultLight: '0 0% 45.1%', defaultDark: '0 0% 63.9%' },
+        { name: '--border', label: 'Border', defaultLight: '0 0% 89.8%', defaultDark: '0 0% 14.9%' },
+      ]
+    },
+    {
+      name: 'Status Colors',
+      description: 'Success, warning, error, and info colors',
+      variables: [
+        { name: '--success', label: 'Success', defaultLight: '142 76% 36%', defaultDark: '142 70% 45%' },
+        { name: '--warning', label: 'Warning', defaultLight: '38 92% 50%', defaultDark: '45 93% 47%' },
+        { name: '--destructive', label: 'Destructive', defaultLight: '0 84% 60%', defaultDark: '0 62% 50%' },
+        { name: '--info', label: 'Info', defaultLight: '199 89% 48%', defaultDark: '200 98% 39%' },
+      ]
+    },
+  ]
+}
 
 function Themes() {
   const [copySuccess, setCopySuccess] = useState(false)
   const [previewMode, setPreviewMode] = useState<'light' | 'dark' | 'both'>('both')
+  // Initialize from localStorage to prevent flash of default theme
+  const [currentTheme, setCurrentTheme] = useState<string | null>(() => {
+    return localStorage.getItem('color-theme') || 'coral'
+  })
+
+  // Listen for localStorage theme changes
+  useEffect(() => {
+    const updateTheme = () => {
+      const saved = localStorage.getItem('color-theme')
+      if (saved) setCurrentTheme(saved)
+    }
+
+    updateTheme()
+
+    const handleStorageChange = (e: StorageEvent | Event) => {
+      if ('key' in e && e.key === 'color-theme') {
+        updateTheme()
+      } else {
+        updateTheme()
+      }
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    window.addEventListener('local-storage-updated', handleStorageChange)
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('local-storage-updated', handleStorageChange)
+    }
+  }, [])
 
   // Generate CSS code for export
   const generateCSS = () => {
+    const preset = themePresets.find(p => p.name === currentTheme) || themePresets[0]
     return `:root {
   --background: 0 0% 100%;
   --foreground: 0 0% 3.9%;
-  --primary: 12 76% 61%;
+  --primary: ${preset.primary};
   --primary-foreground: 0 0% 98%;
   --muted: 0 0% 96.1%;
   --muted-foreground: 0 0% 45.1%;
   --border: 0 0% 89.8%;
+  --accent: ${preset.accent};
+  --accent-foreground: 0 0% 98%;
 }
 
 .dark {
   --background: 0 0% 7%;
   --foreground: 0 0% 98%;
-  --primary: 12 76% 61%;
+  --primary: ${preset.primary};
   --primary-foreground: 0 0% 98%;
   --muted: 0 0% 14.9%;
   --muted-foreground: 0 0% 63.9%;
   --border: 0 0% 14.9%;
+  --accent: ${preset.accent};
+  --accent-foreground: 0 0% 98%;
 }`
   }
 
@@ -102,14 +141,26 @@ function Themes() {
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-muted/50 via-background to-primary/5" />
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-1/4 w-72 h-72 bg-primary/40 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute top-20 left-1/4 w-32 h-32 rounded-full blur-2xl animate-pulse"
+            style={{ backgroundColor: `hsl(${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).primary} / 0.3)` }}
+          />
+          <div
+            className="absolute bottom-0 right-1/4 w-40 h-40 rounded-full blur-2xl"
+            style={{ backgroundColor: `hsl(${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).accent} / 0.5)` }}
+          />
         </div>
 
         <div className="container relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 backdrop-blur-sm border border-primary/20 text-primary text-sm font-medium mb-6 shadow-sm">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 backdrop-blur-sm border text-sm font-medium mb-6 shadow-sm"
+              style={{
+                borderColor: `hsl(${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).primary} / 0.2)`,
+                color: `hsl(${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).primary})`
+              }}
+            >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
               </svg>
@@ -209,20 +260,20 @@ function Themes() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {cssVariableGroups.map(group => (
+          {getCSSVariableGroups(currentTheme).map(group => (
             <div key={group.name} className="p-6 bg-card rounded-xl border border-border">
               <h3 className="font-semibold text-foreground mb-2">{group.name}</h3>
               <p className="text-sm text-muted-foreground mb-4">{group.description}</p>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {group.variables.slice(0, 4).map(variable => (
-                  <div key={variable.name} className="flex items-center gap-3">
+                  <div key={variable.name} className="flex items-center gap-2">
                     <div
-                      className="w-8 h-8 rounded-lg border border-border shadow-inner"
+                      className="w-5 h-5 rounded-md border border-border/50 shadow-sm flex-shrink-0"
                       style={{ backgroundColor: `hsl(var(${variable.name}))` }}
                     />
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">{variable.label}</p>
-                      <p className="text-xs text-muted-foreground font-mono">{variable.name}</p>
+                      <p className="text-xs font-medium text-foreground truncate">{variable.label}</p>
+                      <p className="text-[10px] text-muted-foreground font-mono truncate">{variable.name}</p>
                     </div>
                   </div>
                 ))}
@@ -277,18 +328,18 @@ function Themes() {
   --foreground: 0 0% 3.9%;
   --card: 0 0% 100%;
   --card-foreground: 0 0% 3.9%;
-  --primary: 12 76% 61%;
+  --primary: ${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).primary};
   --primary-foreground: 0 0% 98%;
   --secondary: 0 0% 96.1%;
   --secondary-foreground: 0 0% 9%;
   --muted: 0 0% 96.1%;
   --muted-foreground: 0 0% 45.1%;
-  --accent: 12 6% 15%;
+  --accent: ${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).accent};
   --accent-foreground: 0 0% 98%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
   --border: 0 0% 89.8%;
-  --ring: 12 76% 61%;
+  --ring: ${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).primary};
   --radius: 0.5rem;
 }`}
               </pre>
@@ -308,18 +359,18 @@ function Themes() {
   --foreground: 0 0% 98%;
   --card: 0 0% 7%;
   --card-foreground: 0 0% 98%;
-  --primary: 12 76% 61%;
+  --primary: ${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).primary};
   --primary-foreground: 0 0% 98%;
   --secondary: 0 0% 14.9%;
   --secondary-foreground: 0 0% 98%;
   --muted: 0 0% 14.9%;
   --muted-foreground: 0 0% 63.9%;
-  --accent: 0 0% 14.9%;
+  --accent: ${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).accent};
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62% 50%;
   --destructive-foreground: 0 0% 98%;
   --border: 0 0% 14.9%;
-  --ring: 12 76% 61%;
+  --ring: ${(themePresets.find(p => p.name === currentTheme) || themePresets[0]).primary};
 }`}
               </pre>
             </div>

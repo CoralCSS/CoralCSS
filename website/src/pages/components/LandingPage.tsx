@@ -5,10 +5,7 @@
  * Features hero section, features showcase, testimonials, pricing, and CTA sections.
  */
 
-import { useState } from 'react'
-
 export function LandingPageShowcase() {
-  const [activeTab, setActiveTab] = useState<'hero' | 'features' | 'testimonials' | 'pricing'>('hero')
 
   return (
     <div className="min-h-screen bg-background">

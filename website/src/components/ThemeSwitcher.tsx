@@ -16,7 +16,10 @@ const themes = [
 ]
 
 export function ThemeSwitcher() {
-  const [activeTheme, setActiveTheme] = useState('coral')
+  // Initialize from localStorage to prevent flash of default theme
+  const [activeTheme, setActiveTheme] = useState(() => {
+    return localStorage.getItem('color-theme') || 'coral'
+  })
 
   useEffect(() => {
     const saved = localStorage.getItem('color-theme')
@@ -36,6 +39,8 @@ export function ThemeSwitcher() {
       document.documentElement.classList.add(theme.class)
     }
     localStorage.setItem('color-theme', activeTheme)
+    // Dispatch custom event for other components
+    window.dispatchEvent(new CustomEvent('local-storage-updated', { detail: { key: 'color-theme', value: activeTheme } }))
   }, [activeTheme])
 
   return (
@@ -70,7 +75,10 @@ export function ThemeSwitcher() {
 }
 
 export function ThemePalette() {
-  const [activeTheme, setActiveTheme] = useState('coral')
+  // Initialize from localStorage to prevent flash of default theme
+  const [activeTheme, setActiveTheme] = useState(() => {
+    return localStorage.getItem('color-theme') || 'coral'
+  })
 
   useEffect(() => {
     const saved = localStorage.getItem('color-theme')
@@ -96,37 +104,38 @@ export function ThemePalette() {
       document.documentElement.classList.add(theme.class)
     }
     localStorage.setItem('color-theme', activeTheme)
+    // Dispatch custom event for other components
+    window.dispatchEvent(new CustomEvent('local-storage-updated', { detail: { key: 'color-theme', value: activeTheme } }))
   }, [activeTheme])
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 max-w-4xl mx-auto">
       {themes.map(theme => (
         <button
           key={theme.id}
           onClick={() => setActiveTheme(theme.id)}
           className={`
-            group relative p-4 rounded-xl transition-all duration-200
-            border-2
+            group relative flex flex-col items-center gap-2 p-3 rounded-xl transition-all duration-200
+            border
             ${activeTheme === theme.id
-              ? 'border-primary bg-primary/5 shadow-lg shadow-primary/20'
-              : 'border-border bg-card hover:border-primary/50 hover:bg-primary/5'
+              ? 'border-primary bg-primary/10 shadow-md'
+              : 'border-border bg-card hover:border-primary/50'
             }
           `}
+          title={theme.name}
         >
           <div
-            className="w-full aspect-square rounded-lg mb-3 transition-transform group-hover:scale-105"
+            className="w-10 h-10 rounded-lg transition-transform group-hover:scale-110"
             style={{
               background: `linear-gradient(135deg, ${theme.color} 0%, ${adjustColor(theme.color, -20)} 100%)`
             }}
           />
-          <div className="text-sm font-medium text-foreground">{theme.name}</div>
+          <span className="text-xs font-medium text-foreground text-center">{theme.name}</span>
           {activeTheme === theme.id && (
             <div className="absolute top-2 right-2">
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              </span>
+              <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              </svg>
             </div>
           )}
         </button>

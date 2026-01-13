@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-01-13
+
+### Added
+
+#### New Utility Plugins (16)
+
+- `aspect-ratio` - Aspect ratio utilities (aspect-auto, aspect-square, aspect-video, aspect-[16/9])
+- `object-fit` - Object fit and position utilities (object-cover, object-contain, object-top, object-bottom, object-center)
+- `line-clamp` - Line clamping for text truncation (line-clamp-1 to line-clamp-6, line-clamp-none)
+- `text-decoration` - Text decoration utilities (underline, overline, line-through, decoration-color, decoration-style, underline-offset)
+- `list-style` - List styling utilities (list-disc, list-decimal, list-none, list-inside, list-outside)
+- `accent-color` - Form accent color utilities (accent-coral-500, accent-blue-500, etc.)
+- `appearance` - Appearance utilities (appearance-none, appearance-auto)
+- `blending` - Blend mode utilities (mix-blend-mode, bg-blend-mode)
+- `forms` - Form state utilities (autocomplete, input-mode, enter-key-hint, required, invalid, read-only)
+- `tables` - Table layout and styling utilities (table-auto, table-fixed, border-collapse, border-separate, caption-side, border-spacing, col-span, row-span)
+- `scrollbar` - Scrollbar utilities for Firefox (scrollbar-width, scrollbar-color) and WebKit (scrollbar-thumb, scrollbar-track)
+- `scroll-snap` - CSS scroll snap utilities (snap-x, snap-y, snap-both, snap-align, snap-stop, scroll-padding, scroll-margin)
+- `scroll-behavior` - Scroll behavior utilities (scroll-auto, scroll-smooth, overscroll, -webkit-overflow-scrolling)
+- `caret-place` - Caret color and CSS place utilities (caret-auto, caret-current, caret-color-*, place-items, place-self, place-content)
+- `positioning` - Advanced positioning utilities (inset, float, clear, will-change, user-select, resize, pointer-events, cursor)
+- `typography-advanced` - Advanced typography utilities (text-align-last, text-indent, text-wrap, text-balance, text-orientation, writing-mode, hanging-punctuation)
+
+#### Documentation
+
+- Added "Modern Utilities" section to website documentation with interactive examples
+- Comprehensive test coverage for all new plugins (8222 tests total, 100% pass rate)
+
+### Changed
+
+- Updated plugin exports to include new utility plugins
+- Improved test coverage from 7664 to 8222 tests (558 new tests)
+
+### Fixed
+
+- Fixed test expectations for CSS variables vs hex values in color utilities
+- Fixed test expectations for rem vs px units in spacing utilities
+- Fixed responsive variant tests to note plugin requirements
+- Fixed arbitrary value test expectations for will-change utility
+
 ## [1.0.0] - 2026-01-08
 
 ### Added

@@ -40,6 +40,26 @@ export { motionPathPlugin } from './motion-path'
 export { scrollDrivenAnimationsPlugin } from './scroll-driven'
 export { interpolationPlugin } from './interpolation'
 export { focusManagementPlugin } from './focus-management'
+// Tailwind 4.1+ Compatible Utilities
+export { transforms3DPlugin } from './transforms-3d'
+export { advancedGradientsPlugin } from './gradients-advanced'
+export { aspectRatioPlugin } from './aspect-ratio'
+export { objectFitPlugin } from './object-fit'
+export { lineClampPlugin } from './line-clamp'
+export { textDecorationPlugin } from './text-decoration'
+export { listStylePlugin } from './list-style'
+export { accentColorPlugin } from './accent-color'
+export { appearancePlugin } from './appearance'
+export { blendingPlugin } from './blending'
+// Additional Tailwind 4.1+ Compatible Utilities
+export { formsPlugin } from './forms'
+export { tablesPlugin } from './tables'
+export { scrollbarPlugin } from './scrollbar'
+export { scrollSnapPlugin } from './scroll-snap'
+export { scrollBehaviorPlugin } from './scroll-behavior'
+export { caretPlacePlugin } from './caret-place'
+export { positioningPlugin } from './positioning'
+export { typographyAdvancedPlugin } from './typography-advanced'
 
 import type { Plugin } from '../../../types'
 
@@ -78,6 +98,26 @@ import { motionPathPlugin } from './motion-path'
 import { scrollDrivenAnimationsPlugin } from './scroll-driven'
 import { interpolationPlugin } from './interpolation'
 import { focusManagementPlugin } from './focus-management'
+// Tailwind 4.1+ Compatible Utilities
+import { transforms3DPlugin } from './transforms-3d'
+import { advancedGradientsPlugin } from './gradients-advanced'
+import { aspectRatioPlugin } from './aspect-ratio'
+import { objectFitPlugin } from './object-fit'
+import { lineClampPlugin } from './line-clamp'
+import { textDecorationPlugin } from './text-decoration'
+import { listStylePlugin } from './list-style'
+import { accentColorPlugin } from './accent-color'
+import { appearancePlugin } from './appearance'
+import { blendingPlugin } from './blending'
+// Additional Tailwind 4.1+ Compatible Utilities
+import { formsPlugin } from './forms'
+import { tablesPlugin } from './tables'
+import { scrollbarPlugin } from './scrollbar'
+import { scrollSnapPlugin } from './scroll-snap'
+import { scrollBehaviorPlugin } from './scroll-behavior'
+import { caretPlacePlugin } from './caret-place'
+import { positioningPlugin } from './positioning'
+import { typographyAdvancedPlugin } from './typography-advanced'
 
 /**
  * Get all core utility plugins
@@ -119,6 +159,26 @@ export function coreUtilitiesPlugins(): Plugin[] {
     scrollDrivenAnimationsPlugin(),
     interpolationPlugin(),
     focusManagementPlugin(),
+    // Tailwind 4.1+ Compatible Utilities
+    transforms3DPlugin(),
+    advancedGradientsPlugin(),
+    aspectRatioPlugin(),
+    objectFitPlugin(),
+    lineClampPlugin(),
+    textDecorationPlugin(),
+    listStylePlugin(),
+    accentColorPlugin(),
+    appearancePlugin(),
+    blendingPlugin(),
+    // Additional Tailwind 4.1+ Compatible Utilities
+    formsPlugin(),
+    tablesPlugin(),
+    scrollbarPlugin(),
+    scrollSnapPlugin(),
+    scrollBehaviorPlugin(),
+    caretPlacePlugin(),
+    positioningPlugin(),
+    typographyAdvancedPlugin(),
   ]
 }
 

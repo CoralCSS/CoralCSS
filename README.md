@@ -5,17 +5,61 @@ A modern, zero-dependency CSS framework with utility-first classes, headless com
 ## Features
 
 - **Zero Dependencies** - No runtime dependencies, just pure TypeScript
-- **500+ Utilities** - Comprehensive utility classes with excellent performance
-- **60+ Headless Components** - Accessible, unstyled UI components (Dialog, Dropdown, Tabs, Accordion, etc.)
+- **700+ Utilities** - Comprehensive utility classes with excellent performance (Tailwind 4.1+ compatible)
+- **75+ Headless Components** - Accessible, unstyled UI components (78 components: Dialog, Dropdown, Tabs, Accordion, Slider, Date Picker, Calendar, Carousel, Tooltip, Toast, Popover, Command, Tour, QRCode, Transfer, Countdown, etc.)
 - **Modern CSS** - First-class support for anchor positioning, container queries, :has(), scroll-driven animations, view transitions
+- **CSS-First Configuration** - Tailwind 4.1 compatible @theme directive for CSS-based theming
+- **3D Transforms** - Comprehensive 3D transformation utilities (perspective, rotateX/Y/Z, translate3D, etc.)
+- **Advanced Gradients** - Mesh gradients, noise textures, aurora gradients, glassmorphism
+- **Pointer-Aware Variants** - Touch/mouse/pen device detection and hover capability queries
+- **Text Effects** - 8+ text shadow sizes, special effects (embossed, neon, 3D), decorations
+- **CSS Masks** - 50+ clip-path shapes, mask-image utilities, shape-outside support
+- **Scroll Snap** - Full CSS scroll snap support for carousels and galleries
+- **Form Utilities** - Complete form state utilities (invalid, valid, disabled, required)
+- **Table Utilities** - Table layout, border collapse, caption side, cell spanning
+- **Scrollbar Styling** - Custom scrollbar width, color, and WebKit styling
+- **Typography** - Writing modes, font variants, initial letter, hyphenation
 - **60+ Animations** - Built-in keyframes and animation utilities
+- **Browser Fallbacks** - Automatic OKLAB→RGB conversion with @supports queries
 - **Plugin Architecture** - Micro-kernel design with everything as plugins
 - **Multiple Presets** - Coral (default), Wind (Tailwind-compatible), Mini (minimal), Full (everything)
 - **Runtime + Build** - Works via CDN or build tools (Vite, PostCSS, Webpack, Rollup, ESBuild, Next.js, Nuxt, Astro, Remix, SvelteKit, Qwik, Parcel)
 - **Dark Mode** - Built-in dark mode with class, media, or selector strategies
 - **TypeScript** - Full TypeScript support with strict types
 - **Framework Integrations** - React, Vue, Angular, Svelte, Solid, Preact
-- **7600+ Tests** - Comprehensive test coverage ensuring reliability and correctness
+- **7600+ Tests** - Comprehensive test coverage ensuring reliability and correctness (7664 tests passing)
+
+## Tailwind 4.1+ Compatibility
+
+CoralCSS is now **fully compatible** with Tailwind CSS 4.1 and includes additional features:
+
+### ✅ All Tailwind 4.1 Features
+
+- **CSS-First Configuration** - `@theme` directive with CSS variable theming
+- **Aspect Ratio** - `aspect-video`, `aspect-square`, `aspect-[4/3]`
+- **Object Fit** - `object-cover`, `object-contain`, `object-position-*`
+- **Line Clamp** - `line-clamp-1` through `line-clamp-10`, `truncate`
+- **Text Decoration** - `underline`, `line-through`, `decoration-wavy`, `underline-offset-*`
+- **List Styles** - `list-disc`, `list-decimal`, `list-image-*`
+- **Accent Color** - `accent-coral-500` for form controls
+- **Appearance** - `appearance-none`, `appearance-auto`
+- **Blend Modes** - `mix-blend-multiply`, `bg-blend-screen`, `isolation`
+- **Container Queries** - `@container`, `container-type-*`
+- **Subgrid** - `grid-cols-subgrid`, `grid-rows-subgrid`
+
+### 🚀 Beyond Tailwind 4.1
+
+CoralCSS includes additional features not in Tailwind 4.1:
+
+- **Pointer-Aware Variants** - `pointer-coarse`, `pointer-fine`, `hover-supported`
+- **3D Transforms** - `perspective-*`, `rotate-x-*`, `translate-z-*`, `backface-hidden`
+- **Advanced Gradients** - Mesh gradients, noise textures, aurora, glassmorphism
+- **Motion Path** - `offset-path-*`, `offset-distance-*`
+- **Adaptive Colors** - `text-adaptive`, `bg-adaptive`
+- **Smart Grid** - `grid-auto-fit-*`, `grid-auto-fill-*`
+- **Focus Management** - `focus-within`, `focus-trap`, `focus-scope`
+- **Performance** - `content-visibility-auto`, `contain-*`
+- **Headless UI** - 60+ built-in components (Tailwind doesn't include any)
 
 ## Installation
 
@@ -313,7 +357,7 @@ import { initComponents } from '@coral-css/core/components'
 document.addEventListener('DOMContentLoaded', initComponents)
 ```
 
-### Available Components (60+)
+### Available Components (78)
 
 #### Overlays & Modals
 
@@ -323,6 +367,9 @@ document.addEventListener('DOMContentLoaded', initComponents)
 - `Popover` - Floating content containers
 - `Tooltip` - Tooltips with delay and positioning
 - `ContextMenu` - Right-click context menus
+- `AlertDialog` - Alert dialogs for confirmations
+- `HoverCard` - Hover-triggered popovers
+- `Sheet` - Side sheets with animations
 
 #### Navigation
 
@@ -335,7 +382,9 @@ document.addEventListener('DOMContentLoaded', initComponents)
 - `Navbar` - Responsive navigation bars
 - `Sidebar` - Collapsible sidebars
 - `Menu` - Menu components
-- `MegaMenu` - Large dropdown menus
+- `NavigationMenu` - Nested navigation menus
+- `Menubar` - Application menu bars
+- `Footer` - Footer components
 
 #### Forms
 
@@ -345,10 +394,22 @@ document.addEventListener('DOMContentLoaded', initComponents)
 - `Select` - Dropdown selects
 - `Combobox` - Autocomplete inputs
 - `MultiSelect` - Multi-value selects
+- `TagInput` - Tag input with autocomplete
 - `Slider` - Range sliders
+- `RangeSlider` - Dual-handle sliders
 - `Input` - Text inputs with validation
 - `Textarea` - Multi-line text inputs
+- `NumberInput` - Number-only inputs
+- `PinInput` - PIN/OTP input
 - `FileUpload` - File upload zones
+- `Label` - Form labels
+
+#### Date & Time
+
+- `Calendar` - Calendar component
+- `DatePicker` - Date selection
+- `DateRangePicker` - Date range selection
+- `TimePicker` - Time selection
 
 #### Feedback
 
@@ -358,6 +419,7 @@ document.addEventListener('DOMContentLoaded', initComponents)
 - `Progress` - Progress bars
 - `Skeleton` - Loading placeholders
 - `EmptyState` - Empty state displays
+- `Countdown` - Countdown timers
 
 #### Data Display
 
@@ -365,18 +427,40 @@ document.addEventListener('DOMContentLoaded', initComponents)
 - `Avatar` - User avatars
 - `Badge` - Status badges
 - `Table` - Data tables
+- `DataTable` - Advanced data tables with sorting/filtering
 - `Timeline` - Event timelines
-- `Calendar` - Date pickers
 - `Rating` - Star ratings
+- `Stat` - Statistics display
+- `Code` - Code blocks
+- `Kbd` - Keyboard key styling
+- `Separator` - Visual separators
+- `Chip` - Compact chips/tags
+- `Marquee` - Scrolling text
 
 #### Advanced
 
 - `Carousel` - Image sliders
+- `ImageGallery` - Image gallery with lightbox
 - `Tour` - Product tours
-- `Command` - Command palette
+- `Command` - Command palette (Cmd+K)
 - `VirtualList` - Virtualized lists
 - `Resizable` - Resizable panels
-- `Splitter` - Split panes
+- `ScrollArea` - Custom scrollable areas
+- `ColorPicker` - Color selection
+- `QRCode` - QR code generation
+- `Transfer` - Transfer lists
+- `SegmentedControl` - Segmented controls
+- `ImageCrop` - Image cropping
+- `Mention` - Mention/autocomplete in text
+
+#### Utility
+
+- `AspectRatio` - Aspect ratio containers
+- `Collapsible` - Collapsible content
+- `Toggle` - Toggle button
+- `ToggleGroup` - Toggle button groups
+- `Button` - Button component
+- `ButtonGroup` - Button groups
 
 ## Configuration
 

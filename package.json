@@ -1,6 +1,6 @@
 {
   "name": "@coral-css/core",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A modern, zero-dependency CSS framework with utility classes, headless components, and first-class support for cutting-edge CSS features.",
   "type": "module",
   "main": "./dist/index.cjs",
