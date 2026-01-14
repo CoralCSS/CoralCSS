@@ -43,10 +43,34 @@ jobs:
         working-directory: website
         run: npm run build
         env:
-          BASE_URL: /
+          BASE_URL: /core/
 
       - name: Copy llms.txt to website
         run: cp llms.txt website/dist/
+
+      - name: Create deployment structure
+        run: |
+          mkdir -p deploy/core
+          cp -r website/dist/* deploy/core/
+          # Remove CNAME from subdirectory (should only be at root)
+          rm -f deploy/core/CNAME
+          # Create root redirect to /core/
+          cat > deploy/index.html << 'ROOTHTML'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="refresh" content="0;url=/core/">
+            <title>CoralCSS - Modern CSS Framework</title>
+            <link rel="canonical" href="https://coralcss.com/core/">
+          </head>
+          <body>
+            <p>Redirecting to <a href="/core/">CoralCSS Documentation</a>...</p>
+          </body>
+          </html>
+          ROOTHTML
+          # Copy CNAME to root
+          echo "coralcss.com" > deploy/CNAME
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -54,7 +78,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: website/dist
+          path: deploy
 
   deploy:
     environment:
