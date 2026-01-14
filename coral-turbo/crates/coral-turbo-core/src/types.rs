@@ -307,3 +307,180 @@ impl Default for GenerateOptions {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_parsed_class_new() {
+        let pc = ParsedClass::new("p-4");
+        assert_eq!(pc.raw, "p-4");
+        assert_eq!(pc.utility, "");
+        assert!(!pc.important);
+        assert!(!pc.negative);
+    }
+
+    #[test]
+    fn test_parsed_class_has_variants() {
+        let mut pc = ParsedClass::new("hover:p-4");
+        assert!(!pc.has_variants());
+
+        pc.variants = vec!["hover".to_string()];
+        assert!(pc.has_variants());
+    }
+
+    #[test]
+    fn test_parsed_class_has_arbitrary() {
+        let mut pc = ParsedClass::new("p-[2rem]");
+        assert!(!pc.has_arbitrary());
+
+        pc.arbitrary = Some("2rem".to_string());
+        assert!(pc.has_arbitrary());
+    }
+
+    #[test]
+    fn test_parsed_class_full_utility() {
+        // Simple utility
+        let mut pc = ParsedClass::new("p-4");
+        pc.utility = "p".to_string();
+        pc.value = Some("4".to_string());
+        assert_eq!(pc.full_utility(), "p-4");
+
+        // Utility without value
+        let mut pc2 = ParsedClass::new("flex");
+        pc2.utility = "flex".to_string();
+        assert_eq!(pc2.full_utility(), "flex");
+
+        // With arbitrary value
+        let mut pc3 = ParsedClass::new("p-[2rem]");
+        pc3.utility = "p".to_string();
+        pc3.arbitrary = Some("2rem".to_string());
+        assert_eq!(pc3.full_utility(), "p-[2rem]");
+
+        // With value and arbitrary
+        let mut pc4 = ParsedClass::new("bg-red-[#ff0000]");
+        pc4.utility = "bg".to_string();
+        pc4.value = Some("red".to_string());
+        pc4.arbitrary = Some("#ff0000".to_string());
+        assert_eq!(pc4.full_utility(), "bg-red-[#ff0000]");
+    }
+
+    #[test]
+    fn test_css_property_new() {
+        let prop = CSSProperty::new("padding", "1rem");
+        assert_eq!(prop.property, "padding");
+        assert_eq!(prop.value, "1rem");
+    }
+
+    #[test]
+    fn test_layer_default() {
+        let layer = Layer::default();
+        assert_eq!(layer, Layer::Utilities);
+    }
+
+    #[test]
+    fn test_layer_ordering() {
+        assert!(Layer::Base < Layer::Components);
+        assert!(Layer::Components < Layer::Utilities);
+    }
+
+    #[test]
+    fn test_utility_pattern_builder() {
+        let pattern = UtilityPattern::new("padding", "p-")
+            .with_pattern(r"^p-\d+$")
+            .with_css_property("padding")
+            .with_negative();
+
+        assert_eq!(pattern.name, "padding");
+        assert_eq!(pattern.prefix, "p-");
+        assert_eq!(pattern.pattern, r"^p-\d+$");
+        assert_eq!(pattern.css_property, "padding");
+        assert!(pattern.supports_negative);
+        assert!(pattern.supports_arbitrary);
+    }
+
+    #[test]
+    fn test_utility_pattern_with_values() {
+        let mut values = HashMap::new();
+        values.insert("4".to_string(), "1rem".to_string());
+        values.insert("8".to_string(), "2rem".to_string());
+
+        let pattern = UtilityPattern::new("padding", "p-")
+            .with_values(values);
+
+        assert_eq!(pattern.values.get("4"), Some(&"1rem".to_string()));
+        assert_eq!(pattern.values.get("8"), Some(&"2rem".to_string()));
+    }
+
+    #[test]
+    fn test_engine_config_default() {
+        let config = EngineConfig::default();
+        assert!(config.cache_enabled);
+        assert_eq!(config.cache_size, 10000);
+        assert!(config.thread_count > 0);
+        assert!(config.prefix.is_none());
+        assert!(!config.important);
+    }
+
+    #[test]
+    fn test_generate_options_default() {
+        let opts = GenerateOptions::default();
+        assert!(!opts.minify);
+        assert!(!opts.source_comments);
+        assert!(opts.sort_by_property);
+        assert!(opts.use_layers);
+    }
+
+    #[test]
+    fn test_variant_selector_variants() {
+        let pseudo = VariantSelector::Pseudo(":hover".to_string());
+        let media = VariantSelector::Media("@media (min-width: 768px)".to_string());
+        let attr = VariantSelector::Attribute("[data-theme='dark']".to_string());
+
+        // Just verify they can be created
+        match pseudo {
+            VariantSelector::Pseudo(s) => assert_eq!(s, ":hover"),
+            _ => panic!("Expected Pseudo variant"),
+        }
+
+        match media {
+            VariantSelector::Media(s) => assert!(s.contains("768px")),
+            _ => panic!("Expected Media variant"),
+        }
+
+        match attr {
+            VariantSelector::Attribute(s) => assert!(s.contains("dark")),
+            _ => panic!("Expected Attribute variant"),
+        }
+    }
+
+    #[test]
+    fn test_extraction_result() {
+        let result = ExtractionResult {
+            classes: vec!["p-4".to_string(), "m-2".to_string()],
+            file_count: 5,
+            time_us: 1000,
+        };
+
+        assert_eq!(result.classes.len(), 2);
+        assert_eq!(result.file_count, 5);
+        assert_eq!(result.time_us, 1000);
+    }
+
+    #[test]
+    fn test_match_result() {
+        let parsed = ParsedClass::new("p-4");
+        let result = MatchResult {
+            parsed,
+            properties: vec![CSSProperty::new("padding", "1rem")],
+            pattern_name: "padding".to_string(),
+            layer: Layer::Utilities,
+            sort_order: 0,
+        };
+
+        assert_eq!(result.pattern_name, "padding");
+        assert_eq!(result.layer, Layer::Utilities);
+        assert_eq!(result.properties.len(), 1);
+    }
+}

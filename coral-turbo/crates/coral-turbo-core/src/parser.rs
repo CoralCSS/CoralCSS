@@ -87,7 +87,7 @@ impl Parser {
     /// Extract variants from class string, returns position after variants
     fn extract_variants(&self, input: &str, variants: &mut Vec<String>) -> usize {
         let bytes = input.as_bytes();
-        let len = bytes.len();
+        let _len = bytes.len();
         let mut pos = 0;
         let mut bracket_depth: u32 = 0;
         let mut last_colon = None;

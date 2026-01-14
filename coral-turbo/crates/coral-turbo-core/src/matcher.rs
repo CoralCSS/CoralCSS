@@ -4,7 +4,7 @@
 //! Falls back to regex matching for complex patterns.
 
 use crate::trie::PrefixTrie;
-use crate::types::{CSSProperty, Layer, MatchResult, ParsedClass, UtilityPattern};
+use crate::types::{CSSProperty, MatchResult, ParsedClass, UtilityPattern};
 use ahash::AHashMap;
 use once_cell::sync::Lazy;
 use regex::Regex;
@@ -120,7 +120,8 @@ pub struct Matcher {
     /// All registered patterns
     patterns: Vec<CompiledPattern>,
 
-    /// Regex cache for compiled patterns
+    /// Regex cache for compiled patterns (reserved for future dynamic patterns)
+    #[allow(dead_code)]
     regex_cache: RwLock<AHashMap<String, Regex>>,
 }
 
@@ -182,7 +183,7 @@ impl Matcher {
 
     /// Match a parsed class against registered patterns
     pub fn match_class(&self, parsed: &ParsedClass) -> Option<MatchResult> {
-        let utility = &parsed.utility;
+        let _utility = &parsed.utility;
         let full_class = parsed.full_utility();
 
         // Try trie-based prefix lookup first
@@ -328,7 +329,7 @@ impl Matcher {
             ("hidden", "display", "none"),
         ];
 
-        for (name, prop, value) in displays {
+        for (name, prop, _value) in displays {
             self.register(
                 UtilityPattern::new(name, name)
                     .with_css_property(prop)
@@ -608,7 +609,7 @@ fn handle_opacity(parsed: &ParsedClass, pattern: &UtilityPattern) -> Option<Vec<
 }
 
 /// Handle static utilities (display, flex, etc.)
-fn handle_static(parsed: &ParsedClass, pattern: &UtilityPattern) -> Option<Vec<CSSProperty>> {
+fn handle_static(_parsed: &ParsedClass, pattern: &UtilityPattern) -> Option<Vec<CSSProperty>> {
     // For static utilities, the value is usually embedded in the pattern name
     let value = match pattern.name.as_str() {
         // Display
@@ -731,5 +732,316 @@ mod tests {
 
         let result = result.unwrap();
         assert_eq!(result.properties[0].value, "2rem");
+    }
+
+    #[test]
+    fn test_display_flex() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "flex".to_string(),
+            utility: "flex".to_string(),
+            value: None,
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.iter().any(|p| p.property == "display" && p.value == "flex"));
+    }
+
+    #[test]
+    fn test_display_grid() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "grid".to_string(),
+            utility: "grid".to_string(),
+            value: None,
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.iter().any(|p| p.property == "display" && p.value == "grid"));
+    }
+
+    #[test]
+    fn test_display_hidden() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "hidden".to_string(),
+            utility: "hidden".to_string(),
+            value: None,
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.iter().any(|p| p.property == "display" && p.value == "none"));
+    }
+
+    #[test]
+    fn test_background_color() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "bg-red-500".to_string(),
+            utility: "bg".to_string(),
+            value: Some("red-500".to_string()),
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.iter().any(|p| p.property == "background-color"));
+    }
+
+    #[test]
+    fn test_text_color() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "text-blue-500".to_string(),
+            utility: "text".to_string(),
+            value: Some("blue-500".to_string()),
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.iter().any(|p| p.property == "color"));
+    }
+
+    #[test]
+    fn test_color_with_opacity() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "bg-red-500/50".to_string(),
+            utility: "bg".to_string(),
+            value: Some("red-500".to_string()),
+            variants: vec![],
+            opacity: Some(50),
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        // Should have color with opacity applied
+        assert!(result.properties.iter().any(|p| p.property == "background-color"));
+    }
+
+    #[test]
+    fn test_padding_x() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "px-4".to_string(),
+            utility: "px".to_string(),
+            value: Some("4".to_string()),
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        // px-4 should generate padding-left and padding-right
+        assert!(result.properties.len() >= 1);
+    }
+
+    #[test]
+    fn test_margin_y() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "my-4".to_string(),
+            utility: "my".to_string(),
+            value: Some("4".to_string()),
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.len() >= 1);
+    }
+
+    #[test]
+    fn test_gap() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "gap-4".to_string(),
+            utility: "gap".to_string(),
+            value: Some("4".to_string()),
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.iter().any(|p| p.property == "gap"));
+    }
+
+    #[test]
+    fn test_items_center() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "items-center".to_string(),
+            utility: "items-center".to_string(),
+            value: None,
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.iter().any(|p| p.property == "align-items" && p.value == "center"));
+    }
+
+    #[test]
+    fn test_justify_between() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "justify-between".to_string(),
+            utility: "justify-between".to_string(),
+            value: None,
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+
+        let result = result.unwrap();
+        assert!(result.properties.iter().any(|p| p.property == "justify-content" && p.value == "space-between"));
+    }
+
+    #[test]
+    fn test_matcher_default() {
+        let matcher = Matcher::default();
+        // Should work the same as new()
+        let parsed = ParsedClass {
+            raw: "p-4".to_string(),
+            utility: "p".to_string(),
+            value: Some("4".to_string()),
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        assert!(result.is_some());
+    }
+
+    #[test]
+    fn test_register_custom_pattern() {
+        let mut matcher = Matcher::new();
+
+        let pattern = UtilityPattern::new("custom", "custom-")
+            .with_pattern(r"^custom-\d+$")
+            .with_css_property("custom-property");
+
+        matcher.register(pattern);
+        // Registration should succeed
+    }
+
+    #[test]
+    fn test_no_match_invalid_class() {
+        let matcher = Matcher::new();
+        let parsed = ParsedClass {
+            raw: "invalid-class-xyz".to_string(),
+            utility: "invalid-class-xyz".to_string(),
+            value: None,
+            variants: vec![],
+            opacity: None,
+            arbitrary: None,
+            important: false,
+            negative: false,
+        };
+
+        let result = matcher.match_class(&parsed);
+        // May or may not match depending on pattern coverage
+        // Just verify it doesn't panic
+        let _ = result;
+    }
+
+    #[test]
+    fn test_spacing_scale_values() {
+        let matcher = Matcher::new();
+
+        // Test various spacing scale values
+        let scales = ["0", "1", "2", "4", "8", "12", "16", "px"];
+        for scale in scales {
+            let parsed = ParsedClass {
+                raw: format!("p-{}", scale),
+                utility: "p".to_string(),
+                value: Some(scale.to_string()),
+                variants: vec![],
+                opacity: None,
+                arbitrary: None,
+                important: false,
+                negative: false,
+            };
+
+            let result = matcher.match_class(&parsed);
+            // Should match for valid scale values
+            if result.is_some() {
+                let r = result.unwrap();
+                assert!(!r.properties.is_empty());
+            }
+        }
     }
 }

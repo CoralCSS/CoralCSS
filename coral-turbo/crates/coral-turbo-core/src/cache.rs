@@ -10,6 +10,8 @@ use std::collections::VecDeque;
 #[derive(Debug, Clone)]
 struct CacheEntry<V> {
     value: V,
+    /// Hit count for analytics (reserved for future cache statistics)
+    #[allow(dead_code)]
     hits: u64,
 }
 

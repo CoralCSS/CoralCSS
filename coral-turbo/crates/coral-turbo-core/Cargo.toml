@@ -27,3 +27,11 @@ harness = false
 [[bench]]
 name = "matcher_bench"
 harness = false
+
+[[bench]]
+name = "extractor_bench"
+harness = false
+
+[[bench]]
+name = "generator_bench"
+harness = false

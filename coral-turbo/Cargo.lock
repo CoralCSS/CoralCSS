@@ -177,7 +177,7 @@ dependencies = [
 
 [[package]]
 name = "coral-turbo-core"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "ahash",
  "bstr",
@@ -194,7 +194,7 @@ dependencies = [
 
 [[package]]
 name = "coral-turbo-napi"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "coral-turbo-core",
  "napi",
@@ -206,7 +206,7 @@ dependencies = [
 
 [[package]]
 name = "coral-turbo-wasm"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "console_error_panic_hook",
  "coral-turbo-core",

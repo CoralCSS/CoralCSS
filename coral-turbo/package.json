@@ -1,6 +1,6 @@
 {
   "name": "@coral-css/turbo",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "High-performance Rust engine for CoralCSS - blazing fast CSS utility processing",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
