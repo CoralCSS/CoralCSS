@@ -1131,3 +1131,63 @@ describe('sortGeneratedCSS', () => {
     expect(sorted[2]?.layer).toBe('utilities')
   })
 })
+
+describe('Generator.findVariant edge cases', () => {
+  it('should return null when variant name does not match any registered variant', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>([
+      [
+        'hover',
+        {
+          name: 'hover',
+          match: 'hover',
+          handler: (sel) => `${sel}:hover`,
+        },
+      ],
+    ])
+    const generator = new Generator(theme, variants)
+
+    // Access private method
+    const result = (generator as any).findVariant('nonexistent-variant')
+    expect(result).toBeNull()
+  })
+
+  it('should return null when variant regex does not match', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>([
+      [
+        'min',
+        {
+          name: 'min',
+          match: /^min-\[(.+)\]$/,
+          wrapper: '@media (min-width: 0)',
+        },
+      ],
+    ])
+    const generator = new Generator(theme, variants)
+
+    // Access private method with non-matching variant name
+    const result = (generator as any).findVariant('max-[100px]')
+    expect(result).toBeNull()
+  })
+
+  it('should not match pattern when match is neither string nor regex', () => {
+    const theme = {} as Theme
+    const variants = new Map<string, Variant>([
+      [
+        'dynamic-pattern',
+        {
+          name: 'dynamic-pattern',
+          match: 123 as any, // Invalid match type - not a regex
+          wrapper: '@media print',
+        },
+      ],
+    ])
+    const generator = new Generator(theme, variants)
+
+    // Try to match a variant name that doesn't exist as an exact key
+    // This forces pattern matching, which should fail for non-regex match
+    const result = (generator as any).findVariant('some-unknown-variant')
+    expect(result).toBeNull()
+  })
+})

@@ -1,0 +1,79 @@
+{
+  "name": "@coral-css/turbo",
+  "version": "0.1.0",
+  "description": "High-performance Rust engine for CoralCSS - blazing fast CSS utility processing",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./wasm": {
+      "import": "./dist/wasm/index.mjs",
+      "require": "./dist/wasm/index.js",
+      "types": "./dist/wasm/index.d.ts"
+    },
+    "./native": {
+      "import": "./dist/native/index.mjs",
+      "require": "./dist/native/index.js",
+      "types": "./dist/native/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "pkg",
+    "*.node"
+  ],
+  "scripts": {
+    "build": "npm run build:rust && npm run build:ts",
+    "build:rust": "npm run build:wasm && npm run build:napi",
+    "build:wasm": "cd crates/coral-turbo-wasm && wasm-pack build --target bundler --out-dir ../../pkg/wasm",
+    "build:wasm:node": "cd crates/coral-turbo-wasm && wasm-pack build --target nodejs --out-dir ../../pkg/wasm-node",
+    "build:napi": "napi build --platform --release --cargo-cwd crates/coral-turbo-napi",
+    "build:ts": "tsup",
+    "test": "cargo test --workspace",
+    "test:wasm": "wasm-pack test --node crates/coral-turbo-wasm",
+    "bench": "cargo bench --workspace",
+    "clean": "cargo clean && rm -rf dist pkg *.node",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "css",
+    "utility-css",
+    "rust",
+    "wasm",
+    "performance",
+    "parser",
+    "coralcss"
+  ],
+  "author": "CoralCSS Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coralcss/coralcss"
+  },
+  "homepage": "https://coralcss.com",
+  "devDependencies": {
+    "@napi-rs/cli": "^3.0.0-alpha.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "napi": {
+    "name": "coral-turbo",
+    "triples": {
+      "defaults": true,
+      "additional": [
+        "x86_64-unknown-linux-musl",
+        "aarch64-unknown-linux-gnu",
+        "aarch64-apple-darwin",
+        "aarch64-unknown-linux-musl"
+      ]
+    }
+  }
+}

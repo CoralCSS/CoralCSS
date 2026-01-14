@@ -173,4 +173,32 @@ describe('List Style Utilities Plugin', () => {
       expect(css).toContain('list-style-type: none')
     })
   })
+
+  describe('Arbitrary Values', () => {
+    it('should handle list-[...] arbitrary value for list-style-image', () => {
+      const coral = createCoral({ plugins: [listStylePlugin()] })
+      const css = coral.generate(['list-[checkmark.png]'])
+      expect(css).toContain('list-style-image')
+      expect(css).toContain('url')
+    })
+
+    it('should handle list-[...] with URL path', () => {
+      const coral = createCoral({ plugins: [listStylePlugin()] })
+      const css = coral.generate(['list-[/images/bullet.svg]'])
+      expect(css).toContain('list-style-image')
+    })
+
+    it('should handle list-type-[...] arbitrary value', () => {
+      const coral = createCoral({ plugins: [listStylePlugin()] })
+      const css = coral.generate(['list-type-[katakana]'])
+      expect(css).toContain('list-style-type')
+      expect(css).toContain('katakana')
+    })
+
+    it('should handle list-type-[...] with custom counter', () => {
+      const coral = createCoral({ plugins: [listStylePlugin()] })
+      const css = coral.generate(['list-type-[symbols(cyclic_*)]'])
+      expect(css).toContain('list-style-type')
+    })
+  })
 })

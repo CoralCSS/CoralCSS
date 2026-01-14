@@ -1,0 +1,29 @@
+[package]
+name = "coral-turbo-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Core Rust engine for CoralCSS - parser, matcher, extractor, generator"
+
+[dependencies]
+regex.workspace = true
+lazy_static.workspace = true
+once_cell.workspace = true
+rayon.workspace = true
+ahash.workspace = true
+rustc-hash.workspace = true
+memchr.workspace = true
+bstr.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[dev-dependencies]
+criterion.workspace = true
+
+[[bench]]
+name = "parser_bench"
+harness = false
+
+[[bench]]
+name = "matcher_bench"
+harness = false

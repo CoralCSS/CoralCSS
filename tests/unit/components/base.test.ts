@@ -417,4 +417,64 @@ describe('BaseComponent', () => {
       accordion.destroy()
     })
   })
+
+  describe('createComponentFactory edge cases', () => {
+    it('should throw error when string selector finds no element', () => {
+      const factory = createComponentFactory(Accordion)
+
+      expect(() => {
+        factory('#non-existent-element-id-12345')
+      }).toThrow('Element not found: #non-existent-element-id-12345')
+    })
+
+    it('should work with valid string selector', () => {
+      const el = createElement('div', { 'data-coral-accordion': '', id: 'test-accordion-factory' })
+      const item = document.createElement('div')
+      item.setAttribute('data-coral-accordion-item', '')
+      item.setAttribute('data-value', 'item1')
+      const trigger = document.createElement('button')
+      trigger.setAttribute('data-coral-accordion-trigger', '')
+      trigger.textContent = 'Trigger 1'
+      const content = document.createElement('div')
+      content.setAttribute('data-coral-accordion-content', '')
+      content.textContent = 'Content 1'
+      item.appendChild(trigger)
+      item.appendChild(content)
+      el.appendChild(item)
+      document.body.appendChild(el)
+
+      const factory = createComponentFactory(Accordion)
+      const accordion = factory('#test-accordion-factory')
+
+      expect(accordion).toBeDefined()
+      expect(accordion).toBeInstanceOf(Accordion)
+
+      accordion.destroy()
+      el.remove()
+    })
+
+    it('should work with HTMLElement directly', () => {
+      const el = createElement('div', { 'data-coral-accordion': '' })
+      const item = document.createElement('div')
+      item.setAttribute('data-coral-accordion-item', '')
+      item.setAttribute('data-value', 'item1')
+      const trigger = document.createElement('button')
+      trigger.setAttribute('data-coral-accordion-trigger', '')
+      trigger.textContent = 'Trigger 1'
+      const content = document.createElement('div')
+      content.setAttribute('data-coral-accordion-content', '')
+      content.textContent = 'Content 1'
+      item.appendChild(trigger)
+      item.appendChild(content)
+      el.appendChild(item)
+
+      const factory = createComponentFactory(Accordion)
+      const accordion = factory(el)
+
+      expect(accordion).toBeDefined()
+      expect(accordion).toBeInstanceOf(Accordion)
+
+      accordion.destroy()
+    })
+  })
 })

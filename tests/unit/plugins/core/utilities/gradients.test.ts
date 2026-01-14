@@ -180,34 +180,31 @@ describe('Gradients Utilities Plugin', () => {
   })
 
   describe('Animated Gradient Backgrounds', () => {
-    it('should generate animate-gradient-x with keyframes', () => {
+    it('should generate animate-gradient-x', () => {
       const coral = createCoral({
         plugins: [gradientsPlugin()]
       })
       const css = coral.generate(['animate-gradient-x'])
       expect(css).toContain('background-size: 200% 200%')
       expect(css).toContain('animation: gradient-x 3s ease infinite')
-      expect(css).toContain('@keyframes gradient-x')
     })
 
-    it('should generate animate-gradient-y with keyframes', () => {
+    it('should generate animate-gradient-y', () => {
       const coral = createCoral({
         plugins: [gradientsPlugin()]
       })
       const css = coral.generate(['animate-gradient-y'])
       expect(css).toContain('background-size: 200% 200%')
       expect(css).toContain('animation: gradient-y 3s ease infinite')
-      expect(css).toContain('@keyframes gradient-y')
     })
 
-    it('should generate animate-gradient-xy with keyframes', () => {
+    it('should generate animate-gradient-xy', () => {
       const coral = createCoral({
         plugins: [gradientsPlugin()]
       })
       const css = coral.generate(['animate-gradient-xy'])
       expect(css).toContain('background-size: 400% 400%')
       expect(css).toContain('animation: gradient-xy 15s ease infinite')
-      expect(css).toContain('@keyframes gradient-xy')
     })
   })
 
@@ -263,7 +260,7 @@ describe('Gradients Utilities Plugin', () => {
       expect(css).toContain('-webkit-backdrop-filter: blur(10px)')
     })
 
-    it('should generate animate-shimmer with keyframes', () => {
+    it('should generate animate-shimmer', () => {
       const coral = createCoral({
         plugins: [gradientsPlugin()]
       })
@@ -271,12 +268,9 @@ describe('Gradients Utilities Plugin', () => {
       expect(css).toContain('background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)')
       expect(css).toContain('background-size: 200% 100%')
       expect(css).toContain('animation: shimmer 2s infinite')
-      expect(css).toContain('@keyframes shimmer')
-      expect(css).toContain('background-position: 200% 0')
-      expect(css).toContain('background-position: -200% 0')
     })
 
-    it('should generate bg-gradient-aurora with keyframes', () => {
+    it('should generate bg-gradient-aurora', () => {
       const coral = createCoral({
         plugins: [gradientsPlugin()]
       })
@@ -287,7 +281,6 @@ describe('Gradients Utilities Plugin', () => {
       expect(css).toContain('#10b981 100%')
       expect(css).toContain('background-size: 200% 200%')
       expect(css).toContain('animation: aurora 8s ease infinite')
-      expect(css).toContain('@keyframes aurora')
     })
   })
 

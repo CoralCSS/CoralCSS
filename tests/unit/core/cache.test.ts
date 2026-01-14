@@ -270,4 +270,215 @@ describe('CSSCache', () => {
       expect(cache.getHitRate()).toBe(0)
     })
   })
+
+  describe('disabled cache', () => {
+    let disabledCache: CSSCache
+
+    beforeEach(() => {
+      disabledCache = new CSSCache({ enabled: false })
+    })
+
+    it('should return undefined for get when disabled', () => {
+      disabledCache.set('p-4', '.p-4 {}')
+      expect(disabledCache.get('p-4')).toBeUndefined()
+    })
+
+    it('should not store values when disabled', () => {
+      disabledCache.set('p-4', '.p-4 {}')
+      expect(disabledCache.size).toBe(0)
+    })
+
+    it('should return false for has when disabled', () => {
+      expect(disabledCache.has('p-4')).toBe(false)
+    })
+
+    it('should return empty iterator for entries when disabled', () => {
+      const entries = Array.from(disabledCache.entries())
+      expect(entries).toHaveLength(0)
+    })
+
+    it('should return empty iterator for keys when disabled', () => {
+      const keys = Array.from(disabledCache.keys())
+      expect(keys).toHaveLength(0)
+    })
+
+    it('should return empty iterator for values when disabled', () => {
+      const values = Array.from(disabledCache.values())
+      expect(values).toHaveLength(0)
+    })
+  })
+
+  describe('TTL expiration', () => {
+    let ttlCache: CSSCache
+
+    beforeEach(() => {
+      ttlCache = new CSSCache({ ttl: 50 })
+    })
+
+    it('should return undefined for expired entries on get', async () => {
+      ttlCache.set('p-4', '.p-4 {}')
+      expect(ttlCache.get('p-4')).toBe('.p-4 {}')
+
+      // Wait for expiration
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      expect(ttlCache.get('p-4')).toBeUndefined()
+    })
+
+    it('should return false for expired entries on has', async () => {
+      ttlCache.set('p-4', '.p-4 {}')
+      expect(ttlCache.has('p-4')).toBe(true)
+
+      // Wait for expiration
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      expect(ttlCache.has('p-4')).toBe(false)
+    })
+
+    it('should skip expired entries in entries()', async () => {
+      ttlCache.set('p-4', '.p-4 {}')
+      ttlCache.set('m-4', '.m-4 {}')
+
+      // Wait for expiration
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      const entries = Array.from(ttlCache.entries())
+      expect(entries).toHaveLength(0)
+    })
+
+    it('should skip expired entries in keys()', async () => {
+      ttlCache.set('p-4', '.p-4 {}')
+
+      // Wait for expiration
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      const keys = Array.from(ttlCache.keys())
+      expect(keys).toHaveLength(0)
+    })
+
+    it('should skip expired entries in values()', async () => {
+      ttlCache.set('p-4', '.p-4 {}')
+
+      // Wait for expiration
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      const values = Array.from(ttlCache.values())
+      expect(values).toHaveLength(0)
+    })
+  })
+
+  describe('cleanup', () => {
+    it('should remove expired entries', async () => {
+      const ttlCache = new CSSCache({ ttl: 50 })
+      ttlCache.set('p-4', '.p-4 {}')
+      ttlCache.set('m-4', '.m-4 {}')
+
+      // Wait for expiration
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      const removed = ttlCache.cleanup()
+      expect(removed).toBe(2)
+    })
+
+    it('should return 0 when no expired entries', () => {
+      const ttlCache = new CSSCache({ ttl: 60000 })
+      ttlCache.set('p-4', '.p-4 {}')
+
+      const removed = ttlCache.cleanup()
+      expect(removed).toBe(0)
+    })
+
+    it('should return 0 when TTL is Infinity', () => {
+      const infiniteCache = new CSSCache({ ttl: Infinity })
+      infiniteCache.set('p-4', '.p-4 {}')
+
+      const removed = infiniteCache.cleanup()
+      expect(removed).toBe(0)
+    })
+  })
+
+  describe('LRU eviction', () => {
+    it('should evict oldest entry when at max capacity', () => {
+      const smallCache = new CSSCache({ maxSize: 3 })
+
+      smallCache.set('a', 'css-a')
+      smallCache.set('b', 'css-b')
+      smallCache.set('c', 'css-c')
+
+      // All should exist
+      expect(smallCache.has('a')).toBe(true)
+      expect(smallCache.has('b')).toBe(true)
+      expect(smallCache.has('c')).toBe(true)
+
+      // Add fourth item - should evict oldest (a)
+      smallCache.set('d', 'css-d')
+
+      expect(smallCache.has('a')).toBe(false)
+      expect(smallCache.has('b')).toBe(true)
+      expect(smallCache.has('c')).toBe(true)
+      expect(smallCache.has('d')).toBe(true)
+    })
+
+    it('should update access order on get', () => {
+      const smallCache = new CSSCache({ maxSize: 3 })
+
+      smallCache.set('a', 'css-a')
+      smallCache.set('b', 'css-b')
+      smallCache.set('c', 'css-c')
+
+      // Access 'a' to move it to most recent
+      smallCache.get('a')
+
+      // Add new item - should evict 'b' (now oldest)
+      smallCache.set('d', 'css-d')
+
+      expect(smallCache.has('a')).toBe(true)
+      expect(smallCache.has('b')).toBe(false)
+      expect(smallCache.has('c')).toBe(true)
+      expect(smallCache.has('d')).toBe(true)
+    })
+
+    it('should not evict when updating existing key', () => {
+      const smallCache = new CSSCache({ maxSize: 3 })
+
+      smallCache.set('a', 'css-a')
+      smallCache.set('b', 'css-b')
+      smallCache.set('c', 'css-c')
+
+      // Update existing key - should not evict
+      smallCache.set('a', 'css-a-updated')
+
+      expect(smallCache.size).toBe(3)
+      expect(smallCache.get('a')).toBe('css-a-updated')
+    })
+  })
+
+  describe('stats with TTL', () => {
+    it('should report TTL as -1 when Infinity', () => {
+      const infiniteCache = new CSSCache({ ttl: Infinity })
+      const stats = infiniteCache.stats()
+      expect(stats.ttl).toBe(-1)
+    })
+
+    it('should report actual TTL when set', () => {
+      const ttlCache = new CSSCache({ ttl: 5000 })
+      const stats = ttlCache.stats()
+      expect(stats.ttl).toBe(5000)
+    })
+
+    it('should report maxSize', () => {
+      const cache = new CSSCache({ maxSize: 500 })
+      const stats = cache.stats()
+      expect(stats.maxSize).toBe(500)
+    })
+  })
+
+  describe('factory function', () => {
+    it('should create cache with options', () => {
+      const cache = createCache({ maxSize: 100, ttl: 5000, enabled: true })
+      const stats = cache.stats()
+      expect(stats.maxSize).toBe(100)
+      expect(stats.ttl).toBe(5000)
+    })
+  })
 })

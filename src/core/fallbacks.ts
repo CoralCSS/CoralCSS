@@ -49,9 +49,9 @@ export function convertOKLABToRGB(oklabColor: string): string {
     return 'rgb(100, 100, 100)'
   }
 
-  const l = parseFloat(match[1])
-  const a = parseFloat(match[2])
-  const b = parseFloat(match[3])
+  const l = parseFloat(match[1]!)
+  const a = parseFloat(match[2]!)
+  const b = parseFloat(match[3]!)
   const alpha = match[4] ? parseFloat(match[4]) : 1
 
   // Simple OKLAB to RGB conversion (approximation)
@@ -247,13 +247,13 @@ export function processCSSWithFallbacks(
             continue
           }
 
-          const [, property, value] = propertyMatch
+          const [, property, value] = propertyMatch as [string, string, string]
 
           // Check if value needs fallback
           if (needsFallback(value)) {
             hasFallbacks = true
 
-            if (config.oklabFallbacks && (value.includes('oklab(') || value.includes('oklch('))) {
+            if (finalConfig.oklabFallbacks && (value.includes('oklab(') || value.includes('oklch('))) {
               const rgbFallback = convertOKLABToRGB(value)
               result.push(`  ${property}: ${rgbFallback};`)
               fallbackBlocks.push(`@supports (${property}: ${value}) {`)
@@ -261,10 +261,10 @@ export function processCSSWithFallbacks(
               fallbackBlocks.push(`    ${property}: ${value};`)
               fallbackBlocks.push('  }')
               fallbackBlocks.push('}')
-            } else if (config.gradientFallbacks && value.includes('gradient(')) {
+            } else if (finalConfig.gradientFallbacks && value.includes('gradient(')) {
               const fallbackColor = extractGradientFallback(value)
               result.push(`  background-color: ${fallbackColor};`)
-            } else if (config.propertyFallbacks && value.includes('var(--')) {
+            } else if (finalConfig.propertyFallbacks && value.includes('var(--')) {
               // Add fallback for CSS variables in certain properties
               if (property === 'box-shadow') {
                 result.push(`  ${property}: 0 4px 6px rgba(0, 0, 0, 0.1);`)

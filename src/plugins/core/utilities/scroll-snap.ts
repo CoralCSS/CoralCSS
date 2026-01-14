@@ -123,7 +123,7 @@ export function scrollSnapPlugin(): Plugin {
       // ========================================
 
       // Scroll padding inline (for horizontal snap)
-      const scrollPads = ['0', '1', '2', '4', '6', '8', '12', '16', '20', '24']
+      const scrollPads = [0, 1, 2, 4, 6, 8, 12, 16, 20, 24]
       for (const pad of scrollPads) {
         ctx.addRule({
           pattern: `snap-p-${pad}`,

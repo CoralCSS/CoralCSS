@@ -12,10 +12,13 @@ const consoleMock = {
 }
 vi.stubGlobal('console', consoleMock)
 
-// Mock process
+// Mock process with all needed properties
 const processMock = {
   argv: ['node', 'coral'],
   exit: vi.fn(),
+  platform: 'linux',
+  arch: 'x64',
+  version: 'v20.0.0',
 }
 vi.stubGlobal('process', processMock)
 
@@ -207,6 +210,309 @@ describe('CLI Tool', () => {
       processMock.argv = ['node', 'coral', 'input.html']
       cli()
       await new Promise(resolve => setTimeout(resolve, 100))
+    })
+  })
+
+  describe('Commands', () => {
+    describe('parseArgs with commands', () => {
+      it('should parse init command', () => {
+        const options = parseArgs(['init', 'react'])
+        expect(options.command).toBe('init')
+        expect(options.template).toBe('react')
+      })
+
+      it('should parse analyze command', () => {
+        const options = parseArgs(['analyze'])
+        expect(options.command).toBe('analyze')
+      })
+
+      it('should parse optimize command', () => {
+        const options = parseArgs(['optimize', '-o', 'output.css'])
+        expect(options.command).toBe('optimize')
+        expect(options.output).toBe('output.css')
+      })
+
+      it('should parse migrate command', () => {
+        const options = parseArgs(['migrate', 'tailwind'])
+        expect(options.command).toBe('migrate')
+        expect(options.template).toBe('tailwind')
+      })
+
+      it('should parse doctor command', () => {
+        const options = parseArgs(['doctor'])
+        expect(options.command).toBe('doctor')
+      })
+
+      it('should parse tokens command', () => {
+        const options = parseArgs(['tokens', 'build', '-p', 'web'])
+        expect(options.command).toBe('tokens')
+        expect(options.input).toContain('build')
+      })
+
+      it('should parse benchmark command', () => {
+        const options = parseArgs(['benchmark', '5000'])
+        expect(options.command).toBe('benchmark')
+        expect(options.input).toContain('5000')
+      })
+
+      it('should default to build command when no command specified', () => {
+        const options = parseArgs(['src/*.html'])
+        expect(options.command).toBe('build')
+      })
+
+      it('should handle unknown first arg as input file', () => {
+        const options = parseArgs(['notacommand.html'])
+        expect(options.command).toBe('build')
+        expect(options.input).toContain('notacommand.html')
+      })
+    })
+
+    describe('init command', () => {
+      it('should run init with default template', async () => {
+        const result = await run({ command: 'init' })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('basic'))
+      })
+
+      it('should run init with basic template', async () => {
+        const result = await run({ command: 'init', template: 'basic' })
+        expect(result.success).toBe(true)
+        expect(result.files).toBeDefined()
+      })
+
+      it('should run init with react template', async () => {
+        const result = await run({ command: 'init', template: 'react' })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('React'))
+      })
+
+      it('should run init with vue template', async () => {
+        const result = await run({ command: 'init', template: 'vue' })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Vue'))
+      })
+
+      it('should run init with next template', async () => {
+        const result = await run({ command: 'init', template: 'next' })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Next.js'))
+      })
+
+      it('should run init with nuxt template', async () => {
+        const result = await run({ command: 'init', template: 'nuxt' })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Nuxt'))
+      })
+
+      it('should fail with unknown template', async () => {
+        const result = await run({ command: 'init', template: 'unknown' })
+        expect(result.success).toBe(false)
+        expect(result.error).toContain('Unknown template')
+      })
+    })
+
+    describe('analyze command', () => {
+      it('should run analyze', async () => {
+        const result = await run({ command: 'analyze' })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Analyzing'))
+      })
+
+      it('should display bundle analysis', async () => {
+        await run({ command: 'analyze' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Bundle Analysis'))
+      })
+
+      it('should show suggestions', async () => {
+        await run({ command: 'analyze' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Suggestions'))
+      })
+    })
+
+    describe('optimize command', () => {
+      it('should run optimize', async () => {
+        const result = await run({ command: 'optimize' })
+        expect(result.success).toBe(true)
+        expect(result.css).toBeDefined()
+      })
+
+      it('should display optimization steps', async () => {
+        await run({ command: 'optimize' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Optimizing'))
+      })
+
+      it('should show optimization results', async () => {
+        await run({ command: 'optimize' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Optimization complete'))
+      })
+    })
+
+    describe('migrate command', () => {
+      it('should run migrate with default source', async () => {
+        const result = await run({ command: 'migrate' })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('tailwind'))
+      })
+
+      it('should run migrate with tailwind source', async () => {
+        const result = await run({ command: 'migrate', template: 'tailwind' })
+        expect(result.success).toBe(true)
+      })
+
+      it('should display migration overview', async () => {
+        await run({ command: 'migrate' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Migration Overview'))
+      })
+
+      it('should display class compatibility info', async () => {
+        await run({ command: 'migrate' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('CLASS COMPATIBILITY'))
+      })
+
+      it('should display configuration changes', async () => {
+        await run({ command: 'migrate' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('CONFIGURATION CHANGES'))
+      })
+
+      it('should display bonus features', async () => {
+        await run({ command: 'migrate' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('BONUS FEATURES'))
+      })
+
+      it('should run in dry-run mode with stdout flag', async () => {
+        const result = await run({ command: 'migrate', stdout: true })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Dry Run'))
+      })
+    })
+
+    describe('doctor command', () => {
+      it('should run doctor', async () => {
+        const result = await run({ command: 'doctor' })
+        expect(result.success).toBe(true)
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('diagnostics'))
+      })
+
+      it('should display check results', async () => {
+        await run({ command: 'doctor' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Config file'))
+      })
+
+      it('should display diagnostics summary', async () => {
+        await run({ command: 'doctor' })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Diagnostics complete'))
+      })
+    })
+
+    describe('tokens command', () => {
+      it('should run tokens with help flag', async () => {
+        const result = await run({ command: 'tokens', input: ['--help'] })
+        expect(result.success).toBe(true)
+      })
+
+      it('should run tokens with -h flag', async () => {
+        const result = await run({ command: 'tokens', input: ['-h'] })
+        expect(result.success).toBe(true)
+      })
+
+      it('should run tokens build subcommand', async () => {
+        const result = await run({ command: 'tokens', input: ['build'] })
+        expect(result.success).toBeDefined()
+      })
+
+      it('should run tokens export subcommand', async () => {
+        const result = await run({ command: 'tokens', input: ['export'] })
+        expect(result.success).toBeDefined()
+      })
+
+      it('should run tokens validate subcommand', async () => {
+        const result = await run({ command: 'tokens', input: ['validate'] })
+        expect(result.success).toBeDefined()
+      })
+    })
+
+    describe('benchmark command', () => {
+      it('should run benchmark with default iterations', async () => {
+        const result = await run({ command: 'benchmark' })
+        expect(result.success).toBe(true)
+      })
+
+      it('should run benchmark with custom iterations', async () => {
+        const result = await run({ command: 'benchmark', input: ['100'] })
+        expect(result.success).toBe(true)
+      })
+
+      it('should display benchmark header', async () => {
+        await run({ command: 'benchmark', input: ['50'] })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Benchmark Suite'))
+      })
+
+      it('should display platform info', async () => {
+        await run({ command: 'benchmark', input: ['50'] })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Platform'))
+      })
+
+      it('should display summary', async () => {
+        await run({ command: 'benchmark', input: ['50'] })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('Summary'))
+      })
+
+      it('should output JSON when stdout flag is true', async () => {
+        await run({ command: 'benchmark', input: ['50'], stdout: true })
+        expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('JSON Output'))
+      })
+    })
+  })
+
+  describe('Error handling', () => {
+    it('should catch and return errors', async () => {
+      // Force an error by passing invalid options
+      const result = await run({ command: 'build', input: [] })
+      expect(result.success).toBe(false)
+      expect(result.error).toBeDefined()
+    })
+
+    it('should handle unknown commands gracefully', async () => {
+      // Unknown commands fall through to build
+      const result = await run({ command: 'unknown' as any, input: ['test.html'] })
+      expect(result.success).toBe(true)
+    })
+  })
+
+  describe('Build command features', () => {
+    it('should process multiple input files', async () => {
+      const result = await run({
+        command: 'build',
+        input: ['src/a.html', 'src/b.html', 'src/c.tsx']
+      })
+      expect(result.success).toBe(true)
+      expect(result.files?.length).toBe(3)
+    })
+
+    it('should handle empty classes array', async () => {
+      const result = await run({
+        command: 'build',
+        input: ['test.html']
+      })
+      expect(result.success).toBe(true)
+      expect(result.classes).toEqual([])
+    })
+
+    it('should include theme CSS', async () => {
+      const result = await run({
+        command: 'build',
+        input: ['test.html']
+      })
+      expect(result.css).toBeDefined()
+    })
+
+    it('should respect output option', async () => {
+      await run({
+        command: 'build',
+        input: ['test.html'],
+        output: 'custom-output.css'
+      })
+      expect(consoleMock.log).toHaveBeenCalledWith(expect.stringContaining('custom-output.css'))
     })
   })
 })

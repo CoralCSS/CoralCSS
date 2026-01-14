@@ -164,4 +164,45 @@ describe('Extras Utilities Plugin', () => {
     expect(css).toContain('color-scheme: dark')
     expect(css).toContain('-webkit-appearance: none')
   })
+
+  describe('Arbitrary Values', () => {
+    it('should handle accent-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [extrasUtilitiesPlugin()]
+      })
+
+      const css = coral.generate(['accent-[#ff5500]'])
+      expect(css).toContain('accent-color')
+      expect(css).toContain('#ff5500')
+    })
+
+    it('should handle accent-[...] with rgb value', () => {
+      const coral = createCoral({
+        plugins: [extrasUtilitiesPlugin()]
+      })
+
+      const css = coral.generate(['accent-[rgb(255,85,0)]'])
+      expect(css).toContain('accent-color')
+    })
+
+    it('should handle line-clamp-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [extrasUtilitiesPlugin()]
+      })
+
+      const css = coral.generate(['line-clamp-[15]'])
+      expect(css).toContain('-webkit-line-clamp: 15')
+      expect(css).toContain('-webkit-box-orient: vertical')
+      expect(css).toContain('overflow: hidden')
+    })
+
+    it('should handle line-clamp-[...] with large number', () => {
+      const coral = createCoral({
+        plugins: [extrasUtilitiesPlugin()]
+      })
+
+      const css = coral.generate(['line-clamp-[20]'])
+      expect(css).toContain('-webkit-line-clamp: 20')
+    })
+  })
 })

@@ -1474,6 +1474,16 @@ const dataDisplayComponents = [
     <button data-coral-button>Action</button>
   </div>
 </div>`,
+    outputCode: `<div data-coral-card class="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+  <div data-coral-card-image class="h-48 bg-muted"></div>
+  <div data-coral-card-content class="p-4 space-y-2">
+    <h3 data-coral-card-title class="text-lg font-semibold text-foreground">Title</h3>
+    <p data-coral-card-description class="text-sm text-muted-foreground">Description</p>
+  </div>
+  <div data-coral-card-footer class="px-4 py-3 border-t border-border bg-muted/30">
+    <button data-coral-button class="px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground">Action</button>
+  </div>
+</div>`,
     props: [
       { name: 'data-variant', type: '"default" | "bordered" | "elevated"', default: '"default"', description: 'Card style variant' },
       { name: 'data-interactive', type: 'boolean', default: 'false', description: 'Enable hover effects' },
@@ -1486,6 +1496,15 @@ const dataDisplayComponents = [
     description: 'A circular image component for user profiles.',
     usage: `<div data-coral-avatar data-size="md">
   <span data-coral-avatar-fallback>JD</span>
+</div>`,
+    outputCode: `<div data-coral-avatar data-size="md" class="relative inline-flex w-10 h-10 rounded-full overflow-hidden bg-muted">
+  <span data-coral-avatar-fallback class="flex items-center justify-center w-full h-full text-sm font-medium text-muted-foreground">JD</span>
+</div>
+
+<!-- With status indicator -->
+<div data-coral-avatar data-size="md" data-status="online" class="relative inline-flex w-10 h-10 rounded-full overflow-hidden bg-muted">
+  <span data-coral-avatar-fallback class="flex items-center justify-center w-full h-full text-sm font-medium">JD</span>
+  <span class="absolute bottom-0 right-0 w-3 h-3 bg-success rounded-full border-2 border-background"></span>
 </div>`,
     props: [
       { name: 'data-size', type: '"xs" | "sm" | "md" | "lg" | "xl"', default: '"md"', description: 'Avatar size' },
@@ -1500,6 +1519,10 @@ const dataDisplayComponents = [
     usage: `<span data-coral-badge>Default</span>
 <span data-coral-badge data-variant="success">Success</span>
 <span data-coral-badge data-variant="warning">Warning</span>`,
+    outputCode: `<span data-coral-badge class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground">Default</span>
+<span data-coral-badge data-variant="success" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success">Success</span>
+<span data-coral-badge data-variant="warning" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning/10 text-warning">Warning</span>
+<span data-coral-badge data-variant="error" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-destructive/10 text-destructive">Error</span>`,
     props: [
       { name: 'data-variant', type: '"default" | "success" | "warning" | "error" | "info"', default: '"default"', description: 'Badge color variant' },
       { name: 'data-outline', type: 'boolean', default: 'false', description: 'Outline style' },
@@ -1521,6 +1544,20 @@ const dataDisplayComponents = [
     <tr>
       <td>John Doe</td>
       <td>john@example.com</td>
+    </tr>
+  </tbody>
+</table>`,
+    outputCode: `<table data-coral-table class="w-full border-collapse text-sm">
+  <thead>
+    <tr class="border-b border-border">
+      <th class="px-4 py-3 text-left font-medium text-muted-foreground">Name</th>
+      <th class="px-4 py-3 text-left font-medium text-muted-foreground">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="border-b border-border hover:bg-muted/50 transition-colors">
+      <td class="px-4 py-3 text-foreground">John Doe</td>
+      <td class="px-4 py-3 text-foreground">john@example.com</td>
     </tr>
   </tbody>
 </table>`,

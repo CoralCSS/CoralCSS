@@ -196,4 +196,36 @@ describe('Interpolation Utilities Plugin', () => {
     expect(css).toContain('background-color')
     expect(css).toContain('color')
   })
+
+  describe('Color Space Arbitrary Values', () => {
+    it('should handle from-lab-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [interpolationPlugin()]
+      })
+
+      const css = coral.generate(['from-lab-[50%_20_-30]'])
+      expect(css).toContain('color')
+      expect(css).toContain('lab(from var(--color-base)')
+    })
+
+    it('should handle from-hwb-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [interpolationPlugin()]
+      })
+
+      const css = coral.generate(['from-hwb-[180_10%_20%]'])
+      expect(css).toContain('color')
+      expect(css).toContain('hwb(from var(--color-base)')
+    })
+
+    it('should handle border-mix-{space}-[...]-in-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [interpolationPlugin()]
+      })
+
+      const css = coral.generate(['border-mix-srgb-[red]-in-[blue]'])
+      expect(css).toContain('border-color')
+      expect(css).toContain('color-mix(in srgb')
+    })
+  })
 })

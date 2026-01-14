@@ -8,6 +8,11 @@ const formComponents = [
     description: 'A label element for form fields with optional required indicator.',
     usage: `<label data-coral-label data-required>Email</label>
 <input data-coral-input type="email" />`,
+    outputCode: `<label data-coral-label data-required class="block text-sm font-medium text-foreground mb-1.5">
+  Email
+  <span class="text-destructive ml-0.5">*</span>
+</label>
+<input data-coral-input type="email" class="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" />`,
     props: [
       { name: 'data-required', type: 'boolean', default: 'false', description: 'Show required asterisk' },
       { name: 'data-disabled', type: 'boolean', default: 'false', description: 'Disabled state' },
@@ -22,6 +27,11 @@ const formComponents = [
   <legend data-coral-legend>Personal Information</legend>
   <input data-coral-input placeholder="Name" />
   <input data-coral-input placeholder="Email" />
+</fieldset>`,
+    outputCode: `<fieldset data-coral-fieldset class="border border-border rounded-lg p-4 space-y-4">
+  <legend data-coral-legend class="px-2 text-sm font-semibold text-foreground">Personal Information</legend>
+  <input data-coral-input placeholder="Name" class="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground" />
+  <input data-coral-input placeholder="Email" class="w-full px-3 py-2 rounded-lg border border-border bg-background text-foreground" />
 </fieldset>`,
     props: [
       { name: 'data-disabled', type: 'boolean', default: 'false', description: 'Disable all fields' },
@@ -124,6 +134,11 @@ const formComponents = [
   <button data-coral-toggle-group-item data-selected>Small</button>
   <button data-coral-toggle-group-item>Medium</button>
   <button data-coral-toggle-group-item>Large</button>
+</div>`,
+    outputCode: `<div data-coral-toggle-group class="inline-flex rounded-lg border border-border overflow-hidden">
+  <button data-coral-toggle-group-item data-selected class="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground">Small</button>
+  <button data-coral-toggle-group-item class="px-4 py-2 text-sm font-medium bg-background text-foreground hover:bg-muted border-l border-border">Medium</button>
+  <button data-coral-toggle-group-item class="px-4 py-2 text-sm font-medium bg-background text-foreground hover:bg-muted border-l border-border">Large</button>
 </div>`,
     props: [
       { name: 'data-variant', type: '"default" | "outline"', default: '"default"', description: 'Visual style' },

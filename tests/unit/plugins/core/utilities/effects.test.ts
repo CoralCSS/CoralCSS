@@ -559,6 +559,24 @@ describe('Effects Utilities Plugin', () => {
     })
   })
 
+  describe('Drop Shadow', () => {
+    it('should generate drop-shadow-[...] arbitrary value', () => {
+      const css = coral.generate(['drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]'])
+      expect(css).toContain('filter')
+      expect(css).toContain('drop-shadow')
+    })
+
+    it('should generate colored drop shadow with opacity', () => {
+      const css = coral.generate(['drop-shadow-red-500/50'])
+      expect(css).toContain('filter')
+    })
+
+    it('should generate colored drop shadow with different opacity', () => {
+      const css = coral.generate(['drop-shadow-blue-600/25'])
+      expect(css).toContain('filter')
+    })
+  })
+
   describe('Default Export', () => {
     it('should export default function', async () => {
       const { default: defaultExport } = await import(

@@ -59,6 +59,13 @@ temp/
 website/dist/
 website/node_modules/
 
+# Coral Turbo (Rust engine)
+coral-turbo/target/
+coral-turbo/pkg/
+coral-turbo/dist/
+coral-turbo/node_modules/
+coral-turbo/*.node
+
 # Examples build
 examples/**/node_modules/
 examples/**/dist/

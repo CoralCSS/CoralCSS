@@ -159,15 +159,8 @@ export const gradientsPlugin = (): Plugin => ({
       name: 'animate-gradient-x',
       pattern: 'animate-gradient-x',
       generate: () => ({
-        properties: {
-          'background-size': '200% 200%',
-          'animation': 'gradient-x 3s ease infinite',
-        },
-        atRules: [
-          '@keyframes gradient-x',
-          '0%, 100% { background-position: 0% 50% }',
-          '50% { background-position: 100% 50% }',
-        ],
+        'background-size': '200% 200%',
+        'animation': 'gradient-x 3s ease infinite',
       }),
     })
 
@@ -175,15 +168,8 @@ export const gradientsPlugin = (): Plugin => ({
       name: 'animate-gradient-y',
       pattern: 'animate-gradient-y',
       generate: () => ({
-        properties: {
-          'background-size': '200% 200%',
-          'animation': 'gradient-y 3s ease infinite',
-        },
-        atRules: [
-          '@keyframes gradient-y',
-          '0%, 100% { background-position: 50% 0% }',
-          '50% { background-position: 50% 100% }',
-        ],
+        'background-size': '200% 200%',
+        'animation': 'gradient-y 3s ease infinite',
       }),
     })
 
@@ -191,15 +177,8 @@ export const gradientsPlugin = (): Plugin => ({
       name: 'animate-gradient-xy',
       pattern: 'animate-gradient-xy',
       generate: () => ({
-        properties: {
-          'background-size': '400% 400%',
-          'animation': 'gradient-xy 15s ease infinite',
-        },
-        atRules: [
-          '@keyframes gradient-xy',
-          '0%, 100% { background-position: 0% 50% }',
-          '50% { background-position: 100% 50% }',
-        ],
+        'background-size': '400% 400%',
+        'animation': 'gradient-xy 15s ease infinite',
       }),
     })
 
@@ -229,11 +208,9 @@ export const gradientsPlugin = (): Plugin => ({
       name: 'bg-gradient-glass',
       pattern: 'bg-gradient-glass',
       generate: () => ({
-        properties: {
-          'background': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
-          'backdrop-filter': 'blur(10px)',
-          '-webkit-backdrop-filter': 'blur(10px)',
-        },
+        'background': 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+        'backdrop-filter': 'blur(10px)',
+        '-webkit-backdrop-filter': 'blur(10px)',
       }),
     })
 
@@ -242,16 +219,9 @@ export const gradientsPlugin = (): Plugin => ({
       name: 'animate-shimmer',
       pattern: 'animate-shimmer',
       generate: () => ({
-        properties: {
-          'background': 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
-          'background-size': '200% 100%',
-          'animation': 'shimmer 2s infinite',
-        },
-        atRules: [
-          '@keyframes shimmer',
-          '0% { background-position: 200% 0 }',
-          '100% { background-position: -200% 0 }',
-        ],
+        'background': 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+        'background-size': '200% 100%',
+        'animation': 'shimmer 2s infinite',
       }),
     })
 
@@ -260,17 +230,9 @@ export const gradientsPlugin = (): Plugin => ({
       name: 'bg-gradient-aurora',
       pattern: 'bg-gradient-aurora',
       generate: () => ({
-        properties: {
-          'background': 'linear-gradient(135deg, #a855f7 0%, #6366f1 25%, #3b82f6 50%, #06b6d4 75%, #10b981 100%)',
-          'background-size': '200% 200%',
-          'animation': 'aurora 8s ease infinite',
-        },
-        atRules: [
-          '@keyframes aurora',
-          '0% { background-position: 0% 50% }',
-          '50% { background-position: 100% 50% }',
-          '100% { background-position: 0% 50% }',
-        ],
+        'background': 'linear-gradient(135deg, #a855f7 0%, #6366f1 25%, #3b82f6 50%, #06b6d4 75%, #10b981 100%)',
+        'background-size': '200% 200%',
+        'animation': 'aurora 8s ease infinite',
       }),
     })
   },

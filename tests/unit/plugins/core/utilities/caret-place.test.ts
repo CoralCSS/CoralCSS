@@ -229,4 +229,93 @@ describe('Caret & Place Utilities Plugin', () => {
       expect(css).toContain('caret-color: var(--color-coral-500)')
     })
   })
+
+  describe('Arbitrary Values', () => {
+    it('should generate arbitrary caret color', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['caret-[#ff00ff]'])
+      expect(css).toContain('caret-color: #ff00ff')
+    })
+
+    it('should generate arbitrary caret color with underscore replacement', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['caret-[var(--my_custom_color)]'])
+      expect(css).toContain('caret-color: var(--my custom color)')
+    })
+
+    it('should handle empty arbitrary caret value', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['caret-[]'])
+      expect(css).toBe('')
+    })
+
+    it('should generate arbitrary place-items', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['place-items-[safe_center]'])
+      expect(css).toContain('place-items: safe center')
+    })
+
+    it('should handle empty arbitrary place-items', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['place-items-[]'])
+      expect(css).toBe('')
+    })
+
+    it('should generate arbitrary place-self', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['place-self-[auto]'])
+      expect(css).toContain('place-self: auto')
+    })
+
+    it('should handle empty arbitrary place-self', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['place-self-[]'])
+      expect(css).toBe('')
+    })
+
+    it('should generate arbitrary place-content', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['place-content-[space-between_center]'])
+      expect(css).toContain('place-content: space-between center')
+    })
+
+    it('should handle empty arbitrary place-content', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['place-content-[]'])
+      expect(css).toBe('')
+    })
+  })
+
+  describe('Default Export', () => {
+    it('should export default function', async () => {
+      const { default: defaultExport } = await import(
+        '../../../../../src/plugins/core/utilities/caret-place'
+      )
+      expect(defaultExport).toBe(caretPlacePlugin)
+    })
+  })
+
+  describe('Additional Caret Colors', () => {
+    it('should generate caret-white', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['caret-white'])
+      expect(css).toContain('caret-color: #ffffff')
+    })
+
+    it('should generate caret-black', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+      const css = coral.generate(['caret-black'])
+      expect(css).toContain('caret-color: #000000')
+    })
+
+    it('should generate all shade levels', () => {
+      const coral = createCoral({ plugins: [caretPlacePlugin()] })
+
+      // Test shade 50
+      expect(coral.generate(['caret-coral-50'])).toContain('var(--color-coral-50)')
+
+      // Test shade 950
+      expect(coral.generate(['caret-coral-950'])).toContain('var(--color-coral-950)')
+    })
+  })
 })

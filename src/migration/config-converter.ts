@@ -167,7 +167,7 @@ export function parseTailwindConfigString(content: string): Partial<TailwindConf
   // Extract content array
   const contentMatch = content.match(/content:\s*\[([\s\S]*?)\]/m)
   if (contentMatch) {
-    const contentPaths = contentMatch[1]
+    const contentPaths = contentMatch[1]!
       .split(',')
       .map(s => s.trim())
       .filter(s => s.length > 0)
@@ -192,7 +192,7 @@ export function parseTailwindConfigString(content: string): Partial<TailwindConf
   if (colorsMatch) {
     try {
       // Simplified color parsing
-      const colorEntries = colorsMatch[1]
+      const colorEntries = colorsMatch[1]!
         .split(',')
         .map(entry => entry.trim())
         .filter(entry => entry.length > 0)

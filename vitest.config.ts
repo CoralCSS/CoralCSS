@@ -9,7 +9,9 @@ export default defineConfig({
       // Use jsdom for component and runtime tests
       ['tests/unit/components/**', 'jsdom'],
       ['tests/unit/runtime/**', 'jsdom'],
+      ['tests/unit/utils/dom.test.ts', 'jsdom'],
     ],
+    setupFiles: ['./tests/vitest.setup.ts'],
     include: ['tests/**/*.test.ts'],
     exclude: ['tests/e2e/**', 'node_modules', 'dist'],
     coverage: {

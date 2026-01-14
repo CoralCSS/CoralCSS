@@ -87,13 +87,13 @@ export class TreeShake {
     for (const className of classes) {
       // Extract base class and variants
       const parts = className.split(':')
-      const baseClass = parts[parts.length - 1]
+      const baseClass = parts[parts.length - 1]!
 
       this.usedClasses.add(baseClass)
 
       // Track variants
       for (let i = 0; i < parts.length - 1; i++) {
-        this.usedVariants.add(parts[i])
+        this.usedVariants.add(parts[i]!)
       }
     }
   }
@@ -101,29 +101,28 @@ export class TreeShake {
   /**
    * Check if a rule should be kept
    */
-  shouldKeepRule(rule: RuleConfig): boolean {
+  shouldKeepRule(rule: Rule | RuleConfig): boolean {
     if (!this.options.enabled) {
       return true
     }
 
+    const patternStr = typeof rule.pattern === 'string'
+      ? rule.pattern
+      : rule.pattern.source
+
     // Always keep if in include list
     for (const pattern of this.options.includePatterns) {
-      if (pattern.test(rule.pattern)) {
+      if (pattern.test(patternStr)) {
         return true
       }
     }
 
     // Exclude if in exclude patterns
     for (const pattern of this.options.excludePatterns) {
-      if (pattern.test(rule.pattern)) {
+      if (pattern.test(patternStr)) {
         return false
       }
     }
-
-    // Check if pattern matches used classes
-    const patternStr = typeof rule.pattern === 'string'
-      ? rule.pattern
-      : rule.pattern.source
 
     // Check against used classes
     for (const usedClass of this.usedClasses) {

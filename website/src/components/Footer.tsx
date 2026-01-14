@@ -71,7 +71,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/ersinkoc/CoralCSS"
+                  href="https://github.com/coralcss/coralcss"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition"
@@ -91,7 +91,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/ersinkoc/CoralCSS/blob/main/CHANGELOG.md"
+                  href="https://github.com/coralcss/coralcss/blob/main/CHANGELOG.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition"
@@ -108,7 +108,7 @@ function Footer() {
             <ul className="flex flex-col gap-3 text-sm text-muted-foreground">
               <li>
                 <a
-                  href="https://github.com/ersinkoc/CoralCSS/discussions"
+                  href="https://github.com/coralcss/coralcss/discussions"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition"
@@ -118,7 +118,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/ersinkoc/CoralCSS/issues"
+                  href="https://github.com/coralcss/coralcss/issues"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-primary transition"
@@ -147,7 +147,7 @@ function Footer() {
           </p>
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com/ersinkoc/CoralCSS"
+              href="https://github.com/coralcss/coralcss"
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-foreground hover:text-primary transition"

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CodeBlock } from '@oxog/codeshine/react'
 
 // Example categories with live demos
 const exampleCategories = [
@@ -695,6 +696,131 @@ function Examples() {
         ))}
       </section>
 
+      {/* Templates Section */}
+      <section className="container pb-20">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+            </svg>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-foreground">Page Templates</h2>
+            <p className="text-sm text-muted-foreground">Ready-to-use full page layouts</p>
+          </div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Login Template */}
+          <TemplateCard
+            title="Login Page"
+            description="Clean authentication form with social login options"
+            preview={<LoginTemplatePreview />}
+            tags={['Auth', 'Forms']}
+          />
+
+          {/* Dashboard Template */}
+          <TemplateCard
+            title="Dashboard"
+            description="Admin dashboard with stats, charts, and sidebar"
+            preview={<DashboardTemplatePreview />}
+            tags={['Admin', 'Analytics']}
+          />
+
+          {/* Landing Template */}
+          <TemplateCard
+            title="Landing Page"
+            description="Marketing landing page with hero and features"
+            preview={<LandingTemplatePreview />}
+            tags={['Marketing', 'Hero']}
+          />
+
+          {/* Pricing Template */}
+          <TemplateCard
+            title="Pricing Page"
+            description="SaaS pricing with toggle and feature comparison"
+            preview={<PricingTemplatePreview />}
+            tags={['SaaS', 'Pricing']}
+          />
+
+          {/* Blog Template */}
+          <TemplateCard
+            title="Blog Post"
+            description="Article page with typography and sidebar"
+            preview={<BlogTemplatePreview />}
+            tags={['Content', 'Blog']}
+          />
+
+          {/* Profile Template */}
+          <TemplateCard
+            title="Profile Page"
+            description="User profile with avatar, bio, and activity"
+            preview={<ProfileTemplatePreview />}
+            tags={['User', 'Social']}
+          />
+        </div>
+      </section>
+
+      {/* Starter Kits Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Quick Start
+            </div>
+            <h2 className="text-3xl font-bold text-foreground mb-4">Starter Kits</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Production-ready project templates. Clone, customize, and ship faster.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* SaaS Starter */}
+            <StarterKitCard
+              title="SaaS Starter"
+              description="Complete SaaS boilerplate with authentication, dashboard, billing, and settings pages."
+              icon="🚀"
+              features={['Auth Pages', 'Dashboard', 'Settings', 'Billing UI']}
+              tech={['React', 'TypeScript', 'CoralCSS']}
+              color="from-blue-500 to-cyan-500"
+            />
+
+            {/* E-commerce Starter */}
+            <StarterKitCard
+              title="E-commerce Starter"
+              description="Online store template with product listings, cart, checkout, and order tracking."
+              icon="🛒"
+              features={['Product Grid', 'Cart System', 'Checkout Flow', 'Order Pages']}
+              tech={['React', 'TypeScript', 'CoralCSS']}
+              color="from-orange-500 to-pink-500"
+            />
+
+            {/* Blog Starter */}
+            <StarterKitCard
+              title="Blog Starter"
+              description="Content-focused blog with article layouts, categories, and newsletter signup."
+              icon="📝"
+              features={['Article Layout', 'Categories', 'Newsletter', 'Author Pages']}
+              tech={['React', 'MDX', 'CoralCSS']}
+              color="from-green-500 to-teal-500"
+            />
+
+            {/* Portfolio Starter */}
+            <StarterKitCard
+              title="Portfolio Starter"
+              description="Personal portfolio showcasing projects, skills, and contact information."
+              icon="🎨"
+              features={['Project Gallery', 'About Section', 'Contact Form', 'Resume']}
+              tech={['React', 'Framer Motion', 'CoralCSS']}
+              color="from-purple-500 to-indigo-500"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 section-dark">
         <div className="container text-center">
@@ -789,8 +915,17 @@ function ExampleCard({ example, isExpanded, onToggle }: ExampleProps) {
       {/* Content */}
       <div className={`transition-all duration-300 ${isExpanded ? 'max-h-[600px]' : 'max-h-[200px]'} overflow-hidden`}>
         {showCode ? (
-          <div className="p-4 bg-secondary/50 overflow-auto">
-            <pre className="text-sm text-muted-foreground font-mono whitespace-pre-wrap">{example.code}</pre>
+          <div className="[&_.codeshine]:rounded-none! [&_.codeshine]:border-0!">
+            <CodeBlock
+              code={example.code}
+              language="html"
+              theme="github-dark"
+              lineNumbers
+              copyButton
+              showLanguageBadge
+              wrapLines={false}
+              maxHeight={isExpanded ? '500px' : '160px'}
+            />
           </div>
         ) : (
           <div className="p-6 bg-muted/30 min-h-[160px] flex items-center justify-center">
@@ -1204,6 +1339,233 @@ function StatCardPreview() {
         <p className="text-xs text-muted-foreground">Revenue</p>
         <p className="text-xl font-bold">$45K</p>
         <p className="text-xs text-success">↑ 8%</p>
+      </div>
+    </div>
+  )
+}
+
+// Template Card Component
+interface TemplateCardProps {
+  title: string
+  description: string
+  preview: React.ReactNode
+  tags: string[]
+}
+
+function TemplateCard({ title, description, preview, tags }: TemplateCardProps) {
+  return (
+    <div className="group bg-card rounded-xl border border-border overflow-hidden hover:shadow-xl hover:border-primary/30 transition-all">
+      <div className="aspect-[4/3] bg-muted/50 p-4 flex items-center justify-center overflow-hidden">
+        <div className="transform scale-75 origin-center">
+          {preview}
+        </div>
+      </div>
+      <div className="p-4 border-t border-border">
+        <div className="flex items-start justify-between mb-2">
+          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">{title}</h3>
+          <button className="p-1.5 rounded-lg bg-primary/10 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </button>
+        </div>
+        <p className="text-sm text-muted-foreground mb-3">{description}</p>
+        <div className="flex gap-2">
+          {tags.map(tag => (
+            <span key={tag} className="px-2 py-0.5 text-xs rounded-full bg-muted text-muted-foreground">{tag}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Starter Kit Card Component
+interface StarterKitCardProps {
+  title: string
+  description: string
+  icon: string
+  features: string[]
+  tech: string[]
+  color: string
+}
+
+function StarterKitCard({ title, description, icon, features, tech, color }: StarterKitCardProps) {
+  return (
+    <div className="group bg-card rounded-2xl border border-border p-6 hover:shadow-xl hover:border-primary/30 transition-all">
+      <div className="flex items-start gap-4 mb-4">
+        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center text-2xl shadow-lg`}>
+          {icon}
+        </div>
+        <div className="flex-1">
+          <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{title}</h3>
+          <p className="text-sm text-muted-foreground mt-1">{description}</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2 mb-4">
+        {features.map(feature => (
+          <div key={feature} className="flex items-center gap-2 text-sm">
+            <svg className="w-4 h-4 text-success flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-muted-foreground">{feature}</span>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex items-center justify-between pt-4 border-t border-border">
+        <div className="flex gap-2">
+          {tech.map(t => (
+            <span key={t} className="px-2 py-1 text-xs rounded-md bg-muted text-muted-foreground">{t}</span>
+          ))}
+        </div>
+        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Clone
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Template Preview Components
+function LoginTemplatePreview() {
+  return (
+    <div className="w-64 bg-card rounded-lg border p-4 shadow-lg">
+      <div className="text-center mb-4">
+        <div className="w-10 h-10 rounded-full bg-primary mx-auto mb-2" />
+        <p className="font-semibold text-sm">Sign In</p>
+      </div>
+      <div className="space-y-2">
+        <div className="h-8 bg-muted rounded" />
+        <div className="h-8 bg-muted rounded" />
+        <div className="h-8 bg-primary rounded" />
+      </div>
+      <div className="flex gap-2 mt-3">
+        <div className="flex-1 h-8 bg-muted rounded" />
+        <div className="flex-1 h-8 bg-muted rounded" />
+      </div>
+    </div>
+  )
+}
+
+function DashboardTemplatePreview() {
+  return (
+    <div className="w-72 bg-card rounded-lg border overflow-hidden shadow-lg">
+      <div className="flex">
+        <div className="w-12 bg-muted p-2 space-y-2">
+          <div className="w-6 h-6 bg-primary/30 rounded" />
+          <div className="w-6 h-6 bg-muted-foreground/20 rounded" />
+          <div className="w-6 h-6 bg-muted-foreground/20 rounded" />
+        </div>
+        <div className="flex-1 p-2">
+          <div className="flex gap-2 mb-2">
+            <div className="flex-1 h-10 bg-primary/10 rounded p-1">
+              <div className="text-[8px] text-muted-foreground">Users</div>
+              <div className="text-xs font-bold">12.5K</div>
+            </div>
+            <div className="flex-1 h-10 bg-success/10 rounded p-1">
+              <div className="text-[8px] text-muted-foreground">Revenue</div>
+              <div className="text-xs font-bold">$45K</div>
+            </div>
+          </div>
+          <div className="h-16 bg-muted rounded" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function LandingTemplatePreview() {
+  return (
+    <div className="w-64 bg-card rounded-lg border overflow-hidden shadow-lg">
+      <div className="h-20 bg-gradient-to-br from-primary/20 to-accent/20 p-3">
+        <div className="flex justify-between items-center mb-2">
+          <div className="w-8 h-3 bg-primary rounded" />
+          <div className="flex gap-1">
+            <div className="w-6 h-2 bg-muted rounded" />
+            <div className="w-6 h-2 bg-muted rounded" />
+          </div>
+        </div>
+        <div className="w-24 h-3 bg-foreground/30 rounded mb-1" />
+        <div className="w-16 h-2 bg-muted-foreground/30 rounded" />
+      </div>
+      <div className="p-3 grid grid-cols-3 gap-2">
+        <div className="h-8 bg-muted rounded" />
+        <div className="h-8 bg-muted rounded" />
+        <div className="h-8 bg-muted rounded" />
+      </div>
+    </div>
+  )
+}
+
+function PricingTemplatePreview() {
+  return (
+    <div className="w-64 bg-card rounded-lg border p-3 shadow-lg">
+      <div className="flex justify-center gap-1 mb-3">
+        <div className="w-12 h-5 bg-primary rounded-full" />
+        <div className="w-12 h-5 bg-muted rounded-full" />
+      </div>
+      <div className="flex gap-2">
+        <div className="flex-1 bg-muted rounded p-2">
+          <div className="w-8 h-2 bg-muted-foreground/30 rounded mb-1" />
+          <div className="text-xs font-bold">$9</div>
+        </div>
+        <div className="flex-1 bg-primary/10 border border-primary rounded p-2">
+          <div className="w-8 h-2 bg-primary/30 rounded mb-1" />
+          <div className="text-xs font-bold text-primary">$29</div>
+        </div>
+        <div className="flex-1 bg-muted rounded p-2">
+          <div className="w-8 h-2 bg-muted-foreground/30 rounded mb-1" />
+          <div className="text-xs font-bold">$99</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function BlogTemplatePreview() {
+  return (
+    <div className="w-64 bg-card rounded-lg border overflow-hidden shadow-lg">
+      <div className="h-12 bg-muted" />
+      <div className="p-3">
+        <div className="w-full h-2 bg-foreground/30 rounded mb-1" />
+        <div className="w-3/4 h-2 bg-muted-foreground/30 rounded mb-3" />
+        <div className="space-y-1">
+          <div className="w-full h-1.5 bg-muted rounded" />
+          <div className="w-full h-1.5 bg-muted rounded" />
+          <div className="w-2/3 h-1.5 bg-muted rounded" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ProfileTemplatePreview() {
+  return (
+    <div className="w-64 bg-card rounded-lg border overflow-hidden shadow-lg">
+      <div className="h-10 bg-gradient-to-r from-primary to-accent" />
+      <div className="px-3 pb-3">
+        <div className="w-12 h-12 rounded-full bg-card border-4 border-card -mt-6 mb-2" />
+        <div className="w-20 h-2 bg-foreground/30 rounded mb-1" />
+        <div className="w-32 h-1.5 bg-muted-foreground/30 rounded mb-2" />
+        <div className="flex gap-2">
+          <div className="flex-1 text-center p-1 bg-muted rounded">
+            <div className="text-[8px] font-bold">128</div>
+            <div className="text-[6px] text-muted-foreground">Posts</div>
+          </div>
+          <div className="flex-1 text-center p-1 bg-muted rounded">
+            <div className="text-[8px] font-bold">1.2K</div>
+            <div className="text-[6px] text-muted-foreground">Following</div>
+          </div>
+          <div className="flex-1 text-center p-1 bg-muted rounded">
+            <div className="text-[8px] font-bold">5.4K</div>
+            <div className="text-[6px] text-muted-foreground">Followers</div>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -77,8 +77,10 @@ export class SegmentedControl extends BaseComponent {
   protected declare config: SegmentedControlConfig
   protected declare state: SegmentedControlState
 
-  private segments: HTMLElement[] = []
-  private indicator: HTMLElement | null = null
+  // Note: Using '!' definite assignment since these are set in cacheElements() during init()
+  // Cannot use field initializers as they run AFTER the base class constructor calls init()
+  private segments!: HTMLElement[]
+  private indicator!: HTMLElement | null
 
   protected getDefaultConfig(): SegmentedControlConfig {
     return {

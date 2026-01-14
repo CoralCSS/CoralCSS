@@ -1,0 +1,29 @@
+[package]
+name = "coral-turbo-wasm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "WASM bindings for CoralCSS Turbo engine"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+coral-turbo-core = { path = "../coral-turbo-core" }
+wasm-bindgen.workspace = true
+js-sys.workspace = true
+console_error_panic_hook = { workspace = true, optional = true }
+wee_alloc = { workspace = true, optional = true }
+serde.workspace = true
+serde_json.workspace = true
+serde-wasm-bindgen = "0.6"
+getrandom.workspace = true
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
+
+[features]
+default = ["console_error_panic_hook", "wee_alloc"]
+
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false

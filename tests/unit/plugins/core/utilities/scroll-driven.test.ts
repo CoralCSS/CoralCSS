@@ -230,4 +230,62 @@ describe('Scroll-Driven Animations Utilities Plugin', () => {
     expect(css).toContain('animation-range')
     expect(css).toContain('view-timeline')
   })
+
+  describe('Arbitrary Values', () => {
+    it('should handle view-timeline-inset-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [scrollDrivenAnimationsPlugin()]
+      })
+
+      const css = coral.generate(['view-timeline-inset-[20%]'])
+      expect(css).toContain('view-timeline-inset')
+      expect(css).toContain('20%')
+    })
+
+    it('should handle view-timeline-inset-[...] with multiple values', () => {
+      const coral = createCoral({
+        plugins: [scrollDrivenAnimationsPlugin()]
+      })
+
+      const css = coral.generate(['view-timeline-inset-[10%_20%]'])
+      expect(css).toContain('view-timeline-inset')
+    })
+
+    it('should handle timeline-scope-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [scrollDrivenAnimationsPlugin()]
+      })
+
+      const css = coral.generate(['timeline-scope-[--my-timeline]'])
+      expect(css).toContain('timeline-scope')
+      expect(css).toContain('--my-timeline')
+    })
+
+    it('should handle timeline-scope-[...] with custom name', () => {
+      const coral = createCoral({
+        plugins: [scrollDrivenAnimationsPlugin()]
+      })
+
+      const css = coral.generate(['timeline-scope-[--custom-scope]'])
+      expect(css).toContain('timeline-scope')
+    })
+
+    it('should handle animation-range-start-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [scrollDrivenAnimationsPlugin()]
+      })
+
+      const css = coral.generate(['animation-range-start-[entry_10%]'])
+      expect(css).toContain('animation-range-start')
+    })
+
+    it('should handle animation-range-end-[...] arbitrary value', () => {
+      const coral = createCoral({
+        plugins: [scrollDrivenAnimationsPlugin()]
+      })
+
+      const css = coral.generate(['animation-range-end-[exit_90%]'])
+      expect(css).toContain('animation-range-end')
+    })
+  })
 })

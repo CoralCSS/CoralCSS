@@ -282,7 +282,7 @@ export class IncrementalBuilder {
           path: file,
           hash,
           size: stats.size,
-          mtime: stats.mtime,
+          mtime: stats.mtime.getTime(),
           dependencies: [],
           classes: result.classes
         }

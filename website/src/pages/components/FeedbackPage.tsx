@@ -9,6 +9,18 @@ const feedbackComponents = [
     usage: `<div data-coral-loader data-variant="spinner"></div>
 <div data-coral-loader data-variant="dots"></div>
 <div data-coral-loader data-variant="pulse"></div>`,
+    outputCode: `<!-- Spinner -->
+<div data-coral-loader data-variant="spinner" class="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+
+<!-- Dots -->
+<div data-coral-loader data-variant="dots" class="flex gap-1">
+  <span class="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+  <span class="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+  <span class="w-2 h-2 bg-primary rounded-full animate-bounce"></span>
+</div>
+
+<!-- Pulse -->
+<div data-coral-loader data-variant="pulse" class="w-6 h-6 bg-primary rounded-full animate-pulse"></div>`,
     props: [
       { name: 'data-variant', type: '"spinner" | "dots" | "pulse" | "bars"', default: '"spinner"', description: 'Loader animation style' },
       { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Loader size' },

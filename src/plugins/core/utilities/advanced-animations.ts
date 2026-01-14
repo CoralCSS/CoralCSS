@@ -38,45 +38,21 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-spring-sm',
       generate: () => ({
-        properties: {
-          'animation': 'spring-sm 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-        },
-        atRules: [
-          '@keyframes spring-sm',
-          '0% { transform: scale(0.8); opacity: 0; }',
-          '50% { transform: scale(1.05); }',
-          '100% { transform: scale(1); opacity: 1; }'
-        ]
+        'animation': 'spring-sm 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
       })
     })
 
     api.addRule({
       pattern: 'animate-spring-md',
       generate: () => ({
-        properties: {
-          'animation': 'spring-md 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)'
-        },
-        atRules: [
-          '@keyframes spring-md',
-          '0% { transform: scale(0.7); opacity: 0; }',
-          '60% { transform: scale(1.1); }',
-          '100% { transform: scale(1); opacity: 1; }'
-        ]
+        'animation': 'spring-md 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)'
       })
     })
 
     api.addRule({
       pattern: 'animate-spring-lg',
       generate: () => ({
-        properties: {
-          'animation': 'spring-lg 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
-        },
-        atRules: [
-          '@keyframes spring-lg',
-          '0% { transform: scale(0.5); opacity: 0; }',
-          '70% { transform: scale(1.2); }',
-          '100% { transform: scale(1); opacity: 1; }'
-        ]
+        'animation': 'spring-lg 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
       })
     })
 
@@ -84,30 +60,14 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-bounce-in',
       generate: () => ({
-        properties: {
-          'animation': 'bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
-        },
-        atRules: [
-          '@keyframes bounce-in',
-          '0% { transform: scale(0); opacity: 0; }',
-          '50% { transform: scale(1.2); }',
-          '100% { transform: scale(1); opacity: 1; }'
-        ]
+        'animation': 'bounce-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
       })
     })
 
     api.addRule({
       pattern: 'animate-bounce-out',
       generate: () => ({
-        properties: {
-          'animation': 'bounce-out 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards'
-        },
-        atRules: [
-          '@keyframes bounce-out',
-          '0% { transform: scale(1); opacity: 1; }',
-          '50% { transform: scale(1.1); }',
-          '100% { transform: scale(0); opacity: 0; }'
-        ]
+        'animation': 'bounce-out 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards'
       })
     })
 
@@ -115,33 +75,14 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-elastic',
       generate: () => ({
-        properties: {
-          'animation': 'elastic 1s ease-out'
-        },
-        atRules: [
-          '@keyframes elastic',
-          '0% { transform: scale(0); }',
-          '55% { transform: scale(1.1); }',
-          '70% { transform: scale(0.95); }',
-          '85% { transform: scale(1.02); }',
-          '100% { transform: scale(1); }'
-        ]
+        'animation': 'elastic 1s ease-out'
       })
     })
 
     api.addRule({
       pattern: 'animate-elastic-in',
       generate: () => ({
-        properties: {
-          'animation': 'elastic-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
-        },
-        atRules: [
-          '@keyframes elastic-in',
-          '0% { transform: scale(0); opacity: 0; }',
-          '60% { transform: scale(1.15); }',
-          '80% { transform: scale(0.95); opacity: 1; }',
-          '100% { transform: scale(1); }'
-        ]
+        'animation': 'elastic-in 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
       })
     })
 
@@ -153,15 +94,8 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-scroll-fade-in',
       generate: () => ({
-        properties: {
-          'animation': 'scroll-fade-in linear both',
-          'animation-timeline': 'view()'
-        },
-        atRules: [
-          '@keyframes scroll-fade-in',
-          '0% { opacity: 0; transform: translateY(50px); }',
-          '100% { opacity: 1; transform: translateY(0); }'
-        ]
+        'animation': 'scroll-fade-in linear both',
+        'animation-timeline': 'view()'
       })
     })
 
@@ -169,16 +103,9 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-scroll-scale',
       generate: () => ({
-        properties: {
-          'animation': 'scroll-scale linear both',
-          'animation-timeline': 'view()',
-          'animation-range': 'entry 0% entry 100%'
-        },
-        atRules: [
-          '@keyframes scroll-scale',
-          '0% { transform: scale(0.5); opacity: 0; }',
-          '100% { transform: scale(1); opacity: 1; }'
-        ]
+        'animation': 'scroll-scale linear both',
+        'animation-timeline': 'view()',
+        'animation-range': 'entry 0% entry 100%'
       })
     })
 
@@ -186,15 +113,8 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-scroll-rotate',
       generate: () => ({
-        properties: {
-          'animation': 'scroll-rotate linear both',
-          'animation-timeline': 'view()'
-        },
-        atRules: [
-          '@keyframes scroll-rotate',
-          '0% { transform: rotate(0deg); }',
-          '100% { transform: rotate(360deg); }'
-        ]
+        'animation': 'scroll-rotate linear both',
+        'animation-timeline': 'view()'
       })
     })
 
@@ -202,15 +122,8 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-scroll-slide-up',
       generate: () => ({
-        properties: {
-          'animation': 'scroll-slide-up linear both',
-          'animation-timeline': 'view()'
-        },
-        atRules: [
-          '@keyframes scroll-slide-up',
-          '0% { transform: translateY(100px); opacity: 0; }',
-          '100% { transform: translateY(0); opacity: 1; }'
-        ]
+        'animation': 'scroll-slide-up linear both',
+        'animation-timeline': 'view()'
       })
     })
 
@@ -218,15 +131,8 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-scroll-blur-in',
       generate: () => ({
-        properties: {
-          'animation': 'scroll-blur-in linear both',
-          'animation-timeline': 'view()'
-        },
-        atRules: [
-          '@keyframes scroll-blur-in',
-          '0% { filter: blur(10px); opacity: 0; }',
-          '100% { filter: blur(0); opacity: 1; }'
-        ]
+        'animation': 'scroll-blur-in linear both',
+        'animation-timeline': 'view()'
       })
     })
 
@@ -238,14 +144,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-swipe-left',
       generate: () => ({
-        properties: {
-          'animation': 'swipe-left 0.3s ease-out forwards'
-        },
-        atRules: [
-          '@keyframes swipe-left',
-          '0% { transform: translateX(0); opacity: 1; }',
-          '100% { transform: translateX(-100%); opacity: 0; }'
-        ]
+        'animation': 'swipe-left 0.3s ease-out forwards'
       })
     })
 
@@ -253,14 +152,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-swipe-right',
       generate: () => ({
-        properties: {
-          'animation': 'swipe-right 0.3s ease-out forwards'
-        },
-        atRules: [
-          '@keyframes swipe-right',
-          '0% { transform: translateX(0); opacity: 1; }',
-          '100% { transform: translateX(100%); opacity: 0; }'
-        ]
+        'animation': 'swipe-right 0.3s ease-out forwards'
       })
     })
 
@@ -268,14 +160,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-swipe-up',
       generate: () => ({
-        properties: {
-          'animation': 'swipe-up 0.3s ease-out forwards'
-        },
-        atRules: [
-          '@keyframes swipe-up',
-          '0% { transform: translateY(0); opacity: 1; }',
-          '100% { transform: translateY(-100%); opacity: 0; }'
-        ]
+        'animation': 'swipe-up 0.3s ease-out forwards'
       })
     })
 
@@ -283,14 +168,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-swipe-down',
       generate: () => ({
-        properties: {
-          'animation': 'swipe-down 0.3s ease-out forwards'
-        },
-        atRules: [
-          '@keyframes swipe-down',
-          '0% { transform: translateY(0); opacity: 1; }',
-          '100% { transform: translateY(100%); opacity: 0; }'
-        ]
+        'animation': 'swipe-down 0.3s ease-out forwards'
       })
     })
 
@@ -298,16 +176,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-shake',
       generate: () => ({
-        properties: {
-          'animation': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both'
-        },
-        atRules: [
-          '@keyframes shake',
-          '10%, 90% { transform: translateX(-2px); }',
-          '20%, 80% { transform: translateX(4px); }',
-          '30%, 50%, 70% { transform: translateX(-8px); }',
-          '40%, 60% { transform: translateX(8px); }'
-        ]
+        'animation': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both'
       })
     })
 
@@ -315,15 +184,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-wiggle',
       generate: () => ({
-        properties: {
-          'animation': 'wiggle 0.5s ease-in-out'
-        },
-        atRules: [
-          '@keyframes wiggle',
-          '0%, 100% { transform: rotate(0deg); }',
-          '25% { transform: rotate(-5deg); }',
-          '75% { transform: rotate(5deg); }'
-        ]
+        'animation': 'wiggle 0.5s ease-in-out'
       })
     })
 
@@ -331,14 +192,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-pulse-glow',
       generate: () => ({
-        properties: {
-          'animation': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-        },
-        atRules: [
-          '@keyframes pulse-glow',
-          '0%, 100% { opacity: 1; filter: drop-shadow(0 0 0px currentColor); }',
-          '50% { opacity: 0.5; filter: drop-shadow(0 0 20px currentColor); }'
-        ]
+        'animation': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
       })
     })
 
@@ -350,9 +204,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'hover:animate-magnetic',
       generate: () => ({
-        properties: {
-          'transition': 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-        }
+        'transition': 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
       })
     })
 
@@ -360,9 +212,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'hover:animate-magnetic-rotate',
       generate: () => ({
-        properties: {
-          'transition': 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-        }
+        'transition': 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
       })
     })
 
@@ -373,27 +223,21 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'view-transition-fade',
       generate: () => ({
-        properties: {
-          'view-transition-name': 'fade'
-        }
+        'view-transition-name': 'fade'
       })
     })
 
     api.addRule({
       pattern: 'view-transition-slide',
       generate: () => ({
-        properties: {
-          'view-transition-name': 'slide'
-        }
+        'view-transition-name': 'slide'
       })
     })
 
     api.addRule({
       pattern: 'view-transition-scale',
       generate: () => ({
-        properties: {
-          'view-transition-name': 'scale'
-        }
+        'view-transition-name': 'scale'
       })
     })
 
@@ -405,18 +249,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-glitch',
       generate: () => ({
-        properties: {
-          'animation': 'glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite'
-        },
-        atRules: [
-          '@keyframes glitch',
-          '0% { transform: translate(0); }',
-          '20% { transform: translate(-2px, 2px); }',
-          '40% { transform: translate(-2px, -2px); }',
-          '60% { transform: translate(2px, 2px); }',
-          '80% { transform: translate(2px, -2px); }',
-          '100% { transform: translate(0); }'
-        ]
+        'animation': 'glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite'
       })
     })
 
@@ -424,16 +257,9 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-typewriter',
       generate: () => ({
-        properties: {
-          'overflow': 'hidden',
-          'white-space': 'nowrap',
-          'animation': 'typewriter 2s steps(40, end)'
-        },
-        atRules: [
-          '@keyframes typewriter',
-          'from { width: 0; }',
-          'to { width: 100%; }'
-        ]
+        'overflow': 'hidden',
+        'white-space': 'nowrap',
+        'animation': 'typewriter 2s steps(40, end)'
       })
     })
 
@@ -441,14 +267,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-reveal',
       generate: () => ({
-        properties: {
-          'animation': 'reveal 0.6s ease-out forwards'
-        },
-        atRules: [
-          '@keyframes reveal',
-          '0% { clip-path: inset(0 100% 0 0); }',
-          '100% { clip-path: inset(0 0 0 0); }'
-        ]
+        'animation': 'reveal 0.6s ease-out forwards'
       })
     })
 
@@ -456,15 +275,7 @@ export const advancedAnimationsPlugin = (): Plugin => ({
     api.addRule({
       pattern: 'animate-morph',
       generate: () => ({
-        properties: {
-          'animation': 'morph 0.5s ease-in-out'
-        },
-        atRules: [
-          '@keyframes morph',
-          '0% { border-radius: 0%; }',
-          '50% { border-radius: 50%; }',
-          '100% { border-radius: 0%; }'
-        ]
+        'animation': 'morph 0.5s ease-in-out'
       })
     })
   }

@@ -234,6 +234,126 @@ code {
   font-weight: 500;
 }
 
+/* CodeShine syntax highlighter */
+.cs-container {
+  width: 100%;
+}
+
+.cs-codeblock {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.cs-code {
+  display: block;
+}
+
+.cs-code > span {
+  display: block;
+}
+
+.cs-line-number {
+  display: inline-block;
+  min-width: 2.5em;
+  padding-right: 1em;
+  text-align: right;
+  color: hsl(215 14% 45%);
+  user-select: none;
+  opacity: 0.6;
+}
+
+.cs-line-content {
+  display: inline;
+}
+
+.cs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+  background: hsl(222.2 84% 3%);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.cs-filename {
+  font-size: 0.75rem;
+  color: hsl(215 14% 65%);
+}
+
+.cs-language-badge {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: hsl(215 14% 55%);
+  background: hsl(215 20% 15%);
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.cs-copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: hsl(215 14% 65%);
+  background: transparent;
+  border: 1px solid hsl(215 20% 25%);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cs-copy-button:hover {
+  background: hsl(215 20% 15%);
+  color: hsl(210 40% 98%);
+  border-color: hsl(215 20% 35%);
+}
+
+.cs-copy-icon {
+  display: flex;
+  align-items: center;
+}
+
+.cs-copy-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.cs-line-highlighted {
+  background: hsl(215 50% 15%);
+}
+
+.cs-line-focused {
+  background: hsl(215 50% 12%);
+}
+
+.cs-line-dimmed {
+  opacity: 0.4;
+}
+
+.cs-line-diff-added {
+  background: hsl(142 50% 10%);
+}
+
+.cs-line-diff-removed {
+  background: hsl(0 50% 10%);
+}
+
+.cs-diff-marker {
+  display: inline-block;
+  width: 1.5em;
+  text-align: center;
+  font-weight: 600;
+}
+
+.cs-word-highlighted {
+  background: hsl(47 95% 25%);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
 /* ========================================
    Container
    ======================================== */

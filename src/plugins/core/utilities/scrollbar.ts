@@ -202,9 +202,12 @@ export function scrollbarPlugin(): Plugin {
         handler: (match) => {
           const value = match[1]
           if (!value) return null
+          const parts = value.split(':')
+          const propName = parts[0] ?? 'background'
+          const propValue = parts[1] ?? value
           return {
             properties: {
-              '&::-webkit-scrollbar-thumb': { [value.split(':')[0]]: value.split(':')[1] || value },
+              '&::-webkit-scrollbar-thumb': { [propName]: propValue },
             },
           }
         },

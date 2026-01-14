@@ -7,7 +7,7 @@
  * @module config/css-theme-parser
  */
 
-import type { CoralOptions, Theme } from '../types'
+import type { CoralOptions, Theme, ThemeColors } from '../types'
 
 /**
  * CSS Variable definition
@@ -62,18 +62,18 @@ function parseCSSVariables(cssContent: string): ParsedTheme {
   const importRegex = /@import\s+['"]([^'"]+)['"];/g
   let match
   while ((match = importRegex.exec(cssContent)) !== null) {
-    imports.push(match[1])
+    imports.push(match[1]!)
   }
 
   // Extract @theme block
   const themeMatch = cssContent.match(/@theme\s*{([^}]+)}/s)
-  const themeContent = themeMatch ? themeMatch[1] : cssContent
+  const themeContent = themeMatch?.[1] ?? cssContent
 
   // Extract CSS variables
   const varRegex = /--([a-zA-Z0-9-]+)\s*:\s*([^;]+);/g
   while ((match = varRegex.exec(themeContent)) !== null) {
-    const name = match[1]
-    const value = match[2].trim()
+    const name = match[1]!
+    const value = match[2]!.trim()
     const category = categorizeVariable(name, value)
 
     variables.set(name, { name, value, category })
@@ -134,9 +134,9 @@ function buildThemeFromVariables(parsed: ParsedTheme): Partial<Theme> {
   const theme: Partial<Theme> = {
     colors: {},
     spacing: {},
-    fontSize: {},
+    fontSizes: {},
     borderRadius: {},
-    fontFamily: {},
+    fonts: { sans: [], serif: [], mono: [] },
     screens: {},
   }
 
@@ -149,10 +149,14 @@ function buildThemeFromVariables(parsed: ParsedTheme): Partial<Theme> {
         theme.spacing![name.replace(/^(spacing-|gap-)/, '')] = variable.value
         break
       case 'font-size':
-        theme.fontSize![name.replace(/^(text-|font-size-)/, '')] = variable.value
+        theme.fontSizes![name.replace(/^(text-|font-size-)/, '')] = { fontSize: variable.value, lineHeight: '1.5' }
         break
       case 'font-family':
-        theme.fontFamily![name.replace('font-', '')] = variable.value
+        // Parse font family string to array
+        const fontKey = name.replace('font-', '')
+        if (fontKey === 'sans' || fontKey === 'serif' || fontKey === 'mono') {
+          theme.fonts![fontKey] = variable.value.split(',').map(f => f.trim())
+        }
         break
       case 'border-radius':
         theme.borderRadius![name.replace(/^(radius-|rounded-)/, '')] = variable.value
@@ -161,11 +165,7 @@ function buildThemeFromVariables(parsed: ParsedTheme): Partial<Theme> {
         theme.screens![name.replace('breakpoint-', '')] = variable.value
         break
       case 'other':
-        // Add to extend
-        if (!theme.extend) {
-          theme.extend = {}
-        }
-        theme.extend[`--${name}`] = variable.value
+        // Skip extend - not supported in Theme type
         break
     }
   }
@@ -198,7 +198,7 @@ function extractPluginDirectives(cssContent: string): any[] {
 /**
  * Get default color palette (Tailwind compatible)
  */
-function getDefaultColorPalette(): Record<string, string> {
+function getDefaultColorPalette(): ThemeColors {
   return {
     // Coral brand colors
     coral: {
@@ -273,9 +273,10 @@ export function generateCSSTheme(theme: Partial<Theme>): string {
   }
 
   // Font sizes
-  if (theme.fontSize) {
-    for (const [name, value] of Object.entries(theme.fontSize)) {
-      lines.push(`  --text-${name}: ${value};`)
+  if (theme.fontSizes) {
+    for (const [name, value] of Object.entries(theme.fontSizes)) {
+      const fontSize = Array.isArray(value) ? value[0] : value
+      lines.push(`  --text-${name}: ${fontSize};`)
     }
   }
 
@@ -294,9 +295,10 @@ export function generateCSSTheme(theme: Partial<Theme>): string {
   }
 
   // Font families
-  if (theme.fontFamily) {
-    for (const [name, value] of Object.entries(theme.fontFamily)) {
-      lines.push(`  --font-${name}: ${value};`)
+  if (theme.fonts) {
+    for (const [name, value] of Object.entries(theme.fonts)) {
+      const fontValue = Array.isArray(value) ? value.join(', ') : value
+      lines.push(`  --font-${name}: ${fontValue};`)
     }
   }
 

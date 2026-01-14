@@ -13,6 +13,17 @@ const buttonComponents = [
 <button data-coral-button data-variant="outline">Outline</button>
 <button data-coral-button data-variant="ghost">Ghost</button>
 <button data-coral-button data-variant="destructive">Destructive</button>`,
+    outputCode: `<button data-coral-button class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-muted hover:bg-muted/80">Default</button>
+
+<button data-coral-button data-variant="primary" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-primary text-primary-foreground hover:bg-primary/90">Primary</button>
+
+<button data-coral-button data-variant="secondary" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-secondary text-secondary-foreground hover:bg-secondary/80">Secondary</button>
+
+<button data-coral-button data-variant="outline" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-border bg-transparent hover:bg-accent hover:text-accent-foreground">Outline</button>
+
+<button data-coral-button data-variant="ghost" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-transparent hover:bg-accent hover:text-accent-foreground">Ghost</button>
+
+<button data-coral-button data-variant="destructive" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors bg-destructive text-destructive-foreground hover:bg-destructive/90">Destructive</button>`,
     props: [
       { name: 'data-variant', type: '"default" | "primary" | "secondary" | "outline" | "ghost" | "destructive"', default: '"default"', description: 'Visual style variant' },
       { name: 'data-size', type: '"sm" | "md" | "lg" | "xl"', default: '"md"', description: 'Button size' },
@@ -31,6 +42,13 @@ const buttonComponents = [
 
 <button data-coral-icon-button data-size="lg" aria-label="Settings">
   <svg><!-- icon --></svg>
+</button>`,
+    outputCode: `<button data-coral-icon-button aria-label="Menu" class="inline-flex items-center justify-center w-10 h-10 rounded-lg transition-colors bg-muted hover:bg-muted/80">
+  <svg class="w-5 h-5"><!-- icon --></svg>
+</button>
+
+<button data-coral-icon-button data-size="lg" aria-label="Settings" class="inline-flex items-center justify-center w-12 h-12 rounded-lg transition-colors bg-muted hover:bg-muted/80">
+  <svg class="w-6 h-6"><!-- icon --></svg>
 </button>`,
     props: [
       { name: 'data-variant', type: '"default" | "primary" | "ghost" | "outline"', default: '"default"', description: 'Visual style variant' },
@@ -53,6 +71,16 @@ const buttonComponents = [
   <button data-coral-button>Top</button>
   <button data-coral-button>Bottom</button>
 </div>`,
+    outputCode: `<div data-coral-button-group class="inline-flex">
+  <button data-coral-button class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium bg-muted hover:bg-muted/80 rounded-l-lg border-r-0">Left</button>
+  <button data-coral-button class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium bg-muted hover:bg-muted/80 rounded-none border-r-0">Center</button>
+  <button data-coral-button class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium bg-muted hover:bg-muted/80 rounded-r-lg">Right</button>
+</div>
+
+<div data-coral-button-group data-orientation="vertical" class="inline-flex flex-col">
+  <button data-coral-button class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium bg-muted hover:bg-muted/80 rounded-t-lg border-b-0">Top</button>
+  <button data-coral-button class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium bg-muted hover:bg-muted/80 rounded-b-lg">Bottom</button>
+</div>`,
     props: [
       { name: 'data-orientation', type: '"horizontal" | "vertical"', default: '"horizontal"', description: 'Group direction' },
       { name: 'data-attached', type: 'boolean', default: 'true', description: 'Remove gaps between buttons' },
@@ -71,6 +99,14 @@ const buttonComponents = [
   <svg><!-- icon --></svg>
   Italic
 </button>`,
+    outputCode: `<button data-coral-toggle aria-pressed="false" class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors bg-muted hover:bg-muted/80">
+  Bold
+</button>
+
+<button data-coral-toggle aria-pressed="true" class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors bg-primary text-primary-foreground">
+  <svg class="w-4 h-4"><!-- icon --></svg>
+  Italic
+</button>`,
     props: [
       { name: 'aria-pressed', type: 'boolean', default: 'false', description: 'Whether the button is pressed' },
       { name: 'data-variant', type: '"default" | "outline"', default: '"default"', description: 'Visual style variant' },
@@ -84,6 +120,16 @@ const buttonComponents = [
     usage: `<button data-coral-button data-variant="outline">
   <svg><!-- copy icon --></svg>
   Copy
+</button>`,
+    outputCode: `<button data-coral-button data-variant="outline" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-border bg-transparent hover:bg-accent hover:text-accent-foreground">
+  <svg class="w-4 h-4"><!-- copy icon --></svg>
+  Copy
+</button>
+
+<!-- After copy success -->
+<button data-coral-button data-variant="outline" data-copied class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border border-success bg-success/10 text-success">
+  <svg class="w-4 h-4"><!-- check icon --></svg>
+  Copied!
 </button>`,
     props: [
       { name: 'data-value', type: 'string', default: 'required', description: 'Text to copy to clipboard' },
@@ -107,6 +153,18 @@ const buttonComponents = [
     <button data-coral-split-button-item>Save & Publish</button>
   </div>
 </div>`,
+    outputCode: `<div data-coral-split-button class="inline-flex relative">
+  <button data-coral-split-button-main class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 rounded-l-lg">
+    Save
+  </button>
+  <button data-coral-split-button-trigger aria-label="More options" class="inline-flex items-center justify-center px-2 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-r-lg border-l border-primary-foreground/20">
+    <svg class="w-4 h-4"><!-- chevron icon --></svg>
+  </button>
+  <div data-coral-split-button-menu class="absolute top-full right-0 mt-1 min-w-[160px] bg-popover border border-border rounded-lg shadow-lg py-1 z-50">
+    <button data-coral-split-button-item class="w-full px-3 py-2 text-sm text-left hover:bg-accent">Save as Draft</button>
+    <button data-coral-split-button-item class="w-full px-3 py-2 text-sm text-left hover:bg-accent">Save & Publish</button>
+  </div>
+</div>`,
     props: [
       { name: 'data-variant', type: '"primary" | "secondary" | "outline"', default: '"primary"', description: 'Visual style variant' },
       { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Button size' },
@@ -125,6 +183,14 @@ const buttonComponents = [
   <svg><!-- icon --></svg>
   <span>New Item</span>
 </button>`,
+    outputCode: `<button data-coral-fab data-position="bottom-right" class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 flex items-center justify-center z-50">
+  <svg class="w-6 h-6"><!-- plus icon --></svg>
+</button>
+
+<button data-coral-fab data-size="lg" data-extended class="fixed bottom-6 right-6 h-14 px-6 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 flex items-center gap-2 z-50">
+  <svg class="w-6 h-6"><!-- icon --></svg>
+  <span class="font-medium">New Item</span>
+</button>`,
     props: [
       { name: 'data-position', type: '"bottom-right" | "bottom-left" | "top-right" | "top-left"', default: '"bottom-right"', description: 'Fixed position on screen' },
       { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Button size' },
@@ -139,6 +205,16 @@ const buttonComponents = [
     usage: `<button data-coral-like-button>
   <svg data-coral-like-icon><!-- heart icon --></svg>
   <span data-coral-like-count>42</span>
+</button>`,
+    outputCode: `<button data-coral-like-button class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-muted">
+  <svg data-coral-like-icon class="w-5 h-5 text-muted-foreground transition-colors"><!-- heart icon --></svg>
+  <span data-coral-like-count class="tabular-nums">42</span>
+</button>
+
+<!-- Liked state -->
+<button data-coral-like-button data-liked class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-destructive/10">
+  <svg data-coral-like-icon class="w-5 h-5 fill-destructive text-destructive animate-scale"><!-- heart icon --></svg>
+  <span data-coral-like-count class="tabular-nums text-destructive">43</span>
 </button>`,
     props: [
       { name: 'data-liked', type: 'boolean', default: 'false', description: 'Whether the item is liked' },
@@ -155,6 +231,10 @@ const buttonComponents = [
   data-url="https://example.com">
   Share
 </button>`,
+    outputCode: `<button data-coral-button data-variant="outline" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-border bg-transparent hover:bg-accent hover:text-accent-foreground">
+  <svg class="w-4 h-4"><!-- share icon --></svg>
+  Share
+</button>`,
     props: [
       { name: 'data-title', type: 'string', default: '""', description: 'Share title' },
       { name: 'data-text', type: 'string', default: '""', description: 'Share text/description' },
@@ -168,6 +248,10 @@ const buttonComponents = [
     description: 'A button with an integrated progress indicator for long-running actions.',
     usage: `<button data-coral-button data-progress data-progress-value="65">
   Upload File
+</button>`,
+    outputCode: `<button data-coral-button data-progress data-progress-value="65" class="relative inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground overflow-hidden">
+  <span class="relative z-10">Upload File</span>
+  <div class="absolute inset-0 bg-primary-foreground/20 origin-left" style="transform: scaleX(0.65)"></div>
 </button>`,
     props: [
       { name: 'data-progress', type: 'boolean', default: 'false', description: 'Show progress bar' },
@@ -183,6 +267,10 @@ const buttonComponents = [
   Messages
   <span data-coral-badge data-count="5">5</span>
 </button>`,
+    outputCode: `<button data-coral-button data-variant="primary" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90">
+  Messages
+  <span data-coral-badge data-count="5" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-semibold bg-destructive text-destructive-foreground rounded-full">5</span>
+</button>`,
     props: [
       { name: 'data-count', type: 'number', default: '0', description: 'Badge count number' },
       { name: 'data-badge-variant', type: '"default" | "destructive" | "success"', default: '"default"', description: 'Badge style variant' },
@@ -196,6 +284,10 @@ const buttonComponents = [
     usage: `<button data-coral-icon-button aria-label="Notifications">
   <svg><!-- bell icon --></svg>
   <span data-coral-badge data-count="3"></span>
+</button>`,
+    outputCode: `<button data-coral-icon-button aria-label="Notifications" class="relative inline-flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-muted/80">
+  <svg class="w-5 h-5"><!-- bell icon --></svg>
+  <span data-coral-badge data-count="3" class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 text-[10px] font-semibold bg-destructive text-destructive-foreground rounded-full flex items-center justify-center">3</span>
 </button>`,
     props: [
       { name: 'data-count', type: 'number', default: '0', description: 'Badge count number' },
@@ -213,6 +305,15 @@ const buttonComponents = [
 
 <button data-coral-social-button data-provider="github">
   <svg><!-- github icon --></svg>
+  GitHub
+</button>`,
+    outputCode: `<button data-coral-social-button data-provider="google" class="inline-flex items-center justify-center gap-3 w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 shadow-sm">
+  <svg class="w-5 h-5"><!-- google icon --></svg>
+  Continue with Google
+</button>
+
+<button data-coral-social-button data-provider="github" class="inline-flex items-center justify-center gap-3 w-full px-4 py-2.5 rounded-lg text-sm font-medium bg-[#24292e] text-white hover:bg-[#2f363d]">
+  <svg class="w-5 h-5"><!-- github icon --></svg>
   GitHub
 </button>`,
     props: [
@@ -235,6 +336,16 @@ const buttonComponents = [
     <button data-coral-dropdown-item>Settings</button>
   </div>
 </div>`,
+    outputCode: `<div data-coral-dropdown class="relative inline-block">
+  <button data-coral-button data-variant="primary" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90">
+    Options
+    <svg class="w-4 h-4"><!-- chevron --></svg>
+  </button>
+  <div data-coral-dropdown-menu class="absolute top-full left-0 mt-1 min-w-[160px] bg-popover border border-border rounded-lg shadow-lg py-1 z-50">
+    <button data-coral-dropdown-item class="w-full px-3 py-2 text-sm text-left hover:bg-accent transition-colors">Profile</button>
+    <button data-coral-dropdown-item class="w-full px-3 py-2 text-sm text-left hover:bg-accent transition-colors">Settings</button>
+  </div>
+</div>`,
     props: [
       { name: 'data-variant', type: '"default" | "primary" | "outline"', default: '"default"', description: 'Button variant' },
       { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Button size' },
@@ -251,6 +362,13 @@ const buttonComponents = [
 <button data-coral-button data-gradient="sunset">
   Sunset Gradient
 </button>`,
+    outputCode: `<button data-coral-button data-gradient="primary" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
+  Primary Gradient
+</button>
+
+<button data-coral-button data-gradient="sunset" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-linear-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600">
+  Sunset Gradient
+</button>`,
     props: [
       { name: 'data-gradient', type: '"primary" | "secondary" | "sunset" | "ocean" | "forest"', default: '"primary"', description: 'Gradient preset' },
       { name: 'data-animate', type: 'boolean', default: 'false', description: 'Animate gradient on hover' },
@@ -263,6 +381,10 @@ const buttonComponents = [
     description: 'A button with a pulsing animation effect.',
     usage: `<button data-coral-button data-pulse>
   Live Now
+</button>`,
+    outputCode: `<button data-coral-button data-pulse class="relative inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-destructive text-destructive-foreground">
+  <span class="absolute inset-0 rounded-lg bg-destructive animate-ping opacity-75"></span>
+  <span class="relative">Live Now</span>
 </button>`,
     props: [
       { name: 'data-pulse', type: 'boolean', default: 'false', description: 'Enable pulse animation' },
@@ -277,6 +399,11 @@ const buttonComponents = [
     usage: `<button data-coral-button data-ripple>
   Click Me
 </button>`,
+    outputCode: `<button data-coral-button data-ripple class="relative inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground overflow-hidden">
+  Click Me
+  <!-- Ripple element (added on click via JS) -->
+  <span class="absolute w-8 h-8 bg-primary-foreground/30 rounded-full animate-ripple" style="top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);"></span>
+</button>`,
     props: [
       { name: 'data-ripple', type: 'boolean', default: 'true', description: 'Enable ripple effect' },
       { name: 'data-ripple-color', type: 'string', default: 'hsl(var(--primary-foreground) / 0.3)', description: 'Ripple color' },
@@ -288,6 +415,9 @@ const buttonComponents = [
     name: 'GlowButton',
     description: 'A button with a glowing effect on hover.',
     usage: `<button data-coral-button data-glow>
+  Glow Effect
+</button>`,
+    outputCode: `<button data-coral-button data-glow class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.7)] transition-shadow">
   Glow Effect
 </button>`,
     props: [
@@ -303,6 +433,9 @@ const buttonComponents = [
     usage: `<button data-coral-button data-neon="cyan">
   Neon Style
 </button>`,
+    outputCode: `<button data-coral-button data-neon="cyan" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-transparent text-cyan-400 border-2 border-cyan-400 shadow-[0_0_10px_#22d3ee,inset_0_0_10px_#22d3ee40] hover:shadow-[0_0_20px_#22d3ee,inset_0_0_20px_#22d3ee60]">
+  Neon Style
+</button>`,
     props: [
       { name: 'data-neon', type: '"cyan" | "pink" | "green" | "yellow"', default: '"cyan"', description: 'Neon color' },
       { name: 'data-flicker', type: 'boolean', default: 'false', description: 'Enable flicker animation' },
@@ -314,6 +447,9 @@ const buttonComponents = [
     name: 'PillButton',
     description: 'A button with fully rounded pill shape.',
     usage: `<button data-coral-button data-shape="pill">
+  Pill Shape
+</button>`,
+    outputCode: `<button data-coral-button data-shape="pill" class="inline-flex items-center justify-center gap-2 px-6 py-2 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90">
   Pill Shape
 </button>`,
     props: [
@@ -330,6 +466,10 @@ const buttonComponents = [
   <span data-coral-spinner></span>
   Loading...
 </button>`,
+    outputCode: `<button data-coral-button data-loading="true" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground opacity-80 cursor-wait" disabled>
+  <span data-coral-spinner class="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin"></span>
+  Loading...
+</button>`,
     props: [
       { name: 'data-loading', type: 'boolean', default: 'false', description: 'Show loading state' },
       { name: 'data-loading-text', type: 'string', default: '"Loading..."', description: 'Text while loading' },
@@ -341,6 +481,10 @@ const buttonComponents = [
     name: 'SuccessButton',
     description: 'A button styled for success/confirmation actions.',
     usage: `<button data-coral-button data-variant="success">
+  Confirm
+</button>`,
+    outputCode: `<button data-coral-button data-variant="success" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-success text-success-foreground hover:bg-success/90">
+  <svg class="w-4 h-4"><!-- check icon --></svg>
   Confirm
 </button>`,
     props: [
@@ -356,6 +500,10 @@ const buttonComponents = [
     usage: `<button data-coral-button data-variant="warning">
   Caution
 </button>`,
+    outputCode: `<button data-coral-button data-variant="warning" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-warning text-warning-foreground hover:bg-warning/90">
+  <svg class="w-4 h-4"><!-- warning icon --></svg>
+  Caution
+</button>`,
     props: [
       { name: 'data-variant', type: '"warning"', default: '"warning"', description: 'Warning variant' },
     ],
@@ -368,6 +516,10 @@ const buttonComponents = [
     usage: `<button data-coral-button data-variant="info">
   Learn More
 </button>`,
+    outputCode: `<button data-coral-button data-variant="info" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-info text-info-foreground hover:bg-info/90">
+  <svg class="w-4 h-4"><!-- info icon --></svg>
+  Learn More
+</button>`,
     props: [
       { name: 'data-variant', type: '"info"', default: '"info"', description: 'Info variant' },
     ],
@@ -378,6 +530,9 @@ const buttonComponents = [
     name: 'LinkButton',
     description: 'A button styled as a text link.',
     usage: `<button data-coral-button data-variant="link">
+  Read more →
+</button>`,
+    outputCode: `<button data-coral-button data-variant="link" class="inline-flex items-center gap-1 px-0 py-0 text-sm font-medium text-primary hover:underline underline-offset-4 bg-transparent">
   Read more →
 </button>`,
     props: [
@@ -394,6 +549,11 @@ const buttonComponents = [
   <svg><!-- download icon --></svg>
   Download
 </button>`,
+    outputCode: `<button data-coral-download-button data-file="document.pdf" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90">
+  <svg class="w-4 h-4"><!-- download icon --></svg>
+  Download
+  <span class="text-xs opacity-70">document.pdf</span>
+</button>`,
     props: [
       { name: 'data-file', type: 'string', default: 'required', description: 'File name to display' },
       { name: 'data-size', type: 'string', default: '""', description: 'File size to display' },
@@ -407,6 +567,11 @@ const buttonComponents = [
     usage: `<label data-coral-upload-button>
   <input type="file" hidden />
   <svg><!-- upload icon --></svg>
+  Choose File
+</label>`,
+    outputCode: `<label data-coral-upload-button class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-muted hover:bg-muted/80 cursor-pointer border-2 border-dashed border-border hover:border-primary transition-colors">
+  <input type="file" hidden />
+  <svg class="w-4 h-4"><!-- upload icon --></svg>
   Choose File
 </label>`,
     props: [
@@ -423,6 +588,16 @@ const buttonComponents = [
   <span>Show More</span>
   <svg><!-- chevron icon --></svg>
 </button>`,
+    outputCode: `<button data-coral-expand-button aria-expanded="false" class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+  <span>Show More</span>
+  <svg class="w-4 h-4 transition-transform"><!-- chevron down icon --></svg>
+</button>
+
+<!-- Expanded state -->
+<button data-coral-expand-button aria-expanded="true" class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground hover:text-foreground transition-colors">
+  <span>Show Less</span>
+  <svg class="w-4 h-4 transition-transform rotate-180"><!-- chevron down icon --></svg>
+</button>`,
     props: [
       { name: 'aria-expanded', type: 'boolean', default: 'false', description: 'Expanded state' },
       { name: 'data-expand-text', type: 'string', default: '"Show More"', description: 'Text when collapsed' },
@@ -436,6 +611,9 @@ const buttonComponents = [
     description: 'A button for closing dialogs, modals, or dismissing content.',
     usage: `<button data-coral-close-button aria-label="Close">
   <svg><!-- x icon --></svg>
+</button>`,
+    outputCode: `<button data-coral-close-button aria-label="Close" class="inline-flex items-center justify-center w-8 h-8 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+  <svg class="w-4 h-4"><!-- x icon --></svg>
 </button>`,
     props: [
       { name: 'data-size', type: '"sm" | "md" | "lg"', default: '"md"', description: 'Button size' },
@@ -451,6 +629,10 @@ const buttonComponents = [
   <svg><!-- arrow left icon --></svg>
   Back
 </button>`,
+    outputCode: `<button data-coral-back-button class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground bg-transparent hover:bg-muted rounded-lg transition-colors">
+  <svg class="w-4 h-4"><!-- arrow left icon --></svg>
+  Back
+</button>`,
     props: [
       { name: 'data-variant', type: '"default" | "ghost"', default: '"ghost"', description: 'Style variant' },
     ],
@@ -463,6 +645,10 @@ const buttonComponents = [
     usage: `<button data-coral-next-button>
   Next
   <svg><!-- arrow right icon --></svg>
+</button>`,
+    outputCode: `<button data-coral-next-button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90">
+  Next
+  <svg class="w-4 h-4"><!-- arrow right icon --></svg>
 </button>`,
     props: [
       { name: 'data-variant', type: '"primary" | "outline"', default: '"primary"', description: 'Style variant' },
@@ -477,6 +663,16 @@ const buttonComponents = [
   <svg data-coral-refresh-icon><!-- refresh icon --></svg>
   Refresh
 </button>`,
+    outputCode: `<button data-coral-refresh-button class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+  <svg data-coral-refresh-icon class="w-4 h-4"><!-- refresh icon --></svg>
+  Refresh
+</button>
+
+<!-- Spinning state -->
+<button data-coral-refresh-button data-spinning class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground">
+  <svg data-coral-refresh-icon class="w-4 h-4 animate-spin"><!-- refresh icon --></svg>
+  Refreshing...
+</button>`,
     props: [
       { name: 'data-spinning', type: 'boolean', default: 'false', description: 'Show spinning animation' },
     ],
@@ -488,6 +684,14 @@ const buttonComponents = [
     description: 'A button for bookmarking/saving items.',
     usage: `<button data-coral-bookmark-button aria-pressed="false">
   <svg><!-- bookmark icon --></svg>
+</button>`,
+    outputCode: `<button data-coral-bookmark-button aria-pressed="false" class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+  <svg class="w-5 h-5"><!-- bookmark outline icon --></svg>
+</button>
+
+<!-- Bookmarked state -->
+<button data-coral-bookmark-button aria-pressed="true" class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-primary hover:text-primary/80 hover:bg-primary/10 transition-colors">
+  <svg class="w-5 h-5 fill-current"><!-- bookmark filled icon --></svg>
 </button>`,
     props: [
       { name: 'aria-pressed', type: 'boolean', default: 'false', description: 'Bookmarked state' },
@@ -501,6 +705,14 @@ const buttonComponents = [
     description: 'A button that requires confirmation before action.',
     usage: `<button data-coral-confirm-button data-confirm-text="Are you sure?">
   Delete Item
+</button>`,
+    outputCode: `<button data-coral-confirm-button class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-destructive text-destructive-foreground hover:bg-destructive/90">
+  Delete Item
+</button>
+
+<!-- Confirmation state (after first click) -->
+<button data-coral-confirm-button data-confirming class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-destructive text-destructive-foreground animate-pulse">
+  Are you sure? Click again to confirm
 </button>`,
     props: [
       { name: 'data-confirm-text', type: 'string', default: '"Are you sure?"', description: 'Confirmation message' },
@@ -517,6 +729,11 @@ const buttonComponents = [
   <span data-coral-counter-value>0</span>
   <button data-coral-counter-increment>+</button>
 </div>`,
+    outputCode: `<div data-coral-counter-button class="inline-flex items-center border border-border rounded-lg overflow-hidden">
+  <button data-coral-counter-decrement class="w-10 h-10 flex items-center justify-center text-lg font-medium bg-muted hover:bg-muted/80 transition-colors">-</button>
+  <span data-coral-counter-value class="w-12 h-10 flex items-center justify-center text-sm font-medium tabular-nums border-x border-border">0</span>
+  <button data-coral-counter-increment class="w-10 h-10 flex items-center justify-center text-lg font-medium bg-muted hover:bg-muted/80 transition-colors">+</button>
+</div>`,
     props: [
       { name: 'data-min', type: 'number', default: '0', description: 'Minimum value' },
       { name: 'data-max', type: 'number', default: '100', description: 'Maximum value' },
@@ -532,6 +749,17 @@ const buttonComponents = [
   <svg data-coral-sun-icon><!-- sun icon --></svg>
   <svg data-coral-moon-icon><!-- moon icon --></svg>
 </button>`,
+    outputCode: `<!-- Light mode -->
+<button data-coral-theme-toggle data-theme="light" aria-label="Toggle theme" class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-muted/80 transition-colors">
+  <svg data-coral-sun-icon class="w-5 h-5 block"><!-- sun icon --></svg>
+  <svg data-coral-moon-icon class="w-5 h-5 hidden"><!-- moon icon --></svg>
+</button>
+
+<!-- Dark mode -->
+<button data-coral-theme-toggle data-theme="dark" aria-label="Toggle theme" class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-muted/80 transition-colors">
+  <svg data-coral-sun-icon class="w-5 h-5 hidden"><!-- sun icon --></svg>
+  <svg data-coral-moon-icon class="w-5 h-5 block"><!-- moon icon --></svg>
+</button>`,
     props: [
       { name: 'data-theme', type: '"light" | "dark" | "system"', default: '"system"', description: 'Current theme' },
     ],
@@ -545,6 +773,11 @@ const buttonComponents = [
   <span data-coral-flag>🇺🇸</span>
   English
   <svg><!-- chevron --></svg>
+</button>`,
+    outputCode: `<button data-coral-language-button class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-muted hover:bg-muted/80 transition-colors">
+  <span data-coral-flag class="text-base">🇺🇸</span>
+  English
+  <svg class="w-4 h-4 text-muted-foreground"><!-- chevron down --></svg>
 </button>`,
     props: [
       { name: 'data-locale', type: 'string', default: '"en"', description: 'Current locale code' },
@@ -560,6 +793,10 @@ const buttonComponents = [
   <svg><!-- printer icon --></svg>
   Print
 </button>`,
+    outputCode: `<button data-coral-print-button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-muted hover:bg-muted/80 transition-colors">
+  <svg class="w-4 h-4"><!-- printer icon --></svg>
+  Print
+</button>`,
     props: [
       { name: 'data-target', type: 'string', default: '""', description: 'Selector for print target' },
     ],
@@ -573,6 +810,17 @@ const buttonComponents = [
   <svg data-coral-expand-icon><!-- expand icon --></svg>
   <svg data-coral-compress-icon><!-- compress icon --></svg>
 </button>`,
+    outputCode: `<!-- Normal mode -->
+<button data-coral-fullscreen-button aria-pressed="false" class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-muted/80 transition-colors">
+  <svg data-coral-expand-icon class="w-5 h-5 block"><!-- expand icon --></svg>
+  <svg data-coral-compress-icon class="w-5 h-5 hidden"><!-- compress icon --></svg>
+</button>
+
+<!-- Fullscreen mode -->
+<button data-coral-fullscreen-button aria-pressed="true" class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-muted hover:bg-muted/80 transition-colors">
+  <svg data-coral-expand-icon class="w-5 h-5 hidden"><!-- expand icon --></svg>
+  <svg data-coral-compress-icon class="w-5 h-5 block"><!-- compress icon --></svg>
+</button>`,
     props: [
       { name: 'data-target', type: 'string', default: 'document', description: 'Element to fullscreen' },
     ],
@@ -585,6 +833,17 @@ const buttonComponents = [
     usage: `<button data-coral-play-pause aria-pressed="false">
   <svg data-coral-play-icon><!-- play icon --></svg>
   <svg data-coral-pause-icon><!-- pause icon --></svg>
+</button>`,
+    outputCode: `<!-- Paused state -->
+<button data-coral-play-pause aria-pressed="false" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+  <svg data-coral-play-icon class="w-6 h-6 block"><!-- play icon --></svg>
+  <svg data-coral-pause-icon class="w-6 h-6 hidden"><!-- pause icon --></svg>
+</button>
+
+<!-- Playing state -->
+<button data-coral-play-pause aria-pressed="true" class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+  <svg data-coral-play-icon class="w-6 h-6 hidden"><!-- play icon --></svg>
+  <svg data-coral-pause-icon class="w-6 h-6 block"><!-- pause icon --></svg>
 </button>`,
     props: [
       { name: 'aria-pressed', type: 'boolean', default: 'false', description: 'Playing state' },
@@ -600,6 +859,17 @@ const buttonComponents = [
   <svg data-coral-volume-icon><!-- volume icon --></svg>
   <svg data-coral-mute-icon><!-- mute icon --></svg>
 </button>`,
+    outputCode: `<!-- Unmuted state -->
+<button data-coral-mute-button aria-pressed="false" class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+  <svg data-coral-volume-icon class="w-5 h-5 block"><!-- volume icon --></svg>
+  <svg data-coral-mute-icon class="w-5 h-5 hidden"><!-- mute icon --></svg>
+</button>
+
+<!-- Muted state -->
+<button data-coral-mute-button aria-pressed="true" class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-destructive hover:text-destructive/80 hover:bg-destructive/10 transition-colors">
+  <svg data-coral-volume-icon class="w-5 h-5 hidden"><!-- volume icon --></svg>
+  <svg data-coral-mute-icon class="w-5 h-5 block"><!-- mute icon --></svg>
+</button>`,
     props: [
       { name: 'aria-pressed', type: 'boolean', default: 'false', description: 'Muted state' },
     ],
@@ -612,6 +882,16 @@ const buttonComponents = [
     usage: `<button data-coral-edit-button>
   <svg><!-- pencil icon --></svg>
   Edit
+</button>`,
+    outputCode: `<button data-coral-edit-button class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+  <svg class="w-4 h-4"><!-- pencil icon --></svg>
+  Edit
+</button>
+
+<!-- Editing state -->
+<button data-coral-edit-button data-editing class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground">
+  <svg class="w-4 h-4"><!-- check icon --></svg>
+  Done
 </button>`,
     props: [
       { name: 'data-editing', type: 'boolean', default: 'false', description: 'Editing state' },
@@ -626,6 +906,10 @@ const buttonComponents = [
   <svg><!-- trash icon --></svg>
   Delete
 </button>`,
+    outputCode: `<button data-coral-delete-button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors">
+  <svg class="w-4 h-4"><!-- trash icon --></svg>
+  Delete
+</button>`,
     props: [
       { name: 'data-confirm', type: 'boolean', default: 'true', description: 'Require confirmation' },
     ],
@@ -637,6 +921,10 @@ const buttonComponents = [
     description: 'A button for adding new items.',
     usage: `<button data-coral-add-button>
   <svg><!-- plus icon --></svg>
+  Add Item
+</button>`,
+    outputCode: `<button data-coral-add-button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border-2 border-dashed border-border text-muted-foreground hover:text-foreground hover:border-primary hover:bg-primary/5 transition-colors">
+  <svg class="w-4 h-4"><!-- plus icon --></svg>
   Add Item
 </button>`,
     props: [
@@ -653,6 +941,17 @@ const buttonComponents = [
   Filters
   <span data-coral-filter-count>3</span>
 </button>`,
+    outputCode: `<button data-coral-filter-button data-active="false" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-muted hover:bg-muted/80 transition-colors">
+  <svg class="w-4 h-4"><!-- filter icon --></svg>
+  Filters
+</button>
+
+<!-- With active filters -->
+<button data-coral-filter-button data-active="true" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+  <svg class="w-4 h-4"><!-- filter icon --></svg>
+  Filters
+  <span data-coral-filter-count class="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-semibold bg-primary-foreground text-primary rounded-full">3</span>
+</button>`,
     props: [
       { name: 'data-active', type: 'boolean', default: 'false', description: 'Filters active' },
       { name: 'data-count', type: 'number', default: '0', description: 'Active filter count' },
@@ -666,6 +965,17 @@ const buttonComponents = [
     usage: `<button data-coral-sort-button data-direction="asc">
   Sort by Name
   <svg><!-- sort icon --></svg>
+</button>`,
+    outputCode: `<!-- Ascending -->
+<button data-coral-sort-button data-direction="asc" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-muted hover:bg-muted/80 transition-colors">
+  Sort by Name
+  <svg class="w-4 h-4"><!-- arrow up icon --></svg>
+</button>
+
+<!-- Descending -->
+<button data-coral-sort-button data-direction="desc" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-muted hover:bg-muted/80 transition-colors">
+  Sort by Name
+  <svg class="w-4 h-4"><!-- arrow down icon --></svg>
 </button>`,
     props: [
       { name: 'data-direction', type: '"asc" | "desc" | "none"', default: '"none"', description: 'Sort direction' },
@@ -681,6 +991,19 @@ const buttonComponents = [
   <span data-coral-menu-line></span>
   <span data-coral-menu-line></span>
 </button>`,
+    outputCode: `<!-- Closed state -->
+<button data-coral-menu-button aria-expanded="false" aria-label="Menu" class="inline-flex flex-col items-center justify-center w-10 h-10 gap-1 rounded-lg hover:bg-muted transition-colors">
+  <span data-coral-menu-line class="w-5 h-0.5 bg-foreground transition-transform"></span>
+  <span data-coral-menu-line class="w-5 h-0.5 bg-foreground transition-opacity"></span>
+  <span data-coral-menu-line class="w-5 h-0.5 bg-foreground transition-transform"></span>
+</button>
+
+<!-- Open state (transforms to X) -->
+<button data-coral-menu-button aria-expanded="true" aria-label="Menu" class="inline-flex flex-col items-center justify-center w-10 h-10 gap-1 rounded-lg hover:bg-muted transition-colors">
+  <span data-coral-menu-line class="w-5 h-0.5 bg-foreground translate-y-1.5 rotate-45"></span>
+  <span data-coral-menu-line class="w-5 h-0.5 bg-foreground opacity-0"></span>
+  <span data-coral-menu-line class="w-5 h-0.5 bg-foreground -translate-y-1.5 -rotate-45"></span>
+</button>`,
     props: [
       { name: 'aria-expanded', type: 'boolean', default: 'false', description: 'Menu open state' },
     ],
@@ -695,6 +1018,11 @@ const buttonComponents = [
   <button data-coral-reaction="❤️">❤️ 5</button>
   <button data-coral-reaction-add>+</button>
 </div>`,
+    outputCode: `<div data-coral-reaction-button class="inline-flex items-center gap-1">
+  <button data-coral-reaction="👍" class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-sm bg-muted hover:bg-muted/80 transition-colors">👍 12</button>
+  <button data-coral-reaction="❤️" class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-sm bg-muted hover:bg-muted/80 transition-colors">❤️ 5</button>
+  <button data-coral-reaction-add class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm bg-muted hover:bg-muted/80 text-muted-foreground transition-colors">+</button>
+</div>`,
     props: [
       { name: 'data-reactions', type: 'string[]', default: '["👍", "❤️", "😄"]', description: 'Available reactions' },
     ],
@@ -706,6 +1034,15 @@ const buttonComponents = [
     description: 'A button for following/unfollowing users.',
     usage: `<button data-coral-follow-button data-following="false">
   Follow
+</button>`,
+    outputCode: `<!-- Not following -->
+<button data-coral-follow-button data-following="false" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+  Follow
+</button>
+
+<!-- Following -->
+<button data-coral-follow-button data-following="true" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-muted text-foreground border border-border hover:bg-destructive/10 hover:text-destructive hover:border-destructive transition-colors">
+  Following
 </button>`,
     props: [
       { name: 'data-following', type: 'boolean', default: 'false', description: 'Following state' },
@@ -719,6 +1056,17 @@ const buttonComponents = [
     usage: `<button data-coral-subscribe-button data-subscribed="false">
   <svg><!-- bell icon --></svg>
   Subscribe
+</button>`,
+    outputCode: `<!-- Not subscribed -->
+<button data-coral-subscribe-button data-subscribed="false" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors">
+  <svg class="w-4 h-4"><!-- bell icon --></svg>
+  Subscribe
+</button>
+
+<!-- Subscribed -->
+<button data-coral-subscribe-button data-subscribed="true" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-muted text-foreground border border-border hover:bg-muted/80 transition-colors">
+  <svg class="w-4 h-4"><!-- bell-ring icon --></svg>
+  Subscribed
 </button>`,
     props: [
       { name: 'data-subscribed', type: 'boolean', default: 'false', description: 'Subscribed state' },

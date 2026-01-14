@@ -276,4 +276,30 @@ describe('Scrollbar Utilities Plugin', () => {
       expect(css).toContain('background-color: var(--color-coral-500)')
     })
   })
+
+  describe('Arbitrary Values', () => {
+    it('should handle scrollbar-color-[...] arbitrary value', () => {
+      const coral = createCoral({ plugins: [scrollbarPlugin()] })
+      const css = coral.generate(['scrollbar-color-[#ff5500,#eee]'])
+      expect(css).toContain('scrollbar-color')
+    })
+
+    it('should handle scrollbar-color-[...] with single color', () => {
+      const coral = createCoral({ plugins: [scrollbarPlugin()] })
+      const css = coral.generate(['scrollbar-color-[red]'])
+      expect(css).toContain('scrollbar-color')
+    })
+
+    it('should handle scrollbar-thumb-[...] arbitrary value with color', () => {
+      const coral = createCoral({ plugins: [scrollbarPlugin()] })
+      const css = coral.generate(['scrollbar-thumb-[background-color:#333]'])
+      expect(css).toContain('&::-webkit-scrollbar-thumb')
+    })
+
+    it('should handle scrollbar-thumb-[...] arbitrary value with simple value', () => {
+      const coral = createCoral({ plugins: [scrollbarPlugin()] })
+      const css = coral.generate(['scrollbar-thumb-[red]'])
+      expect(css).toContain('&::-webkit-scrollbar-thumb')
+    })
+  })
 })

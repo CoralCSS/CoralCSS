@@ -542,4 +542,159 @@ describe('Typography Utilities Plugin', () => {
       expect(defaultExport).toBe(typographyPlugin)
     })
   })
+
+  describe('Arbitrary Values', () => {
+    it('should handle text-[...] with font size value (px)', () => {
+      const css = coral.generate(['text-[24px]'])
+      expect(css).toContain('font-size')
+      expect(css).toContain('24px')
+    })
+
+    it('should handle text-[...] with font size value (rem)', () => {
+      const css = coral.generate(['text-[1.5rem]'])
+      expect(css).toContain('font-size')
+      expect(css).toContain('1.5rem')
+    })
+
+    it('should handle text-[...] with font size value (em)', () => {
+      const css = coral.generate(['text-[1.25em]'])
+      expect(css).toContain('font-size')
+      expect(css).toContain('1.25em')
+    })
+
+    it('should handle text-[...] with numeric value', () => {
+      const css = coral.generate(['text-[20]'])
+      expect(css).toContain('font-size')
+    })
+
+    it('should handle text-[...] with color value', () => {
+      const css = coral.generate(['text-[#ff0000]'])
+      expect(css).toContain('color')
+      expect(css).toContain('#ff0000')
+    })
+
+    it('should handle text-[...] with named color', () => {
+      const css = coral.generate(['text-[red]'])
+      expect(css).toContain('color')
+      expect(css).toContain('red')
+    })
+
+    it('should handle text-[...] with rgb color', () => {
+      const css = coral.generate(['text-[rgb(255,0,0)]'])
+      expect(css).toContain('color')
+    })
+
+    it('should handle text-shadow-[...] arbitrary value', () => {
+      const css = coral.generate(['text-shadow-[0_2px_4px_rgba(0,0,0,0.25)]'])
+      expect(css).toContain('text-shadow')
+      expect(css).toContain('0_2px_4px_rgba(0,0,0,0.25)')
+    })
+
+    it('should handle text-shadow-[...] with simple shadow', () => {
+      const css = coral.generate(['text-shadow-[2px_2px_black]'])
+      expect(css).toContain('text-shadow')
+      expect(css).toContain('2px_2px_black')
+    })
+
+    it('should handle font-feature-[...] arbitrary value', () => {
+      const css = coral.generate(['font-feature-["smcp"_1]'])
+      expect(css).toContain('font-feature-settings')
+    })
+
+    it('should handle font-feature-[...] with multiple features', () => {
+      const css = coral.generate(['font-feature-["liga"_1,_"calt"_1]'])
+      expect(css).toContain('font-feature-settings')
+    })
+
+    it('should handle font-variation-[...] arbitrary value', () => {
+      const css = coral.generate(['font-variation-["wght"_500]'])
+      expect(css).toContain('font-variation-settings')
+    })
+
+    it('should handle font-variation-[...] with multiple axes', () => {
+      const css = coral.generate(['font-variation-["wght"_500,_"wdth"_75]'])
+      expect(css).toContain('font-variation-settings')
+    })
+
+    it('should handle orphans-[...] arbitrary value', () => {
+      const css = coral.generate(['orphans-[5]'])
+      expect(css).toContain('orphans')
+      expect(css).toContain('5')
+    })
+
+    it('should handle tab-[...] arbitrary value', () => {
+      const css = coral.generate(['tab-[6]'])
+      expect(css).toContain('tab-size')
+      expect(css).toContain('6')
+    })
+
+    it('should handle word-spacing-[...] arbitrary value', () => {
+      const css = coral.generate(['word-spacing-[0.2em]'])
+      expect(css).toContain('word-spacing')
+      expect(css).toContain('0.2em')
+    })
+
+    it('should handle widows-[...] arbitrary value', () => {
+      const css = coral.generate(['widows-[5]'])
+      expect(css).toContain('widows')
+      expect(css).toContain('5')
+    })
+
+    it('should handle hyphenate-limit-zone-[...] arbitrary value', () => {
+      const css = coral.generate(['hyphenate-limit-zone-[25%]'])
+      expect(css).toContain('hyphenate-limit-zone')
+      expect(css).toContain('25%')
+    })
+
+    it('should handle hyphenate-character-[...] arbitrary value', () => {
+      const css = coral.generate(['hyphenate-character-[-]'])
+      expect(css).toContain('hyphenate-character')
+    })
+
+    it('should handle hyphenate-limit-chars-[...] arbitrary value', () => {
+      const css = coral.generate(['hyphenate-limit-chars-[10_4_4]'])
+      expect(css).toContain('hyphenate-limit-chars')
+    })
+
+    it('should handle hyphenate-limit-lines-[...] arbitrary value', () => {
+      const css = coral.generate(['hyphenate-limit-lines-[5]'])
+      expect(css).toContain('hyphenate-limit-lines')
+      expect(css).toContain('5')
+    })
+
+    it('should generate wrap-break-word', () => {
+      const css = coral.generate(['wrap-break-word'])
+      expect(css).toContain('overflow-wrap')
+      expect(css).toContain('break-word')
+    })
+
+    it('should generate wrap-anywhere', () => {
+      const css = coral.generate(['wrap-anywhere'])
+      expect(css).toContain('overflow-wrap')
+      expect(css).toContain('anywhere')
+    })
+
+    it('should generate wrap-normal', () => {
+      const css = coral.generate(['wrap-normal'])
+      expect(css).toContain('overflow-wrap')
+      expect(css).toContain('normal')
+    })
+
+    it('should generate indent-{number} pattern', () => {
+      const css = coral.generate(['indent-4'])
+      expect(css).toContain('text-indent')
+      expect(css).toContain('1rem')
+    })
+
+    it('should generate indent-8 pattern', () => {
+      const css = coral.generate(['indent-8'])
+      expect(css).toContain('text-indent')
+      expect(css).toContain('2rem')
+    })
+
+    it('should handle initial-letter-[...] arbitrary value', () => {
+      const css = coral.generate(['initial-letter-[3_2]'])
+      expect(css).toContain('initial-letter')
+    })
+  })
 })

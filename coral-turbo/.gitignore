@@ -1,0 +1,54 @@
+# Rust build output
+/target/
+
+# WASM build output
+/pkg/
+
+# TypeScript build output
+/dist/
+
+# NAPI native modules
+*.node
+
+# Node.js
+node_modules/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cargo lock (optional - uncomment if you want to track it)
+# Cargo.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Rust specific
+**/*.rs.bk
+*.pdb
+
+# wasm-pack
+.wasm-pack-cache/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Test coverage
+coverage/
+*.lcov
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

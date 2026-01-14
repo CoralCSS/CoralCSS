@@ -174,7 +174,8 @@ export class CoralWorker {
       return
     }
 
-    const task = this.taskQueue.shift()
+    // Note: Don't remove task from queue yet - it stays until response is received
+    const task = this.taskQueue[0]
     if (!task) {
       return
     }
