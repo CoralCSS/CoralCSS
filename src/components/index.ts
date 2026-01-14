@@ -250,6 +250,35 @@ export type { SidebarConfig, SidebarState, SidebarVariant, SidebarPosition } fro
 export { Footer, createFooter } from './footer'
 export type { FooterConfig, FooterState, FooterVariant } from './footer'
 
+// Advanced Components (Phase 6)
+export { AIChat, createAIChat } from './ai-chat'
+export type {
+  AIChatConfig,
+  AIChatState,
+  ChatMessage,
+  MessageRole,
+  MessageStatus,
+} from './ai-chat'
+
+export { Kanban, createKanban } from './kanban'
+export type {
+  KanbanConfig,
+  KanbanState,
+  KanbanCard,
+  KanbanColumn,
+  KanbanLabel,
+  KanbanAssignee,
+} from './kanban'
+
+export { Terminal, createTerminal, TERMINAL_THEMES } from './terminal'
+export type {
+  TerminalConfig,
+  TerminalState,
+  TerminalLine,
+  TerminalTheme,
+  OutputType,
+} from './terminal'
+
 // Imports for initComponents and registries
 import { Button, ButtonGroup } from './button'
 import { Dialog } from './dialog'
@@ -419,6 +448,13 @@ import { Footer } from './footer'
 import { createNavbar } from './navbar'
 import { createSidebar } from './sidebar'
 import { createFooter } from './footer'
+// Advanced Components (Phase 6)
+import { AIChat } from './ai-chat'
+import { Kanban } from './kanban'
+import { Terminal } from './terminal'
+import { createAIChat } from './ai-chat'
+import { createKanban } from './kanban'
+import { createTerminal } from './terminal'
 
 /**
  * Auto-initialize all components from data attributes
@@ -531,6 +567,11 @@ export function initComponents(): void {
   autoInit('[data-coral-navbar]', Navbar as never)
   autoInit('[data-coral-sidebar]', Sidebar as never)
   autoInit('[data-coral-footer]', Footer as never)
+
+  // Advanced Components (Phase 6)
+  autoInit('[data-coral-ai-chat]', AIChat as never)
+  autoInit('[data-coral-kanban]', Kanban as never)
+  autoInit('[data-coral-terminal]', Terminal as never)
 }
 
 /**
@@ -626,6 +667,10 @@ export const components = {
   Navbar,
   Sidebar,
   Footer,
+  // Advanced Components (Phase 6)
+  AIChat,
+  Kanban,
+  Terminal,
 }
 
 /**
@@ -722,6 +767,10 @@ export const factories = {
   createNavbar,
   createSidebar,
   createFooter,
+  // Advanced Components (Phase 6)
+  createAIChat,
+  createKanban,
+  createTerminal,
 }
 
 export default components

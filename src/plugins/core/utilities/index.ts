@@ -60,6 +60,11 @@ export { scrollBehaviorPlugin } from './scroll-behavior'
 export { caretPlacePlugin } from './caret-place'
 export { positioningPlugin } from './positioning'
 export { typographyAdvancedPlugin } from './typography-advanced'
+// CoralCSS Exclusive Features (Beyond Tailwind 4.1)
+export { advancedEffectsPlugin } from './advanced-effects'
+export { keyframesPlugin } from './keyframes'
+export { logicalPropertiesPlugin } from './logical-properties'
+export { interactiveUtilitiesPlugin } from './interactive'
 
 import type { Plugin } from '../../../types'
 
@@ -118,6 +123,11 @@ import { scrollBehaviorPlugin } from './scroll-behavior'
 import { caretPlacePlugin } from './caret-place'
 import { positioningPlugin } from './positioning'
 import { typographyAdvancedPlugin } from './typography-advanced'
+// CoralCSS Exclusive Features (Beyond Tailwind 4.1)
+import { advancedEffectsPlugin } from './advanced-effects'
+import { keyframesPlugin } from './keyframes'
+import { logicalPropertiesPlugin } from './logical-properties'
+import { interactiveUtilitiesPlugin } from './interactive'
 
 /**
  * Get all core utility plugins
@@ -179,6 +189,11 @@ export function coreUtilitiesPlugins(): Plugin[] {
     caretPlacePlugin(),
     positioningPlugin(),
     typographyAdvancedPlugin(),
+    // CoralCSS Exclusive Features (Beyond Tailwind 4.1)
+    advancedEffectsPlugin(),
+    keyframesPlugin(),
+    logicalPropertiesPlugin(),
+    interactiveUtilitiesPlugin(),
   ]
 }
 
