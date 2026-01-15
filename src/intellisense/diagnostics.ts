@@ -8,6 +8,7 @@
 import { createCoral } from '../index'
 import type { Theme } from '../types'
 import { defaultTheme } from '../theme/default'
+import { corePlugins } from '../plugins/core'
 
 /**
  * Diagnostic severity levels
@@ -54,6 +55,9 @@ export interface ClassLocation {
 export function createDiagnosticsProvider(theme: Theme = defaultTheme) {
   const coral = createCoral({ theme })
 
+  // Load all core plugins for validation
+  corePlugins().forEach(plugin => coral.use(plugin))
+
   // Known utility patterns for validation
   const knownPatterns = buildKnownPatterns(theme)
 
@@ -67,8 +71,8 @@ export function createDiagnosticsProvider(theme: Theme = defaultTheme) {
 
     className = className.trim()
 
-    // Skip arbitrary values - they're always valid syntax-wise
-    if (className.includes('[') && className.includes(']')) {
+    // Validate arbitrary values (including malformed ones)
+    if (className.includes('[') || className.includes(']')) {
       return validateArbitraryValue(className)
     }
 

@@ -8,6 +8,7 @@
 import { createCoral } from '../index'
 import type { Theme } from '../types'
 import { defaultTheme } from '../theme/default'
+import { corePlugins } from '../plugins/core'
 
 /**
  * Hover information structure
@@ -34,6 +35,9 @@ export interface HoverInfo {
  */
 export function createHoverProvider(theme: Theme = defaultTheme) {
   const coral = createCoral({ theme })
+
+  // Load all core plugins
+  corePlugins().forEach(plugin => coral.use(plugin))
 
   /**
    * Get hover information for a class name

@@ -1753,7 +1753,8 @@ export function getCompletionsByCategory(completions: CompletionItem[]): Map<str
  */
 export function filterCompletions(completions: CompletionItem[], prefix: string): CompletionItem[] {
   if (!prefix) {
-    return completions
+    // Sort by sortOrder even with empty prefix
+    return [...completions].sort((a, b) => (a.sortOrder ?? 100) - (b.sortOrder ?? 100))
   }
 
   const lower = prefix.toLowerCase()

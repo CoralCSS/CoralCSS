@@ -9,6 +9,10 @@ import Examples from './pages/Examples'
 import Themes from './pages/Themes'
 import Showcase from './pages/Showcase'
 import Playground from './pages/Playground'
+import FAQ from './pages/FAQ'
+import MigrationGuide from './pages/MigrationGuide'
+import PerformanceGuide from './pages/PerformanceGuide'
+import AccessibilityGuide from './pages/AccessibilityGuide'
 
 // Component sub-pages
 import ComponentsIndex from './pages/components/index'
@@ -88,6 +92,10 @@ function App() {
           <Route path="/examples" element={<Examples />} />
           <Route path="/showcase" element={<Showcase />} />
           <Route path="/playground" element={<Playground />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/migration-guide" element={<MigrationGuide />} />
+          <Route path="/performance-guide" element={<PerformanceGuide />} />
+          <Route path="/accessibility-guide" element={<AccessibilityGuide />} />
         </Routes>
       </Layout>
     </ThemeProvider>
