@@ -425,7 +425,6 @@ module.exports = {
 ## Need Help?
 
 - 📖 [Documentation](https://coralcss.dev/docs)
-- 💬 [Discord Community](https://discord.gg/coralcss)
 - 🐛 [Report Issues](https://github.com/coralcss/core/issues)
 - ✨ [Feature Requests](https://github.com/coralcss/core/discussions)
 

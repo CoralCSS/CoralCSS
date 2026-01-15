@@ -199,6 +199,70 @@ describe('Theme Tokens', () => {
       const parsed = JSON.parse(json)
       expect(parsed.spacing).toBeDefined()
     })
+
+    it('should handle plain string token values', () => {
+      // Create tokens with plain string values (not wrapped in { value })
+      const customTokens = {
+        colors: {
+          primitive: {
+            'plain-string': '#ffffff',
+          } as any,
+          semantic: {},
+        },
+        spacing: {},
+        sizing: {},
+        typography: {
+          fontFamily: {},
+          fontSize: {},
+          fontWeight: {},
+          lineHeight: {},
+          letterSpacing: {},
+        },
+        borders: { width: {}, radius: {} },
+        shadows: {},
+        motion: { duration: {}, easing: {} },
+        opacity: {},
+        zIndex: {},
+        breakpoints: {},
+      }
+      const json = generateTokensJSON(customTokens as any)
+      const parsed = JSON.parse(json)
+      expect(parsed.color.primitive['plain-string'].value).toBe('#ffffff')
+    })
+
+    it('should handle nested token categories', () => {
+      // Create tokens with nested structure
+      const customTokens = {
+        colors: {
+          primitive: {
+            brand: {
+              primary: { value: '#ff0000' },
+              secondary: { value: '#00ff00' },
+            } as any,
+          } as any,
+          semantic: {},
+        },
+        spacing: {},
+        sizing: {},
+        typography: {
+          fontFamily: {},
+          fontSize: {},
+          fontWeight: {},
+          lineHeight: {},
+          letterSpacing: {},
+        },
+        borders: { width: {}, radius: {} },
+        shadows: {},
+        motion: { duration: {}, easing: {} },
+        opacity: {},
+        zIndex: {},
+        breakpoints: {},
+      }
+      const json = generateTokensJSON(customTokens as any)
+      const parsed = JSON.parse(json)
+      expect(parsed.color.primitive.brand).toBeDefined()
+      expect(parsed.color.primitive.brand.primary.value).toBe('#ff0000')
+    })
   })
 
   describe('generateTokensTypeScript', () => {
@@ -220,25 +284,67 @@ describe('Theme Tokens', () => {
     })
 
     it('should handle plain string token values', () => {
-      // Create tokens with plain string values
-      const customTokens = createDesignTokens({
+      // Create tokens with plain string values (not wrapped in { value })
+      const customTokens = {
         colors: {
           primitive: {
-            'plain-string': '#ffffff' as unknown as { value: string },
-          },
+            'plain-string': '#ffffff',
+          } as any,
           semantic: {},
         },
-      })
-      const ts = generateTokensTypeScript(customTokens)
+        spacing: {},
+        sizing: {},
+        typography: {
+          fontFamily: {},
+          fontSize: {},
+          fontWeight: {},
+          lineHeight: {},
+          letterSpacing: {},
+        },
+        borders: { width: {}, radius: {} },
+        shadows: {},
+        motion: { duration: {}, easing: {} },
+        opacity: {},
+        zIndex: {},
+        breakpoints: {},
+      }
+      const ts = generateTokensTypeScript(customTokens as any)
       expect(ts).toContain('tokens')
+      expect(ts).toContain('#ffffff')
     })
 
     it('should handle nested token categories', () => {
-      // Test with default tokens which have nested categories
-      const ts = generateTokensTypeScript()
-      expect(ts).toContain('typography:')
-      expect(ts).toContain('fontFamily:')
-      expect(ts).toContain('fontSize:')
+      // Test with custom tokens that have deeply nested structure
+      const customTokens = {
+        colors: {
+          primitive: {
+            brand: {
+              primary: { value: '#ff0000' },
+              secondary: { value: '#00ff00' },
+            } as any,
+          } as any,
+          semantic: {},
+        },
+        spacing: {},
+        sizing: {},
+        typography: {
+          fontFamily: {},
+          fontSize: {},
+          fontWeight: {},
+          lineHeight: {},
+          letterSpacing: {},
+        },
+        borders: { width: {}, radius: {} },
+        shadows: {},
+        motion: { duration: {}, easing: {} },
+        opacity: {},
+        zIndex: {},
+        breakpoints: {},
+      }
+      const ts = generateTokensTypeScript(customTokens as any)
+      expect(ts).toContain('brand:')
+      expect(ts).toContain('primary:')
+      expect(ts).toContain('#ff0000')
     })
 
     it('should quote keys that need quoting', () => {

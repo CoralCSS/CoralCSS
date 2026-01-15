@@ -487,4 +487,73 @@ describe('Countdown Component', () => {
       expect(DefaultExport).toBe(Countdown)
     })
   })
+
+  describe('Edge Cases for Full Coverage', () => {
+    it('should handle large target values as milliseconds', () => {
+      const element = createCountdownElement()
+      container.appendChild(element)
+      // Value > 31536000 should be treated as milliseconds
+      const countdown = createCountdown(element, { target: 40000000, autoStart: false })
+      expect(countdown).toBeDefined()
+      expect(countdown.state.remaining).toBe(40000000)
+    })
+
+    it('should use custom interval for countdown', () => {
+      const element = createCountdownElement()
+      container.appendChild(element)
+      const countdown = createCountdown(element, {
+        target: 10,
+        interval: 500, // Custom interval
+        autoStart: true
+      })
+
+      vi.advanceTimersByTime(500)
+      expect(countdown.state.remaining).toBeLessThan(10000)
+    })
+
+    it('should handle format with all default fallbacks', () => {
+      const element = createCountdownElement()
+      container.appendChild(element)
+      const countdown = createCountdown(element, {
+        target: 3661, // 1 hour, 1 minute, 1 second in seconds
+        format: 'hh:mm:ss',
+        separator: ':',
+        autoStart: false
+      })
+
+      const valueEl = element.querySelector('[data-coral-countdown-value]')
+      expect(valueEl).toBeDefined()
+      expect(countdown.getRemaining()).toBe(3661000) // Converted to ms
+    })
+
+    it('should handle custom template formatting', () => {
+      const element = createCountdownElement()
+      container.appendChild(element)
+      const countdown = createCountdown(element, {
+        target: 90061000, // 1 day, 1 hour, 1 minute, 1 second
+        formatTemplate: '{days}d {hours}h {minutes}m {seconds}s',
+        autoStart: false
+      })
+
+      expect(countdown.getRemaining()).toBe(90061000)
+      expect(countdown.state.timeUnits.days).toBeGreaterThan(0)
+    })
+
+    it('should handle format prefix and suffix fallbacks', () => {
+      const element = createCountdownElement()
+      container.appendChild(element)
+      const countdown = createCountdown(element, {
+        target: 3600, // 1 hour in seconds
+        format: 'hh:mm:ss',
+        prefix: 'Time: ',
+        suffix: ' remaining',
+        separator: ':',
+        autoStart: false
+      })
+
+      const valueEl = element.querySelector('[data-coral-countdown-value]')
+      expect(valueEl).toBeDefined()
+      expect(countdown.getRemaining()).toBe(3600000) // Converted to ms
+    })
+  })
 })

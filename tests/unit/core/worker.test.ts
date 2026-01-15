@@ -445,6 +445,337 @@ describe('Worker Thread Processing', () => {
     })
   })
 
+  describe('Main Thread Fallback CSS Generation', () => {
+    it('should generate CSS for simple rules in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'padding',
+          pattern: /^p-(\d+)$/,
+          properties: { padding: '1rem' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['p-4'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle variants in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'flex',
+          pattern: /^flex$/,
+          properties: { display: 'flex' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['hover:flex', 'dark:flex'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle important modifier in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'flex',
+          pattern: /^flex$/,
+          properties: { display: 'flex' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['!flex'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle negative values in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'margin',
+          pattern: /^mt-(\d+)$/,
+          properties: { 'margin-top': '1rem' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['-mt-4'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle arbitrary values in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'width',
+          pattern: /^w-\[.+\]$/,
+          properties: { width: 'ARBITRARY' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['w-[200px]'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle opacity modifiers in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'bg-color',
+          pattern: /^bg-red-500$/,
+          properties: { 'background-color': 'var(--color-red-500)' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['bg-red-500/50'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should skip duplicate classes in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'flex',
+          pattern: /^flex$/,
+          properties: { display: 'flex' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['flex', 'flex', 'flex'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle responsive variants in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'flex',
+          pattern: /^flex$/,
+          properties: { display: 'flex' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['sm:flex', 'md:flex', 'lg:flex', 'xl:flex', '2xl:flex'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle pseudo variants in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'text-color',
+          pattern: /^text-blue$/,
+          properties: { color: 'blue' }
+        }
+      ]
+
+      const result = await worker.generateCSS([
+        'hover:text-blue',
+        'focus:text-blue',
+        'active:text-blue',
+        'visited:text-blue',
+        'first:text-blue',
+        'last:text-blue',
+        'odd:text-blue',
+        'even:text-blue',
+        'disabled:text-blue',
+        'group-hover:text-blue'
+      ], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle @ prefix breakpoints in fallback mode', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'flex',
+          pattern: /^flex$/,
+          properties: { display: 'flex' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['@sm:flex', '@md:flex'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should handle rules without properties', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'empty',
+          pattern: /^empty$/,
+          properties: {}
+        }
+      ]
+
+      const result = await worker.generateCSS(['empty'], rules)
+      expect(result).toBe('')
+    })
+
+    it('should handle literal pattern match fallback', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'exact',
+          pattern: 'exact-match',
+          properties: { display: 'block' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['exact-match'], rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should escape special characters in class names', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker()
+      const rules: Rule[] = [
+        {
+          name: 'special',
+          pattern: /^w-\[.+\]$/,
+          properties: { width: '100%' }
+        }
+      ]
+
+      const result = await worker.generateCSS(['w-[100%]'], rules)
+      expect(typeof result).toBe('string')
+    })
+  })
+
+  describe('WorkerPool Large Workloads', () => {
+    it('should split large workloads across workers', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const pool = new WorkerPool({ concurrency: 4 })
+      const rules: Rule[] = []
+
+      // Generate 200 classes to trigger parallel processing
+      const classes = Array.from({ length: 200 }, (_, i) => `p-${i}`)
+
+      const result = await pool.generateCSS(classes, rules)
+      expect(typeof result).toBe('string')
+    })
+
+    it('should split large matchRules workloads', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const pool = new WorkerPool({ concurrency: 4 })
+      const rules: Rule[] = []
+
+      // Generate 200 classes to trigger parallel processing
+      const classes = Array.from({ length: 200 }, (_, i) => `m-${i}`)
+
+      const result = await pool.matchRules(classes, rules)
+      expect(Array.isArray(result)).toBe(true)
+    })
+
+    it('should handle empty matchRules', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const pool = new WorkerPool()
+      const rules: Rule[] = []
+
+      const result = await pool.matchRules([], rules)
+      expect(result).toEqual([])
+    })
+
+    it('should use single worker for small workloads in matchRules', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const pool = new WorkerPool({ concurrency: 4 })
+      const rules: Rule[] = []
+
+      const result = await pool.matchRules(['p-4', 'bg-red'], rules)
+      expect(Array.isArray(result)).toBe(true)
+    })
+
+    it('should get concurrency level', () => {
+      vi.stubGlobal('Worker', undefined)
+      const pool = new WorkerPool({ concurrency: 6 })
+
+      expect(pool.getConcurrency()).toBe(6)
+    })
+
+    it('should cap hardware concurrency at 8', () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.stubGlobal('navigator', {
+        hardwareConcurrency: 32
+      })
+
+      const pool = new WorkerPool()
+      expect(pool.getConcurrency()).toBeLessThanOrEqual(8)
+    })
+  })
+
+  describe('Worker Recycling', () => {
+    it('should track tasks for recycling', async () => {
+      vi.stubGlobal('Worker', undefined)
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+      const worker = new CoralWorker({ maxTasksPerWorker: 2 })
+      const rules: Rule[] = []
+
+      // Run a few tasks sequentially
+      await worker.generateCSS(['p-1'], rules)
+      await worker.generateCSS(['p-2'], rules)
+      await worker.generateCSS(['p-3'], rules)
+
+      // Wait for any async cleanup
+      await new Promise(resolve => setTimeout(resolve, 50))
+
+      // Active tasks should be 0 or 1 depending on timing
+      expect(worker.getActiveTaskCount()).toBeLessThanOrEqual(1)
+    })
+  })
+
+  describe('getPendingTaskCount', () => {
+    it('should return zero when no tasks pending', () => {
+      const worker = new CoralWorker()
+      expect(worker.getPendingTaskCount()).toBe(0)
+    })
+  })
+
   describe('Worker Message Handling', () => {
     it('should handle successful generate response from worker', async () => {
       let capturedOnMessage: ((e: MessageEvent) => void) | null = null

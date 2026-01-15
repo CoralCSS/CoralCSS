@@ -1,7 +1,7 @@
 /**
  * Theme Typography Tests
  */
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import {
   fonts,
   fontSizes,
@@ -177,6 +177,19 @@ describe('Theme Typography', () => {
         expect(result?.lineHeight).toBeDefined()
       })
     })
+
+    it('should handle string fontSize values', () => {
+      // Temporarily add a string value to fontSizes
+      ;(fontSizes as any)['custom'] = '1.5rem'
+
+      const result = getFontSize('custom')
+      expect(result).toBeDefined()
+      expect(result?.fontSize).toBe('1.5rem')
+      expect(result?.lineHeight).toBe('1.5')
+
+      // Cleanup
+      delete (fontSizes as any)['custom']
+    })
   })
 
   describe('getFontWeight', () => {
@@ -198,6 +211,17 @@ describe('Theme Typography', () => {
     it('should return undefined for unknown weight', () => {
       const result = getFontWeight('unknown')
       expect(result).toBeUndefined()
+    })
+
+    it('should handle numeric fontWeight values', () => {
+      // Temporarily add a numeric value to fontWeights
+      ;(fontWeights as any)['custom'] = 550
+
+      const result = getFontWeight('custom')
+      expect(result).toBe('550')
+
+      // Cleanup
+      delete (fontWeights as any)['custom']
     })
   })
 

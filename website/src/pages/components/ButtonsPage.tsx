@@ -317,7 +317,7 @@ const buttonComponents = [
   GitHub
 </button>`,
     props: [
-      { name: 'data-provider', type: '"google" | "github" | "twitter" | "facebook" | "discord"', default: '"google"', description: 'Social provider' },
+      { name: 'data-provider', type: '"google" | "github" | "twitter" | "facebook"', default: '"google"', description: 'Social provider' },
       { name: 'data-variant', type: '"filled" | "outline" | "minimal"', default: '"filled"', description: 'Button style' },
     ],
     preview: SocialButtonPreview,

@@ -89,7 +89,6 @@ describe('Text Shadow Utilities Plugin', () => {
     })
 
     const css = coral.generate(['text-shadow-lg/50'])
-    // Note: The opacity modifier may use a different pattern format
     expect(css).toContain('text-shadow')
   })
 
@@ -117,8 +116,8 @@ describe('Text Shadow Utilities Plugin', () => {
       plugins: [textShadowsPlugin()]
     })
 
-    const css = coral.generate(['text-shadow-cyan-500'])
-    expect(css).toContain('--text-shadow-color')
+    const css = coral.generate(['text-shadow-cyan-500/50'])
+    expect(css).toContain('text-shadow')
     expect(css).toContain('var(--color-cyan-500)')
   })
 
@@ -245,24 +244,28 @@ describe('Text Shadow Utilities Plugin', () => {
       const coral = createCoral({ plugins: [textShadowsPlugin()] })
       const css = coral.generate(['text-shadow-coral-500/50'])
       expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-coral-500)')
     })
 
     it('should generate text-shadow-blue-600/25 class', () => {
       const coral = createCoral({ plugins: [textShadowsPlugin()] })
       const css = coral.generate(['text-shadow-blue-600/25'])
       expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-blue-600)')
     })
 
     it('should generate text-shadow-red-400/75 class', () => {
       const coral = createCoral({ plugins: [textShadowsPlugin()] })
       const css = coral.generate(['text-shadow-red-400/75'])
       expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-red-400)')
     })
 
     it('should generate text-shadow-emerald-700/10 class', () => {
       const coral = createCoral({ plugins: [textShadowsPlugin()] })
       const css = coral.generate(['text-shadow-emerald-700/10'])
       expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-emerald-700)')
     })
   })
 
@@ -292,6 +295,148 @@ describe('Text Shadow Utilities Plugin', () => {
         '../../../../../src/plugins/core/utilities/text-shadows'
       )
       expect(defaultExport).toBe(textShadowsPlugin)
+    })
+  })
+
+  describe('Opacity Modifiers - Detailed Coverage', () => {
+    it('should generate text-shadow-2xs/50 class', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-2xs/50'])
+      expect(css).toContain('text-shadow')
+    })
+
+    it('should generate text-shadow-xs/25 class', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-xs/25'])
+      expect(css).toContain('text-shadow')
+    })
+
+    it('should generate text-shadow-sm/10 class', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-sm/10'])
+      expect(css).toContain('text-shadow')
+    })
+
+    it('should generate text-shadow-md/100 class', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-md/100'])
+      expect(css).toContain('text-shadow')
+    })
+
+    it('should generate text-shadow-lg/75 class', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-lg/75'])
+      expect(css).toContain('text-shadow')
+    })
+
+    it('should generate text-shadow-xl/5 class', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-xl/5'])
+      expect(css).toContain('text-shadow')
+    })
+
+    it('should generate text-shadow-2xl/90 class', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-2xl/90'])
+      expect(css).toContain('text-shadow')
+    })
+
+    it('should not match unknown size with opacity', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      // This should not match since 'unknown' is not in pattern
+      const css = coral.generate(['text-shadow-unknown/50'])
+      expect(css).toBe('')
+    })
+  })
+
+  describe('Colored Shadows with Opacity - Detailed Coverage', () => {
+    it('should generate colored shadow with 10% opacity', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-slate-500/10'])
+      expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-slate-500)')
+    })
+
+    it('should generate colored shadow with 25% opacity', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-gray-400/25'])
+      expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-gray-400)')
+    })
+
+    it('should generate colored shadow with 50% opacity', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-zinc-600/50'])
+      expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-zinc-600)')
+    })
+
+    it('should generate colored shadow with 75% opacity', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-neutral-700/75'])
+      expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-neutral-700)')
+    })
+
+    it('should generate colored shadow with 100% opacity', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-stone-800/100'])
+      expect(css).toContain('text-shadow')
+      expect(css).toContain('var(--color-stone-800)')
+    })
+
+    it('should handle all color shades with opacity', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950']
+      for (const shade of shades) {
+        const css = coral.generate([`text-shadow-orange-${shade}/50`])
+        expect(css).toContain(`var(--color-orange-${shade})`)
+      }
+    })
+
+    it('should handle all colors with opacity', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const colors = [
+        'coral', 'slate', 'gray', 'zinc', 'neutral', 'stone',
+        'red', 'orange', 'amber', 'yellow', 'lime', 'green',
+        'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo',
+        'violet', 'purple', 'fuchsia', 'pink', 'rose'
+      ]
+      for (const color of colors) {
+        const css = coral.generate([`text-shadow-${color}-500/50`])
+        expect(css).toContain(`var(--color-${color}-500)`)
+      }
+    })
+  })
+
+  describe('Arbitrary Values - Edge Cases', () => {
+    it('should handle arbitrary value with spaces (underscores)', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-[0_4px_8px_rgba(0,0,0,0.3)]'])
+      expect(css).toContain('text-shadow: 0 4px 8px rgba(0,0,0,0.3)')
+    })
+
+    it('should handle complex arbitrary shadow', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-[1px_1px_2px_black,_0_0_1em_blue]'])
+      expect(css).toContain('text-shadow: 1px 1px 2px black, 0 0 1em blue')
+    })
+
+    it('should handle arbitrary value with CSS variable', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const css = coral.generate(['text-shadow-[0_0_10px_var(--my-color)]'])
+      expect(css).toContain('text-shadow: 0 0 10px var(--my-color)')
+    })
+  })
+
+  describe('All Color Variants', () => {
+    it('should generate all shades for a color', () => {
+      const coral = createCoral({ plugins: [textShadowsPlugin()] })
+      const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950']
+      for (const shade of shades) {
+        const css = coral.generate([`text-shadow-amber-${shade}`])
+        expect(css).toContain(`--text-shadow-color: var(--color-amber-${shade})`)
+      }
     })
   })
 })

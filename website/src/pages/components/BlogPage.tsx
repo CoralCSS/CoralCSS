@@ -392,7 +392,6 @@ export function BlogPageShowcase() {
                 <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Documentation</a></li>
                 <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Showcase</a></li>
                 <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">GitHub</a></li>
-                <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Discord</a></li>
               </ul>
             </div>
             <div>

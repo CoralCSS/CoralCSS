@@ -76,6 +76,11 @@ describe('GitHub Theme Preset', () => {
     it('should enable color blind mode when option is true', () => {
       const plugins = githubPreset({ colorBlind: true })
       expect(plugins.length).toBeGreaterThan(0)
+
+      // Actually install the plugin to trigger the conditional
+      const coral = createCoral({ plugins })
+      const css = coral.generate(['bg-primary'])
+      expect(css).toBeDefined()
     })
 
     it('should not enable reduced motion by default', () => {
@@ -86,6 +91,11 @@ describe('GitHub Theme Preset', () => {
     it('should enable reduced motion when option is true', () => {
       const plugins = githubPreset({ reducedMotion: true })
       expect(plugins.length).toBeGreaterThan(0)
+
+      // Actually install the plugin to trigger the conditional
+      const coral = createCoral({ plugins })
+      const css = coral.generate(['transition-all'])
+      expect(css).toBeDefined()
     })
 
     it('should work with createCoral', () => {
@@ -166,6 +176,41 @@ describe('GitHub Theme Preset', () => {
       const config = githubPresetConfig()
       expect(config.theme.colors['code-bg']).toBeDefined()
       expect(config.theme.colors['code-border']).toBeDefined()
+    })
+
+    it('should include spacing configuration', () => {
+      const config = githubPresetConfig()
+      expect(config.theme.spacing).toBeDefined()
+      expect(config.theme.spacing['github-xs']).toBeDefined()
+    })
+
+    it('should include borderRadius configuration', () => {
+      const config = githubPresetConfig()
+      expect(config.theme.borderRadius).toBeDefined()
+      expect(config.theme.borderRadius['github-sm']).toBeDefined()
+    })
+
+    it('should include boxShadow configuration', () => {
+      const config = githubPresetConfig()
+      expect(config.theme.boxShadow).toBeDefined()
+      expect(config.theme.boxShadow['github-sm']).toBeDefined()
+    })
+
+    it('should include github-dark-mode plugin', () => {
+      const plugins = githubPreset()
+      const darkModePlugin = plugins.find((p) => p.name === 'github-dark-mode')
+      expect(darkModePlugin).toBeDefined()
+      expect(darkModePlugin?.version).toBe('1.0.0')
+    })
+
+    it('should apply dark mode colors from plugin', () => {
+      const plugins = githubPreset({ darkMode: 'class' })
+      const coral = createCoral({ plugins })
+
+      // Dark mode plugin should be installed
+      const darkPlugin = plugins.find(p => p.name === 'github-dark-mode')
+      expect(darkPlugin).toBeDefined()
+      expect(coral).toBeDefined()
     })
   })
 })

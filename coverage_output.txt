@@ -1,0 +1,678 @@
+
+> @coral-css/core@1.1.0 test
+> vitest run --run --coverage
+
+
+[1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90mD:/Codebox/PROJECTS/CoralCSS[39m
+      [2mCoverage enabled with [22m[33mv8[39m
+
+[90mstdout[2m | tests/unit/design-system/figma-tokens.test.ts[2m > [22m[2mFigma Tokens Integration[2m > [22m[2msyncWithFigma[2m > [22m[2mshould fail with invalid access token
+[22m[39mSyncing tokens with Figma file validfilekey in push mode...
+
+[90mstdout[2m | tests/unit/design-system/figma-tokens.test.ts[2m > [22m[2mFigma Tokens Integration[2m > [22m[2msyncWithFigma[2m > [22m[2mshould fail with short access token
+[22m[39mSyncing tokens with Figma file validfilekey in push mode...
+
+[90mstdout[2m | tests/unit/design-system/figma-tokens.test.ts[2m > [22m[2mFigma Tokens Integration[2m > [22m[2msyncWithFigma[2m > [22m[2mshould fail with invalid file key
+[22m[39mSyncing tokens with Figma file  in push mode...
+
+[90mstdout[2m | tests/unit/design-system/figma-tokens.test.ts[2m > [22m[2mFigma Tokens Integration[2m > [22m[2msyncWithFigma[2m > [22m[2mshould fail with short file key
+[22m[39mSyncing tokens with Figma file 12345 in push mode...
+
+ [32m✓[39m tests/unit/config/css-theme-parser.test.ts [2m([22m[2m55 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+ [32m✓[39m tests/unit/design-system/figma-tokens.test.ts [2m([22m[2m56 tests[22m[2m)[22m[90m 34[2mms[22m[39m
+ [32m✓[39m tests/unit/design-system/token-transforms.test.ts [2m([22m[2m59 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+ [32m✓[39m tests/unit/utils/cva.test.ts [2m([22m[2m88 tests[22m[2m)[22m[90m 33[2mms[22m[39m
+ [32m✓[39m tests/unit/core/generator.test.ts [2m([22m[2m75 tests[22m[2m)[22m[90m 66[2mms[22m[39m
+ [32m✓[39m tests/unit/core/incremental.test.ts [2m([22m[2m56 tests[22m[2m)[22m[90m 103[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/state.test.ts [2m([22m[2m140 tests[22m[2m)[22m[90m 79[2mms[22m[39m
+[90mstderr[2m | tests/unit/kernel.test.ts[2m > [22m[2mKernel[2m > [22m[2mevents[2m > [22m[2mshould handle event handler errors gracefully
+[22m[39mError in event handler for rule:added: Error: Handler error
+    at [90mD:\Codebox\PROJECTS\CoralCSS\[39mtests\unit\kernel.test.ts:450:15
+    at Kernel.emit [90m(D:\Codebox\PROJECTS\CoralCSS\[39msrc\kernel.ts:632:11[90m)[39m
+    at Object.addRule [90m(D:\Codebox\PROJECTS\CoralCSS\[39msrc\kernel.ts:533:14[90m)[39m
+    at Object.install [90m(D:\Codebox\PROJECTS\CoralCSS\[39mtests\unit\kernel.test.ts:459:17[90m)[39m
+    at Kernel.use [90m(D:\Codebox\PROJECTS\CoralCSS\[39msrc\kernel.ts:224:14[90m)[39m
+    at [90mD:\Codebox\PROJECTS\CoralCSS\[39mtests\unit\kernel.test.ts:455:15
+    at Proxy.assertThrows [90m(file:///D:/Codebox/PROJECTS/CoralCSS/[39mnode_modules/[4mchai[24m/index.js:2767:5[90m)[39m
+    at Proxy.methodWrapper [90m(file:///D:/Codebox/PROJECTS/CoralCSS/[39mnode_modules/[4mchai[24m/index.js:1686:25[90m)[39m
+    at Proxy.<anonymous> [90m(file:///D:/Codebox/PROJECTS/CoralCSS/[39mnode_modules/[4m@vitest/expect[24m/dist/index.js:1029:16[90m)[39m
+    at Proxy.overwritingMethodWrapper [90m(file:///D:/Codebox/PROJECTS/CoralCSS/[39mnode_modules/[4mchai[24m/index.js:1735:33[90m)[39m
+
+ [32m✓[39m tests/unit/plugins/modern.test.ts [2m([22m[2m164 tests[22m[2m)[22m[90m 269[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/backgrounds.test.ts [2m([22m[2m293 tests[22m[2m)[22m[33m 355[2mms[22m[39m
+ [32m✓[39m tests/unit/kernel.test.ts [2m([22m[2m97 tests[22m[2m)[22m[33m 536[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/transforms.test.ts [2m([22m[2m166 tests[22m[2m)[22m[33m 357[2mms[22m[39m
+ [32m✓[39m tests/unit/core/fallbacks.test.ts [2m([22m[2m64 tests[22m[2m)[22m[90m 28[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/borders.test.ts [2m([22m[2m109 tests[22m[2m)[22m[90m 278[2mms[22m[39m
+ [32m✓[39m tests/unit/config/css-parser.test.ts [2m([22m[2m55 tests[22m[2m)[22m[90m 41[2mms[22m[39m
+ [32m✓[39m tests/unit/core/worker.test.ts [2m([22m[2m38 tests[22m[2m)[22m[90m 263[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/performance.test.ts [2m([22m[2m76 tests[22m[2m)[22m[90m 118[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/typography.test.ts [2m([22m[2m121 tests[22m[2m)[22m[33m 445[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/sizing.test.ts [2m([22m[2m125 tests[22m[2m)[22m[33m 423[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/filters.test.ts [2m([22m[2m99 tests[22m[2m)[22m[90m 194[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/borders.test.ts [2m([22m[2m104 tests[22m[2m)[22m[90m 259[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/grid.test.ts [2m([22m[2m89 tests[22m[2m)[22m[90m 233[2mms[22m[39m
+ [32m✓[39m tests/unit/core/hybrid-cache.test.ts [2m([22m[2m83 tests[22m[2m)[22m[33m 1463[2mms[22m[39m
+ [32m✓[39m tests/unit/core/parser-cache.test.ts [2m([22m[2m83 tests[22m[2m)[22m[90m 43[2mms[22m[39m
+ [32m✓[39m tests/unit/errors.test.ts [2m([22m[2m65 tests[22m[2m)[22m[90m 45[2mms[22m[39m
+ [32m✓[39m tests/unit/tokens/semantic.test.ts [2m([22m[2m44 tests[22m[2m)[22m[90m 34[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/flexbox.test.ts [2m([22m[2m89 tests[22m[2m)[22m[90m 177[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/optional/attributify.test.ts [2m([22m[2m83 tests[22m[2m)[22m[90m 177[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/masks.test.ts [2m([22m[2m67 tests[22m[2m)[22m[90m 82[2mms[22m[39m
+ [32m✓[39m tests/unit/design-system/coral-tokens.test.ts [2m([22m[2m58 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/print.test.ts [2m([22m[2m67 tests[22m[2m)[22m[90m 77[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/optional/icons.test.ts [2m([22m[2m84 tests[22m[2m)[22m[90m 204[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/columns.test.ts [2m([22m[2m65 tests[22m[2m)[22m[90m 86[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/effects.test.ts [2m([22m[2m153 tests[22m[2m)[22m[33m 613[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/svg.test.ts [2m([22m[2m73 tests[22m[2m)[22m[33m 310[2mms[22m[39m
+ [32m✓[39m tests/unit/design-system/validators.test.ts [2m([22m[2m38 tests[22m[2m)[22m[90m 25[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/patterns.test.ts [2m([22m[2m43 tests[22m[2m)[22m[90m 42[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/positioning.test.ts [2m([22m[2m61 tests[22m[2m)[22m[90m 141[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/tables.test.ts [2m([22m[2m60 tests[22m[2m)[22m[90m 63[2mms[22m[39m
+ [32m✓[39m tests/unit/core/tree-shake.test.ts [2m([22m[2m42 tests[22m[2m)[22m[90m 38[2mms[22m[39m
+ [32m✓[39m tests/unit/design-system/style-dictionary.test.ts [2m([22m[2m40 tests[22m[2m)[22m[90m 82[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/transitions.test.ts [2m([22m[2m74 tests[22m[2m)[22m[90m 134[2mms[22m[39m
+ [32m✓[39m tests/unit/core/runtime-optimizer.test.ts [2m([22m[2m44 tests[22m[2m)[22m[33m 520[2mms[22m[39m
+ [32m✓[39m tests/unit/config/css-config.test.ts [2m([22m[2m40 tests[22m[2m)[22m[90m 74[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/spacing.test.ts [2m([22m[2m63 tests[22m[2m)[22m[33m 427[2mms[22m[39m
+ [32m✓[39m tests/unit/theme/semantic.test.ts [2m([22m[2m40 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [32m✓[39m tests/unit/core/transformer.test.ts [2m([22m[2m41 tests[22m[2m)[22m[90m 19[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/layout.test.ts [2m([22m[2m76 tests[22m[2m)[22m[33m 478[2mms[22m[39m
+ [32m✓[39m tests/unit/intellisense/colors.test.ts [2m([22m[2m36 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+ [32m✓[39m tests/unit/core/extractor.test.ts [2m([22m[2m41 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+ [32m✓[39m tests/unit/tokens/resolver.test.ts [2m([22m[2m52 tests[22m[2m)[22m[90m 33[2mms[22m[39m
+ [32m✓[39m tests/unit/intellisense/completions.test.ts [2m([22m[2m48 tests[22m[2m)[22m[33m 3445[2mms[22m[39m
+   [33m[2m✓[22m[39m Completions[2m > [22mgenerateCompletions[2m > [22mshould include transform utilities [33m440[2mms[22m[39m
+   [33m[2m✓[22m[39m Completions[2m > [22mfilterCompletions[2m > [22mshould be case insensitive [33m749[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/transforms-3d.test.ts [2m([22m[2m66 tests[22m[2m)[22m[90m 115[2mms[22m[39m
+ [32m✓[39m tests/unit/design-system/cli.test.ts [2m([22m[2m40 tests[22m[2m)[22m[90m 60[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/text-decoration.test.ts [2m([22m[2m44 tests[22m[2m)[22m[90m 214[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/scrollbar.test.ts [2m([22m[2m40 tests[22m[2m)[22m[33m 357[2mms[22m[39m
+ [32m✓[39m tests/unit/core/cache.test.ts [2m([22m[2m51 tests[22m[2m)[22m[33m 686[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/caret-place.test.ts [2m([22m[2m47 tests[22m[2m)[22m[90m 149[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/forms.test.ts [2m([22m[2m49 tests[22m[2m)[22m[90m 44[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/scroll-snap.test.ts [2m([22m[2m47 tests[22m[2m)[22m[90m 68[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/variants/pointer.test.ts [2m([22m[2m29 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/typography-advanced.test.ts [2m([22m[2m43 tests[22m[2m)[22m[90m 47[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/gradients.test.ts [2m([22m[2m32 tests[22m[2m)[22m[90m 280[2mms[22m[39m
+ [32m✓[39m tests/unit/tokens/generator.test.ts [2m([22m[2m48 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+ [32m✓[39m tests/unit/utils/regex.test.ts [2m([22m[2m51 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+ [32m✓[39m tests/unit/core/edge-cases.test.ts [2m([22m[2m33 tests[22m[2m)[22m[90m 240[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/blending.test.ts [2m([22m[2m44 tests[22m[2m)[22m[90m 37[2mms[22m[39m
+ [32m✓[39m tests/unit/vue/utils.test.ts [2m([22m[2m46 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/logical-properties.test.ts [2m([22m[2m264 tests[22m[2m)[22m[33m 3473[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/input.test.ts [2m([22m[2m55 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m tests/unit/utils/css.test.ts [2m([22m[2m56 tests[22m[2m)[22m[90m 34[2mms[22m[39m
+ [32m✓[39m tests/unit/build/esbuild.test.ts [2m([22m[2m36 tests[22m[2m)[22m[33m 5220[2mms[22m[39m
+   [33m[2m✓[22m[39m Build esbuild[2m > [22mcoralEsbuildPlugin[2m > [22mshould register resolvers and loaders in setup [33m305[2mms[22m[39m
+ [32m✓[39m tests/unit/core/parser.test.ts [2m([22m[2m57 tests[22m[2m)[22m[90m 40[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/adaptive-colors.test.ts [2m([22m[2m35 tests[22m[2m)[22m[90m 36[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/smart-grid.test.ts [2m([22m[2m32 tests[22m[2m)[22m[90m 33[2mms[22m[39m
+ [32m✓[39m tests/unit/storybook/manager.test.ts [2m([22m[2m35 tests[22m[2m)[22m[90m 38[2mms[22m[39m
+ [32m✓[39m tests/unit/design-system/platforms.test.ts [2m([22m[2m45 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/layers.test.ts [2m([22m[2m39 tests[22m[2m)[22m[90m 26[2mms[22m[39m
+ [32m✓[39m tests/unit/utils/color.test.ts [2m([22m[2m56 tests[22m[2m)[22m[90m 29[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/smart-spacing.test.ts [2m([22m[2m37 tests[22m[2m)[22m[90m 31[2mms[22m[39m
+ [32m✓[39m tests/unit/core/turbo-adapter.test.ts [2m([22m[2m29 tests[22m[2m)[22m[90m 30[2mms[22m[39m
+ [32m✓[39m tests/unit/build/qwik.test.ts [2m([22m[2m51 tests[22m[2m)[22m[33m 577[2mms[22m[39m
+   [33m[2m✓[22m[39m Build Qwik[2m > [22mcoralQwik[2m > [22mshould load virtual module [33m301[2mms[22m[39m
+ [32m✓[39m tests/unit/theme/tokens.test.ts [2m([22m[2m47 tests[22m[2m)[22m[90m 44[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/layers.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m tests/unit/tokens/component.test.ts [2m([22m[2m39 tests[22m[2m)[22m[90m 20[2mms[22m[39m
+ [32m✓[39m tests/unit/theme.test.ts [2m([22m[2m48 tests[22m[2m)[22m[90m 37[2mms[22m[39m
+ [32m✓[39m tests/unit/build/cli.test.ts [2m([22m[2m71 tests[22m[2m)[22m[33m 7937[2mms[22m[39m
+   [33m[2m✓[22m[39m CLI Tool[2m > [22mrun[2m > [22mshould return success with valid input [33m315[2mms[22m[39m
+   [33m[2m✓[22m[39m CLI Tool[2m > [22mrun[2m > [22mshould handle different dark mode strategies [33m678[2mms[22m[39m
+   [33m[2m✓[22m[39m CLI Tool[2m > [22mCommands[2m > [22manalyze command[2m > [22mshould run analyze [33m830[2mms[22m[39m
+   [33m[2m✓[22m[39m CLI Tool[2m > [22mCommands[2m > [22manalyze command[2m > [22mshould display bundle analysis [33m518[2mms[22m[39m
+   [33m[2m✓[22m[39m CLI Tool[2m > [22mCommands[2m > [22manalyze command[2m > [22mshould show suggestions [33m509[2mms[22m[39m
+   [33m[2m✓[22m[39m CLI Tool[2m > [22mCommands[2m > [22mbenchmark command[2m > [22mshould run benchmark with default iterations [33m900[2mms[22m[39m
+   [33m[2m✓[22m[39m CLI Tool[2m > [22mCommands[2m > [22mbenchmark command[2m > [22mshould run benchmark with custom iterations [33m350[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/text-shadows.test.ts [2m([22m[2m34 tests[22m[2m)[22m[90m 116[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/colors.test.ts [2m([22m[2m227 tests[22m[2m)[22m[33m 11517[2mms[22m[39m
+   [33m[2m✓[22m[39m Colors Utilities Plugin[2m > [22mGradient Colors[2m > [22mvia-{color}[2m > [22mshould generate via-{color}-{shade}/{opacity} [33m771[2mms[22m[39m
+   [33m[2m✓[22m[39m Colors Utilities Plugin[2m > [22mGradient Colors[2m > [22mto-{color}[2m > [22mshould generate to-{color}-{shade} [33m398[2mms[22m[39m
+ [32m✓[39m tests/unit/index.test.ts [2m([22m[2m37 tests[22m[2m)[22m[90m 85[2mms[22m[39m
+ [32m✓[39m tests/unit/storybook/docs.test.ts [2m([22m[2m37 tests[22m[2m)[22m[90m 37[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/dropdown.test.ts [2m([22m[2m31 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/scroll-driven.test.ts [2m([22m[2m29 tests[22m[2m)[22m[90m 95[2mms[22m[39m
+ [32m✓[39m tests/unit/cva/recipes.test.ts [2m([22m[2m24 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/cva/compose.test.ts [2m([22m[2m22 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/tokens/primitives.test.ts [2m([22m[2m30 tests[22m[2m)[22m[90m 23[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/colors.test.ts [2m([22m[2m332 tests[22m[2m)[22m[33m 14734[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/toast.test.ts [2m([22m[2m28 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/interactivity.test.ts [2m([22m[2m41 tests[22m[2m)[22m[90m 209[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/skeleton.test.ts [2m([22m[2m31 tests[22m[2m)[22m[90m 19[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/typography.test.ts [2m([22m[2m36 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/advanced-animations.test.ts [2m([22m[2m27 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/card.test.ts [2m([22m[2m41 tests[22m[2m)[22m[90m 26[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/keyframes.test.ts [2m([22m[2m58 tests[22m[2m)[22m[90m 49[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/progress.test.ts [2m([22m[2m32 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m tests/unit/build/sveltekit.test.ts [2m([22m[2m43 tests[22m[2m)[22m[33m 1913[2mms[22m[39m
+   [33m[2m✓[22m[39m Build SvelteKit[2m > [22mcoralSvelteKit[2m > [22mshould load virtual module [33m310[2mms[22m[39m
+ [32m✓[39m tests/unit/theme/typography.test.ts [2m([22m[2m29 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m tests/unit/intellisense/hover.test.ts [2m([22m[2m38 tests[22m[2m)[22m[33m 1669[2mms[22m[39m
+ [32m✓[39m tests/unit/intellisense/diagnostics.test.ts [2m([22m[2m40 tests[22m[2m)[22m[33m 1255[2mms[22m[39m
+ [32m✓[39m tests/unit/build/postcss.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 2001[2mms[22m[39m
+   [33m[2m✓[22m[39m PostCSS Plugin[2m > [22mOnce hook[2m > [22mshould process @coral base directive [33m388[2mms[22m[39m
+ [32m✓[39m tests/unit/intellisense/index.test.ts [2m([22m[2m35 tests[22m[2m)[22m[33m 2364[2mms[22m[39m
+   [33m[2m✓[22m[39m IntelliSense Module[2m > [22mIntegration[2m > [22mshould validate utility classes [33m390[2mms[22m[39m
+   [33m[2m✓[22m[39m IntelliSense Module[2m > [22mFactory Functions[2m > [22mshould create custom VS Code provider [33m620[2mms[22m[39m
+ [32m✓[39m tests/unit/build/remix.test.ts [2m([22m[2m34 tests[22m[2m)[22m[33m 510[2mms[22m[39m
+ [32m✓[39m tests/unit/utils/string.test.ts [2m([22m[2m55 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/modal.test.ts [2m([22m[2m34 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/list-style.test.ts [2m([22m[2m27 tests[22m[2m)[22m[90m 26[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/optional/animations.test.ts [2m([22m[2m35 tests[22m[2m)[22m[90m 72[2mms[22m[39m
+ [32m✓[39m tests/unit/build/astro.test.ts [2m([22m[2m22 tests[22m[2m)[22m[33m 1359[2mms[22m[39m
+ [32m✓[39m tests/unit/storybook/addon.test.ts [2m([22m[2m33 tests[22m[2m)[22m[90m 27[2mms[22m[39m
+ [32m✓[39m tests/unit/react/utils.test.ts [2m([22m[2m33 tests[22m[2m)[22m[90m 18[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/variants/pseudo.test.ts [2m([22m[2m81 tests[22m[2m)[22m[33m 13502[2mms[22m[39m
+   [33m[2m✓[22m[39m Pseudo Variants Plugin[2m > [22mBasic Pseudo-classes[2m > [22mshould generate focus variant [33m415[2mms[22m[39m
+   [33m[2m✓[22m[39m Pseudo Variants Plugin[2m > [22mBasic Pseudo-classes[2m > [22mshould generate focus-within variant [33m340[2mms[22m[39m
+ [32m✓[39m tests/unit/build/parcel.test.ts [2m([22m[2m33 tests[22m[2m)[22m[33m 3993[2mms[22m[39m
+   [33m[2m✓[22m[39m Build Parcel[2m > [22mcoralParcelPlugin[2m > [22mshould return plugin objects [33m635[2mms[22m[39m
+   [33m[2m✓[22m[39m Build Parcel[2m > [22mcoralParcelPlugin[2m > [22mshould accept custom options [33m309[2mms[22m[39m
+ [32m✓[39m tests/unit/core/matcher.test.ts [2m([22m[2m26 tests[22m[2m)[22m[90m 26[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/interpolation.test.ts [2m([22m[2m23 tests[22m[2m)[22m[90m 39[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/optional/typography.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/appearance.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m tests/unit/exports.test.ts [2m([22m[2m25 tests[22m[2m)[22m[90m 39[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/scroll-behavior.test.ts [2m([22m[2m23 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/material.test.ts [2m([22m[2m31 tests[22m[2m)[22m[33m 1070[2mms[22m[39m
+   [33m[2m✓[22m[39m Material Design Preset[2m > [22mmaterialPreset[2m > [22mshould generate CSS with Material utilities [33m333[2mms[22m[39m
+ [32m✓[39m tests/unit/cva/cva.test.ts [2m([22m[2m19 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/accessibility.test.ts [2m([22m[2m32 tests[22m[2m)[22m[90m 39[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/cupertino.test.ts [2m([22m[2m29 tests[22m[2m)[22m[33m 1067[2mms[22m[39m
+   [33m[2m✓[22m[39m Cupertino Preset[2m > [22mcupertinoPreset[2m > [22mshould work with createCoral [33m329[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/alert.test.ts [2m([22m[2m33 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/github.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 1641[2mms[22m[39m
+   [33m[2m✓[22m[39m GitHub Theme Preset[2m > [22mgithubPreset[2m > [22mshould enable color blind mode when option is true [33m618[2mms[22m[39m
+   [33m[2m✓[22m[39m GitHub Theme Preset[2m > [22mgithubPreset[2m > [22mshould enable reduced motion when option is true [33m440[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/accent-color.test.ts [2m([22m[2m24 tests[22m[2m)[22m[90m 100[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/catppuccin.test.ts [2m([22m[2m28 tests[22m[2m)[22m[33m 514[2mms[22m[39m
+ [32m✓[39m tests/unit/build/nuxt.test.ts [2m([22m[2m28 tests[22m[2m)[22m[33m 832[2mms[22m[39m
+   [33m[2m✓[22m[39m Build Nuxt[2m > [22mdefineCoralModule[2m > [22mshould register vite plugin in setup [33m391[2mms[22m[39m
+ [32m✓[39m tests/unit/utils.test.ts [2m([22m[2m35 tests[22m[2m)[22m[90m 26[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/button.test.ts [2m([22m[2m27 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [32m✓[39m tests/unit/core/index.test.ts [2m([22m[2m43 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/enhanced-light.test.ts [2m([22m[2m22 tests[22m[2m)[22m[33m 912[2mms[22m[39m
+ [32m✓[39m tests/unit/intellisense/vscode.test.ts [2m([22m[2m44 tests[22m[2m)[22m[33m 1652[2mms[22m[39m
+   [33m[2m✓[22m[39m VS Code Provider[2m > [22mcreateVSCodeProvider[2m > [22mshould create a VS Code provider [33m366[2mms[22m[39m
+ [32m✓[39m tests/unit/build/vite.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 2333[2mms[22m[39m
+   [33m[2m✓[22m[39m Vite Plugin[2m > [22mconfigResolved hook[2m > [22mshould handle development mode [33m316[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/dracula.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 1216[2mms[22m[39m
+   [33m[2m✓[22m[39m Dracula Theme Preset[2m > [22mdraculaPreset[2m > [22mshould apply bold accent colors when boldAccents is true [33m308[2mms[22m[39m
+ [32m✓[39m tests/unit/build/index.test.ts [2m([22m[2m26 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m tests/integration/presets.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 2460[2mms[22m[39m
+   [33m[2m✓[22m[39m Presets Integration[2m > [22mcoralPreset[2m > [22mshould generate layout utilities [33m427[2mms[22m[39m
+ [32m✓[39m tests/unit/theme/css.test.ts [2m([22m[2m33 tests[22m[2m)[22m[90m 25[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/avatar.test.ts [2m([22m[2m26 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/extras.test.ts [2m([22m[2m19 tests[22m[2m)[22m[90m 32[2mms[22m[39m
+ [32m✓[39m tests/unit/solid/utils.test.ts [2m([22m[2m29 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/layout.test.ts [2m([22m[2m39 tests[22m[2m)[22m[33m 427[2mms[22m[39m
+ [32m✓[39m tests/unit/svelte/utils.test.ts [2m([22m[2m28 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/badge.test.ts [2m([22m[2m26 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/motion-path.test.ts [2m([22m[2m18 tests[22m[2m)[22m[90m 29[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/variants/responsive.test.ts [2m([22m[2m26 tests[22m[2m)[22m[90m 287[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/variants/modern.test.ts [2m([22m[2m107 tests[22m[2m)[22m[33m 17745[2mms[22m[39m
+   [33m[2m✓[22m[39m Modern Variants Plugin[2m > [22mContainer Query Variants[2m > [22mshould generate @sm container query [33m303[2mms[22m[39m
+   [33m[2m✓[22m[39m Modern Variants Plugin[2m > [22mARIA State Variants[2m > [22mshould generate aria-selected variant [33m774[2mms[22m[39m
+   [33m[2m✓[22m[39m Modern Variants Plugin[2m > [22mDirect Plugin Handlers (without coralPreset interference)[2m > [22mARIA State Handlers[2m > [22mshould apply aria-pressed handler [33m309[2mms[22m[39m
+ [32m✓[39m tests/unit/angular/utils.test.ts [2m([22m[2m27 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m tests/unit/cva/utils.test.ts [2m([22m[2m46 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m tests/unit/angular/pipe.test.ts [2m([22m[2m30 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/tabs.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m tests/unit/theme/spacing.test.ts [2m([22m[2m30 tests[22m[2m)[22m[90m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/index.test.ts [2m([22m[2m31 tests[22m[2m)[22m[90m 35[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/focus-management.test.ts [2m([22m[2m17 tests[22m[2m)[22m[90m 33[2mms[22m[39m
+ [32m✓[39m tests/unit/preact/utils.test.ts [2m([22m[2m26 tests[22m[2m)[22m[90m 14[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/object-fit.test.ts [2m([22m[2m18 tests[22m[2m)[22m[90m 22[2mms[22m[39m
+ [32m✓[39m tests/unit/ui-kit/index.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 19[2mms[22m[39m
+ [32m✓[39m tests/unit/tokens/index.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 16[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/line-clamp.test.ts [2m([22m[2m15 tests[22m[2m)[22m[90m 21[2mms[22m[39m
+ [32m✓[39m tests/unit/build/nextjs.test.ts [2m([22m[2m28 tests[22m[2m)[22m[33m 1336[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/variants/dark.test.ts [2m([22m[2m15 tests[22m[2m)[22m[90m 204[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/utilities/aspect-ratio.test.ts [2m([22m[2m16 tests[22m[2m)[22m[90m 24[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/coral.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 1186[2mms[22m[39m
+   [33m[2m✓[22m[39m Coral Preset[2m > [22mcoralPreset[2m > [22mshould generate CSS with coral utilities [33m340[2mms[22m[39m
+ [32m✓[39m tests/unit/generator.test.ts [2m([22m[2m11 tests[22m[2m)[22m[90m 12[2mms[22m[39m
+ [32m✓[39m tests/unit/build/webpack.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 671[2mms[22m[39m
+   [33m[2m✓[22m[39m Build Webpack[2m > [22mcoralLoader[2m > [22mshould call async callback [33m417[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/nord.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 867[2mms[22m[39m
+   [33m[2m✓[22m[39m Nord Theme Preset[2m > [22mnordPreset[2m > [22mshould generate CSS with Nord utilities [33m543[2mms[22m[39m
+ [32m✓[39m tests/unit/parser.test.ts [2m([22m[2m19 tests[22m[2m)[22m[90m 15[2mms[22m[39m
+ [32m✓[39m tests/unit/tokens/ref.test.ts [2m([22m[2m6 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mCSS Generation Performance[2m > [22m[2mshould generate CSS for single utility class quickly
+[22m[39m[Performance] Single utility class generation:
+  - 93955 ops/sec
+  - 0.0106ms avg
+  - 106.43ms total (10000 iterations)
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mCSS Generation Performance[2m > [22m[2mshould generate CSS for 10 utility classes efficiently
+[22m[39m[Performance] 10 utility classes generation:
+  - 21208 ops/sec
+  - 0.0472ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mCSS Generation Performance[2m > [22m[2mshould generate CSS for 50 utility classes efficiently
+[22m[39m[Performance] 50 utility classes generation:
+  - 3275 ops/sec
+  - 0.3054ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mCSS Generation Performance[2m > [22m[2mshould generate CSS for 100 utility classes efficiently
+[22m[39m[Performance] 100 utility classes generation:
+  - 2857 ops/sec
+  - 0.3500ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mCache Performance[2m > [22m[2mshould use cached results efficiently
+[22m[39m[Performance] Cache Performance:
+  - First run (cache miss): 0.8569ms avg
+  - Second run (cache hit): 0.0172ms avg
+  - Cache speedup: 49.87x
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mCache Performance[2m > [22m[2mshould handle cache eviction under load
+[22m[39m[Performance] Cache Eviction Test (500 iterations):
+  - Total time: 6387.15ms
+  - Avg time: 12.7743ms
+  - Ops/sec: 78
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mVariant Performance[2m > [22m[2mshould handle hover variants efficiently
+[22m[39m[Performance] Hover variants generation:
+  - 28469 ops/sec
+  - 0.0351ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mVariant Performance[2m > [22m[2mshould handle responsive variants efficiently
+[22m[39m[Performance] Responsive variants generation:
+  - 69479 ops/sec
+  - 0.0144ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mVariant Performance[2m > [22m[2mshould handle dark mode variants efficiently
+[22m[39m[Performance] Dark mode variants generation:
+  - 20933 ops/sec
+  - 0.0478ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mMemory Performance[2m > [22m[2mshould maintain stable memory usage over time
+[22m[39m[Performance] Memory Usage (1000 iterations):
+  - Memory delta: 3.09MB
+  - Per iteration: 3.17KB
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mReal-World Scenarios[2m > [22m[2mshould handle a typical button component efficiently
+[22m[39m[Performance] Button component generation:
+  - 27219 ops/sec
+  - 0.0367ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mReal-World Scenarios[2m > [22m[2mshould handle a typical card component efficiently
+[22m[39m[Performance] Card component generation:
+  - 30406 ops/sec
+  - 0.0329ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mReal-World Scenarios[2m > [22m[2mshould handle a complex layout efficiently
+[22m[39m[Performance] Complex layout generation:
+  - 16410 ops/sec
+  - 0.0609ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mReal-World Scenarios[2m > [22m[2mshould handle a navigation bar efficiently
+[22m[39m[Performance] Navigation bar generation:
+  - 14929 ops/sec
+  - 0.0670ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mPlugin System Performance[2m > [22m[2mshould handle plugins with many rules efficiently
+[22m[39m[Performance] Complex plugin usage:
+  - 3061 ops/sec
+  - 0.3267ms avg
+
+[90mstdout[2m | tests/benchmarks/performance.test.ts[2m > [22m[2mPerformance Benchmarks[2m > [22m[2mComparison Metrics[2m > [22m[2mshould generate comprehensive performance report
+[22m[39m
+=================================
+  CoralCSS Performance Report
+=================================
+
+Small component (5 classes):
+  Ops/sec:          60625
+  Avg time:    0.0165ms
+  Total time:  164.95ms (10000 iters)
+
+Medium component (20 classes):
+  Ops/sec:          26687
+  Avg time:    0.0375ms
+  Total time:  187.36ms (5000 iters)
+
+Large component (50 classes):
+  Ops/sec:          11425
+  Avg time:    0.0875ms
+  Total time:  87.52ms (1000 iters)
+
+With variants (20 classes, 3 variants):
+  Ops/sec:          24899
+  Avg time:    0.0402ms
+  Total time:  40.16ms (1000 iters)
+
+Complex (50 classes, 5 variants):
+  Ops/sec:          13137
+  Avg time:    0.0761ms
+  Total time:  38.06ms (500 iters)
+
+=================================
+Average Ops/sec: 27355
+=================================
+
+
+ [32m✓[39m tests/benchmarks/performance.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 11880[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mCSS Generation Performance[2m > [22mshould generate CSS for single utility class quickly [33m550[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mCSS Generation Performance[2m > [22mshould generate CSS for 10 utility classes efficiently [33m391[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mCSS Generation Performance[2m > [22mshould generate CSS for 50 utility classes efficiently [33m442[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mCSS Generation Performance[2m > [22mshould generate CSS for 100 utility classes efficiently [33m312[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mCache Performance[2m > [22mshould handle cache eviction under load [33m6693[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mReal-World Scenarios[2m > [22mshould handle a typical button component efficiently [33m311[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mReal-World Scenarios[2m > [22mshould handle a navigation bar efficiently [33m330[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mPlugin System Performance[2m > [22mshould handle plugins with many rules efficiently [33m362[2mms[22m[39m
+   [33m[2m✓[22m[39m Performance Benchmarks[2m > [22mComparison Metrics[2m > [22mshould generate comprehensive performance report [33m922[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/spacing.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 320[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/optional/forms.test.ts [2m([22m[2m6 tests[22m[2m)[22m[90m 8[2mms[22m[39m
+ [32m✓[39m tests/integration/build.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 697[2mms[22m[39m
+   [33m[2m✓[22m[39m Build Integration[2m > [22mRuntime[2m > [22mshould export runtime modules [33m366[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/mini.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 2025[2mms[22m[39m
+   [33m[2m✓[22m[39m Mini Preset[2m > [22mminiPreset[2m > [22mshould generate sizing utilities [33m410[2mms[22m[39m
+   [33m[2m✓[22m[39m Mini Preset[2m > [22mminiPreset[2m > [22mshould generate layout utilities [33m401[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/wind.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 2082[2mms[22m[39m
+   [33m[2m✓[22m[39m Wind Preset[2m > [22mwindPreset[2m > [22mshould work with createCoral [33m397[2mms[22m[39m
+   [33m[2m✓[22m[39m Wind Preset[2m > [22mwindPreset[2m > [22mshould generate CSS with Tailwind-compatible utilities [33m409[2mms[22m[39m
+   [33m[2m✓[22m[39m Wind Preset[2m > [22mwindPreset[2m > [22mshould generate flexbox utilities [33m319[2mms[22m[39m
+ [32m✓[39m tests/unit/presets/full.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 2729[2mms[22m[39m
+   [33m[2m✓[22m[39m Full Preset[2m > [22mfullPreset[2m > [22mshould work with createCoral [33m308[2mms[22m[39m
+   [33m[2m✓[22m[39m Full Preset[2m > [22mfullPreset[2m > [22mshould generate CSS with full utilities [33m450[2mms[22m[39m
+   [33m[2m✓[22m[39m Full Preset[2m > [22mIntegration[2m > [22mshould support transform utilities [33m601[2mms[22m[39m
+   [33m[2m✓[22m[39m Full Preset[2m > [22mIntegration[2m > [22mshould support transition utilities [33m377[2mms[22m[39m
+ [32m✓[39m tests/unit/build/rollup.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 2674[2mms[22m[39m
+   [33m[2m✓[22m[39m Build Rollup[2m > [22mcoralRollupPlugin[2m > [22mshould create a plugin with name [33m569[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/variants.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 2013[2mms[22m[39m
+ [32m✓[39m tests/unit/components/segmented-control.test.ts [2m([22m[2m70 tests[22m[2m)[22m[33m 339[2mms[22m[39m
+ [32m✓[39m tests/unit/components/kanban.test.ts [2m([22m[2m60 tests[22m[2m)[22m[90m 195[2mms[22m[39m
+ [32m✓[39m tests/unit/utils/dom.test.ts [2m([22m[2m84 tests[22m[2m)[22m[33m 560[2mms[22m[39m
+   [33m[2m✓[22m[39m DOM Utilities[2m > [22mgetComputedStyleValue[2m > [22mshould return computed style value [33m317[2mms[22m[39m
+ [32m✓[39m tests/unit/components/ai-chat.test.ts [2m([22m[2m60 tests[22m[2m)[22m[33m 547[2mms[22m[39m
+ [32m✓[39m tests/unit/components/terminal.test.ts [2m([22m[2m65 tests[22m[2m)[22m[90m 216[2mms[22m[39m
+ [32m✓[39m tests/unit/components/button.test.ts [2m([22m[2m54 tests[22m[2m)[22m[33m 588[2mms[22m[39m
+ [32m✓[39m tests/unit/components/switch.test.ts [2m([22m[2m38 tests[22m[2m)[22m[90m 156[2mms[22m[39m
+ [32m✓[39m tests/unit/components/tooltip.test.ts [2m([22m[2m33 tests[22m[2m)[22m[90m 216[2mms[22m[39m
+ [32m✓[39m tests/unit/components/countdown.test.ts [2m([22m[2m44 tests[22m[2m)[22m[33m 325[2mms[22m[39m
+ [32m✓[39m tests/unit/components/time-picker.test.ts [2m([22m[2m94 tests[22m[2m)[22m[33m 2515[2mms[22m[39m
+ [32m✓[39m tests/unit/components/transfer.test.ts [2m([22m[2m42 tests[22m[2m)[22m[33m 661[2mms[22m[39m
+ [32m✓[39m tests/unit/components/qrcode.test.ts [2m([22m[2m97 tests[22m[2m)[22m[33m 2942[2mms[22m[39m
+ [32m✓[39m tests/unit/devtools/inspector.test.ts [2m([22m[2m74 tests[22m[2m)[22m[33m 2185[2mms[22m[39m
+ [32m✓[39m tests/unit/components/toast.test.ts [2m([22m[2m38 tests[22m[2m)[22m[90m 192[2mms[22m[39m
+ [32m✓[39m tests/unit/testing/matchers.test.ts [2m([22m[2m47 tests[22m[2m)[22m[90m 38[2mms[22m[39m
+ [32m✓[39m tests/unit/components/accordion.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 361[2mms[22m[39m
+[90mstderr[2m | tests/unit/playground/index.test.ts[2m > [22m[2mPlayground[2m > [22m[2mpreview rendering[2m > [22m[2mshould escape HTML in code output
+[22m[39mNot implemented: Window's alert() method
+
+ [32m✓[39m tests/unit/playground/index.test.ts [2m([22m[2m44 tests[22m[2m)[22m[33m 4583[2mms[22m[39m
+   [33m[2m✓[22m[39m Playground[2m > [22mCoralPlayground[2m > [22mconstructor[2m > [22mshould create playground with HTMLElement container [33m338[2mms[22m[39m
+ [32m✓[39m tests/unit/storybook/theme.test.ts [2m([22m[2m37 tests[22m[2m)[22m[90m 70[2mms[22m[39m
+ [32m✓[39m tests/unit/components/input.test.ts [2m([22m[2m20 tests[22m[2m)[22m[90m 122[2mms[22m[39m
+ [32m✓[39m tests/unit/runtime/observer.test.ts [2m([22m[2m24 tests[22m[2m)[22m[90m 108[2mms[22m[39m
+ [32m✓[39m tests/unit/runtime/injector.test.ts [2m([22m[2m36 tests[22m[2m)[22m[90m 142[2mms[22m[39m
+ [32m✓[39m tests/unit/testing/spy.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 958[2mms[22m[39m
+ [32m✓[39m tests/unit/components/base.test.ts [2m([22m[2m32 tests[22m[2m)[22m[90m 242[2mms[22m[39m
+ [32m✓[39m tests/unit/components/all-components.test.ts [2m([22m[2m131 tests[22m[2m)[22m[33m 535[2mms[22m[39m
+ [32m✓[39m tests/unit/components/tabs.test.ts [2m([22m[2m15 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m tests/unit/vue/plugin.test.ts [2m([22m[2m28 tests[22m[2m)[22m[90m 134[2mms[22m[39m
+ [32m✓[39m tests/unit/components/dropdown.test.ts [2m([22m[2m11 tests[22m[2m)[22m[90m 13[2mms[22m[39m
+ [32m✓[39m tests/unit/angular/service.test.ts [2m([22m[2m29 tests[22m[2m)[22m[90m 45[2mms[22m[39m
+ [32m✓[39m tests/unit/storybook/preview.test.ts [2m([22m[2m29 tests[22m[2m)[22m[90m 16[2mms[22m[39m
+ [32m✓[39m tests/unit/angular/module.test.ts [2m([22m[2m21 tests[22m[2m)[22m[90m 30[2mms[22m[39m
+ [32m✓[39m tests/unit/storybook/decorator.test.ts [2m([22m[2m33 tests[22m[2m)[22m[90m 133[2mms[22m[39m
+ [32m✓[39m tests/unit/testing/helpers.test.ts [2m([22m[2m34 tests[22m[2m)[22m[90m 115[2mms[22m[39m
+ [32m✓[39m tests/unit/vue/composables.test.ts [2m([22m[2m60 tests[22m[2m)[22m[90m 163[2mms[22m[39m
+ [32m✓[39m tests/unit/components/dialog.test.ts [2m([22m[2m8 tests[22m[2m)[22m[90m 11[2mms[22m[39m
+ [32m✓[39m tests/unit/testing/render.test.ts [2m([22m[2m19 tests[22m[2m)[22m[90m 171[2mms[22m[39m
+ [32m✓[39m tests/unit/testing/mock.test.ts [2m([22m[2m24 tests[22m[2m)[22m[90m 19[2mms[22m[39m
+ [32m✓[39m tests/unit/angular/directive.test.ts [2m([22m[2m16 tests[22m[2m)[22m[90m 39[2mms[22m[39m
+ [32m✓[39m tests/unit/svelte/store.test.ts [2m([22m[2m20 tests[22m[2m)[22m[90m 32[2mms[22m[39m
+ [32m✓[39m tests/unit/runtime/cdn.test.ts [2m([22m[2m37 tests[22m[2m)[22m[33m 3223[2mms[22m[39m
+ [32m✓[39m tests/unit/plugins/core/variants/state.test.ts [2m([22m[2m263 tests[22m[2m)[22m[33m 39320[2mms[22m[39m
+   [33m[2m✓[22m[39m State Variants Plugin[2m > [22mData Attribute Variants[2m > [22mdata-swipe variants[2m > [22mshould generate data-swipe-start variant [33m301[2mms[22m[39m
+   [33m[2m✓[22m[39m State Variants Plugin[2m > [22mPeer Data Variants[2m > [22mshould generate peer-data-checked variant [33m408[2mms[22m[39m
+ [32m✓[39m tests/unit/vue/directives.test.ts [2m([22m[2m52 tests[22m[2m)[22m[33m 5284[2mms[22m[39m
+   [33m[2m✓[22m[39m Vue Directives[2m > [22mStyle element creation and CSS injection[2m > [22mshould apply classes from fresh module [33m1296[2mms[22m[39m
+   [33m[2m✓[22m[39m Vue Directives[2m > [22mStyle element creation and CSS injection[2m > [22mshould apply classes from multiple directive uses [33m817[2mms[22m[39m
+   [33m[2m✓[22m[39m Vue Directives[2m > [22mStyle element creation and CSS injection[2m > [22mshould apply same classes to multiple elements [33m603[2mms[22m[39m
+   [33m[2m✓[22m[39m Vue Directives[2m > [22mStyle element creation and CSS injection[2m > [22mshould apply different classes to multiple elements [33m487[2mms[22m[39m
+   [33m[2m✓[22m[39m Vue Directives[2m > [22mvCoralHover CSS injection[2m > [22mshould apply classes with hover directive [33m450[2mms[22m[39m
+   [33m[2m✓[22m[39m Vue Directives[2m > [22mvCoralFocus CSS injection[2m > [22mshould apply classes with focus directive [33m484[2mms[22m[39m
+   [33m[2m✓[22m[39m Vue Directives[2m > [22mvCoralActive CSS injection[2m > [22mshould apply classes with active directive [33m471[2mms[22m[39m
+   [33m[2m✓[22m[39m Vue Directives[2m > [22mShared Coral instance[2m > [22mshould use shared coral instance across directives [33m549[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m225 passed[39m[22m[90m (225)[39m
+[2m      Tests [22m [1m[32m11033 passed[39m[22m[90m (11033)[39m
+[2m   Start at [22m 10:19:09
+[2m   Duration [22m 54.08s[2m (transform 84.89s, setup 4.89s, collect 221.45s, tests 218.29s, environment 125.84s, prepare 69.26s)[22m
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   97.84 |    94.56 |   93.96 |   97.84 |                   
+ src               |   97.98 |    98.15 |   95.38 |   97.98 |                   
+  errors.ts        |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  kernel.ts        |   96.96 |    97.72 |   91.66 |   96.96 | ...04-605,618-619 
+ src/angular       |   98.18 |    91.89 |   97.36 |   98.18 |                   
+  directive.ts     |     100 |      100 |     100 |     100 |                   
+  module.ts        |     100 |      100 |    90.9 |     100 |                   
+  pipe.ts          |     100 |      100 |     100 |     100 |                   
+  service.ts       |   97.11 |    89.74 |     100 |   97.11 | 114-116           
+  utils.ts         |   96.59 |    88.09 |     100 |   96.59 | 167-169           
+ src/build         |     100 |      100 |     100 |     100 |                   
+  esbuild.ts       |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  postcss.ts       |     100 |      100 |     100 |     100 |                   
+ src/components    |   96.62 |    86.57 |   98.32 |   96.62 |                   
+  ai-chat.ts       |   91.75 |    76.99 |     100 |   91.75 | ...59-762,766-767 
+  base.ts          |   96.25 |    88.23 |   96.42 |   96.25 | 174-180           
+  countdown.ts     |   99.26 |    81.01 |     100 |   99.26 | 381-382           
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  kanban.ts        |   92.32 |    80.67 |     100 |   92.32 | ...76,703,739-740 
+  qrcode.ts        |   92.83 |    85.86 |   83.33 |   92.83 | ...11-212,431-432 
+  ...ed-control.ts |   99.54 |    92.13 |     100 |   99.54 | 155               
+  switch.ts        |     100 |    89.74 |     100 |     100 | 78-79,110,152     
+  terminal.ts      |   95.51 |     96.7 |     100 |   95.51 | 121-141,146       
+  time-picker.ts   |     100 |       90 |     100 |     100 | ...55,241-242,360 
+  toast.ts         |   99.44 |    92.15 |     100 |   99.44 | 134               
+  tooltip.ts       |     100 |    88.88 |     100 |     100 | ...04,209,225,230 
+  transfer.ts      |   99.04 |    85.39 |     100 |   99.04 | 195-197           
+ src/config        |   97.82 |    93.56 |     100 |   97.82 |                   
+  css-config.ts    |   97.67 |    97.67 |     100 |   97.67 | 128-129           
+  css-parser.ts    |   98.96 |    91.78 |     100 |   98.96 | 249,264           
+  ...eme-parser.ts |   97.05 |    93.02 |     100 |   97.05 | ...67-168,177-178 
+  index.ts         |     100 |      100 |     100 |     100 |                   
+ src/core          |   91.23 |     91.7 |   96.01 |   91.23 |                   
+  cache.ts         |     100 |      100 |     100 |     100 |                   
+  extractor.ts     |     100 |    91.66 |     100 |     100 | 110,142,290       
+  fallbacks.ts     |   96.19 |     98.3 |    90.9 |   96.19 | 72-76,207-208     
+  generator.ts     |   98.72 |    94.63 |     100 |   98.72 | ...99,301-302,525 
+  hybrid-cache.ts  |   96.06 |    93.33 |   97.91 |   96.06 | ...34-535,550-552 
+  incremental.ts   |     100 |    96.66 |     100 |     100 | 271,278,384       
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  matcher.ts       |     100 |    94.64 |     100 |     100 | 112,246           
+  parser-cache.ts  |     100 |      100 |     100 |     100 |                   
+  parser.ts        |     100 |    96.96 |     100 |     100 | 149,197           
+  ...-optimizer.ts |   97.26 |    94.18 |     100 |   97.26 | ...89-291,450-452 
+  transformer.ts   |     100 |      100 |     100 |     100 |                   
+  tree-shake.ts    |     100 |      100 |     100 |     100 |                   
+  turbo-adapter.ts |   48.45 |    39.47 |    92.3 |   48.45 | ...13-318,330-334 
+  worker.ts        |   66.88 |    72.22 |   76.92 |   66.88 | ...12-913,966-967 
+ src/cva           |   99.65 |    98.18 |     100 |   99.65 |                   
+  compose.ts       |   98.49 |    93.93 |     100 |   98.49 | 161-162           
+  cva.ts           |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  recipes.ts       |     100 |      100 |     100 |     100 |                   
+  utils.ts         |     100 |      100 |     100 |     100 |                   
+ src/design-system |   98.29 |    90.59 |   89.43 |   98.29 |                   
+  cli.ts           |   97.87 |    94.44 |     100 |   97.87 | 167-171,334       
+  coral-tokens.ts  |     100 |      100 |     100 |     100 |                   
+  figma-tokens.ts  |    99.8 |    91.37 |     100 |    99.8 | 457               
+  platforms.ts     |     100 |      100 |     100 |     100 |                   
+  ...dictionary.ts |   96.59 |    90.57 |   88.88 |   96.59 | ...63,508,646-652 
+  ...transforms.ts |   95.59 |    82.14 |   74.35 |   95.59 | ...24,315,584-585 
+  validators.ts    |   99.06 |    93.57 |     100 |   99.06 | 92,351-352        
+ src/devtools      |     100 |    93.67 |   81.81 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  inspector.ts     |     100 |    93.67 |   81.81 |     100 | ...25,690,735,738 
+ src/playground    |   98.73 |    93.13 |     100 |   98.73 |                   
+  index.ts         |   98.73 |    93.13 |     100 |   98.73 | 204-205,397-398   
+ src/plugins       |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+ src/plugins/core  |   99.06 |      100 |   98.07 |   99.06 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  modern.ts        |   99.05 |      100 |   98.03 |   99.05 | 13-20             
+ ...core/utilities |   98.03 |    99.78 |   84.97 |   98.03 |                   
+  accent-color.ts  |    92.3 |      100 |   66.66 |    92.3 | 85-88             
+  accessibility.ts |     100 |      100 |     100 |     100 |                   
+  ...ive-colors.ts |   98.62 |      100 |   97.29 |   98.62 | 144-147           
+  ...animations.ts |   97.81 |      100 |   93.33 |   97.81 | 207-208,215-216   
+  ...ed-effects.ts |   93.09 |      100 |   28.57 |   93.09 | ...84-389,924-932 
+  appearance.ts    |     100 |      100 |     100 |     100 |                   
+  aspect-ratio.ts  |   93.07 |      100 |      60 |   93.07 | 214-218,225-228   
+  backgrounds.ts   |   93.92 |      100 |   72.72 |   93.92 | ...52-256,263-266 
+  blending.ts      |     100 |      100 |     100 |     100 |                   
+  borders.ts       |     100 |      100 |      64 |     100 |                   
+  caret-place.ts   |     100 |      100 |     100 |     100 |                   
+  colors.ts        |   96.33 |     98.7 |    91.3 |   96.33 | ...1331,1346-1354 
+  columns.ts       |     100 |      100 |     100 |     100 |                   
+  effects.ts       |   96.65 |      100 |   92.85 |   96.65 | 116-125           
+  extras.ts        |     100 |      100 |     100 |     100 |                   
+  filters.ts       |     100 |      100 |     100 |     100 |                   
+  flexbox.ts       |     100 |      100 |     100 |     100 |                   
+  ...management.ts |     100 |      100 |     100 |     100 |                   
+  forms.ts         |     100 |      100 |     100 |     100 |                   
+  ...s-advanced.ts |    93.9 |      100 |      40 |    93.9 | ...03-406,413-421 
+  gradients.ts     |     100 |      100 |     100 |     100 |                   
+  grid.ts          |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  interactive.ts   |   97.24 |      100 |   11.76 |   97.24 | ...01-304,322-325 
+  interactivity.ts |   94.78 |      100 |   55.55 |   94.78 | ...60-363,422-425 
+  interpolation.ts |     100 |      100 |     100 |     100 |                   
+  keyframes.ts     |     100 |      100 |     100 |     100 |                   
+  layers.ts        |     100 |      100 |   76.92 |     100 |                   
+  layout.ts        |   98.11 |      100 |      25 |   98.11 | ...55-358,386-389 
+  line-clamp.ts    |     100 |      100 |     100 |     100 |                   
+  list-style.ts    |     100 |      100 |     100 |     100 |                   
+  ...properties.ts |   97.97 |      100 |      50 |   97.97 | 191-194,199-202   
+  masks.ts         |   96.09 |      100 |    87.5 |   96.09 | 262-271           
+  motion-path.ts   |   96.89 |      100 |   88.88 |   96.89 | 211-216           
+  object-fit.ts    |   95.12 |      100 |   66.66 |   95.12 | 123-126           
+  patterns.ts      |     100 |      100 |     100 |     100 |                   
+  performance.ts   |   95.67 |      100 |   71.42 |   95.67 | 97-100,110-113    
+  positioning.ts   |     100 |      100 |     100 |     100 |                   
+  print.ts         |     100 |      100 |   66.66 |     100 |                   
+  ...l-behavior.ts |     100 |      100 |     100 |     100 |                   
+  scroll-driven.ts |     100 |      100 |     100 |     100 |                   
+  scroll-snap.ts   |     100 |      100 |     100 |     100 |                   
+  scrollbar.ts     |     100 |      100 |     100 |     100 |                   
+  sizing.ts        |     100 |      100 |     100 |     100 |                   
+  smart-grid.ts    |     100 |      100 |     100 |     100 |                   
+  smart-spacing.ts |     100 |      100 |     100 |     100 |                   
+  spacing.ts       |     100 |      100 |      50 |     100 |                   
+  svg.ts           |   96.96 |      100 |   85.71 |   96.96 | 114-117           
+  tables.ts        |     100 |      100 |     100 |     100 |                   
+  ...decoration.ts |   94.52 |      100 |      50 |   94.52 | 122-125,144-147   
+  text-shadows.ts  |   83.69 |      100 |      90 |   83.69 | 116-139,170-180   
+  transforms-3d.ts |     100 |      100 |     100 |     100 |                   
+  transforms.ts    |     100 |      100 |     100 |     100 |                   
+  transitions.ts   |    99.6 |      100 |   76.92 |    99.6 | 114-115           
+  ...y-advanced.ts |     100 |      100 |     100 |     100 |                   
+  typography.ts    |     100 |    98.48 |   84.37 |     100 | 34                
+ .../core/variants |     100 |    99.83 |   97.42 |     100 |                   
+  dark.ts          |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  modern.ts        |     100 |      100 |    97.7 |     100 |                   
+  pointer.ts       |     100 |      100 |     100 |     100 |                   
+  pseudo.ts        |     100 |      100 |   82.35 |     100 |                   
+  responsive.ts    |     100 |    96.29 |     100 |     100 | 49                
+  state.ts         |     100 |      100 |     100 |     100 |                   
+ ...ugins/optional |   99.05 |     95.6 |   79.31 |   99.05 |                   
+  animations.ts    |   97.27 |      100 |    62.5 |   97.27 | ...41-544,551-554 
+  attributify.ts   |   99.38 |    97.61 |      80 |   99.38 | 499-500           
+  forms.ts         |   98.74 |      100 |      50 |   98.74 | 552-555,804-807   
+  icons.ts         |     100 |     87.5 |     100 |     100 | 423,458,484       
+  typography.ts    |     100 |      100 |     100 |     100 |                   
+ src/presets       |   99.81 |    96.92 |     100 |   99.81 |                   
+  catppuccin.ts    |   99.18 |     92.3 |     100 |   99.18 | 331-332           
+  coral.ts         |     100 |      100 |     100 |     100 |                   
+  cupertino.ts     |     100 |    88.88 |     100 |     100 | 195               
+  dracula.ts       |     100 |      100 |     100 |     100 |                   
+  ...nced-light.ts |     100 |      100 |     100 |     100 |                   
+  full.ts          |     100 |      100 |     100 |     100 |                   
+  github.ts        |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  material.ts      |     100 |      100 |     100 |     100 |                   
+  mini.ts          |     100 |      100 |     100 |     100 |                   
+  nord.ts          |     100 |      100 |     100 |     100 |                   
+  wind.ts          |     100 |      100 |     100 |     100 |                   
+ src/runtime       |   97.65 |    94.95 |     100 |   97.65 |                   
+  cdn.ts           |   95.86 |    91.89 |     100 |   95.86 | 227-229,308-310   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  injector.ts      |     100 |      100 |     100 |     100 |                   
+  observer.ts      |   97.41 |    93.47 |     100 |   97.41 | 107-109           
+ src/storybook     |     100 |    98.16 |   95.74 |     100 |                   
+  addon.ts         |     100 |      100 |   88.88 |     100 |                   
+  docs.ts          |     100 |    97.82 |     100 |     100 | 181               
+  manager.ts       |     100 |       96 |     100 |     100 | 284               
+  preview.ts       |     100 |      100 |     100 |     100 |                   
+ src/testing       |   96.48 |    93.72 |     100 |   96.48 |                   
+  helpers.ts       |   95.12 |    93.54 |     100 |   95.12 | ...42-343,367-368 
+  matchers.ts      |     100 |    98.46 |     100 |     100 | 135               
+  mock.ts          |   98.01 |    96.55 |     100 |   98.01 | 109-110           
+  render.ts        |   95.68 |    85.18 |     100 |   95.68 | 93-95,122-123     
+  spy.ts           |   95.48 |    91.66 |     100 |   95.48 | ...24-426,433-435 
+ src/theme         |   98.39 |    84.04 |   97.91 |   98.39 |                   
+  colors.ts        |   99.41 |       75 |     100 |   99.41 | 455-456           
+  css.ts           |    97.5 |     92.3 |     100 |    97.5 | 143,234-238       
+  dark.ts          |     100 |      100 |     100 |     100 |                   
+  default.ts       |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  semantic.ts      |     100 |      100 |     100 |     100 |                   
+  spacing.ts       |     100 |      100 |     100 |     100 |                   
+  tokens.ts        |   96.73 |    65.15 |   93.33 |   96.73 | ...26-727,788-791 
+  typography.ts    |   98.27 |    77.77 |     100 |   98.27 | 167-168           
+ src/tokens        |   99.41 |    96.02 |     100 |   99.41 |                   
+  component.ts     |     100 |      100 |     100 |     100 |                   
+  generator.ts     |   98.27 |    92.64 |     100 |   98.27 | 160-161,192-193   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  primitives.ts    |     100 |      100 |     100 |     100 |                   
+  ref.ts           |     100 |      100 |     100 |     100 |                   
+  resolver.ts      |   97.95 |    97.95 |     100 |   97.95 | 162-163,358-360   
+  semantic.ts      |     100 |      100 |     100 |     100 |                   
+ src/ui-kit        |     100 |    99.69 |     100 |     100 |                   
+  alert.ts         |     100 |      100 |     100 |     100 |                   
+  avatar.ts        |     100 |     92.3 |     100 |     100 | 154               
+  badge.ts         |     100 |      100 |     100 |     100 |                   
+  button.ts        |     100 |      100 |     100 |     100 |                   
+  card.ts          |     100 |      100 |     100 |     100 |                   
+  dropdown.ts      |     100 |      100 |     100 |     100 |                   
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  input.ts         |     100 |      100 |     100 |     100 |                   
+  modal.ts         |     100 |      100 |     100 |     100 |                   
+  progress.ts      |     100 |      100 |     100 |     100 |                   
+  skeleton.ts      |     100 |      100 |     100 |     100 |                   
+  tabs.ts          |     100 |      100 |     100 |     100 |                   
+  toast.ts         |     100 |      100 |     100 |     100 |                   
+  typography.ts    |     100 |      100 |     100 |     100 |                   
+ src/utils         |   98.01 |    95.85 |    98.9 |   98.01 |                   
+  color.ts         |   98.01 |    96.15 |     100 |   98.01 | 217-218,226-227   
+  css.ts           |     100 |    98.55 |     100 |     100 | 91                
+  cva.ts           |     100 |      100 |     100 |     100 |                   
+  dom.ts           |   93.16 |    87.01 |   96.55 |   93.16 | ...65-266,292-293 
+  index.ts         |     100 |      100 |     100 |     100 |                   
+  regex.ts         |     100 |      100 |     100 |     100 |                   
+  string.ts        |     100 |      100 |     100 |     100 |                   
+ src/vue           |   99.29 |    98.25 |     100 |   99.29 |                   
+  composables.ts   |     100 |      100 |     100 |     100 |                   
+  directives.ts    |     100 |      100 |     100 |     100 |                   
+  plugin.ts        |     100 |      100 |     100 |     100 |                   
+  utils.ts         |   96.77 |    93.75 |     100 |   96.77 | 170-172           
+-------------------|---------|----------|---------|---------|-------------------
+ERROR: Coverage for lines (97.84%) does not meet global threshold (100%)
+ERROR: Coverage for functions (93.96%) does not meet global threshold (100%)
+ERROR: Coverage for statements (97.84%) does not meet global threshold (100%)
+ERROR: Coverage for branches (94.56%) does not meet global threshold (100%)

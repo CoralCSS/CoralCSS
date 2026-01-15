@@ -116,7 +116,6 @@ All templates use the CoralCSS directives:
 - [Documentation](https://coralcss.dev/docs)
 - [Playground](https://coralcss.dev/playground)
 - [GitHub Issues](https://github.com/coralcss/core/issues)
-- [Discord Community](https://discord.gg/coralcss)
 
 ## License
 

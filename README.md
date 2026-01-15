@@ -1404,4 +1404,3 @@ MIT © CoralCSS
 - [Documentation](https://coralcss.dev)
 - [GitHub](https://github.com/nicholascostadev/coralcss)
 - [npm](https://www.npmjs.com/package/@coral-css/core)
-- [Discord](https://discord.gg/coralcss)

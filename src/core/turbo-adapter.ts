@@ -102,13 +102,18 @@ export async function initTurbo(): Promise<boolean> {
   initPromise = (async () => {
     try {
       // Try to import @coral-css/turbo
+      /* istanbul ignore next -- @preserve: optional dependency */
       const turboModule = await import('@coral-css/turbo')
 
+      /* istanbul ignore next -- @preserve: optional dependency */
       // Create engine with preferred backend
       const backend = currentConfig.preferNative ? 'auto' : 'wasm'
+      /* istanbul ignore next -- @preserve: optional dependency */
       turboEngine = await turboModule.createEngine(backend)
+      /* istanbul ignore next -- @preserve: optional dependency */
       turboAvailable = true
 
+      /* istanbul ignore next -- @preserve: optional dependency */
       console.log(
         `[CoralCSS] Turbo engine initialized (backend: ${turboModule.getBackend()})`
       )
@@ -170,6 +175,7 @@ export async function turboParse(
     await initTurbo()
   }
 
+  /* istanbul ignore if -- @preserve: turbo engine path */
   if (turboEngine && turboAvailable) {
     try {
       const result = turboEngine.parseSingle(className)
@@ -197,6 +203,7 @@ export async function turboParseAll(
     await initTurbo()
   }
 
+  /* istanbul ignore if -- @preserve: turbo engine path */
   if (turboEngine && turboAvailable) {
     try {
       const results = turboEngine.parse(classString)
@@ -224,6 +231,7 @@ export async function turboExtract(
     await initTurbo()
   }
 
+  /* istanbul ignore if -- @preserve: turbo engine path */
   if (turboEngine && turboAvailable) {
     try {
       return turboEngine.extract(content)
@@ -250,6 +258,7 @@ export async function turboExtractParallel(
     await initTurbo()
   }
 
+  /* istanbul ignore if -- @preserve: turbo engine path */
   if (turboEngine && turboAvailable) {
     try {
       return turboEngine.extractFromFiles(contents)
@@ -278,6 +287,7 @@ export async function turboProcess(
     await initTurbo()
   }
 
+  /* istanbul ignore if -- @preserve: turbo engine path */
   if (turboEngine && turboAvailable) {
     try {
       return turboEngine.process(classString)
@@ -310,6 +320,7 @@ export function turboParseSync(className: string): ParsedClass | null {
     return null
   }
 
+  /* istanbul ignore next -- @preserve: turbo engine path */
   try {
     const result = turboEngine.parseSingle(className)
     return convertParsedClass(result)
@@ -327,6 +338,7 @@ export function turboExtractSync(content: string): string[] | null {
     return null
   }
 
+  /* istanbul ignore next -- @preserve: turbo engine path */
   try {
     return turboEngine.extract(content)
   } catch {

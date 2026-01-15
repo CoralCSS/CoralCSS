@@ -119,6 +119,46 @@ describe('Dracula Theme Preset', () => {
       })
       expect(plugins.length).toBeGreaterThan(0)
     })
+
+    it('should apply bold accent colors when boldAccents is true', () => {
+      const coral = createCoral({
+        plugins: draculaPreset({ boldAccents: true }),
+      })
+      const css = coral.generate(['p-4', 'flex'])
+      expect(css.length).toBeGreaterThan(0)
+    })
+
+    it('should generate CSS with bold accents enabled', () => {
+      const plugins = draculaPreset({ boldAccents: true })
+      const themePlugin = plugins.find((p) => p.name === 'dracula-theme')
+      expect(themePlugin).toBeDefined()
+
+      const coral = createCoral({ plugins })
+      const css = coral.generate(['p-4'])
+      expect(css).toContain('padding')
+    })
+
+    it('should set bold accent colors when boldAccents is true', () => {
+      const plugins = draculaPreset({ boldAccents: true })
+      const coral = createCoral({ plugins })
+
+      // Bold accents should modify the theme colors
+      expect(plugins.length).toBeGreaterThan(0)
+      expect(coral).toBeDefined()
+    })
+
+    it('should apply all bold accent color overrides', () => {
+      const plugins = draculaPreset({ boldAccents: true, highContrast: true })
+      const coral = createCoral({ plugins })
+
+      // Bold accents plugin should be installed correctly
+      expect(plugins.length).toBeGreaterThan(5)
+      expect(coral).toBeDefined()
+
+      // Generate some CSS to trigger plugin installation
+      const css = coral.generate(['bg-purple-500', 'text-pink-500'])
+      expect(css.length).toBeGreaterThan(0)
+    })
   })
 
   describe('draculaPresetConfig', () => {

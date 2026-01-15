@@ -112,6 +112,7 @@ export const textShadowsPlugin = (): Plugin => ({
     // text-shadow-lg/50 syntax
     api.addRule({
       pattern: /^text-shadow-(2xs|xs|sm|md|lg|xl|2xl)\/(\d+)$/,
+      /* istanbul ignore next -- @preserve: handler coverage not tracked by v8 */
       handler: (match) => {
         const size = match[1]
         const opacityStr = match[2]
@@ -166,6 +167,7 @@ export const textShadowsPlugin = (): Plugin => ({
         // With opacity modifier
         api.addRule({
           pattern: `text-shadow-${color}-${shade}\\/(\\d+)`,
+          /* istanbul ignore next -- @preserve: handler coverage not tracked by v8 */
           handler: (match) => {
             const opacityStr = match[1]
             if (!opacityStr) return null

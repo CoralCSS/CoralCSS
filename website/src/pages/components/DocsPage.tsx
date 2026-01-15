@@ -159,9 +159,6 @@ export default defineConfig({
               <a href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
                 GitHub
               </a>
-              <a href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                Discord
-              </a>
               <button className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors">
                 Get Started
               </button>
@@ -322,9 +319,7 @@ export default defineConfig({
                     <button className="px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors">
                       View Examples
                     </button>
-                    <button className="px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors">
-                      Join Discord
-                    </button>
+                    
                   </div>
                 </div>
               </div>

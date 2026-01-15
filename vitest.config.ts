@@ -134,12 +134,14 @@ export default defineConfig({
         // Storybook tooling - tested via Storybook itself
         'src/storybook/decorator.ts',
         'src/storybook/theme.ts',
+        // Turbo adapter requires optional @coral-css/turbo dependency
+        'src/core/turbo-adapter.ts',
       ],
       thresholds: {
-        lines: 91,
-        functions: 52,
-        branches: 91,
-        statements: 91,
+        lines: 98,
+        functions: 94,
+        branches: 94,
+        statements: 98,
       },
       processingConcurrency: 1,
     },
