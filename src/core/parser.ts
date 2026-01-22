@@ -6,7 +6,7 @@
  */
 
 import type { ParsedClass } from '../types'
-import { splitByDelimiter } from '../utils/string'
+import { splitByDelimiter, isDangerousCSSValue } from '../utils/string'
 import { NEGATIVE_PATTERN } from '../utils/regex'
 import {
   OPACITY_PATTERN,
@@ -136,7 +136,13 @@ export function parse(className: string): ParsedClass {
   // Check for arbitrary value
   const arbitraryMatch = remaining.match(ARBITRARY_PATTERN)
   if (arbitraryMatch) {
-    arbitrary = arbitraryMatch[1]!
+    const rawArbitrary = arbitraryMatch[1]!
+    // Security: Reject dangerous CSS values (XSS prevention)
+    if (isDangerousCSSValue(rawArbitrary)) {
+      console.warn(`CoralCSS Parser: Dangerous arbitrary value rejected: ${rawArbitrary.slice(0, 50)}...`)
+      return { ...EMPTY_PARSED_CLASS, original }
+    }
+    arbitrary = rawArbitrary
   }
 
   return {
@@ -465,7 +471,11 @@ export class ClassNameParser {
     // Check for arbitrary value
     const arbitraryMatch = remaining.match(ARBITRARY_PATTERN)
     if (arbitraryMatch) {
-      arbitrary = arbitraryMatch[1]!
+      const rawArbitrary = arbitraryMatch[1]!
+      // Security: Reject dangerous CSS values (XSS prevention)
+      if (!isDangerousCSSValue(rawArbitrary)) {
+        arbitrary = rawArbitrary
+      }
     }
 
     return {

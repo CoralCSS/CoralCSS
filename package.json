@@ -167,16 +167,6 @@
         "default": "./dist/svelte/index.cjs"
       }
     },
-    "./solid": {
-      "import": {
-        "types": "./dist/solid/index.d.ts",
-        "default": "./dist/solid/index.js"
-      },
-      "require": {
-        "types": "./dist/solid/index.d.cts",
-        "default": "./dist/solid/index.cjs"
-      }
-    },
     "./preact": {
       "import": {
         "types": "./dist/preact/index.d.ts",
@@ -330,19 +320,18 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "@vitest/coverage-v8": "^2.1.9",
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.0.0",
     "jsdom": "^27.4.0",
     "playwright": "^1.49.0",
     "preact": "^10.25.0",
     "prettier": "^3.4.0",
     "rimraf": "^6.0.0",
-    "solid-js": "^1.9.0",
     "svelte": "^5.46.1",
     "tailwindcss": "^4.1.18",
     "tsup": "^8.3.0",
     "typescript": "^5.7.0",
-    "vitest": "^2.1.0",
+    "vitest": "^4.0.18",
     "vue": "^3.5.26"
   },
   "peerDependencies": {
@@ -353,7 +342,6 @@
     "prettier": ">=3.0.0",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
-    "solid-js": ">=1.8.0",
     "svelte": ">=4.0.0",
     "vite": ">=5.0.0",
     "vue": ">=3.3.0"
@@ -381,9 +369,6 @@
       "optional": true
     },
     "react-dom": {
-      "optional": true
-    },
-    "solid-js": {
       "optional": true
     },
     "vue": {

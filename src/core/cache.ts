@@ -6,7 +6,7 @@
  * @module core/cache
  */
 
-import type { CacheStats } from '../types'
+import type { CacheStats, Theme } from '../types'
 
 /**
  * Cache configuration options
@@ -33,7 +33,7 @@ interface CacheEntry {
  * Fast hash function for theme versioning
  * Uses a simple but effective DJB2-style hash
  */
-export function hashTheme(theme: Record<string, unknown>): string {
+export function hashTheme(theme: Theme | Record<string, unknown>): string {
   let hash = 5381
   const str = JSON.stringify(theme, (_key, value) => {
     // Sort object keys for consistent hashing

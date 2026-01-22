@@ -648,7 +648,9 @@ describe('QRCode Component', () => {
       })
 
       const canvas = element.querySelector('canvas')
-      expect(canvas?.getAttribute('alt')).toContain('Custom alt')
+      // Canvas uses aria-label for accessibility, not alt
+      expect(canvas?.getAttribute('aria-label')).toContain('Custom alt')
+      expect(canvas?.getAttribute('role')).toBe('img')
     })
 
     it('should use default alt text', () => {
@@ -657,7 +659,9 @@ describe('QRCode Component', () => {
       new QRCode(element, { data: 'default alt' })
 
       const canvas = element.querySelector('canvas')
-      expect(canvas?.getAttribute('alt')).toBeDefined()
+      // Canvas uses aria-label for accessibility
+      expect(canvas?.getAttribute('aria-label')).toBeDefined()
+      expect(canvas?.getAttribute('role')).toBe('img')
     })
   })
 
@@ -1005,7 +1009,8 @@ describe('QRCode Component', () => {
       ;(qrcode as any).render()
 
       const canvas = element.querySelector('canvas')
-      expect(canvas?.getAttribute('alt')).toContain('QR code for:')
+      // Canvas uses aria-label for accessibility, not alt
+      expect(canvas?.getAttribute('aria-label')).toContain('QR code for:')
     })
   })
 

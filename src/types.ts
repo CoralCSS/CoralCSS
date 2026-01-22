@@ -1053,6 +1053,11 @@ export interface CLIOptions {
 // =============================================================================
 
 /**
+ * Plugin option value type (string, number, or boolean)
+ */
+export type PluginOptionValue = string | number | boolean
+
+/**
  * Parsed CSS configuration from @coral directives
  */
 export interface ParsedCSSConfig {
@@ -1070,8 +1075,8 @@ export interface ParsedCSSConfig {
   plugins?: string[]
   /** Disabled plugins from @coral plugin no */
   disabledPlugins?: string[]
-  /** Plugin-specific options */
-  pluginOptions?: Record<string, any>
+  /** Plugin-specific options (typed instead of any) */
+  pluginOptions?: Record<string, Record<string, PluginOptionValue>>
   /** Presets from @coral preset */
   presets?: string[]
   /** Extended presets */
@@ -1238,13 +1243,8 @@ export interface ComponentHooks {
 // Options Types
 // =============================================================================
 
-/**
- * Cache options
- */
-export interface CacheOptions {
-  maxSize?: number
-  ttl?: number
-}
+// Note: CacheOptions is defined at line 988 with all fields including 'enabled'
+// Do not duplicate here to avoid TypeScript declaration merging issues
 
 /**
  * Generate options

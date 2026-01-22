@@ -50,6 +50,8 @@ export class InfiniteScroll extends BaseComponent {
   private topSentinel!: HTMLElement | null
   // Synchronous guard flag to prevent race conditions
   private isLoadingInProgress!: boolean
+  // Promise-based lock for atomic loading operations (prevents race conditions)
+  private loadingPromise!: Promise<void> | null
 
   protected getDefaultConfig(): InfiniteScrollConfig {
     return {
@@ -83,6 +85,7 @@ export class InfiniteScroll extends BaseComponent {
     this.sentinel = null
     this.topSentinel = null
     this.isLoadingInProgress = false
+    this.loadingPromise = null
 
     this.createSentinels()
     this.setupObserver()
@@ -139,6 +142,11 @@ export class InfiniteScroll extends BaseComponent {
   }
 
   private async handleIntersection(direction: 'down' | 'up'): Promise<void> {
+    // Promise-based lock: If a loading operation is in progress, wait for it
+    if (this.loadingPromise) {
+      return this.loadingPromise
+    }
+
     // Use synchronous flag to prevent race condition with multiple intersection events
     if (this.isLoadingInProgress || this.state.loading || !this.state.hasMore || this.config.disabled) {
       return
@@ -147,25 +155,34 @@ export class InfiniteScroll extends BaseComponent {
     // Set synchronous flag immediately to prevent concurrent calls
     this.isLoadingInProgress = true
 
-    this.setState({ loading: true, direction })
-    this.element.setAttribute('aria-busy', 'true')
-    this.config.onLoadStart?.()
+    // Create a promise-based lock for the loading operation
+    this.loadingPromise = (async () => {
+      this.setState({ loading: true, direction })
+      this.element.setAttribute('aria-busy', 'true')
+      this.config.onLoadStart?.()
+
+      try {
+        await this.config.onLoadMore?.()
+        this.setState({
+          loading: false,
+          error: null,
+          loadCount: this.state.loadCount + 1,
+        })
+      } catch (error) {
+        const err = error instanceof Error ? error : new Error(String(error))
+        this.setState({ loading: false, error: err })
+        this.config.onError?.(err)
+      } finally {
+        this.element.setAttribute('aria-busy', 'false')
+        this.config.onLoadEnd?.()
+      }
+    })()
 
     try {
-      await this.config.onLoadMore?.()
-      this.setState({
-        loading: false,
-        error: null,
-        loadCount: this.state.loadCount + 1,
-      })
-    } catch (error) {
-      const err = error instanceof Error ? error : new Error(String(error))
-      this.setState({ loading: false, error: err })
-      this.config.onError?.(err)
+      await this.loadingPromise
     } finally {
       this.isLoadingInProgress = false
-      this.element.setAttribute('aria-busy', 'false')
-      this.config.onLoadEnd?.()
+      this.loadingPromise = null
     }
   }
 

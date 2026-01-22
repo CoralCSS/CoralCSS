@@ -9,6 +9,7 @@ import type { Plugin as VitePlugin } from 'vite'
 import { createCoral } from '../kernel'
 import { coralPreset } from '../presets/coral'
 import type { Coral, CoralOptions, DarkModeStrategy } from '../types'
+import { isDangerousCSSValue } from '../utils/string'
 
 /**
  * Vite plugin options
@@ -201,7 +202,10 @@ function extractClassesFromCode(code: string): string[] {
     if (captured) {
       const classList = captured.split(/\s+/)
       classList.forEach((cls) => {
-        if (cls) { classes.add(cls) }
+        // Security: Skip dangerous CSS values (XSS prevention)
+        if (cls && !isDangerousCSSValue(cls)) {
+          classes.add(cls)
+        }
       })
     }
   }
@@ -215,7 +219,10 @@ function extractClassesFromCode(code: string): string[] {
       const staticParts = content.replace(/\$\{[^}]+\}/g, ' ')
       const classList = staticParts.split(/\s+/)
       classList.forEach((cls) => {
-        if (cls) { classes.add(cls) }
+        // Security: Skip dangerous CSS values (XSS prevention)
+        if (cls && !isDangerousCSSValue(cls)) {
+          classes.add(cls)
+        }
       })
     }
   }
@@ -227,7 +234,10 @@ function extractClassesFromCode(code: string): string[] {
     if (captured) {
       const classList = captured.split(/\s+/)
       classList.forEach((cls) => {
-        if (cls) { classes.add(cls) }
+        // Security: Skip dangerous CSS values (XSS prevention)
+        if (cls && !isDangerousCSSValue(cls)) {
+          classes.add(cls)
+        }
       })
     }
   }

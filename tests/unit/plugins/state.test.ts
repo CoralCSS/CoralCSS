@@ -386,76 +386,178 @@ describe('stateVariantsPlugin', () => {
   })
 
   describe('Media Query Variants', () => {
+    // Note: Media query variants use handler + wrapper pattern.
+    // Handler returns the selector, wrapper contains the media query.
+    // The CSS generator combines them: wrapper { handler(selector) { ... } }
+
     it('should generate forced-colors variants', () => {
-      expect(variants.find((v) => v.name === 'forced-colors')?.handler?.('.test')).toBe('@media (forced-colors: active) { .test }')
-      expect(variants.find((v) => v.name === 'forced-colors-none')?.handler?.('.test')).toBe('@media (forced-colors: none) { .test }')
+      const forcedColors = variants.find((v) => v.name === 'forced-colors')
+      expect(forcedColors?.handler?.('.test')).toBe('.test')
+      expect(forcedColors?.wrapper).toBe('@media (forced-colors: active)')
+
+      const forcedColorsNone = variants.find((v) => v.name === 'forced-colors-none')
+      expect(forcedColorsNone?.handler?.('.test')).toBe('.test')
+      expect(forcedColorsNone?.wrapper).toBe('@media (forced-colors: none)')
     })
 
     it('should generate contrast variants', () => {
-      expect(variants.find((v) => v.name === 'contrast-more')?.handler?.('.test')).toBe('@media (prefers-contrast: more) { .test }')
-      expect(variants.find((v) => v.name === 'contrast-less')?.handler?.('.test')).toBe('@media (prefers-contrast: less) { .test }')
-      expect(variants.find((v) => v.name === 'contrast-custom')?.handler?.('.test')).toBe('@media (prefers-contrast: custom) { .test }')
+      const contrastMore = variants.find((v) => v.name === 'contrast-more')
+      expect(contrastMore?.handler?.('.test')).toBe('.test')
+      expect(contrastMore?.wrapper).toBe('@media (prefers-contrast: more)')
+
+      const contrastLess = variants.find((v) => v.name === 'contrast-less')
+      expect(contrastLess?.handler?.('.test')).toBe('.test')
+      expect(contrastLess?.wrapper).toBe('@media (prefers-contrast: less)')
+
+      const contrastCustom = variants.find((v) => v.name === 'contrast-custom')
+      expect(contrastCustom?.handler?.('.test')).toBe('.test')
+      expect(contrastCustom?.wrapper).toBe('@media (prefers-contrast: custom)')
     })
 
     it('should generate reduce-transparency variant', () => {
-      expect(variants.find((v) => v.name === 'reduce-transparency')?.handler?.('.test')).toBe('@media (prefers-reduced-transparency: reduce) { .test }')
+      const reduceTransparency = variants.find((v) => v.name === 'reduce-transparency')
+      expect(reduceTransparency?.handler?.('.test')).toBe('.test')
+      expect(reduceTransparency?.wrapper).toBe('@media (prefers-reduced-transparency: reduce)')
     })
 
     it('should generate color-gamut variants', () => {
-      expect(variants.find((v) => v.name === 'color-srgb')?.handler?.('.test')).toBe('@media (color-gamut: srgb) { .test }')
-      expect(variants.find((v) => v.name === 'color-p3')?.handler?.('.test')).toBe('@media (color-gamut: p3) { .test }')
-      expect(variants.find((v) => v.name === 'color-rec2020')?.handler?.('.test')).toBe('@media (color-gamut: rec2020) { .test }')
+      const colorSrgb = variants.find((v) => v.name === 'color-srgb')
+      expect(colorSrgb?.handler?.('.test')).toBe('.test')
+      expect(colorSrgb?.wrapper).toBe('@media (color-gamut: srgb)')
+
+      const colorP3 = variants.find((v) => v.name === 'color-p3')
+      expect(colorP3?.handler?.('.test')).toBe('.test')
+      expect(colorP3?.wrapper).toBe('@media (color-gamut: p3)')
+
+      const colorRec2020 = variants.find((v) => v.name === 'color-rec2020')
+      expect(colorRec2020?.handler?.('.test')).toBe('.test')
+      expect(colorRec2020?.wrapper).toBe('@media (color-gamut: rec2020)')
     })
 
     it('should generate display-mode variants', () => {
-      expect(variants.find((v) => v.name === 'standalone')?.handler?.('.test')).toBe('@media (display-mode: standalone) { .test }')
-      expect(variants.find((v) => v.name === 'fullscreen')?.handler?.('.test')).toBe('@media (display-mode: fullscreen) { .test }')
-      expect(variants.find((v) => v.name === 'minimal-ui')?.handler?.('.test')).toBe('@media (display-mode: minimal-ui) { .test }')
-      expect(variants.find((v) => v.name === 'browser')?.handler?.('.test')).toBe('@media (display-mode: browser) { .test }')
-      expect(variants.find((v) => v.name === 'picture-in-picture')?.handler?.('.test')).toBe('@media (display-mode: picture-in-picture) { .test }')
+      const standalone = variants.find((v) => v.name === 'standalone')
+      expect(standalone?.handler?.('.test')).toBe('.test')
+      expect(standalone?.wrapper).toBe('@media (display-mode: standalone)')
+
+      // Note: 'fullscreen' is the :fullscreen pseudo-class variant
+      // 'display-fullscreen' is the @media (display-mode: fullscreen) variant
+      const displayFullscreen = variants.find((v) => v.name === 'display-fullscreen')
+      expect(displayFullscreen?.handler?.('.test')).toBe('.test')
+      expect(displayFullscreen?.wrapper).toBe('@media (display-mode: fullscreen)')
+
+      const minimalUi = variants.find((v) => v.name === 'minimal-ui')
+      expect(minimalUi?.handler?.('.test')).toBe('.test')
+      expect(minimalUi?.wrapper).toBe('@media (display-mode: minimal-ui)')
+
+      const browser = variants.find((v) => v.name === 'browser')
+      expect(browser?.handler?.('.test')).toBe('.test')
+      expect(browser?.wrapper).toBe('@media (display-mode: browser)')
+
+      const pipDisplay = variants.find((v) => v.name === 'picture-in-picture' && v.wrapper !== undefined)
+      expect(pipDisplay?.handler?.('.test')).toBe('.test')
+      expect(pipDisplay?.wrapper).toBe('@media (display-mode: picture-in-picture)')
     })
 
     it('should generate inverted-colors variant', () => {
-      expect(variants.find((v) => v.name === 'inverted-colors')?.handler?.('.test')).toBe('@media (inverted-colors: inverted) { .test }')
+      const invertedColors = variants.find((v) => v.name === 'inverted-colors')
+      expect(invertedColors?.handler?.('.test')).toBe('.test')
+      expect(invertedColors?.wrapper).toBe('@media (inverted-colors: inverted)')
     })
 
     it('should generate scripting variants', () => {
-      expect(variants.find((v) => v.name === 'scripting-enabled')?.handler?.('.test')).toBe('@media (scripting: enabled) { .test }')
-      expect(variants.find((v) => v.name === 'scripting-none')?.handler?.('.test')).toBe('@media (scripting: none) { .test }')
-      expect(variants.find((v) => v.name === 'scripting-initial-only')?.handler?.('.test')).toBe('@media (scripting: initial-only) { .test }')
+      const scriptingEnabled = variants.find((v) => v.name === 'scripting-enabled')
+      expect(scriptingEnabled?.handler?.('.test')).toBe('.test')
+      expect(scriptingEnabled?.wrapper).toBe('@media (scripting: enabled)')
+
+      const scriptingNone = variants.find((v) => v.name === 'scripting-none')
+      expect(scriptingNone?.handler?.('.test')).toBe('.test')
+      expect(scriptingNone?.wrapper).toBe('@media (scripting: none)')
+
+      const scriptingInitialOnly = variants.find((v) => v.name === 'scripting-initial-only')
+      expect(scriptingInitialOnly?.handler?.('.test')).toBe('.test')
+      expect(scriptingInitialOnly?.wrapper).toBe('@media (scripting: initial-only)')
     })
 
     it('should generate pointer variants', () => {
-      expect(variants.find((v) => v.name === 'pointer-fine')?.handler?.('.test')).toBe('@media (pointer: fine) { .test }')
-      expect(variants.find((v) => v.name === 'pointer-coarse')?.handler?.('.test')).toBe('@media (pointer: coarse) { .test }')
-      expect(variants.find((v) => v.name === 'pointer-none')?.handler?.('.test')).toBe('@media (pointer: none) { .test }')
-      expect(variants.find((v) => v.name === 'any-pointer-fine')?.handler?.('.test')).toBe('@media (any-pointer: fine) { .test }')
-      expect(variants.find((v) => v.name === 'any-pointer-coarse')?.handler?.('.test')).toBe('@media (any-pointer: coarse) { .test }')
+      const pointerFine = variants.find((v) => v.name === 'pointer-fine')
+      expect(pointerFine?.handler?.('.test')).toBe('.test')
+      expect(pointerFine?.wrapper).toBe('@media (pointer: fine)')
+
+      const pointerCoarse = variants.find((v) => v.name === 'pointer-coarse')
+      expect(pointerCoarse?.handler?.('.test')).toBe('.test')
+      expect(pointerCoarse?.wrapper).toBe('@media (pointer: coarse)')
+
+      const pointerNone = variants.find((v) => v.name === 'pointer-none')
+      expect(pointerNone?.handler?.('.test')).toBe('.test')
+      expect(pointerNone?.wrapper).toBe('@media (pointer: none)')
+
+      const anyPointerFine = variants.find((v) => v.name === 'any-pointer-fine')
+      expect(anyPointerFine?.handler?.('.test')).toBe('.test')
+      expect(anyPointerFine?.wrapper).toBe('@media (any-pointer: fine)')
+
+      const anyPointerCoarse = variants.find((v) => v.name === 'any-pointer-coarse')
+      expect(anyPointerCoarse?.handler?.('.test')).toBe('.test')
+      expect(anyPointerCoarse?.wrapper).toBe('@media (any-pointer: coarse)')
     })
 
     it('should generate hover capability variants', () => {
-      expect(variants.find((v) => v.name === 'hover-hover')?.handler?.('.test')).toBe('@media (hover: hover) { .test }')
-      expect(variants.find((v) => v.name === 'hover-none')?.handler?.('.test')).toBe('@media (hover: none) { .test }')
-      expect(variants.find((v) => v.name === 'any-hover-hover')?.handler?.('.test')).toBe('@media (any-hover: hover) { .test }')
-      expect(variants.find((v) => v.name === 'any-hover-none')?.handler?.('.test')).toBe('@media (any-hover: none) { .test }')
+      const hoverHover = variants.find((v) => v.name === 'hover-hover')
+      expect(hoverHover?.handler?.('.test')).toBe('.test')
+      expect(hoverHover?.wrapper).toBe('@media (hover: hover)')
+
+      const hoverNone = variants.find((v) => v.name === 'hover-none')
+      expect(hoverNone?.handler?.('.test')).toBe('.test')
+      expect(hoverNone?.wrapper).toBe('@media (hover: none)')
+
+      const anyHoverHover = variants.find((v) => v.name === 'any-hover-hover')
+      expect(anyHoverHover?.handler?.('.test')).toBe('.test')
+      expect(anyHoverHover?.wrapper).toBe('@media (any-hover: hover)')
+
+      const anyHoverNone = variants.find((v) => v.name === 'any-hover-none')
+      expect(anyHoverNone?.handler?.('.test')).toBe('.test')
+      expect(anyHoverNone?.wrapper).toBe('@media (any-hover: none)')
     })
 
     it('should generate update variants', () => {
-      expect(variants.find((v) => v.name === 'update-fast')?.handler?.('.test')).toBe('@media (update: fast) { .test }')
-      expect(variants.find((v) => v.name === 'update-slow')?.handler?.('.test')).toBe('@media (update: slow) { .test }')
-      expect(variants.find((v) => v.name === 'update-none')?.handler?.('.test')).toBe('@media (update: none) { .test }')
+      const updateFast = variants.find((v) => v.name === 'update-fast')
+      expect(updateFast?.handler?.('.test')).toBe('.test')
+      expect(updateFast?.wrapper).toBe('@media (update: fast)')
+
+      const updateSlow = variants.find((v) => v.name === 'update-slow')
+      expect(updateSlow?.handler?.('.test')).toBe('.test')
+      expect(updateSlow?.wrapper).toBe('@media (update: slow)')
+
+      const updateNone = variants.find((v) => v.name === 'update-none')
+      expect(updateNone?.handler?.('.test')).toBe('.test')
+      expect(updateNone?.wrapper).toBe('@media (update: none)')
     })
 
     it('should generate color scheme variants', () => {
-      expect(variants.find((v) => v.name === 'prefer-light')?.handler?.('.test')).toBe('@media (prefers-color-scheme: light) { .test }')
-      expect(variants.find((v) => v.name === 'prefer-dark')?.handler?.('.test')).toBe('@media (prefers-color-scheme: dark) { .test }')
+      const preferLight = variants.find((v) => v.name === 'prefer-light')
+      expect(preferLight?.handler?.('.test')).toBe('.test')
+      expect(preferLight?.wrapper).toBe('@media (prefers-color-scheme: light)')
+
+      const preferDark = variants.find((v) => v.name === 'prefer-dark')
+      expect(preferDark?.handler?.('.test')).toBe('.test')
+      expect(preferDark?.wrapper).toBe('@media (prefers-color-scheme: dark)')
     })
 
     it('should generate dynamic range variants', () => {
-      expect(variants.find((v) => v.name === 'hdr')?.handler?.('.test')).toBe('@media (dynamic-range: high) { .test }')
-      expect(variants.find((v) => v.name === 'sdr')?.handler?.('.test')).toBe('@media (dynamic-range: standard) { .test }')
-      expect(variants.find((v) => v.name === 'video-hdr')?.handler?.('.test')).toBe('@media (video-dynamic-range: high) { .test }')
-      expect(variants.find((v) => v.name === 'video-sdr')?.handler?.('.test')).toBe('@media (video-dynamic-range: standard) { .test }')
+      const hdr = variants.find((v) => v.name === 'hdr')
+      expect(hdr?.handler?.('.test')).toBe('.test')
+      expect(hdr?.wrapper).toBe('@media (dynamic-range: high)')
+
+      const sdr = variants.find((v) => v.name === 'sdr')
+      expect(sdr?.handler?.('.test')).toBe('.test')
+      expect(sdr?.wrapper).toBe('@media (dynamic-range: standard)')
+
+      const videoHdr = variants.find((v) => v.name === 'video-hdr')
+      expect(videoHdr?.handler?.('.test')).toBe('.test')
+      expect(videoHdr?.wrapper).toBe('@media (video-dynamic-range: high)')
+
+      const videoSdr = variants.find((v) => v.name === 'video-sdr')
+      expect(videoSdr?.handler?.('.test')).toBe('.test')
+      expect(videoSdr?.wrapper).toBe('@media (video-dynamic-range: standard)')
     })
   })
 
@@ -729,7 +831,7 @@ describe('stateVariantsPlugin', () => {
     it('should generate arbitrary has variant', () => {
       const hasVariant = variants.find((v) => v.name === 'has')
       expect(hasVariant).toBeDefined()
-      expect(hasVariant?.match).toEqual(/^has-\[(.+)\]$/)
+      expect(hasVariant?.match).toEqual(/^has-\[([^\]]+)\]$/)
 
       const match = 'has-[.active]'.match(/^has-\[(.+)\]$/)
       expect(hasVariant?.handler?.('.test', match)).toBe('.test:has(.active)')
@@ -760,7 +862,7 @@ describe('stateVariantsPlugin', () => {
 
     it('should generate arbitrary not variant', () => {
       const notVariant = variants.find((v) => v.name === 'not')
-      expect(notVariant?.match).toEqual(/^not-\[(.+)\]$/)
+      expect(notVariant?.match).toEqual(/^not-\[([^\]]+)\]$/)
 
       const match = 'not-[.hidden]'.match(/^not-\[(.+)\]$/)
       expect(notVariant?.handler?.('.test', match)).toBe('.test:not(.hidden)')
@@ -776,7 +878,7 @@ describe('stateVariantsPlugin', () => {
   describe(':is() / :where() Variants', () => {
     it('should generate arbitrary is variant', () => {
       const isVariant = variants.find((v) => v.name === 'is')
-      expect(isVariant?.match).toEqual(/^is-\[(.+)\]$/)
+      expect(isVariant?.match).toEqual(/^is-\[([^\]]+)\]$/)
 
       const match = 'is-[.active]'.match(/^is-\[(.+)\]$/)
       expect(isVariant?.handler?.('.test', match)).toBe('.test:is(.active)')
@@ -790,7 +892,7 @@ describe('stateVariantsPlugin', () => {
 
     it('should generate arbitrary where variant', () => {
       const whereVariant = variants.find((v) => v.name === 'where')
-      expect(whereVariant?.match).toEqual(/^where-\[(.+)\]$/)
+      expect(whereVariant?.match).toEqual(/^where-\[([^\]]+)\]$/)
 
       const match = 'where-[.active]'.match(/^where-\[(.+)\]$/)
       expect(whereVariant?.handler?.('.test', match)).toBe('.test:where(.active)')

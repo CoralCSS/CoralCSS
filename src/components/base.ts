@@ -98,6 +98,10 @@ export abstract class BaseComponent {
   protected state: ComponentState
   protected config: ComponentConfig
   protected hooks: ComponentHooks
+  /**
+   * @deprecated Use trackedListeners and addTrackedListener() instead.
+   * This map is kept for backward compatibility with subclasses.
+   */
   protected boundHandlers: Map<string, EventListener> = new Map()
   protected trackedListeners: TrackedListener[] = []
   protected stateListeners: Set<StateListener> = new Set()
@@ -171,6 +175,9 @@ export abstract class BaseComponent {
     // Bind event handlers
     this.bindEvents()
 
+    // Initial render to apply config-based styling
+    this.render()
+
     // Call hook
     this.hooks.onInit?.(this.getContext())
   }
@@ -199,10 +206,29 @@ export abstract class BaseComponent {
 
   /**
    * Update component state
+   * Only triggers render if state actually changed (shallow comparison)
    */
   protected setState(updates: Partial<ComponentState>): void {
     const prevState = { ...this.state }
-    this.state = { ...this.state, ...updates }
+    const newState = { ...this.state, ...updates }
+
+    // Shallow equality check - skip render if nothing changed
+    let hasChanges = false
+    for (const key in updates) {
+      if (Object.prototype.hasOwnProperty.call(updates, key)) {
+        const typedKey = key as keyof ComponentState
+        if (prevState[typedKey] !== newState[typedKey]) {
+          hasChanges = true
+          break
+        }
+      }
+    }
+
+    if (!hasChanges) {
+      return // No actual changes, skip render
+    }
+
+    this.state = newState
     this.hooks.onStateChange?.(prevState, this.state, this.getContext())
     this.notifyStateListeners()
     this.render()
@@ -415,30 +441,20 @@ export abstract class BaseComponent {
     // Remove all tracked event listeners (works for any target: element, document, window, etc.)
     this.removeAllEventListeners()
 
-    // Legacy cleanup for boundHandlers (backward compatibility)
-    // Key format is 'eventName-uniqueId' so we extract the event name before the last dash
-    this.boundHandlers.forEach((handler, key) => {
-      // Find the last dash to separate event name from unique suffix
-      const lastDashIndex = key.lastIndexOf('-')
-      const event = lastDashIndex > 0 ? key.substring(0, lastDashIndex) : key
-
-      if (event) {
-        // Try to remove from all possible targets since we don't know where it was added
+    // Legacy cleanup: clear deprecated boundHandlers map
+    // This ensures backward compatibility with subclasses using the old pattern
+    if (this.boundHandlers.size > 0) {
+      for (const [key, handler] of this.boundHandlers) {
+        // Parse event name from key format 'eventName-uniqueId'
+        const eventName = key.includes('-') ? key.split('-')[0] : key
         try {
-          this.element.removeEventListener(event, handler)
-        } catch { /* ignore */ }
-        try {
-          document.removeEventListener(event, handler)
-        } catch { /* ignore */ }
-        // Also try window for events like resize, scroll
-        if (typeof window !== 'undefined') {
-          try {
-            window.removeEventListener(event, handler)
-          } catch { /* ignore */ }
+          this.element.removeEventListener(eventName!, handler)
+        } catch {
+          // Ignore errors from invalid event names
         }
       }
-    })
-    this.boundHandlers.clear()
+      this.boundHandlers.clear()
+    }
 
     // Clear state listeners
     this.stateListeners.clear()

@@ -210,6 +210,10 @@ export class QRCode extends BaseComponent {
       this.canvas.setAttribute('data-coral-qrcode-canvas', '')
       this.element.appendChild(this.canvas)
     }
+
+    // Set accessibility attributes immediately (they'll be updated in render() with actual data)
+    this.canvas.setAttribute('role', 'img')
+    this.canvas.setAttribute('aria-label', this.config.alt || `QR code for: ${this.config.data}`)
   }
 
   protected bindEvents(): void {
@@ -408,8 +412,9 @@ export class QRCode extends BaseComponent {
       this.downloadLink.style.display = 'inline-block'
     }
 
-    // Set alt text
-    this.canvas.setAttribute('alt', this.config.alt || `QR code for: ${this.state.data}`)
+    // Set accessibility text (aria-label is proper for canvas, not alt)
+    this.canvas.setAttribute('role', 'img')
+    this.canvas.setAttribute('aria-label', this.config.alt || `QR code for: ${this.state.data}`)
   }
 
   private drawLogo(): void {

@@ -7,28 +7,10 @@
  * @module config/css-parser
  */
 
-import type { CoralOptions, DeepPartial, Theme } from '../types'
+import type { CoralOptions, DeepPartial, Theme, ParsedCSSConfig, PluginOptionValue, SafelistItem } from '../types'
 
-/**
- * Plugin option value types
- */
-export type PluginOptionValue = string | number | boolean
-
-/**
- * Parsed CSS configuration
- */
-export interface ParsedCSSConfig {
-  theme?: Record<string, string>
-  source?: string[]
-  sourceNot?: string[]
-  safelist?: string[]
-  blocklist?: string[]
-  plugins?: string[]
-  disabledPlugins?: string[]
-  pluginOptions?: Record<string, Record<string, PluginOptionValue>>
-  presets?: string[]
-  extends?: string[]
-}
+// Re-export for backwards compatibility
+export type { ParsedCSSConfig, PluginOptionValue }
 
 /**
  * Parse CSS configuration from CSS content
@@ -192,7 +174,7 @@ function parsePluginOptions(options: string): Record<string, PluginOptionValue> 
 interface MergedConfig {
   theme?: DeepPartial<Theme>
   content?: string[]
-  safelist?: Array<string | RegExp | { pattern: RegExp; variants?: string[] }>
+  safelist?: SafelistItem[]
   blocklist?: Array<string | RegExp>
   pluginOptions?: Record<string, Record<string, PluginOptionValue>>
   // Presets stored as string names for later resolution by preset loader

@@ -4,11 +4,41 @@
  * Interactive playground for trying CoralCSS utilities.
  * Provides live preview, code generation, and class suggestions.
  *
- * Security Note: This component renders user-provided HTML for preview purposes.
- * In production environments, consider sanitizing HTML input with DOMPurify.
- *
  * @module playground
  */
+
+/**
+ * Simple HTML sanitizer to prevent XSS attacks in playground preview.
+ * Removes script tags, event handlers, and dangerous protocols.
+ * For production use, consider DOMPurify for more comprehensive sanitization.
+ */
+function sanitizeHTML(html: string): string {
+  // Remove script tags and their content
+  let sanitized = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+
+  // Remove event handlers (onclick, onerror, onload, etc.)
+  sanitized = sanitized.replace(/\s*on\w+\s*=\s*["'][^"']*["']/gi, '')
+  sanitized = sanitized.replace(/\s*on\w+\s*=\s*[^\s>]+/gi, '')
+
+  // Remove javascript: and vbscript: protocols
+  sanitized = sanitized.replace(/javascript\s*:/gi, 'blocked:')
+  sanitized = sanitized.replace(/vbscript\s*:/gi, 'blocked:')
+
+  // Remove data: URLs that could contain HTML/scripts
+  sanitized = sanitized.replace(/data\s*:\s*text\/html/gi, 'blocked:text/html')
+
+  // Remove iframe, object, embed tags
+  sanitized = sanitized.replace(/<(iframe|object|embed|frame|frameset)[^>]*>/gi, '')
+  sanitized = sanitized.replace(/<\/(iframe|object|embed|frame|frameset)>/gi, '')
+
+  // Remove base tags (can redirect all links)
+  sanitized = sanitized.replace(/<base[^>]*>/gi, '')
+
+  // Remove form action with javascript
+  sanitized = sanitized.replace(/(<form[^>]*)\s+action\s*=\s*["']?javascript:[^"'\s>]*["']?/gi, '$1')
+
+  return sanitized
+}
 
 // ============================================================================
 // Constants
@@ -553,13 +583,12 @@ export class CoralPlayground {
     }
 
     // Create a wrapper for the preview content
-    // Note: This renders user HTML for preview - in production, sanitize with DOMPurify
     const previewWrapper = document.createElement('div')
     previewWrapper.className = classes
 
-    // Parse and append the HTML content
+    // Parse and append the HTML content (sanitized to prevent XSS)
     const template = document.createElement('template')
-    template.innerHTML = html.trim()
+    template.innerHTML = sanitizeHTML(html.trim())
     previewWrapper.appendChild(template.content.cloneNode(true))
 
     this.previewElement.appendChild(previewWrapper)

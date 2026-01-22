@@ -190,17 +190,22 @@ export class NavigationMenu extends BaseComponent {
   protected override render(): void {
     const state = this.state as NavigationMenuState
 
-    this.triggers.forEach((trigger, value) => {
-      const isActive = state.activeSubmenu === value
-      trigger.setAttribute('aria-expanded', String(isActive))
-      trigger.dataset.state = isActive ? 'open' : 'closed'
-    })
+    // Guard against uninitialized properties (can happen during super() call)
+    if (this.triggers) {
+      this.triggers.forEach((trigger, value) => {
+        const isActive = state.activeSubmenu === value
+        trigger.setAttribute('aria-expanded', String(isActive))
+        trigger.dataset.state = isActive ? 'open' : 'closed'
+      })
+    }
 
-    this.contents.forEach((content, value) => {
-      const isActive = state.activeSubmenu === value
-      content.hidden = !isActive
-      content.dataset.state = isActive ? 'open' : 'closed'
-    })
+    if (this.contents) {
+      this.contents.forEach((content, value) => {
+        const isActive = state.activeSubmenu === value
+        content.hidden = !isActive
+        content.dataset.state = isActive ? 'open' : 'closed'
+      })
+    }
   }
 
   openSubmenu(value: string): void {

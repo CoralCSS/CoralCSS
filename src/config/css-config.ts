@@ -7,35 +7,13 @@
  * @module config/css-config
  */
 
-import type { Plugin, PluginAPI, CoralOptions, DeepPartial, Theme } from '../types'
+import type { Plugin, PluginAPI, CoralOptions, DeepPartial, Theme, CSSConfigPluginOptions } from '../types'
 import { parseCSSConfig, mergeConfigs, validateCSSConfig } from './css-parser'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 
-/**
- * CSS Config Plugin Options
- */
-export interface CSSConfigPluginOptions {
-  /**
-   * Path to CSS config file
-   */
-  cssConfig?: string
-
-  /**
-   * Enable/disable CSS config parsing
-   */
-  enabled?: boolean
-
-  /**
-   * Watch CSS config file for changes
-   */
-  watch?: boolean
-
-  /**
-   * Inline CSS config (as string)
-   */
-  inlineConfig?: string
-}
+// Re-export for backwards compatibility
+export type { CSSConfigPluginOptions }
 
 /**
  * Load CSS config from file path

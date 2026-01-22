@@ -119,6 +119,10 @@ export class VirtualList extends BaseComponent {
   private measurementCache: Map<number, number> = new Map()
   private scrollRAF: number | null = null
   private resizeObserver: ResizeObserver | null = null
+  // Offset cache for O(1) lookups instead of O(n) recalculation
+  private offsetCache: Map<number, number> = new Map()
+  // Cache limit to prevent memory leaks with large lists
+  private static readonly MAX_CACHE_SIZE = 10000
 
   protected getDefaultConfig(): VirtualListConfig {
     return {
@@ -319,11 +323,66 @@ export class VirtualList extends BaseComponent {
   }
 
   private getItemOffset(index: number): number {
+    // O(1) cache hit
+    if (this.offsetCache.has(index)) {
+      return this.offsetCache.get(index)!
+    }
+
+    // Find nearest cached offset to minimize recalculation
+    let startIndex = 0
     let offset = 0
-    for (let i = 0; i < index; i++) {
+
+    // Look for closest cached offset below the target index
+    for (let i = index - 1; i >= 0; i--) {
+      if (this.offsetCache.has(i)) {
+        startIndex = i + 1
+        offset = this.offsetCache.get(i)! + this.getItemHeight(i)
+        break
+      }
+    }
+
+    // Calculate remaining offset from closest cached point
+    for (let i = startIndex; i < index; i++) {
       offset += this.getItemHeight(i)
     }
+
+    // Cache the result (with size limit)
+    this.setOffsetCache(index, offset)
+
     return offset
+  }
+
+  private setOffsetCache(index: number, offset: number): void {
+    // LRU-style eviction when cache is full
+    if (this.offsetCache.size >= VirtualList.MAX_CACHE_SIZE) {
+      const firstKey = this.offsetCache.keys().next().value
+      if (firstKey !== undefined) {
+        this.offsetCache.delete(firstKey)
+      }
+    }
+    this.offsetCache.set(index, offset)
+  }
+
+  private invalidateOffsetCache(fromIndex: number = 0): void {
+    // Invalidate all cached offsets from a certain index
+    for (const [index] of this.offsetCache) {
+      if (index >= fromIndex) {
+        this.offsetCache.delete(index)
+      }
+    }
+  }
+
+  private setMeasurementCache(index: number, height: number): void {
+    // LRU-style eviction when cache is full
+    if (this.measurementCache.size >= VirtualList.MAX_CACHE_SIZE) {
+      const firstKey = this.measurementCache.keys().next().value
+      if (firstKey !== undefined) {
+        this.measurementCache.delete(firstKey)
+      }
+    }
+    this.measurementCache.set(index, height)
+    // Invalidate offset cache from this index onward (heights changed)
+    this.invalidateOffsetCache(index + 1)
   }
 
   private getTotalHeight(): number {
@@ -408,7 +467,7 @@ export class VirtualList extends BaseComponent {
         if (variableHeight) {
           const actualHeight = element.getBoundingClientRect().height
           if (actualHeight !== height) {
-            this.measurementCache.set(index, actualHeight)
+            this.setMeasurementCache(index, actualHeight)
           }
         }
       }
@@ -463,6 +522,7 @@ export class VirtualList extends BaseComponent {
     this.config.itemCount = count
     this.element.setAttribute('aria-rowcount', String(count))
     this.measurementCache.clear()
+    this.offsetCache.clear()  // Clear offset cache when item count changes
     this.calculateVisibleRange()
   }
 
@@ -470,7 +530,7 @@ export class VirtualList extends BaseComponent {
    * Update item height measurement
    */
   setItemHeight(index: number, height: number): void {
-    this.measurementCache.set(index, height)
+    this.setMeasurementCache(index, height)  // Use helper that invalidates offset cache
     this.state.itemHeights.set(index, height)
     this.calculateVisibleRange()
   }
@@ -482,6 +542,7 @@ export class VirtualList extends BaseComponent {
     this.renderedItems.forEach((element) => element.remove())
     this.renderedItems.clear()
     this.measurementCache.clear()
+    this.offsetCache.clear()  // Clear offset cache on refresh
     this.calculateVisibleRange()
   }
 
@@ -502,7 +563,7 @@ export class VirtualList extends BaseComponent {
       this.scrollRAF = null
     }
 
-    // Disconnect ResizeObserver
+    // Disconnect ResizeObserver (prevents memory leak)
     if (this.resizeObserver) {
       this.resizeObserver.disconnect()
       this.resizeObserver = null
@@ -511,7 +572,15 @@ export class VirtualList extends BaseComponent {
     // Clear rendered items
     this.renderedItems.forEach((element) => element.remove())
     this.renderedItems.clear()
+
+    // Clear all caches (prevents memory leak)
     this.measurementCache.clear()
+    this.offsetCache.clear()
+
+    // Clear DOM references (prevents memory leak in SPA)
+    this.container = null
+    this.content = null
+    this.spacer = null
 
     super.destroy()
   }

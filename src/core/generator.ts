@@ -119,11 +119,26 @@ function resolveWrapperFunction(
 }
 
 /**
+ * Maximum recursion depth to prevent stack overflow from circular references
+ */
+const MAX_RECURSION_DEPTH = 20
+
+/**
  * Flatten nested CSS properties into an array of [key, value] pairs
  * Handles nested objects like { padding: { top: '1rem', bottom: '2rem' } }
  * by converting them to flat properties like 'padding-top', 'padding-bottom'
  */
-function flattenProperties(properties: CSSProperties, prefix = ''): Array<[string, string | number]> {
+function flattenProperties(
+  properties: CSSProperties,
+  prefix = '',
+  depth = 0
+): Array<[string, string | number]> {
+  // Prevent stack overflow from circular references or deeply nested objects
+  if (depth >= MAX_RECURSION_DEPTH) {
+    console.warn('CoralCSS Generator: Max recursion depth exceeded in flattenProperties')
+    return []
+  }
+
   const result: Array<[string, string | number]> = []
 
   for (const [key, value] of Object.entries(properties)) {
@@ -132,8 +147,8 @@ function flattenProperties(properties: CSSProperties, prefix = ''): Array<[strin
     if (typeof value === 'string' || typeof value === 'number') {
       result.push([fullKey, value])
     } else if (typeof value === 'object' && value !== null) {
-      // Recursively flatten nested objects
-      result.push(...flattenProperties(value as CSSProperties, fullKey))
+      // Recursively flatten nested objects with depth tracking
+      result.push(...flattenProperties(value as CSSProperties, fullKey, depth + 1))
     }
   }
 
@@ -143,7 +158,13 @@ function flattenProperties(properties: CSSProperties, prefix = ''): Array<[strin
 /**
  * Recursively apply !important to all CSS property values, including nested objects
  */
-function applyImportantRecursive(properties: CSSProperties): CSSProperties {
+function applyImportantRecursive(properties: CSSProperties, depth = 0): CSSProperties {
+  // Prevent stack overflow from circular references
+  if (depth >= MAX_RECURSION_DEPTH) {
+    console.warn('CoralCSS Generator: Max recursion depth exceeded in applyImportantRecursive')
+    return properties
+  }
+
   const result: CSSProperties = {}
 
   for (const [key, value] of Object.entries(properties)) {
@@ -153,8 +174,8 @@ function applyImportantRecursive(properties: CSSProperties): CSSProperties {
     } else if (typeof value === 'number') {
       result[key] = `${value} !important`
     } else if (typeof value === 'object' && value !== null) {
-      // Recursively handle nested objects
-      result[key] = applyImportantRecursive(value as CSSProperties)
+      // Recursively handle nested objects with depth tracking
+      result[key] = applyImportantRecursive(value as CSSProperties, depth + 1)
     } else {
       result[key] = value
     }

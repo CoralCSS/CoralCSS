@@ -359,7 +359,7 @@ function extractClassesFromContent(content: string): string[] {
     switch (state) {
       case State.Normal:
         // Check for class= or className=
-        if (char === 'c' && content.substr(i, 6) === 'class=') {
+        if (char === 'c' && content.slice(i, i + 6) === 'class=') {
           i += 5 // Move past 'class='
           // Next char determines quote type
           if (next === '"') {
@@ -375,7 +375,7 @@ function extractClassesFromContent(content: string): string[] {
         }
         // Check for clsx/cn/cva/classnames calls
         else if (char === 'c' || char === 'C') {
-          const lower = content.substr(i, 10).toLowerCase()
+          const lower = content.slice(i, i + 10).toLowerCase()
           if (lower.startsWith('clsx') ||
               lower.startsWith('classnames') ||
               lower.startsWith('cn(') ||
@@ -1511,13 +1511,19 @@ function minifyCSS(css: string): string {
     // Skip CSS comments - O(n) guaranteed, no backtracking
     if (i + 1 < len && css[i] === '/' && css[i + 1] === '*') {
       i += 2
+      let commentClosed = false
       // Advance until we find closing */
       while (i + 1 < len) {
         if (css[i] === '*' && css[i + 1] === '/') {
           i += 2
+          commentClosed = true
           break
         }
         i++
+      }
+      // Handle unterminated comment - skip to end to prevent infinite loop
+      if (!commentClosed) {
+        i = len
       }
       continue
     }

@@ -99,6 +99,49 @@ const DANGEROUS_CSS_PATTERNS = [
 ]
 
 /**
+ * Decode HTML entities to their actual characters
+ * Handles numeric (&#123;), hex (&#x7b;), and named entities (&lt;)
+ *
+ * @example
+ * ```typescript
+ * decodeHTMLEntities('&#x3c;script&#x3e;') // '<script>'
+ * decodeHTMLEntities('&lt;script&gt;') // '<script>'
+ * ```
+ */
+function decodeHTMLEntities(text: string): string {
+  // Decode hex entities: &#x3c; -> <
+  let decoded = text.replace(/&#x([0-9a-fA-F]+);/gi, (_, hex: string) => {
+    const codePoint = parseInt(hex, 16)
+    if (codePoint > 0x10ffff) return '\ufffd'
+    return String.fromCodePoint(codePoint)
+  })
+
+  // Decode decimal entities: &#60; -> <
+  decoded = decoded.replace(/&#([0-9]+);/g, (_, dec: string) => {
+    const codePoint = parseInt(dec, 10)
+    if (codePoint > 0x10ffff) return '\ufffd'
+    return String.fromCodePoint(codePoint)
+  })
+
+  // Decode common named entities
+  const namedEntities: Record<string, string> = {
+    '&lt;': '<',
+    '&gt;': '>',
+    '&amp;': '&',
+    '&quot;': '"',
+    '&apos;': "'",
+    '&nbsp;': ' ',
+    '&copy;': '\u00A9',
+    '&reg;': '\u00AE',
+  }
+  for (const [entity, char] of Object.entries(namedEntities)) {
+    decoded = decoded.split(entity).join(char)
+  }
+
+  return decoded
+}
+
+/**
  * Decode CSS unicode escapes to their actual characters
  * CSS allows \XXXXXX format where X is a hex digit
  *
@@ -238,16 +281,23 @@ export function isDangerousCSSValue(value: string): boolean {
         }
       }
 
-      // Check for dangerous patterns in decoded SVG
-      if (
-        /<script/i.test(decodedContent) ||
-        /\bon\w+\s*=/i.test(decodedContent) ||
-        /javascript\s*:/i.test(decodedContent) ||
-        /href\s*=\s*["']?\s*javascript/i.test(decodedContent) ||
-        /onload\s*=/i.test(decodedContent) ||
-        /onerror\s*=/i.test(decodedContent)
-      ) {
-        return true
+      // Decode HTML entities before checking (bypass prevention)
+      const entityDecoded = decodeHTMLEntities(decodedContent)
+
+      // Check for dangerous patterns in decoded SVG (both original and entity-decoded)
+      const svgPatterns = [
+        /<script/i,
+        /\bon\w+\s*=/i,
+        /javascript\s*:/i,
+        /href\s*=\s*["']?\s*javascript/i,
+        /onload\s*=/i,
+        /onerror\s*=/i,
+      ]
+
+      for (const pattern of svgPatterns) {
+        if (pattern.test(decodedContent) || pattern.test(entityDecoded)) {
+          return true
+        }
       }
     }
   }
@@ -297,6 +347,9 @@ export function isDangerousCSSValue(value: string): boolean {
             }
           }
 
+          // Decode HTML entities to catch bypass attempts like &#x3c;script&#x3e;
+          const entityDecoded = decodeHTMLEntities(decodedContent)
+
           // Check for dangerous patterns in decoded content
           // COMPREHENSIVE SVG XSS checks - multiple bypass vectors
           const dangerousSvgPatterns = [
@@ -312,21 +365,20 @@ export function isDangerousCSSValue(value: string): boolean {
             /<embed/i,                     // embed tags
             /<foreignObject/i,             // Foreign object can contain HTML
             /data:text\/html/i,            // HTML data URLs
-            /&#x?[\da-f]+;/i,              // HTML entity encoding bypass
-            /&#[0-9]+;/i,                  // HTML numeric entities
             /<style/i,                     // Style tags with CSS expressions
             /<a\s/i,                       // Anchor tags (potential xlink:href)
           ]
 
+          // Check both original decoded content and HTML entity decoded version
           for (const pattern of dangerousSvgPatterns) {
-            if (pattern.test(decodedContent)) {
+            if (pattern.test(decodedContent) || pattern.test(entityDecoded)) {
               return true
             }
           }
 
-          // Also check for double-encoded content (encoding bypass attempts)
-          const doubleDecoded = decodeCSSUnicodeEscapes(decodedContent)
-          if (doubleDecoded !== decodedContent) {
+          // Also check for double-encoded content (CSS unicode + HTML entities)
+          const doubleDecoded = decodeHTMLEntities(decodeCSSUnicodeEscapes(decodedContent))
+          if (doubleDecoded !== decodedContent && doubleDecoded !== entityDecoded) {
             for (const pattern of dangerousSvgPatterns) {
               if (pattern.test(doubleDecoded)) {
                 return true
