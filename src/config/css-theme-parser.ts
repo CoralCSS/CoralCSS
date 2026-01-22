@@ -155,29 +155,66 @@ function buildThemeFromVariables(parsed: ParsedTheme): Partial<Theme> {
     screens: {},
   }
 
+  // Helper function to safely set theme properties
+  const setColor = (key: string, value: string) => {
+    if (theme.colors) {
+      theme.colors[key] = value
+    }
+  }
+
+  const setSpacing = (key: string, value: string) => {
+    if (theme.spacing) {
+      theme.spacing[key] = value
+    }
+  }
+
+  const setFontSize = (key: string, value: { fontSize: string; lineHeight: string }) => {
+    if (theme.fontSizes) {
+      theme.fontSizes[key] = value
+    }
+  }
+
+  const setBorderRadius = (key: string, value: string) => {
+    if (theme.borderRadius) {
+      theme.borderRadius[key] = value
+    }
+  }
+
+  const setScreen = (key: string, value: string) => {
+    if (theme.screens) {
+      theme.screens[key] = value
+    }
+  }
+
+  const setFont = (key: string, value: string[]) => {
+    if (theme.fonts) {
+      theme.fonts[key] = value
+    }
+  }
+
   for (const [name, variable] of parsed.variables) {
     switch (variable.category) {
       case 'color':
-        theme.colors![name.replace('color-', '')] = variable.value
+        setColor(name.replace('color-', ''), variable.value)
         break
       case 'spacing':
-        theme.spacing![name.replace(/^(spacing-|gap-)/, '')] = variable.value
+        setSpacing(name.replace(/^(spacing-|gap-)/, ''), variable.value)
         break
       case 'font-size':
-        theme.fontSizes![name.replace(/^(text-|font-size-)/, '')] = { fontSize: variable.value, lineHeight: '1.5' }
+        setFontSize(name.replace(/^(text-|font-size-)/, ''), { fontSize: variable.value, lineHeight: '1.5' })
         break
       case 'font-family':
         // Parse font family string to array
         const fontKey = name.replace('font-', '')
         if (fontKey === 'sans' || fontKey === 'serif' || fontKey === 'mono') {
-          theme.fonts![fontKey] = variable.value.split(',').map(f => f.trim())
+          setFont(fontKey, variable.value.split(',').map(f => f.trim()))
         }
         break
       case 'border-radius':
-        theme.borderRadius![name.replace(/^(radius-|rounded-)/, '')] = variable.value
+        setBorderRadius(name.replace(/^(radius-|rounded-)/, ''), variable.value)
         break
       case 'breakpoint':
-        theme.screens![name.replace('breakpoint-', '')] = variable.value
+        setScreen(name.replace('breakpoint-', ''), variable.value)
         break
       case 'other':
         // Skip extend - not supported in Theme type
@@ -186,7 +223,7 @@ function buildThemeFromVariables(parsed: ParsedTheme): Partial<Theme> {
   }
 
   // Add default color palette if none defined
-  if (Object.keys(theme.colors!).length === 0) {
+  if (theme.colors && Object.keys(theme.colors).length === 0) {
     theme.colors = getDefaultColorPalette()
   }
 

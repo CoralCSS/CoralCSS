@@ -12,6 +12,22 @@ import { coralPreset } from '../presets/coral'
 import type { Coral, CoralOptions, DarkModeStrategy } from '../types'
 
 /**
+ * Logger for esbuild plugin errors and warnings
+ */
+const logger = {
+  error: (message: string, error?: unknown) => {
+    if (process.env.NODE_ENV !== 'test') {
+      console.error(`[CoralCSS esbuild] Error: ${message}`, error)
+    }
+  },
+  warn: (message: string) => {
+    if (process.env.NODE_ENV !== 'test') {
+      console.warn(`[CoralCSS esbuild] Warning: ${message}`)
+    }
+  },
+}
+
+/**
  * esbuild plugin options
  */
 export interface EsbuildPluginOptions extends Partial<CoralOptions> {
@@ -170,7 +186,26 @@ export function coralEsbuildPlugin(options: EsbuildPluginOptions = {}): EsbuildP
 
           // Return null to let esbuild process the file normally
           return null
-        } catch {
+        } catch (error) {
+          // Handle specific file read errors
+          if (error instanceof Error) {
+            if ('code' in error) {
+              const errorCode = (error as { code: string }).code
+              if (errorCode === 'EACCES') {
+                logger.warn(`Permission denied reading file: ${args.path}`)
+              } else if (errorCode === 'ENOENT') {
+                logger.warn(`File not found (may have been deleted): ${args.path}`)
+              } else if (errorCode === 'EISDIR') {
+                logger.warn(`Expected file but got directory: ${args.path}`)
+              } else {
+                logger.warn(`Error reading file ${args.path}: ${error.message}`)
+              }
+            } else {
+              logger.warn(`Error reading file ${args.path}: ${error.message}`)
+            }
+          } else {
+            logger.warn(`Unknown error reading file: ${args.path}`)
+          }
           return null
         }
       })
@@ -190,7 +225,25 @@ export function coralEsbuildPlugin(options: EsbuildPluginOptions = {}): EsbuildP
           try {
             await fs.writeFile(outFile, finalCSS, 'utf-8')
           } catch (error) {
-            console.error(`CoralCSS: Failed to write CSS file to ${outFile}:`, error)
+            // Handle specific file write errors
+            if (error instanceof Error) {
+              if ('code' in error) {
+                const errorCode = (error as { code: string }).code
+                if (errorCode === 'EACCES') {
+                  logger.error(`Permission denied writing to file: ${outFile}`)
+                } else if (errorCode === 'ENOENT') {
+                  logger.error(`Directory not found for file: ${outFile}`)
+                } else if (errorCode === 'ENOSPC') {
+                  logger.error(`No space left on device while writing: ${outFile}`)
+                } else {
+                  logger.error(`Failed to write CSS file to ${outFile}: ${error.message}`)
+                }
+              } else {
+                logger.error(`Failed to write CSS file to ${outFile}: ${error.message}`)
+              }
+            } else {
+              logger.error(`Failed to write CSS file to ${outFile}: Unknown error`, error)
+            }
           }
         }
       })

@@ -11,6 +11,33 @@ import type { ComponentConfig, ComponentState } from '../types'
 import { BaseComponent, createComponentFactory } from './base'
 
 /**
+ * Escape HTML special characters to prevent XSS
+ *
+ * @example
+ * ```typescript
+ * escapeHtml('<script>alert("XSS")</script>') // &lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;
+ * ```
+ */
+function escapeHtml(text: string): string {
+  const div = document.createElement('div')
+  div.textContent = text
+  return div.innerHTML
+}
+
+/**
+ * Escape special regex characters to prevent ReDoS/Regex Injection
+ *
+ * @example
+ * ```typescript
+ * escapeRegex('hello+world') // hello\+world
+ * escapeRegex('(test)') // \(test\)
+ * ```
+ */
+function escapeRegex(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+/**
  * Mention item
  */
 export interface MentionItem {
@@ -444,14 +471,32 @@ export class Mention extends BaseComponent {
     this.suggestionsEl.innerHTML = suggestions
       .map((item, index) => {
         if (this.config.renderItem) {
-          return `<div data-coral-mention-item data-index="${index}" ${index === highlightedIndex ? 'data-highlighted' : ''}>${this.config.renderItem(item)}</div>`
+          // Escape user-provided HTML content to prevent XSS
+          const renderedContent = escapeHtml(this.config.renderItem(item))
+          return `<div data-coral-mention-item data-index="${index}" ${index === highlightedIndex ? 'data-highlighted' : ''}>${renderedContent}</div>`
         }
 
-        let label = item.label
+        let label = escapeHtml(item.label)
         if (this.config.highlightMatches && searchQuery) {
-          const regex = new RegExp(`(${searchQuery})`, 'gi')
-          label = label.replace(regex, '<mark>$1</mark>')
+          // Escape searchQuery to prevent Regex Injection
+          const escapedQuery = escapeRegex(searchQuery)
+          const regex = new RegExp(`(${escapedQuery})`, 'gi')
+          // Safe: label is already escaped, and we only wrap matched portions in <mark>
+          label = item.label.replace(regex, '<mark>$1</mark>')
+            .split(/(<mark>.*?<\/mark>)/g)
+            .map(part => part.startsWith('<mark>') ? part : escapeHtml(part))
+            .join('')
         }
+
+        // Escape avatar URL to prevent javascript: protocol injection
+        const avatarHtml = item.avatar
+          ? `<img src="${escapeHtml(item.avatar)}" alt="${escapeHtml(item.label)}" data-coral-mention-avatar />`
+          : ''
+
+        // Escape description to prevent XSS
+        const descriptionHtml = item.description
+          ? `<div data-coral-mention-item-description>${escapeHtml(item.description)}</div>`
+          : ''
 
         return `
           <div
@@ -460,10 +505,10 @@ export class Mention extends BaseComponent {
             ${index === highlightedIndex ? 'data-highlighted' : ''}
             ${item.disabled ? 'data-disabled' : ''}
           >
-            ${item.avatar ? `<img src="${item.avatar}" alt="${item.label}" data-coral-mention-avatar />` : ''}
+            ${avatarHtml}
             <div data-coral-mention-item-content>
               <div data-coral-mention-item-label>${label}</div>
-              ${item.description ? `<div data-coral-mention-item-description>${item.description}</div>` : ''}
+              ${descriptionHtml}
             </div>
           </div>
         `

@@ -11,6 +11,59 @@ import type { ComponentConfig, ComponentState } from '../types'
 import { BaseComponent, createComponentFactory } from './base'
 
 /**
+ * Sanitize SVG/icon HTML to prevent XSS
+ *
+ * Only allows safe SVG elements and attributes.
+ * Blocks script, event handlers, and dangerous attributes.
+ */
+function sanitizeIconHtml(html: string): string {
+  // Use DOMParser to parse and sanitize HTML
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(html, 'image/svg+xml')
+
+  // Check for parsing errors
+  const parserError = doc.querySelector('parsererror')
+  if (parserError) {
+    return ''
+  }
+
+  // Remove dangerous elements
+  const dangerousTags = ['script', 'iframe', 'object', 'embed', 'form']
+  for (const tag of dangerousTags) {
+    const elements = doc.getElementsByTagName(tag)
+    for (let i = elements.length - 1; i >= 0; i--) {
+      elements[i]!.remove()
+    }
+  }
+
+  // Remove dangerous attributes
+  const allElements = doc.getElementsByTagName('*')
+  for (let i = 0; i < allElements.length; i++) {
+    const el = allElements[i]
+    const attrs = el?.attributes
+    if (!attrs) continue
+
+    const dangerousAttrs = [
+      'onload', 'onerror', 'onclick', 'onmouseover', 'onmouseout',
+      'onfocus', 'onblur', 'onkeydown', 'onkeyup', 'onkeypress',
+      'xlink:href', 'data', 'href',
+    ]
+
+    for (let j = attrs.length - 1; j >= 0; j--) {
+      const attr = attrs[j]
+      if (!attr) continue
+
+      const attrName = attr.name.toLowerCase()
+      if (dangerousAttrs.some(da => attrName === da || attrName.startsWith('on'))) {
+        el.removeAttribute(attr.name)
+      }
+    }
+  }
+
+  return doc.documentElement.outerHTML
+}
+
+/**
  * MultiSelect option
  */
 export interface MultiSelectOption {
@@ -668,11 +721,11 @@ export class MultiSelect extends BaseComponent {
     checkbox.setAttribute('data-coral-multi-select-checkbox', '')
     el.appendChild(checkbox)
 
-    // Icon
+    // Icon (sanitize to prevent XSS)
     if (option.icon) {
       const icon = document.createElement('span')
       icon.className = 'multi-select-option-icon'
-      icon.innerHTML = option.icon
+      icon.innerHTML = sanitizeIconHtml(option.icon)
       el.appendChild(icon)
     }
 

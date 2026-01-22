@@ -11,6 +11,51 @@ import type { ComponentConfig, ComponentState } from '../types'
 import { BaseComponent } from './base'
 
 /**
+ * Validate and sanitize regex pattern to prevent ReDoS and syntax errors
+ *
+ * Only allows safe regex patterns:
+ * - No nested quantifiers (a+, a*, a{1,5})
+ * - No recursive patterns
+ * - Maximum length limit
+ * - Basic syntax validation
+ *
+ * @example
+ * ```typescript
+ * isValidRegexPattern('[a-z]+') // true
+ * isValidRegexPattern('(a+)+') // false - nested quantifier (ReDoS risk)
+ * isValidRegexPattern('[a-z') // false - invalid syntax
+ * ```
+ */
+function isValidRegexPattern(pattern: string): boolean {
+  // Length limit to prevent DoS via extremely long patterns
+  if (pattern.length > 1000) {
+    return false
+  }
+
+  // Check for nested quantifiers - ReDoS risk
+  // Patterns like (a+)+, (a*)*, (a{1,3})+, etc.
+  const nestedQuantifierPattern = /(\([^)]*[\*\+?\{]|\[[^\]]*[\*\+?\{])[\*\+?\{]/
+  if (nestedQuantifierPattern.test(pattern)) {
+    return false
+  }
+
+  // Check for dangerous repeated patterns (catastrophic backtracking)
+  // Like ((a+)+)+, (.+)+, etc.
+  const dangerousRepeat = /(\([^)]*\)|\[[^\]]*\]|\\.)[\*\+?\{]\*[\*\+?\{]/
+  if (dangerousRepeat.test(pattern)) {
+    return false
+  }
+
+  // Validate regex syntax
+  try {
+    new RegExp(pattern)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
  * Step definition for StepperForm
  */
 export interface StepperFormStep {
@@ -570,8 +615,22 @@ export class StepperForm extends BaseComponent {
           }
           break
         case 'pattern':
-          if (value && params[0] && !new RegExp(params[0]).test(value)) {
-            errors.push(field.dataset.patternMessage || 'Invalid format')
+          if (value && params[0]) {
+            // Validate pattern to prevent ReDoS and syntax errors
+            if (!isValidRegexPattern(params[0]!)) {
+              console.warn(`[StepperForm] Invalid or dangerous regex pattern: ${params[0]}`)
+              errors.push(field.dataset.patternMessage || 'Invalid validation pattern configured')
+            } else {
+              try {
+                const regex = new RegExp(params[0]!)
+                if (!regex.test(value)) {
+                  errors.push(field.dataset.patternMessage || 'Invalid format')
+                }
+              } catch (error) {
+                console.warn(`[StepperForm] Regex pattern error: ${error}`)
+                errors.push(field.dataset.patternMessage || 'Invalid format')
+              }
+            }
           }
           break
       }

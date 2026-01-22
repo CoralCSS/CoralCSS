@@ -14,6 +14,22 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 /**
+ * Logger for PostCSS plugin errors and warnings
+ */
+const logger = {
+  error: (message: string, error?: unknown) => {
+    if (process.env.NODE_ENV !== 'test') {
+      console.error(`[CoralCSS PostCSS] Error: ${message}`, error)
+    }
+  },
+  warn: (message: string) => {
+    if (process.env.NODE_ENV !== 'test') {
+      console.warn(`[CoralCSS PostCSS] Warning: ${message}`)
+    }
+  },
+}
+
+/**
  * PostCSS plugin options
  */
 export interface PostCSSPluginOptions {
@@ -504,7 +520,25 @@ function walkDirectory(
       }
     }
   } catch (error) {
-    // Silently ignore errors (e.g., permission denied)
+    // Handle specific file system errors
+    if (error instanceof Error) {
+      if ('code' in error) {
+        const errorCode = (error as { code: string }).code
+        if (errorCode === 'EACCES') {
+          logger.warn(`Permission denied accessing directory: ${dir}`)
+        } else if (errorCode === 'ENOENT') {
+          logger.warn(`Directory not found: ${dir}`)
+        } else if (errorCode === 'ELOOP') {
+          logger.warn(`Too many symbolic links in: ${dir}`)
+        } else {
+          logger.warn(`Error accessing directory ${dir}: ${error.message}`)
+        }
+      } else {
+        logger.warn(`Error accessing directory ${dir}: ${error.message}`)
+      }
+    } else {
+      logger.warn(`Unknown error accessing directory: ${dir}`)
+    }
   }
 
   return results
@@ -552,8 +586,26 @@ function scanContentFiles(patterns: string[]): string[] {
       const content = fs.readFileSync(file, 'utf-8')
       const classes = extractClasses(content)
       classes.forEach((cls) => allClasses.add(cls))
-    } catch {
-      // Silently ignore read errors
+    } catch (error) {
+      // Handle specific file read errors
+      if (error instanceof Error) {
+        if ('code' in error) {
+          const errorCode = (error as { code: string }).code
+          if (errorCode === 'EACCES') {
+            logger.warn(`Permission denied reading file: ${file}`)
+          } else if (errorCode === 'ENOENT') {
+            logger.warn(`File not found (may have been deleted): ${file}`)
+          } else if (errorCode === 'EISDIR') {
+            logger.warn(`Expected file but got directory: ${file}`)
+          } else {
+            logger.warn(`Error reading file ${file}: ${error.message}`)
+          }
+        } else {
+          logger.warn(`Error reading file ${file}: ${error.message}`)
+        }
+      } else {
+        logger.warn(`Unknown error reading file: ${file}`)
+      }
     }
   }
 

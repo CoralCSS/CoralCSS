@@ -9,6 +9,37 @@ import type { Theme } from '../types'
 import { defaultTheme } from '../theme/default'
 
 /**
+ * Safely parse fraction strings like "1/2", "3/4" without eval()
+ *
+ * @example
+ * ```typescript
+ * parseFraction("1/2") // 0.5
+ * parseFraction("3/4") // 0.75
+ * parseFraction("invalid") // 0
+ * ```
+ */
+function parseFraction(fraction: string): number {
+  // Validate format: only digits and single forward slash
+  if (!/^\d+\/\d+$/.test(fraction)) {
+    return 0
+  }
+
+  const parts = fraction.split('/')
+  const numerator = Number.parseInt(parts[0]!, 10)
+  const denominator = Number.parseInt(parts[1]!, 10)
+
+  // Safety checks
+  if (Number.isNaN(numerator) || Number.isNaN(denominator)) {
+    return 0
+  }
+  if (denominator === 0) {
+    return 0 // Prevent division by zero
+  }
+
+  return numerator / denominator
+}
+
+/**
  * Completion item structure
  */
 export interface CompletionItem {
@@ -888,7 +919,7 @@ function generateSizingCompletions(theme: Theme): CompletionItem[] {
   // Percentage widths
   const percentages = ['1/2', '1/3', '2/3', '1/4', '2/4', '3/4', '1/5', '2/5', '3/5', '4/5', '1/6', '5/6', 'full', 'screen']
   for (const pct of percentages) {
-    const value = pct === 'full' ? '100%' : pct === 'screen' ? '100vw' : `${eval(pct) * 100}%`
+    const value = pct === 'full' ? '100%' : pct === 'screen' ? '100vw' : `${parseFraction(pct) * 100}%`
     items.push({
       label: `w-${pct}`,
       category: 'sizing',
@@ -907,7 +938,7 @@ function generateSizingCompletions(theme: Theme): CompletionItem[] {
     else if (pct === 'svh') { value = '100svh' }
     else if (pct === 'lvh') { value = '100lvh' }
     else if (pct === 'dvh') { value = '100dvh' }
-    else { value = `${eval(pct) * 100}%` }
+    else { value = `${parseFraction(pct) * 100}%` }
     items.push({
       label: `h-${pct}`,
       category: 'sizing',

@@ -114,9 +114,11 @@ export async function initTurbo(): Promise<boolean> {
       turboAvailable = true
 
       /* istanbul ignore next -- @preserve: optional dependency */
-      console.log(
-        `[CoralCSS] Turbo engine initialized (backend: ${turboModule.getBackend()})`
-      )
+      if (process.env.NODE_ENV === 'development') {
+        console.log(
+          `[CoralCSS] Turbo engine initialized (backend: ${turboModule.getBackend()})`
+        )
+      }
     } catch (error) {
       console.warn('[CoralCSS] Turbo engine not available, using JS fallback')
       turboAvailable = false

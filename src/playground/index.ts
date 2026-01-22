@@ -11,6 +11,87 @@
  */
 
 // ============================================================================
+// Constants
+// ============================================================================
+
+/**
+ * Playground theme constants
+ * Centralized styling values for consistency
+ */
+const PLAYGROUND_STYLES = {
+  // Layout
+  panelGap: '16px',
+  panelMinHeight: '500px',
+  borderRadius: '16px',
+  padding: '24px',
+
+  // Input/textarea
+  inputPadding: '12px',
+  inputBorderRadius: '8px',
+  inputFontSize: '14px',
+  inputMarginBottom: '8px',
+
+  // Small text
+  smallFontSize: '11px',
+  smallButtonPadding: '4px 8px',
+  smallBorderRadius: '4px',
+
+  // Labels
+  labelMarginBottom: '8px',
+  labelFontWeight: '600',
+
+  // Preview area
+  previewPadding: '24px',
+  previewPatternSize: '20px',
+
+  // Code area
+  codeFontSize: '12px',
+  codePadding: '12px',
+
+  // Category items
+  categoryMarginBottom: '12px',
+  categoryItemMarginBottom: '6px',
+  buttonGap: '4px',
+} as const
+
+/**
+ * Color palette for light/dark themes
+ */
+const PLAYGROUND_COLORS = {
+  light: {
+    bg: '#f8fafc',
+    bgAlt: '#ffffff',
+    bgAlt2: '#f1f5f9',
+    border: '#e2e8f0',
+    borderAlt: '#f8fafc',
+    text: '#1e293b',
+    textMuted: '#94a3b8',
+    textMuted2: '#6c7086',
+    accent: '#3b82f6',
+    accentBright: '#89b4fa',
+  },
+  dark: {
+    bg: '#1e1e2e',
+    bgAlt: '#313244',
+    bgAlt2: '#45475a',
+    border: '#45475a',
+    borderAlt: '#313244',
+    text: '#cdd6f4',
+    textMuted: '#89b4fa',
+    textMuted2: '#6c7086',
+    accent: '#89b4fa',
+    accentBright: '#3b82f6',
+  },
+} as const
+
+/**
+ * Get color for current theme
+ */
+function getThemeColor(colorKey: keyof typeof PLAYGROUND_COLORS.light, isDark: boolean): string {
+  return PLAYGROUND_COLORS[isDark ? 'dark' : 'light'][colorKey]
+}
+
+// ============================================================================
 // Types
 // ============================================================================
 
@@ -210,12 +291,12 @@ export class CoralPlayground {
     wrapper.style.cssText = `
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
+      gap: ${PLAYGROUND_STYLES.panelGap};
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: ${isDark ? '#1e1e2e' : '#f8fafc'};
-      padding: 24px;
-      border-radius: 16px;
-      min-height: 500px;
+      background: ${getThemeColor('bg', isDark)};
+      padding: ${PLAYGROUND_STYLES.padding};
+      border-radius: ${PLAYGROUND_STYLES.borderRadius};
+      min-height: ${PLAYGROUND_STYLES.panelMinHeight};
     `
 
     // Build left panel (controls)
@@ -234,11 +315,11 @@ export class CoralPlayground {
 
   private buildControlsPanel(isDark: boolean): HTMLElement {
     const panel = document.createElement('div')
-    panel.style.cssText = 'display: flex; flex-direction: column; gap: 16px;'
+    panel.style.cssText = `display: flex; flex-direction: column; gap: ${PLAYGROUND_STYLES.panelGap};`
 
     // Classes section
     const classesLabel = document.createElement('label')
-    classesLabel.style.cssText = `display: block; margin-bottom: 8px; font-weight: 600; color: ${isDark ? '#cdd6f4' : '#1e293b'};`
+    classesLabel.style.cssText = `display: block; margin-bottom: ${PLAYGROUND_STYLES.labelMarginBottom}; font-weight: ${PLAYGROUND_STYLES.labelFontWeight}; color: ${getThemeColor('text', isDark)};`
     classesLabel.textContent = 'Classes'
 
     this.classInput = document.createElement('input')
@@ -247,13 +328,13 @@ export class CoralPlayground {
     this.classInput.placeholder = 'Enter CSS classes...'
     this.classInput.style.cssText = `
       width: 100%;
-      padding: 12px;
-      border: 1px solid ${isDark ? '#45475a' : '#e2e8f0'};
-      border-radius: 8px;
+      padding: ${PLAYGROUND_STYLES.inputPadding};
+      border: 1px solid ${getThemeColor('border', isDark)};
+      border-radius: ${PLAYGROUND_STYLES.inputBorderRadius};
       font-family: 'Fira Code', monospace;
-      font-size: 14px;
-      background: ${isDark ? '#313244' : '#ffffff'};
-      color: ${isDark ? '#cdd6f4' : '#1e293b'};
+      font-size: ${PLAYGROUND_STYLES.inputFontSize};
+      background: ${getThemeColor('bgAlt', isDark)};
+      color: ${getThemeColor('text', isDark)};
       outline: none;
       box-sizing: border-box;
     `
@@ -272,13 +353,13 @@ export class CoralPlayground {
     this.htmlInput.rows = 6
     this.htmlInput.style.cssText = `
       width: 100%;
-      padding: 12px;
-      border: 1px solid ${isDark ? '#45475a' : '#e2e8f0'};
-      border-radius: 8px;
+      padding: ${PLAYGROUND_STYLES.inputPadding};
+      border: 1px solid ${getThemeColor('border', isDark)};
+      border-radius: ${PLAYGROUND_STYLES.inputBorderRadius};
       font-family: 'Fira Code', monospace;
       font-size: 13px;
-      background: ${isDark ? '#313244' : '#ffffff'};
-      color: ${isDark ? '#cdd6f4' : '#1e293b'};
+      background: ${getThemeColor('bgAlt', isDark)};
+      color: ${getThemeColor('text', isDark)};
       outline: none;
       resize: vertical;
       box-sizing: border-box;
@@ -294,17 +375,17 @@ export class CoralPlayground {
     // Suggestions
     if (this.config.showSuggestions) {
       const suggestLabel = document.createElement('label')
-      suggestLabel.style.cssText = `font-weight: 600; color: ${isDark ? '#cdd6f4' : '#1e293b'};`
+      suggestLabel.style.cssText = `font-weight: ${PLAYGROUND_STYLES.labelFontWeight}; color: ${getThemeColor('text', isDark)};`
       suggestLabel.textContent = 'Quick Add'
 
       this.suggestionsPanel = document.createElement('div')
       this.suggestionsPanel.style.cssText = `
         flex: 1;
         overflow-y: auto;
-        border: 1px solid ${isDark ? '#45475a' : '#e2e8f0'};
-        border-radius: 8px;
-        background: ${isDark ? '#313244' : '#ffffff'};
-        padding: 12px;
+        border: 1px solid ${getThemeColor('border', isDark)};
+        border-radius: ${PLAYGROUND_STYLES.inputBorderRadius};
+        background: ${getThemeColor('bgAlt', isDark)};
+        padding: ${PLAYGROUND_STYLES.inputPadding};
       `
       this.renderSuggestions(isDark)
 
@@ -317,30 +398,30 @@ export class CoralPlayground {
 
   private buildPreviewPanel(isDark: boolean): HTMLElement {
     const panel = document.createElement('div')
-    panel.style.cssText = 'display: flex; flex-direction: column; gap: 16px;'
+    panel.style.cssText = `display: flex; flex-direction: column; gap: ${PLAYGROUND_STYLES.panelGap};`
 
     // Preview label
     const previewLabel = document.createElement('label')
-    previewLabel.style.cssText = `font-weight: 600; color: ${isDark ? '#cdd6f4' : '#1e293b'};`
+    previewLabel.style.cssText = `font-weight: ${PLAYGROUND_STYLES.labelFontWeight}; color: ${getThemeColor('text', isDark)};`
     previewLabel.textContent = 'Preview'
 
     // Preview container
     const previewContainer = document.createElement('div')
     previewContainer.style.cssText = `
       flex: 1;
-      border: 1px solid ${isDark ? '#45475a' : '#e2e8f0'};
-      border-radius: 8px;
-      background: ${isDark ? '#45475a' : '#ffffff'};
-      padding: 24px;
+      border: 1px solid ${getThemeColor('border', isDark)};
+      border-radius: ${PLAYGROUND_STYLES.inputBorderRadius};
+      background: ${getThemeColor('borderAlt', isDark)};
+      padding: ${PLAYGROUND_STYLES.previewPadding};
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: auto;
-      background-image: linear-gradient(45deg, ${isDark ? '#313244' : '#f1f5f9'} 25%, transparent 25%),
-                        linear-gradient(-45deg, ${isDark ? '#313244' : '#f1f5f9'} 25%, transparent 25%),
-                        linear-gradient(45deg, transparent 75%, ${isDark ? '#313244' : '#f1f5f9'} 75%),
-                        linear-gradient(-45deg, transparent 75%, ${isDark ? '#313244' : '#f1f5f9'} 75%);
-      background-size: 20px 20px;
+      background-image: linear-gradient(45deg, ${getThemeColor('bgAlt2', isDark)} 25%, transparent 25%),
+                        linear-gradient(-45deg, ${getThemeColor('bgAlt2', isDark)} 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, ${getThemeColor('bgAlt2', isDark)} 75%),
+                        linear-gradient(-45deg, transparent 75%, ${getThemeColor('bgAlt2', isDark)} 75%);
+      background-size: ${PLAYGROUND_STYLES.previewPatternSize} ${PLAYGROUND_STYLES.previewPatternSize};
       background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
     `
 
@@ -350,19 +431,19 @@ export class CoralPlayground {
 
     // Code output label
     const codeLabel = document.createElement('label')
-    codeLabel.style.cssText = `font-weight: 600; color: ${isDark ? '#cdd6f4' : '#1e293b'}; display: block; margin-bottom: 8px;`
+    codeLabel.style.cssText = `font-weight: ${PLAYGROUND_STYLES.labelFontWeight}; color: ${getThemeColor('text', isDark)}; display: block; margin-bottom: ${PLAYGROUND_STYLES.labelMarginBottom};`
     codeLabel.textContent = 'Generated Code'
 
     // Code output
     this.codeOutput = document.createElement('pre')
     this.codeOutput.id = 'coral-playground-code'
     this.codeOutput.style.cssText = `
-      padding: 12px;
-      border-radius: 8px;
-      background: ${isDark ? '#1e1e2e' : '#f1f5f9'};
+      padding: ${PLAYGROUND_STYLES.codePadding};
+      border-radius: ${PLAYGROUND_STYLES.inputBorderRadius};
+      background: ${getThemeColor('bg', isDark)};
       font-family: 'Fira Code', monospace;
-      font-size: 12px;
-      color: ${isDark ? '#89b4fa' : '#3b82f6'};
+      font-size: ${PLAYGROUND_STYLES.codeFontSize};
+      color: ${getThemeColor('accentBright', isDark)};
       overflow-x: auto;
       margin: 0;
       white-space: pre-wrap;
@@ -399,41 +480,41 @@ export class CoralPlayground {
 
     categories.forEach((suggestions, category) => {
       const categoryDiv = document.createElement('div')
-      categoryDiv.style.cssText = 'margin-bottom: 12px;'
+      categoryDiv.style.cssText = `margin-bottom: ${PLAYGROUND_STYLES.categoryMarginBottom};`
 
       const categoryTitle = document.createElement('div')
       categoryTitle.style.cssText = `
-        font-size: 11px;
-        font-weight: 600;
+        font-size: ${PLAYGROUND_STYLES.smallFontSize};
+        font-weight: ${PLAYGROUND_STYLES.labelFontWeight};
         text-transform: uppercase;
-        color: ${isDark ? '#6c7086' : '#94a3b8'};
-        margin-bottom: 6px;
+        color: ${getThemeColor('textMuted2', isDark)};
+        margin-bottom: ${PLAYGROUND_STYLES.categoryItemMarginBottom};
       `
       categoryTitle.textContent = category
 
       const buttonsDiv = document.createElement('div')
-      buttonsDiv.style.cssText = 'display: flex; flex-wrap: wrap; gap: 4px;'
+      buttonsDiv.style.cssText = `display: flex; flex-wrap: wrap; gap: ${PLAYGROUND_STYLES.buttonGap};`
 
       suggestions.slice(0, 6).forEach(s => {
         const btn = document.createElement('button')
         btn.textContent = s.className
         btn.title = s.description
         btn.style.cssText = `
-          padding: 4px 8px;
-          font-size: 11px;
+          padding: ${PLAYGROUND_STYLES.smallButtonPadding};
+          font-size: ${PLAYGROUND_STYLES.smallFontSize};
           font-family: 'Fira Code', monospace;
-          border: 1px solid ${isDark ? '#45475a' : '#e2e8f0'};
-          border-radius: 4px;
-          background: ${isDark ? '#1e1e2e' : '#f8fafc'};
-          color: ${isDark ? '#89b4fa' : '#3b82f6'};
+          border: 1px solid ${getThemeColor('border', isDark)};
+          border-radius: ${PLAYGROUND_STYLES.smallBorderRadius};
+          background: ${getThemeColor('borderAlt', isDark)};
+          color: ${getThemeColor('accentBright', isDark)};
           cursor: pointer;
           transition: all 0.15s ease;
         `
         btn.addEventListener('mouseenter', () => {
-          btn.style.background = isDark ? '#45475a' : '#e2e8f0'
+          btn.style.background = getThemeColor('border', isDark)
         })
         btn.addEventListener('mouseleave', () => {
-          btn.style.background = isDark ? '#1e1e2e' : '#f8fafc'
+          btn.style.background = getThemeColor('borderAlt', isDark)
         })
         btn.addEventListener('click', () => this.addClass(s.className))
         buttonsDiv.appendChild(btn)
