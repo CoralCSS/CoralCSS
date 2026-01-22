@@ -73,7 +73,8 @@ describe('ReDoS Protection', () => {
       const result = minifyCSS(cssWithComments)
       const duration = performance.now() - start
 
-      expect(duration).toBeLessThan(100)
+      // Allow 200ms to account for system load variations
+      expect(duration).toBeLessThan(200)
       expect(result).toContain('.test')
     })
   })

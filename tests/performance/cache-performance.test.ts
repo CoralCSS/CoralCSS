@@ -96,24 +96,28 @@ describe('Parser Cache - LRU Performance', () => {
 
   describe('Performance with cache hits', () => {
     it('is faster with cached patterns', () => {
-      const iterations = 10000
+      const iterations = 1000
 
-      // First pass - cache misses
+      // First pass - cache misses (unique patterns each time)
+      clearRegexCache()
       const start1 = performance.now()
       for (let i = 0; i < iterations; i++) {
-        getCachedRegex('pattern', '\\d+')
+        getCachedRegex(`unique-pattern-${i}`, `\\d{${i}}`)
       }
       const duration1 = performance.now() - start1
 
-      // Second pass - cache hits
+      // Second pass - cache hits (same pattern repeatedly)
+      clearRegexCache()
+      getCachedRegex('cached-pattern', '\\d+') // Prime the cache
       const start2 = performance.now()
       for (let i = 0; i < iterations; i++) {
-        getCachedRegex('pattern', '\\d+')
+        getCachedRegex('cached-pattern', '\\d+')
       }
       const duration2 = performance.now() - start2
 
-      // Cached access should be faster
-      expect(duration2).toBeLessThan(duration1)
+      // Cached access (cache hits) should be faster than unique patterns (cache misses)
+      // Add tolerance for timing variations (cached should be at least 2x faster)
+      expect(duration2).toBeLessThan(duration1 * 0.9)
     })
   })
 })

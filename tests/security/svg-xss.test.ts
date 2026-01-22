@@ -160,5 +160,52 @@ describe('SVG XSS Protection', () => {
       const result = isDangerousCSSValue(doubleEncoded)
       expect(typeof result).toBe('boolean')
     })
+
+    it('handles invalid url-encoded gracefully', () => {
+      // Invalid URL encoding - should fall back to original content
+      const invalidEncoded = 'data:image/svg+xml,%ZZ<svg><script>alert(1)</script></svg>'
+      expect(isDangerousCSSValue(invalidEncoded)).toBe(true)
+    })
+  })
+
+  describe('additional dangerous elements', () => {
+    it('blocks style tags in SVG', () => {
+      const svg = 'data:image/svg+xml,<svg><style>body{background:url(javascript:alert(1))}</style></svg>'
+      expect(isDangerousCSSValue(svg)).toBe(true)
+    })
+
+    it('blocks embed tags in SVG', () => {
+      const svg = 'data:image/svg+xml,<svg><embed src="malicious.swf"></embed></svg>'
+      expect(isDangerousCSSValue(svg)).toBe(true)
+    })
+
+    it('blocks object tags in SVG', () => {
+      const svg = 'data:image/svg+xml,<svg><object data="malicious.swf"></object></svg>'
+      expect(isDangerousCSSValue(svg)).toBe(true)
+    })
+
+    it('blocks data:text/html URLs', () => {
+      const svg = 'data:image/svg+xml,<svg><a href="data:text/html,<script>alert(1)</script>">click</a></svg>'
+      expect(isDangerousCSSValue(svg)).toBe(true)
+    })
+
+    it('blocks anchor tags in SVG', () => {
+      const svg = 'data:image/svg+xml,<svg><a href="javascript:alert(1)">click</a></svg>'
+      expect(isDangerousCSSValue(svg)).toBe(true)
+    })
+  })
+
+  describe('double-encoded bypass attempts', () => {
+    it('blocks CSS unicode + HTML entity double encoding', () => {
+      // This tests the double-decoding path (CSS unicode escapes + HTML entities)
+      const svg = 'data:image/svg+xml,<svg onload="\\3c\\73\\63\\72\\69\\70\\74&#62;alert(1)">'
+      expect(isDangerousCSSValue(svg)).toBe(true)
+    })
+
+    it('blocks HTML entity encoded script tags', () => {
+      // &#x3c;script&#x3e; decodes to <script>
+      const svg = 'data:image/svg+xml,<svg>&#x3c;script&#x3e;alert(1)&#x3c;/script&#x3e;</svg>'
+      expect(isDangerousCSSValue(svg)).toBe(true)
+    })
   })
 })

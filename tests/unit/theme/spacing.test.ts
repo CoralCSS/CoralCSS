@@ -95,6 +95,13 @@ describe('Theme Spacing', () => {
     it('should return undefined for non-existent key', () => {
       expect(getSpacing('auto')).toBeUndefined()
     })
+
+    it('should return undefined for invalid key types', () => {
+      expect(getSpacing(null as unknown as string)).toBeUndefined()
+      expect(getSpacing(undefined as unknown as string)).toBeUndefined()
+      expect(getSpacing(123 as unknown as string)).toBeUndefined()
+      expect(getSpacing({} as unknown as string)).toBeUndefined()
+    })
   })
 
   describe('getSizing', () => {
@@ -106,6 +113,12 @@ describe('Theme Spacing', () => {
 
     it('should return undefined for non-existent key', () => {
       expect(getSizing('nonexistent')).toBeUndefined()
+    })
+
+    it('should return undefined for invalid key types', () => {
+      expect(getSizing(null as unknown as string)).toBeUndefined()
+      expect(getSizing(undefined as unknown as string)).toBeUndefined()
+      expect(getSizing(123 as unknown as string)).toBeUndefined()
     })
   })
 
@@ -138,6 +151,12 @@ describe('Theme Spacing', () => {
 
     it('should return undefined for non-existent key', () => {
       expect(getNegativeSpacing('nonexistent')).toBeUndefined()
+    })
+
+    it('should return undefined for invalid key types', () => {
+      expect(getNegativeSpacing(null as unknown as string)).toBeUndefined()
+      expect(getNegativeSpacing(undefined as unknown as string)).toBeUndefined()
+      expect(getNegativeSpacing(123 as unknown as string)).toBeUndefined()
     })
   })
 

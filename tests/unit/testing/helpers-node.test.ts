@@ -12,7 +12,7 @@ describe('Testing Helpers - Node.js Environment', () => {
       const { waitForCSSInjection } = await import('../../../src/testing/helpers')
       const result = await waitForCSSInjection()
       expect(result).toBeNull()
-    })
+    }, 30000) // Extended timeout for dynamic import
   })
 
   describe('getInjectedStyles', () => {
@@ -20,6 +20,6 @@ describe('Testing Helpers - Node.js Environment', () => {
       const { getInjectedStyles } = await import('../../../src/testing/helpers')
       const result = getInjectedStyles()
       expect(result).toEqual([])
-    })
+    }, 30000) // Extended timeout for dynamic import
   })
 })

@@ -197,6 +197,11 @@ describe('CSS Utilities', () => {
     it('should not double-prefix', () => {
       expect(cssVarDeclaration('--spacing-4', '1rem')).toBe('--spacing-4: 1rem')
     })
+
+    it('should return empty string for dangerous values', () => {
+      // Values containing javascript: should be blocked
+      expect(cssVarDeclaration('bg', 'url(javascript:alert(1))')).toBe('')
+    })
   })
 
   describe('parseValueWithUnit', () => {
@@ -222,6 +227,24 @@ describe('CSS Utilities', () => {
 
     it('should handle keyword values', () => {
       expect(parseValueWithUnit('auto')).toEqual({ value: 'auto', unit: null })
+    })
+
+    it('should return empty value for non-string input', () => {
+      expect(parseValueWithUnit(null as unknown as string)).toEqual({ value: '', unit: null })
+      expect(parseValueWithUnit(undefined as unknown as string)).toEqual({ value: '', unit: null })
+      expect(parseValueWithUnit('' as string)).toEqual({ value: '', unit: null })
+    })
+
+    it('should truncate very long input', () => {
+      const longInput = 'x'.repeat(150) + 'px'
+      const result = parseValueWithUnit(longInput)
+      expect(result.value).toHaveLength(100)
+    })
+
+    it('should handle NaN from parseFloat gracefully', () => {
+      // This matches the regex but produces NaN when parsed
+      const result = parseValueWithUnit('...px')
+      expect(result).toEqual({ value: '...px', unit: null })
     })
   })
 

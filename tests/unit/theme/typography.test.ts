@@ -146,6 +146,14 @@ describe('Theme Typography', () => {
       const result = getFontFamily('unknown' as keyof typeof fonts)
       expect(result).toBe('unknown')
     })
+
+    it('should return empty string for invalid key types', () => {
+      expect(getFontFamily(null as unknown as keyof typeof fonts)).toBe('')
+      expect(getFontFamily(undefined as unknown as keyof typeof fonts)).toBe('')
+      expect(getFontFamily(123 as unknown as keyof typeof fonts)).toBe('')
+      expect(getFontFamily({} as unknown as keyof typeof fonts)).toBe('')
+      expect(getFontFamily('' as keyof typeof fonts)).toBe('')
+    })
   })
 
   describe('getFontSize', () => {
@@ -190,6 +198,14 @@ describe('Theme Typography', () => {
       // Cleanup
       delete (fontSizes as any)['custom']
     })
+
+    it('should return undefined for invalid key types', () => {
+      expect(getFontSize(null as unknown as string)).toBeUndefined()
+      expect(getFontSize(undefined as unknown as string)).toBeUndefined()
+      expect(getFontSize(123 as unknown as string)).toBeUndefined()
+      expect(getFontSize({} as unknown as string)).toBeUndefined()
+      expect(getFontSize('')).toBeUndefined()
+    })
   })
 
   describe('getFontWeight', () => {
@@ -223,6 +239,14 @@ describe('Theme Typography', () => {
       // Cleanup
       delete (fontWeights as any)['custom']
     })
+
+    it('should return undefined for invalid key types', () => {
+      expect(getFontWeight(null as unknown as string)).toBeUndefined()
+      expect(getFontWeight(undefined as unknown as string)).toBeUndefined()
+      expect(getFontWeight(123 as unknown as string)).toBeUndefined()
+      expect(getFontWeight({} as unknown as string)).toBeUndefined()
+      expect(getFontWeight('')).toBeUndefined()
+    })
   })
 
   describe('getLineHeight', () => {
@@ -247,6 +271,14 @@ describe('Theme Typography', () => {
       const result = getLineHeight('unknown')
       expect(result).toBeUndefined()
     })
+
+    it('should return undefined for invalid key types', () => {
+      expect(getLineHeight(null as unknown as string)).toBeUndefined()
+      expect(getLineHeight(undefined as unknown as string)).toBeUndefined()
+      expect(getLineHeight(123 as unknown as string)).toBeUndefined()
+      expect(getLineHeight({} as unknown as string)).toBeUndefined()
+      expect(getLineHeight('')).toBeUndefined()
+    })
   })
 
   describe('getLetterSpacing', () => {
@@ -265,6 +297,14 @@ describe('Theme Typography', () => {
     it('should return undefined for unknown key', () => {
       const result = getLetterSpacing('unknown')
       expect(result).toBeUndefined()
+    })
+
+    it('should return undefined for invalid key types', () => {
+      expect(getLetterSpacing(null as unknown as string)).toBeUndefined()
+      expect(getLetterSpacing(undefined as unknown as string)).toBeUndefined()
+      expect(getLetterSpacing(123 as unknown as string)).toBeUndefined()
+      expect(getLetterSpacing({} as unknown as string)).toBeUndefined()
+      expect(getLetterSpacing('')).toBeUndefined()
     })
   })
 })

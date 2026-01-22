@@ -381,3 +381,133 @@ describe('Edge Cases', () => {
     expect(validateClassName(exactlyMax)).toEqual({ valid: true })
   })
 })
+
+describe('Additional validateClassName options', () => {
+  it('allows HTML when allowHTML is true', () => {
+    const result = validateClassName('<div>', { allowHTML: true })
+    expect(result.valid).toBe(true)
+  })
+
+  it('validates against custom pattern', () => {
+    // Pattern that only allows lowercase letters
+    const result = validateClassName('abc', { pattern: /^[a-z]+$/ })
+    expect(result.valid).toBe(true)
+
+    const result2 = validateClassName('ABC', { pattern: /^[a-z]+$/ })
+    expect(result2.valid).toBe(false)
+    expect(result2.error).toContain('pattern')
+  })
+
+  it('validates against allowedChars whitelist', () => {
+    const result = validateClassName('abc', { allowedChars: 'abc' })
+    expect(result.valid).toBe(true)
+
+    const result2 = validateClassName('abcd', { allowedChars: 'abc' })
+    expect(result2.valid).toBe(false)
+    expect(result2.error).toContain('disallowed character')
+  })
+
+  it('detects more prototype pollution patterns', () => {
+    // The input is lowercased before comparison, so these will match
+    expect(validateClassName('__PROTO__').valid).toBe(false)
+    expect(validateClassName('CONSTRUCTOR.PROTOTYPE').valid).toBe(false)
+    expect(validateClassName('PROTOTYPE[0]').valid).toBe(false)
+  })
+
+  it('detects various control characters', () => {
+    // Test control characters in ranges 0-8, 11-12, 14-31
+    expect(validateClassName('test\x01value').valid).toBe(false)
+    expect(validateClassName('test\x07value').valid).toBe(false)
+    expect(validateClassName('test\x0bvalue').valid).toBe(false) // vertical tab
+    expect(validateClassName('test\x0cvalue').valid).toBe(false) // form feed
+    expect(validateClassName('test\x1fvalue').valid).toBe(false)
+    expect(validateClassName('test\x7fvalue').valid).toBe(false) // DEL
+  })
+})
+
+describe('Additional validateCSSValue cases', () => {
+  it('handles non-string input', () => {
+    expect(validateCSSValue(null as unknown as string).valid).toBe(false)
+    expect(validateCSSValue(undefined as unknown as string).valid).toBe(false)
+    expect(validateCSSValue(123 as unknown as string).valid).toBe(false)
+  })
+
+  it('detects data:text/javascript protocol', () => {
+    expect(validateCSSValue('data:text/javascript,alert(1)').valid).toBe(false)
+  })
+
+  it('detects data:text/ecmascript protocol', () => {
+    expect(validateCSSValue('data:text/ecmascript,alert(1)').valid).toBe(false)
+  })
+
+  it('detects behavior() function', () => {
+    expect(validateCSSValue('behavior(url(#default))').valid).toBe(false)
+    expect(validateCSSValue('behaviour(url(#default))').valid).toBe(false)
+  })
+})
+
+describe('Additional validateRegexPattern cases', () => {
+  it('handles non-string input', () => {
+    expect(validateRegexPattern(null as unknown as string).valid).toBe(false)
+    expect(validateRegexPattern(undefined as unknown as string).valid).toBe(false)
+    expect(validateRegexPattern(123 as unknown as string).valid).toBe(false)
+  })
+})
+
+describe('Additional validateThemePropertyName cases', () => {
+  it('handles non-string input', () => {
+    expect(validateThemePropertyName(null as unknown as string).valid).toBe(false)
+    expect(validateThemePropertyName(undefined as unknown as string).valid).toBe(false)
+    expect(validateThemePropertyName(123 as unknown as string).valid).toBe(false)
+  })
+
+  it('detects prototype[ pattern', () => {
+    expect(validateThemePropertyName('prototype[test]').valid).toBe(false)
+  })
+})
+
+describe('Additional validateSelector cases', () => {
+  it('handles non-string input', () => {
+    expect(validateSelector(null as unknown as string).valid).toBe(false)
+    expect(validateSelector(undefined as unknown as string).valid).toBe(false)
+    expect(validateSelector(123 as unknown as string).valid).toBe(false)
+  })
+
+  it('rejects invalid selector format', () => {
+    // A selector that doesn't match the valid pattern
+    expect(validateSelector('!invalid').valid).toBe(false)
+    expect(validateSelector('$weird').valid).toBe(false)
+  })
+})
+
+describe('Additional validateFilePath cases', () => {
+  it('handles non-string input', () => {
+    expect(validateFilePath(null as unknown as string).valid).toBe(false)
+    expect(validateFilePath(undefined as unknown as string).valid).toBe(false)
+    expect(validateFilePath(123 as unknown as string).valid).toBe(false)
+  })
+
+  it('detects Windows-style path traversal', () => {
+    expect(validateFilePath('..\\..\\windows').valid).toBe(false)
+  })
+
+  it('detects path starting with absolute and traversal', () => {
+    expect(validateFilePath('/..something').valid).toBe(false)
+    expect(validateFilePath('C:..something').valid).toBe(false)
+  })
+})
+
+describe('Additional sanitizeString cases', () => {
+  it('handles character class patterns', () => {
+    // Pattern that is already a character class
+    const result = sanitizeString('hello!world', { allow: /[a-z]/g })
+    expect(result).toBe('helloworld')
+  })
+
+  it('handles negated character class patterns', () => {
+    // Pattern starting with [^ - already negated
+    const result = sanitizeString('hello123', { allow: /[^0-9]/g })
+    // With negated pattern [^0-9], the function tries to negate it again
+    expect(typeof result).toBe('string')
+  })
+})

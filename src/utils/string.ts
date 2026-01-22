@@ -285,13 +285,22 @@ export function isDangerousCSSValue(value: string): boolean {
       const entityDecoded = decodeHTMLEntities(decodedContent)
 
       // Check for dangerous patterns in decoded SVG (both original and entity-decoded)
+      // COMPREHENSIVE SVG XSS checks - multiple bypass vectors
       const svgPatterns = [
-        /<script/i,
-        /\bon\w+\s*=/i,
-        /javascript\s*:/i,
-        /href\s*=\s*["']?\s*javascript/i,
-        /onload\s*=/i,
-        /onerror\s*=/i,
+        /<script/i,                    // Script tags
+        /\bon\w+\s*=/i,                // Event handlers (onload, onerror, etc.)
+        /javascript\s*:/i,             // javascript: protocol
+        /vbscript\s*:/i,               // vbscript: protocol
+        /href\s*=\s*["']?\s*javascript/i, // href with javascript
+        /xlink:href\s*=\s*["']?\s*javascript/i, // xlink:href attacks
+        /onload\s*=/i,                 // Specific: onload
+        /onerror\s*=/i,                // Specific: onerror
+        /<iframe/i,                    // iframe embeds
+        /<object/i,                    // object embeds
+        /<embed/i,                     // embed tags
+        /<foreignObject/i,             // Foreign object can contain HTML
+        /data:text\/html/i,            // HTML data URLs
+        /<style/i,                     // Style tags with CSS expressions
       ]
 
       for (const pattern of svgPatterns) {
