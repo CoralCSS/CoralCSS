@@ -3,7 +3,7 @@
  * @module ui-kit/badge
  */
 
-import { cx, type Size, type Color } from './index'
+import { cx, type Size as _Size, type Color } from './index'
 
 export type BadgeVariant = 'solid' | 'soft' | 'outline' | 'dot'
 

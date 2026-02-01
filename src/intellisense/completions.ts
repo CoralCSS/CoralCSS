@@ -334,7 +334,7 @@ function generateColorCompletions(theme: Theme): CompletionItem[] {
 /**
  * Generate typography completions
  */
-function generateTypographyCompletions(theme: Theme): CompletionItem[] {
+function generateTypographyCompletions(_theme: Theme): CompletionItem[] {
   const items: CompletionItem[] = []
 
   // Font size
@@ -1019,7 +1019,7 @@ function generateSizingCompletions(theme: Theme): CompletionItem[] {
 /**
  * Generate border completions
  */
-function generateBorderCompletions(theme: Theme): CompletionItem[] {
+function generateBorderCompletions(_theme: Theme): CompletionItem[] {
   const items: CompletionItem[] = []
 
   // Border width

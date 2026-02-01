@@ -13,7 +13,7 @@ import {
 } from './style-dictionary'
 import {
   toFigmaTokens,
-  fromFigmaTokens,
+  fromFigmaTokens as _fromFigmaTokens,
   toFigmaVariables,
 } from './figma-tokens'
 import { validateTokens, generateValidationReport } from './validators'
@@ -401,7 +401,7 @@ function runListPlatforms(): TokenCLIResult {
 /**
  * Initialize token configuration
  */
-function runTokenInit(options: TokenCLIOptions): TokenCLIResult {
+function runTokenInit(_options: TokenCLIOptions): TokenCLIResult {
   const configTemplate = `/**
  * CoralCSS Token Configuration
  *

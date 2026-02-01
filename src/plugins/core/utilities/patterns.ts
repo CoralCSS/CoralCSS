@@ -41,7 +41,7 @@ export const patternsPlugin = (): Plugin => ({
   install(api) {
     // Dot patterns
     for (const size of ['sm', 'md', 'lg']) {
-      const dotSize = size === 'sm' ? '2px' : size === 'md' ? '4px' : '6px'
+      const _dotSize = size === 'sm' ? '2px' : size === 'md' ? '4px' : '6px'
       const spacing = size === 'sm' ? '8px' : size === 'md' ? '16px' : '24px'
 
       api.addRule({
@@ -203,7 +203,7 @@ export const patternsPlugin = (): Plugin => ({
 
     // Stars pattern
     for (const density of ['sparse', 'dense']) {
-      const size = density === 'sparse' ? '3px' : '2px'
+      const _size = density === 'sparse' ? '3px' : '2px'
       const spacing = density === 'sparse' ? '40px' : '20px'
 
       api.addRule({

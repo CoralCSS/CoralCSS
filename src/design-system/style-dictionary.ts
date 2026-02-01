@@ -14,11 +14,11 @@ import type {
   PlatformConfig,
   ProcessedToken,
   TokenDictionary,
-  PlatformTarget,
+  PlatformTarget as _PlatformTarget,
   BuildOptions,
 } from './types'
 
-import { coralTokens, primitiveTokens, semanticTokens, componentTokens } from './coral-tokens'
+import { coralTokens, primitiveTokens as _primitiveTokens, semanticTokens as _semanticTokens, componentTokens as _componentTokens } from './coral-tokens'
 import { transforms, transformGroups } from './token-transforms'
 import { platformConfigs } from './platforms'
 
@@ -64,7 +64,7 @@ export function toStyleDictionary(
   tokens: Record<string, unknown>,
   options: { prefix?: string; includeMetadata?: boolean } = {}
 ): DesignTokenFile {
-  const { prefix = 'coral', includeMetadata = true } = options
+  const { prefix: _prefix = 'coral', includeMetadata: _includeMetadata = true } = options
 
   const result: DesignTokenFile = {
     $name: 'CoralCSS Design Tokens',
@@ -410,7 +410,7 @@ export function buildTokens(
   const config = createStyleDictionaryConfig(options)
 
   // Process each platform
-  for (const [platformName, platformConfig] of Object.entries(config.platforms)) {
+  for (const [_platformName, platformConfig] of Object.entries(config.platforms)) {
     const processedTokens = processTokens(tokens, platformConfig, config)
 
     for (const file of platformConfig.files) {
@@ -578,7 +578,7 @@ function formatSCSSVariables(dictionary: TokenDictionary, platform: PlatformConf
 /**
  * Format as JavaScript ES6 module
  */
-function formatJavaScriptES6(dictionary: TokenDictionary, platform: PlatformConfig): string {
+function formatJavaScriptES6(dictionary: TokenDictionary, _platform: PlatformConfig): string {
   const lines = [
     '/**',
     ' * CoralCSS Design Tokens',
@@ -610,7 +610,7 @@ function formatJavaScriptES6(dictionary: TokenDictionary, platform: PlatformConf
 /**
  * Format as TypeScript declarations
  */
-function formatTypeScriptDeclarations(dictionary: TokenDictionary, platform: PlatformConfig): string {
+function formatTypeScriptDeclarations(dictionary: TokenDictionary, _platform: PlatformConfig): string {
   const lines = [
     '/**',
     ' * CoralCSS Design Tokens Type Declarations',

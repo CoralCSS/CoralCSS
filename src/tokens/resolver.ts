@@ -84,7 +84,7 @@ export function resolveRef(
  * Resolve all token references in a token object
  */
 export function resolveTokens(tokens: Record<string, unknown>): Record<string, unknown> {
-  const resolved: Record<string, unknown> = {}
+  const _resolved: Record<string, unknown> = {}
 
   function traverse(obj: Record<string, unknown>, path: string[] = []): Record<string, unknown> {
     const result: Record<string, unknown> = {}

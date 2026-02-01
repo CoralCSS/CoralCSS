@@ -77,7 +77,7 @@ export function progressBar(options: ProgressOptions = {}): string {
   const {
     variant = 'default',
     color = 'coral',
-    size = 'md',
+    size: _size = 'md',
     radius = 'full',
     animated = false,
   } = options

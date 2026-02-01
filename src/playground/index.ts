@@ -595,7 +595,7 @@ export class CoralPlayground {
 
     // Update code output
     if (this.codeOutput) {
-      const escapedHtml = escapeHtml(html)
+      const _escapedHtml = escapeHtml(html)
       this.codeOutput.textContent = `<div class="${classes}">\n  ${html}\n</div>`
     }
 

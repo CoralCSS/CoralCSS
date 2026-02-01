@@ -40,7 +40,7 @@ export function toFigmaTokens(
   options: FigmaSyncOptions = {}
 ): FigmaTokenFile {
   const {
-    includePrimitives = true,
+    includePrimitives: _includePrimitives = true,
     includeSemantics = true,
     includeComponents = true,
   } = options

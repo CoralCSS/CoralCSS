@@ -111,7 +111,7 @@ export function alertDescription(): string {
  * Alert close button styles
  */
 export function alertCloseButton(options: { variant?: AlertVariant; status?: AlertStatus } = {}): string {
-  const { variant = 'soft', status = 'info' } = options
+  const { variant = 'soft', status: _status = 'info' } = options
   const isLight = variant === 'soft' || variant === 'outline' || variant === 'left-accent'
   return cx(
     'ml-auto -mr-1 -mt-1 p-1 rounded-lg transition-colors',

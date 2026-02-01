@@ -6,7 +6,7 @@
  * @module design-system/coral-tokens
  */
 
-import type { DesignTokenFile, TokenGroup, StyleDictionaryToken } from './types'
+import type { DesignTokenFile, TokenGroup, StyleDictionaryToken as _StyleDictionaryToken } from './types'
 
 /**
  * Primitive Color Tokens

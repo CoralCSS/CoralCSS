@@ -112,14 +112,14 @@ function decodeHTMLEntities(text: string): string {
   // Decode hex entities: &#x3c; -> <
   let decoded = text.replace(/&#x([0-9a-fA-F]+);/gi, (_, hex: string) => {
     const codePoint = parseInt(hex, 16)
-    if (codePoint > 0x10ffff) return '\ufffd'
+    if (codePoint > 0x10ffff) {return '\ufffd'}
     return String.fromCodePoint(codePoint)
   })
 
   // Decode decimal entities: &#60; -> <
   decoded = decoded.replace(/&#([0-9]+);/g, (_, dec: string) => {
     const codePoint = parseInt(dec, 10)
-    if (codePoint > 0x10ffff) return '\ufffd'
+    if (codePoint > 0x10ffff) {return '\ufffd'}
     return String.fromCodePoint(codePoint)
   })
 

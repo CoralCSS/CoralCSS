@@ -10,7 +10,7 @@ import { defaultTheme } from '../theme/default'
 import { generateCompletions, generateVariantCompletions, filterCompletions, type CompletionItem } from './completions'
 import { createHoverProvider, type HoverInfo } from './hover'
 import { createColorProvider, type ColorInfo } from './colors'
-import { createDiagnosticsProvider, type Diagnostic, DiagnosticSeverity } from './diagnostics'
+import { createDiagnosticsProvider, type Diagnostic, DiagnosticSeverity as _DiagnosticSeverity } from './diagnostics'
 
 /**
  * VS Code completion item kind mapping

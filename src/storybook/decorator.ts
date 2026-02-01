@@ -39,7 +39,7 @@ function initializeCoral(config: CoralDecoratorConfig): Coral {
     return coralInstance
   }
 
-  const { autoInject, styleId, baseClasses, enableDarkMode, darkModeClass, ...coralOptions } = config
+  const { autoInject: _autoInject, styleId: _styleId, baseClasses: _baseClasses, enableDarkMode: _enableDarkMode, darkModeClass: _darkModeClass, ...coralOptions } = config
   coralInstance = createCoral(coralOptions)
 
   return coralInstance
@@ -119,7 +119,7 @@ function processClasses(classes: string[], config: CoralDecoratorConfig): string
  */
 export function withCoralCSS(config: CoralDecoratorConfig = {}) {
   // Initialize on load
-  const coral = initializeCoral(config)
+  const _coral = initializeCoral(config)
 
   // Return decorator function
   return function coralDecorator(

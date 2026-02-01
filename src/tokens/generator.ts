@@ -10,7 +10,7 @@ import type {
   DesignTokens,
   TokenValue,
   TokenGenerationOptions,
-  TokenOutputFormat,
+  TokenOutputFormat as _TokenOutputFormat,
 } from './types'
 import { isRef } from './ref'
 

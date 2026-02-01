@@ -230,14 +230,14 @@ export function validateRegexPattern(pattern: string): ValidationResult {
   // Check for nested quantifiers - ReDoS risk
   // Patterns like (a+)+, (a*)*, (a{1,3})+, etc.
   // Match: ( ... quantifier ... ) followed by quantifier
-  const nestedQuantifierPattern = /\([^)]*[\*\+?\{][^)]*\)[\*\+?\{]/
+  const nestedQuantifierPattern = /\([^)]*[*+?{][^)]*\)[*+?{]/
   if (nestedQuantifierPattern.test(pattern)) {
     return { valid: false, error: 'Contains nested quantifiers' }
   }
 
   // Check for dangerous repeated patterns
   // Like ((a+)+)+, (.+)+, etc.
-  const dangerousRepeat = /(\([^)]*\)|\[[^\]]*\]|\\.)[\*\+?\{]\*[\*\+?\{]/
+  const dangerousRepeat = /(\([^)]*\)|\[[^\]]*\]|\\.)[*+?{]\*[*+?{]/
   if (dangerousRepeat.test(pattern)) {
     return { valid: false, error: 'Contains dangerous repetition pattern' }
   }
@@ -369,7 +369,7 @@ export function validateSelector(input: string): ValidationResult & { sanitized?
   // Basic CSS selector validation
   // Allow: alphanumeric, #, ., -, _, :, [, ], >, +, ~, space, comma, *, (, ), {, }, ", ', @, =
   // Can start with: letter, _, ., #, :, [, *, @, +, >
-  if (!/^[a-zA-Z_\.#\:\[\]\*\@\+\-\>][a-zA-Z0-9_#\-\.\:\[\]\>\+\~\s\,\*\(\)\{\}\"\'\@\=]*$/.test(input)) {
+  if (!/^[a-zA-Z_.#:[\]*@+\->][a-zA-Z0-9_#\-.:[\]>+~\s,*(){}"'@=]*$/.test(input)) {
     return { valid: false, error: 'Invalid selector format' }
   }
 

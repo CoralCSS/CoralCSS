@@ -5,7 +5,7 @@
  * @module storybook/theme
  */
 
-import type { CoralDecoratorConfig } from './decorator'
+import type { CoralDecoratorConfig as _CoralDecoratorConfig } from './decorator'
 
 /**
  * Theme configuration

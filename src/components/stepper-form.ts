@@ -681,7 +681,7 @@ export class StepperForm extends BaseComponent {
   }
 
   private loadState(): Partial<StepperFormState> | null {
-    // eslint-disable-next-line no-undef
+     
     if (typeof localStorage === 'undefined') {return null}
 
     try {
@@ -703,7 +703,7 @@ export class StepperForm extends BaseComponent {
   }
 
   private saveState(): void {
-    // eslint-disable-next-line no-undef
+     
     if (typeof localStorage === 'undefined') {return}
 
     try {
@@ -721,7 +721,7 @@ export class StepperForm extends BaseComponent {
   }
 
   private clearSavedState(): void {
-    // eslint-disable-next-line no-undef
+     
     if (typeof localStorage === 'undefined') {return}
     try {
       // eslint-disable-next-line no-undef

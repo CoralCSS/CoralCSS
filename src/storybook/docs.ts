@@ -6,7 +6,7 @@
  */
 
 import { createCoral } from '../index'
-import type { Coral, CoralOptions } from '../types'
+import type { Coral as _Coral, CoralOptions } from '../types'
 
 /**
  * Story documentation configuration

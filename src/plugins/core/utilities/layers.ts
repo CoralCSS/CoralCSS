@@ -123,7 +123,7 @@ export function layersPlugin(config: Partial<LayerConfig> = {}): Plugin {
       ctx.addVariant({
         name: 'layer',
         match: /^layer-\[(.+)\]$/,
-        handler: (selector, matches) => {
+        handler: (selector, _matches) => {
           return selector
         },
         wrapper: (css: string) => {

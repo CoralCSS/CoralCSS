@@ -95,15 +95,15 @@ function isPlainObject(value: unknown): value is PlainObject {
   }
 
   // Reject arrays and special objects explicitly
-  if (Array.isArray(value)) return false
-  if (value instanceof Date) return false
-  if (value instanceof RegExp) return false
-  if (value instanceof Function) return false
-  if (value instanceof Map) return false
-  if (value instanceof Set) return false
-  if (value instanceof WeakMap) return false
-  if (value instanceof WeakSet) return false
-  if (value instanceof Promise) return false
+  if (Array.isArray(value)) {return false}
+  if (value instanceof Date) {return false}
+  if (value instanceof RegExp) {return false}
+  if (value instanceof Function) {return false}
+  if (value instanceof Map) {return false}
+  if (value instanceof Set) {return false}
+  if (value instanceof WeakMap) {return false}
+  if (value instanceof WeakSet) {return false}
+  if (value instanceof Promise) {return false}
 
   // Check prototype chain
   const proto = Object.getPrototypeOf(value)

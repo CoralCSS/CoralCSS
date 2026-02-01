@@ -166,7 +166,7 @@ export function skeletonInline(options: SkeletonOptions & { width?: string } = {
  */
 export function skeletonCircle(options: SkeletonOptions & { size?: number | string } = {}): string {
   const { size = 40, ...rest } = options
-  const sizeStyle = typeof size === 'number' ? { width: `${size}px`, height: `${size}px` } : {}
+  const _sizeStyle = typeof size === 'number' ? { width: `${size}px`, height: `${size}px` } : {}
   const sizeClass = typeof size === 'string' ? size : ''
   return cx(skeleton({ ...rest, radius: 'full' }), sizeClass)
 }

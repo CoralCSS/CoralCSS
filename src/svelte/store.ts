@@ -5,7 +5,7 @@
  * @module svelte/store
  */
 
-import { writable, get, type Writable } from 'svelte/store'
+import { writable, get as _get, type Writable } from 'svelte/store'
 import { getContext, setContext } from 'svelte'
 import { Coral, createCoral } from '../index'
 import type { CoralOptions } from '../types'

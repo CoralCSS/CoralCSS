@@ -279,7 +279,7 @@ function extractAttributifyClasses(
   options: AttributifyPluginOptions
 ): string[] {
   const classes: string[] = []
-  const prefix = options.prefix || ''
+  const _prefix = options.prefix || ''
   const ignoreAttrs = new Set([...(options.ignoreAttributes || []), ...defaultIgnoredAttributes])
   const onlyAttrs = options.onlyAttributes ? new Set(options.onlyAttributes) : null
 
@@ -493,7 +493,7 @@ export function attributifyPlugin(options: AttributifyPluginOptions = {}): Plugi
       for (const variant of variantPrefixes) {
         rules.push({
           pattern: new RegExp(`^${variant}-(.+)$`),
-          handler: (match) => {
+          handler: (_match) => {
             // This is handled at extraction time, not generation
             // Return null to skip CSS generation for this pattern
             return null

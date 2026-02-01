@@ -67,8 +67,8 @@ const UTILITY_PATTERNS: Record<string, RegExp> = {
   'fluid-spacing': /^[pm]-fluid-(xs|sm|base|md|lg|xl)$/,
 
   // Sizing
-  'sizing': /^(w|h|min-w|max-w|min-h|max-h)-[\w\/]+$/,
-  'logical-size': /^(inline-size|block-size|min-inline-size|max-inline-size|min-block-size|max-block-size)-[\w\/]+$/,
+  'sizing': /^(w|h|min-w|max-w|min-h|max-h)-[\w/]+$/,
+  'logical-size': /^(inline-size|block-size|min-inline-size|max-inline-size|min-block-size|max-block-size)-[\w/]+$/,
 
   // Colors
   'background': /^bg-([\w-]+(-\d+)?|transparent|current|inherit|\[.+\])$/,
@@ -111,7 +111,7 @@ const UTILITY_PATTERNS: Record<string, RegExp> = {
   'neumorphism': /^neu(-sm|-lg|-xl|-inset|-flat|-concave|-convex|-pressed|-dark|-dark-inset|-primary|-primary-inset|-blue|-blue-inset|-green|-green-inset|-purple|-purple-inset|-gray|-gray-inset)?$/,
 
   // Transforms
-  'transform': /^(scale|rotate|translate|skew|origin)-[\w-\/]+$/,
+  'transform': /^(scale|rotate|translate|skew|origin)-[\w-/]+$/,
 
   // Transitions & Animations
   'transition': /^transition(-none|-all|-colors|-opacity|-shadow|-transform)?$/,
@@ -136,7 +136,7 @@ const UTILITY_PATTERNS: Record<string, RegExp> = {
 
   // Logical Properties (Phase 4)
   'logical-spacing': /^(ps|pe|pbs|pbe|pli|plb|ms|me|mbs|mbe|mli|mlb)-[\d.]+$|^(ps|pe|pbs|pbe|pli|plb|ms|me|mbs|mbe|mli|mlb)-auto$/,
-  'logical-position': /^(start|end|inset-inline|inset-block)-[\w\/]+$/,
+  'logical-position': /^(start|end|inset-inline|inset-block)-[\w/]+$/,
   'logical-float': /^(float|clear)-(start|end)$/,
   'writing-mode': /^(writing-(horizontal-tb|vertical-rl|vertical-lr)|dir-(ltr|rtl)|bidi-(normal|embed|isolate|override)|text-orientation-(mixed|upright|sideways))$/,
   'overflow-logical': /^overflow-(inline|block)-(auto|hidden|scroll|visible|clip)$/,

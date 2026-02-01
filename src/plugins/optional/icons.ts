@@ -6,7 +6,7 @@
  * @module plugins/optional/icons
  */
 
-import type { Plugin, Rule, PluginContext, CSSProperties } from '../../types'
+import type { Plugin, Rule, PluginContext, CSSProperties as _CSSProperties } from '../../types'
 
 /**
  * Icon collection configuration

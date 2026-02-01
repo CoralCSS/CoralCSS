@@ -477,9 +477,9 @@ export const darkModeTokens: Partial<DesignTokens> = {
 /**
  * Resolve token value, following references
  */
-function resolveTokenValue(
+function _resolveTokenValue(
   token: TokenValue | TokenCategory | string,
-  allTokens: DesignTokens
+  _allTokens: DesignTokens
 ): string {
   if (typeof token === 'string') {
     return token

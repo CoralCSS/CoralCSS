@@ -8,7 +8,7 @@
  */
 
 import type { Plugin } from '../../../types'
-import { spacing as spacingScale } from '../../../theme/spacing'
+import { spacing as _spacingScale } from '../../../theme/spacing'
 
 /**
  * Create the extras utilities plugin

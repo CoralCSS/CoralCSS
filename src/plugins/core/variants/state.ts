@@ -256,7 +256,7 @@ export function stateVariantsPlugin(): Plugin {
         name: 'aria',
         match: /^aria-\[([^\]]+)\]$/,
         handler: (selector, matches) => {
-          if (!matches || !matches[1]) return selector
+          if (!matches || !matches[1]) {return selector}
           const attr = matches[1]!
           if (attr.includes('=')) {
             const [key, ...valueParts] = attr.split('=')
@@ -276,7 +276,7 @@ export function stateVariantsPlugin(): Plugin {
         name: 'data',
         match: /^data-\[([^\]]+)\]$/,
         handler: (selector, matches) => {
-          if (!matches || !matches[1]) return selector
+          if (!matches || !matches[1]) {return selector}
           const attr = matches[1]!
           if (attr.includes('=')) {
             const [key, ...valueParts] = attr.split('=')
@@ -570,7 +570,7 @@ export function stateVariantsPlugin(): Plugin {
           name: `${peerType}-aria`,
           match: new RegExp(`^${peerType}-aria-\\[([^\\]]+)\\]`),
           handler: (selector, matches) => {
-            if (!matches || !matches[1]) return selector
+            if (!matches || !matches[1]) {return selector}
             const attr = matches[1]!
             if (attr.includes('=')) {
               const [key, ...valueParts] = attr.split('=')
@@ -585,7 +585,7 @@ export function stateVariantsPlugin(): Plugin {
           name: `${peerType}-data`,
           match: new RegExp(`^${peerType}-data-\\[([^\\]]+)\\]`),
           handler: (selector, matches) => {
-            if (!matches || !matches[1]) return selector
+            if (!matches || !matches[1]) {return selector}
             const attr = matches[1]!
             if (attr.includes('=')) {
               const [key, ...valueParts] = attr.split('=')
@@ -1335,7 +1335,7 @@ export function stateVariantsPlugin(): Plugin {
         name: 'not',
         match: /^not-\[([^\]]+)\]$/,
         handler: (selector, matches) => {
-          if (!matches || !matches[1]) return selector
+          if (!matches || !matches[1]) {return selector}
           const pseudo = matches[1]!
           return `${selector}:not(${pseudo.replace(/_/g, ' ')})`
         },
@@ -1345,7 +1345,7 @@ export function stateVariantsPlugin(): Plugin {
         name: 'is',
         match: /^is-\[([^\]]+)\]$/,
         handler: (selector, matches) => {
-          if (!matches || !matches[1]) return selector
+          if (!matches || !matches[1]) {return selector}
           const content = matches[1]!
           return `${selector}:is(${content.replace(/_/g, ' ')})`
         },
@@ -1355,7 +1355,7 @@ export function stateVariantsPlugin(): Plugin {
         name: 'where',
         match: /^where-\[([^\]]+)\]$/,
         handler: (selector, matches) => {
-          if (!matches || !matches[1]) return selector
+          if (!matches || !matches[1]) {return selector}
           const content = matches[1]!
           return `${selector}:where(${content.replace(/_/g, ' ')})`
         },
@@ -1365,7 +1365,7 @@ export function stateVariantsPlugin(): Plugin {
         name: 'has',
         match: /^has-\[([^\]]+)\]$/,
         handler: (selector, matches) => {
-          if (!matches || !matches[1]) return selector
+          if (!matches || !matches[1]) {return selector}
           const content = matches[1]!
           return `${selector}:has(${content.replace(/_/g, ' ')})`
         },
