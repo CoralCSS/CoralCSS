@@ -44,7 +44,7 @@ export default defineConfig({
       },
     },
   ],
-  base: process.env.BASE_URL || '/',
+  base: './',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
