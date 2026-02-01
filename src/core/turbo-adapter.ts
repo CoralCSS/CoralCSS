@@ -119,7 +119,7 @@ export async function initTurbo(): Promise<boolean> {
           `[CoralCSS] Turbo engine initialized (backend: ${turboModule.getBackend()})`
         )
       }
-    } catch (error) {
+    } catch {
       console.warn('[CoralCSS] Turbo engine not available, using JS fallback')
       turboAvailable = false
     }

@@ -34,14 +34,14 @@ function isValidRegexPattern(pattern: string): boolean {
 
   // Check for nested quantifiers - ReDoS risk
   // Patterns like (a+)+, (a*)*, (a{1,3})+, etc.
-  const nestedQuantifierPattern = /(\([^)]*[\*\+?\{]|\[[^\]]*[\*\+?\{])[\*\+?\{]/
+  const nestedQuantifierPattern = /(\([^)]*[*+?{]|\[[^\]]*[*+?{])[*+?{]/
   if (nestedQuantifierPattern.test(pattern)) {
     return false
   }
 
   // Check for dangerous repeated patterns (catastrophic backtracking)
   // Like ((a+)+)+, (.+)+, etc.
-  const dangerousRepeat = /(\([^)]*\)|\[[^\]]*\]|\\.)[\*\+?\{]\*[\*\+?\{]/
+  const dangerousRepeat = /(\([^)]*\)|\[[^\]]*\]|\\.)[*+?{]\*[*+?{]/
   if (dangerousRepeat.test(pattern)) {
     return false
   }
@@ -681,9 +681,11 @@ export class StepperForm extends BaseComponent {
   }
 
   private loadState(): Partial<StepperFormState> | null {
+    // eslint-disable-next-line no-undef
     if (typeof localStorage === 'undefined') {return null}
 
     try {
+      // eslint-disable-next-line no-undef
       const saved = localStorage.getItem(this.getStorageKey())
       if (saved) {
         const parsed = JSON.parse(saved)
@@ -701,6 +703,7 @@ export class StepperForm extends BaseComponent {
   }
 
   private saveState(): void {
+    // eslint-disable-next-line no-undef
     if (typeof localStorage === 'undefined') {return}
 
     try {
@@ -710,6 +713,7 @@ export class StepperForm extends BaseComponent {
         formData: this.state.formData,
         stepHistory: this.state.stepHistory,
       }
+      // eslint-disable-next-line no-undef
       localStorage.setItem(this.getStorageKey(), JSON.stringify(stateToSave))
     } catch {
       // Ignore storage errors
@@ -717,8 +721,10 @@ export class StepperForm extends BaseComponent {
   }
 
   private clearSavedState(): void {
+    // eslint-disable-next-line no-undef
     if (typeof localStorage === 'undefined') {return}
     try {
+      // eslint-disable-next-line no-undef
       localStorage.removeItem(this.getStorageKey())
     } catch {
       // Ignore errors

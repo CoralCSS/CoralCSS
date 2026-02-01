@@ -67,14 +67,6 @@ export function convertOKLABToRGB(oklabColor: string): string {
   const A = 2 * L * (a + 1) / 2
   const B = 2 * L * (b + 1) / 2
 
-  // Convert linear RGB to sRGB
-  const toSRGB = (x: number) => {
-    if (x > 0.0031308) {
-      return 1.055 * Math.pow(x, 1 / 2.4) - 0.055
-    }
-    return 12.92 * x
-  }
-
   // Very rough approximation - in production, use proper color conversion
   // This is just to provide a reasonable fallback
   const r = Math.max(0, Math.min(255, Math.round((L + A + B) * 255)))
@@ -238,8 +230,6 @@ export function processCSSWithFallbacks(
 
       // Process properties for fallbacks
       if (currentProperties.length > 0) {
-        let hasFallbacks = false
-
         for (const prop of currentProperties) {
           const propertyMatch = prop.match(/^\s*([a-z-]+):\s*(.+);$/i)
           if (!propertyMatch) {
@@ -251,8 +241,6 @@ export function processCSSWithFallbacks(
 
           // Check if value needs fallback
           if (needsFallback(value)) {
-            hasFallbacks = true
-
             if (finalConfig.oklabFallbacks && (value.includes('oklab(') || value.includes('oklch('))) {
               const rgbFallback = convertOKLABToRGB(value)
               result.push(`  ${property}: ${rgbFallback};`)

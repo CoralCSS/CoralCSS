@@ -171,7 +171,7 @@ export function defineCoralModule(): NuxtModule {
         preset: _preset = 'coral',
         devtools: _devtools = true,
         exposeComposables: _exposeComposables = true,
-        cssPath = 'coral.css',
+        cssPath: _cssPath = 'coral.css',
         ...coralOptions
       } = options
 

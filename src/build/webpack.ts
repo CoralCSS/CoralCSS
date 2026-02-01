@@ -89,6 +89,7 @@ interface WebpackCompilation {
 }
 
 interface WebpackAsset {
+  // eslint-disable-next-line no-undef
   source: () => string | Buffer
 }
 

@@ -345,7 +345,7 @@ export class CSSCache {
     const now = Date.now()
     const validValues: string[] = []
 
-    for (const [key, entry] of this.cache.entries()) {
+    for (const [_key, entry] of this.cache.entries()) {
       // Check theme version
       if (entry.themeVersion !== this.themeVersion) {
         continue

@@ -151,6 +151,7 @@ export function withCoral(options: NextJSPluginOptions = {}) {
           test: /\.coral\.css$/,
           use: [
             {
+              // eslint-disable-next-line no-undef
               loader: require.resolve('./webpack'),
               options: {
                 darkMode,

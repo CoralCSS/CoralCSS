@@ -101,12 +101,9 @@ export function createCoralTransformer(options: ParcelPluginOptions = {}): Parce
     ...coralOptions
   } = options
 
-  let coral: Coral
+  const coral: Coral = createCoral(coralOptions)
   const seenClasses = new Set<string>()
   let generatedCSS = ''
-
-  // Initialize Coral
-  coral = createCoral(coralOptions)
   const plugins = coralPreset({ darkMode })
   plugins.forEach((plugin) => coral.use(plugin))
 
@@ -187,16 +184,13 @@ export function createCoralTransformer(options: ParcelPluginOptions = {}): Parce
  */
 export function createCoralResolver(options: ParcelPluginOptions = {}): ParcelResolver {
   const {
-    minify = true,
+    minify: _minify = true,
     darkMode = 'class',
     ...coralOptions
   } = options
 
-  let coral: Coral
-  const seenClasses = new Set<string>()
-
-  // Initialize Coral
-  coral = createCoral(coralOptions)
+  const coral: Coral = createCoral(coralOptions)
+  const _seenClasses = new Set<string>()
   const plugins = coralPreset({ darkMode })
   plugins.forEach((plugin) => coral.use(plugin))
 

@@ -223,6 +223,7 @@ export class RuntimeOptimizer {
     }
 
     if (this.schedulerOptions.useIdleCallback && typeof requestIdleCallback !== 'undefined') {
+      // eslint-disable-next-line no-undef
       requestIdleCallback(processTasks, { timeout: this.schedulerOptions.timeout })
     } else {
       // Fallback to setTimeout - track for cleanup

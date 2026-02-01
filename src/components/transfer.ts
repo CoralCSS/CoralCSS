@@ -306,7 +306,7 @@ export class Transfer extends BaseComponent {
     })
   }
 
-  private renderItem(item: TransferItem, list: 'source' | 'target', state: TransferListState): HTMLElement {
+  private renderItem(item: TransferItem, list: 'source' | 'target', _state: TransferListState): HTMLElement {
     const stateKey = list
     const itemState = this.state[stateKey]
     const isSelected = itemState.selectedIds.has(item.id)

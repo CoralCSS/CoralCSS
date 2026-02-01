@@ -101,12 +101,9 @@ export function coralRollupPlugin(options: RollupPluginOptions = {}): RollupPlug
     ...coralOptions
   } = options
 
-  let coral: Coral
+  const coral: Coral = createCoral(coralOptions)
   const seenClasses = new Set<string>()
   let generatedCSS = ''
-
-  // Initialize Coral on plugin creation
-  coral = createCoral(coralOptions)
   const plugins = coralPreset({ darkMode })
   plugins.forEach((plugin) => coral.use(plugin))
 

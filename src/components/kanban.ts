@@ -330,7 +330,7 @@ export class Kanban extends BaseComponent {
   }
 
   private handleDragEnd(e: DragEvent): void {
-    const target = e.target as HTMLElement
+    const _target = e.target as HTMLElement
 
     // Remove dragging class
     const draggingElements = this.element.querySelectorAll('.dragging, .drag-over')

@@ -373,12 +373,11 @@ export class Extractor {
 
     // Common utility patterns - all anchored and using non-greedy matching
     // These patterns avoid nested quantifiers
-    // Note: In character classes, `-` must be at start or end to be literal,
-    // and `[` `]` are escaped as `\[` `\]` for clarity
+    // Note: In character classes, `-` must be at start or end to be literal
     const patterns = [
       /^-?[a-z]+$/,                                // Simple utilities (flex, block, etc.)
-      /^-?[a-z]+-[a-z0-9\[\]().:%/_-]+$/,         // Standard utilities (limited charset)
-      /^[a-z]+:-?[a-z]+-[a-z0-9\[\]().:%/_-]+$/,  // With single variant prefix
+      /^-?[a-z]+-[a-z0-9[\]().:%/_-]+$/,         // Standard utilities (limited charset)
+      /^[a-z]+:-?[a-z]+-[a-z0-9[\]().:%/_-]+$/,  // With single variant prefix
     ]
 
     // Check ASCII patterns first (most common)

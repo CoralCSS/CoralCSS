@@ -115,12 +115,9 @@ export function coralEsbuildPlugin(options: EsbuildPluginOptions = {}): EsbuildP
     ...coralOptions
   } = options
 
-  let coral: Coral
+  const coral: Coral = createCoral(coralOptions)
   const seenClasses = new Set<string>()
   let generatedCSS = ''
-
-  // Initialize Coral
-  coral = createCoral(coralOptions)
   const plugins = coralPreset({ darkMode })
   plugins.forEach((plugin) => coral.use(plugin))
 
@@ -137,7 +134,7 @@ export function coralEsbuildPlugin(options: EsbuildPluginOptions = {}): EsbuildP
       })
 
       // Also handle coral.css imports
-      build.onResolve({ filter: /^coral\.css$/ }, (args: OnResolveArgs): OnResolveResult => {
+      build.onResolve({ filter: /^coral\.css$/ }, (_args: OnResolveArgs): OnResolveResult => {
         return {
           path: VIRTUAL_MODULE_ID,
           namespace: CORAL_NAMESPACE,

@@ -173,7 +173,7 @@ export class Menubar extends BaseComponent {
         const items = Array.from(content.querySelectorAll(this.config.itemSelector!)) as HTMLElement[]
         this.menuItems.set(trigger, items)
 
-        items.forEach((item, itemIndex) => {
+        items.forEach((item, _itemIndex) => {
           // Skip separators
           if (item.hasAttribute('data-coral-menubar-separator')) {
             item.setAttribute('role', 'separator')

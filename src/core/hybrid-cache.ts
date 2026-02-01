@@ -36,7 +36,7 @@ export interface PersistentCacheEntry {
 /**
  * IndexedDB schema
  */
-interface DBSchema {
+interface _DBSchema {
   'coral-cache': {
     key: string
     value: PersistentCacheEntry
@@ -83,6 +83,7 @@ class IndexedDBCache {
     }
 
     this.initPromise = new Promise((resolve, reject) => {
+      // eslint-disable-next-line no-undef
       const request = indexedDB.open(this.dbName, 1)
 
       request.onerror = () => reject(request.error)

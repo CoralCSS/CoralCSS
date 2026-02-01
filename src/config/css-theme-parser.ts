@@ -376,9 +376,9 @@ export function validateCSSTheme(cssContent: string): { valid: boolean; errors: 
 
   // Check for valid CSS variables
   const varRegex = /--([a-zA-Z0-9-]+)\s*:\s*([^;]+);/g
-  let match
+  let _match
   let varCount = 0
-  while ((match = varRegex.exec(cssContent)) !== null) {
+  while ((_match = varRegex.exec(cssContent)) !== null) {
     varCount++
   }
 

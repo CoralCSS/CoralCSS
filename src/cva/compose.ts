@@ -6,7 +6,7 @@
  * @module cva/compose
  */
 
-import { cva, type CVAConfig, type VariantsSchema, type CVAFunction, type ClassValue } from './cva'
+import { cva as _cva, type CVAConfig, type VariantsSchema, type CVAFunction, type ClassValue } from './cva'
 import { cx } from './utils'
 
 /**
@@ -35,7 +35,7 @@ export function compose<
   fn1: CVAFunction<V1>,
   fn2: CVAFunction<V2>
 ): CVAFunction<V1 & V2>
-
+// eslint-disable-next-line no-redeclare
 export function compose<
   V1 extends VariantsSchema,
   V2 extends VariantsSchema,
@@ -45,7 +45,7 @@ export function compose<
   fn2: CVAFunction<V2>,
   fn3: CVAFunction<V3>
 ): CVAFunction<V1 & V2 & V3>
-
+// eslint-disable-next-line no-redeclare
 export function compose<
   V1 extends VariantsSchema,
   V2 extends VariantsSchema,
@@ -57,7 +57,7 @@ export function compose<
   fn3: CVAFunction<V3>,
   fn4: CVAFunction<V4>
 ): CVAFunction<V1 & V2 & V3 & V4>
-
+// eslint-disable-next-line no-redeclare
 export function compose(
   ...fns: CVAFunction<VariantsSchema>[]
 ): CVAFunction<VariantsSchema> {

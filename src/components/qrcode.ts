@@ -438,6 +438,7 @@ export class QRCode extends BaseComponent {
     }
 
     // Load and draw logo image
+    // eslint-disable-next-line no-undef
     const img = new Image()
     img.onload = () => {
       ctx.drawImage(img, logoX, logoY, logoSize, logoSize)

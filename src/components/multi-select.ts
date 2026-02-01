@@ -41,7 +41,9 @@ function sanitizeIconHtml(html: string): string {
   for (let i = 0; i < allElements.length; i++) {
     const el = allElements[i]
     const attrs = el?.attributes
-    if (!attrs) continue
+    if (!attrs) {
+      continue
+    }
 
     const dangerousAttrs = [
       'onload', 'onerror', 'onclick', 'onmouseover', 'onmouseout',
@@ -51,7 +53,9 @@ function sanitizeIconHtml(html: string): string {
 
     for (let j = attrs.length - 1; j >= 0; j--) {
       const attr = attrs[j]
-      if (!attr) continue
+      if (!attr) {
+        continue
+      }
 
       const attrName = attr.name.toLowerCase()
       if (dangerousAttrs.some(da => attrName === da || attrName.startsWith('on'))) {

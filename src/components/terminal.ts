@@ -111,6 +111,7 @@ const ANSI_COLORS: Record<string, string> = {
  * Parse ANSI escape codes and convert to HTML spans with styles
  */
 function parseANSI(text: string): string {
+  // eslint-disable-next-line no-control-regex
   const ansiRegex = /\x1b\[([0-9;]*)m/g
   let result = ''
   let lastIndex = 0

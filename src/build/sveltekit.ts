@@ -359,10 +359,8 @@ export interface SveltePreprocessor {
 }
 
 export function coralPreprocessor(options: Partial<CoralOptions> = {}): SveltePreprocessor {
-  let coral: Coral
-
   // Initialize Coral
-  coral = createCoral(options)
+  const coral: Coral = createCoral(options)
   const plugins = coralPreset({ darkMode: options.darkMode as DarkModeStrategy || 'class' })
   plugins.forEach((plugin) => coral.use(plugin))
 

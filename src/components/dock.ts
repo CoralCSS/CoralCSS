@@ -391,7 +391,7 @@ export class Dock extends BaseComponent {
     })
   }
 
-  private handleItemClick(item: DockItem, index: number): void {
+  private handleItemClick(item: DockItem, _index: number): void {
     this.config.onClick?.(item)
     item.onClick?.()
 

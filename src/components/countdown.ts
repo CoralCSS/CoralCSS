@@ -153,7 +153,7 @@ export class Countdown extends BaseComponent {
   }
 
   private calculateTotalDuration(): number {
-    const { target, targetType } = this.config
+    const { target, targetType: _targetType } = this.config
 
     if (typeof target === 'number') {
       // Duration in seconds or milliseconds

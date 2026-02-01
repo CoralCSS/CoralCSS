@@ -325,7 +325,7 @@ export class Spotlight extends BaseComponent {
         this.resultsList?.appendChild(groupHeader)
       }
 
-      items.forEach((item, index) => {
+      items.forEach((item, _index) => {
         const globalIndex = this.state.results.indexOf(item)
         const resultItem = this.createResultItem(item, globalIndex)
         this.resultsList?.appendChild(resultItem)

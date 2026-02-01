@@ -141,7 +141,7 @@ export class SegmentedControl extends BaseComponent {
     this.updateIndicator()
   }
 
-  private handleSegmentClick(index: number, event: Event): void {
+  private handleSegmentClick(index: number, _event: Event): void {
     if (this.state.disabled) {return}
 
     const segment = this.segments[index]

@@ -8,7 +8,7 @@
  */
 
 import type { ComponentConfig, ComponentState } from '../types'
-import { BaseComponent, createComponentFactory } from './base'
+import { BaseComponent, createComponentFactory as _createComponentFactory } from './base'
 
 /**
  * OTP Input configuration

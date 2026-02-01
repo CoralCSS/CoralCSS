@@ -280,7 +280,7 @@ export class VirtualList extends BaseComponent {
   }
 
   private findStartIndex(scrollTop: number): number {
-    const { itemCount, estimatedItemHeight } = this.config
+    const { itemCount, estimatedItemHeight: _estimatedItemHeight } = this.config
     let offset = 0
     let index = 0
 
@@ -386,7 +386,7 @@ export class VirtualList extends BaseComponent {
   }
 
   private getTotalHeight(): number {
-    const { itemCount, variableHeight, itemHeight, estimatedItemHeight } = this.config
+    const { itemCount, variableHeight, itemHeight, estimatedItemHeight: _estimatedItemHeight } = this.config
 
     if (!variableHeight) {
       return itemCount * itemHeight!
@@ -405,7 +405,7 @@ export class VirtualList extends BaseComponent {
     }
 
     const { visibleItems } = this.state
-    const { renderItem, itemHeight, variableHeight } = this.config
+    const { renderItem, variableHeight } = this.config
 
     // Update spacer height
     this.spacer.style.height = `${this.getTotalHeight()}px`

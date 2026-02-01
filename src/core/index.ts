@@ -167,4 +167,4 @@ export type {
 } from './runtime-optimizer'
 
 // Note: ClassNameParser class is exported from './parser'
-import { parse, parseClasses, expandVariantGroups } from './parser'
+import { parse as _parse, parseClasses as _parseClasses, expandVariantGroups as _expandVariantGroups } from './parser'

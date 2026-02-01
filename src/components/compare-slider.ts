@@ -301,7 +301,6 @@ export class CompareSlider extends BaseComponent {
   private calculatePosition(e: MouseEvent | TouchEvent): number {
     const rect = this.element.getBoundingClientRect()
     let clientPos: number
-    let size: number
 
     if ('touches' in e && e.touches.length > 0) {
       const touch = e.touches[0]!
@@ -311,7 +310,7 @@ export class CompareSlider extends BaseComponent {
       clientPos = this.config.orientation === 'horizontal' ? mouseEvent.clientX - rect.left : mouseEvent.clientY - rect.top
     }
 
-    size = this.config.orientation === 'horizontal' ? rect.width : rect.height
+    const size = this.config.orientation === 'horizontal' ? rect.width : rect.height
 
     // Prevent division by zero if element has no size
     if (size === 0) {

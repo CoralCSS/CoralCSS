@@ -656,7 +656,7 @@ export class DataGrid<T = unknown> extends BaseComponent {
           td.appendChild(rendered)
         }
       } else {
-        td.textContent = value != null ? String(value) : ''
+        td.textContent = value !== null ? String(value) : ''
       }
 
       tr.appendChild(td)

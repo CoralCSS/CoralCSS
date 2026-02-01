@@ -311,8 +311,12 @@ function extractClassesFromContent(content: string): string[] {
 
   // Helper to add class with variant expansion
   const addClass = (cls: string) => {
-    if (matchCount >= MAX_MATCHES) return false
-    if (cls.length > MAX_CLASS_NAME || cls.length === 0) return false
+    if (matchCount >= MAX_MATCHES) {
+      return false
+    }
+    if (cls.length > MAX_CLASS_NAME || cls.length === 0) {
+      return false
+    }
 
     const expanded = expandVariantGroups(cls)
     if (Array.isArray(expanded)) {
@@ -341,7 +345,6 @@ function extractClassesFromContent(content: string): string[] {
 
   let state = State.Normal
   let currentClass = ''
-  let buffer = ''
   let parenDepth = 0
   let templateDepth = 0
 
@@ -1161,7 +1164,7 @@ async function runMigrate(options: CLIOptions): Promise<CLIResult> {
 /**
  * Doctor command - Diagnose configuration issues
  */
-async function runDoctor(options: CLIOptions): Promise<CLIResult> {
+async function runDoctor(_options: CLIOptions): Promise<CLIResult> {
   console.log('Running CoralCSS diagnostics...\n')
 
   const checks = [

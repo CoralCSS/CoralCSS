@@ -5,7 +5,7 @@
  * @module vue/composables
  */
 
-import { inject, computed, provide, ref, watch, type Ref, type ComputedRef } from 'vue'
+import { inject, computed, provide, watch, type Ref, type ComputedRef } from 'vue'
 import { CoralKey, CoralCSSKey } from './plugin'
 import { Coral, createCoral } from '../index'
 import { cn } from './utils'

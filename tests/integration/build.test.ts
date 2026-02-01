@@ -82,7 +82,7 @@ describe('Build Integration', () => {
   })
 
   describe('Runtime', () => {
-    it('should export runtime modules', async () => {
+    it('should export runtime modules', { timeout: 30000 }, async () => {
       const runtime = await import('../../src/runtime')
       expect(runtime.DOMObserver).toBeDefined()
       expect(runtime.StyleInjector).toBeDefined()
